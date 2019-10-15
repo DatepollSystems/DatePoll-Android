@@ -1,7 +1,8 @@
-package com.bke.datepoll
+package com.bke.datepoll.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bke.datepoll.R
 
 class MainActivity : AppCompatActivity() {
 
