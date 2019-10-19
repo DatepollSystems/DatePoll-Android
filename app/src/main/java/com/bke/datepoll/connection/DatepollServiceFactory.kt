@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 
-object RetroFactory {
+object DatepollServiceFactory {
 
     private val datepollClient = OkHttpClient().newBuilder()
         .build()

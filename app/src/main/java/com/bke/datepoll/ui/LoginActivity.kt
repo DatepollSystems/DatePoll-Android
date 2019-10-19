@@ -1,17 +1,21 @@
 package com.bke.datepoll.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.ActivityLoginBinding
+import com.bke.datepoll.prefs
 import com.bke.datepoll.vm.LoginViewModel
 import com.bke.datepoll.vm.factory.LoginViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 
 class LoginActivity : AppCompatActivity() {
 
@@ -19,6 +23,10 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if(!prefs.JWT.isNullOrEmpty()){
+            startActivity(Intent(this, MainActivity::class.java))
+        }
 
         val binding =
             DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
@@ -30,10 +38,6 @@ class LoginActivity : AppCompatActivity() {
         binding.vm = loginViewModel
 
 
-
-
-        val username = findViewById<EditText>(R.id.username)
-        val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
 
@@ -44,28 +48,17 @@ class LoginActivity : AppCompatActivity() {
             loginViewModel.login()
         }
 
-
-
+        loginViewModel.loginSuccessful.observe(this, Observer {
+            it?.let {
+                if(it) {
+                    loginViewModel.loginSuccessful.value = null
+                    startActivity(Intent(this, MainActivity::class.java))
+                } else {
+                    loginViewModel.loginSuccessful.value = null
+                    loading.visibility = View.INVISIBLE
+                    this.currentFocus?.let { it1 -> Snackbar.make(it1, "Could not login", Snackbar.LENGTH_LONG).show() }
+                }
+            }
+        })
     }
 }
-
-
-
-/**
- * Extension function to simplify setting an afterTextChanged action to EditText components.
-loginViewModel.popularMoviesLiveData.observe(this, Observer {
-username.setText(it)
-})
-
-fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
-        }
-
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-    })
-}
- */
