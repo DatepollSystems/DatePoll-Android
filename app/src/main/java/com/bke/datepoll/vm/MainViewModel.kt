@@ -2,8 +2,8 @@ package com.bke.datepoll.vm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bke.datepoll.connection.model.CurrentUserResponseModel
-import com.bke.datepoll.connection.model.UserModel
+import com.bke.datepoll.data.model.UserModel
+import com.bke.datepoll.data.requests.CurrentUserResponseModel
 import com.bke.datepoll.repos.HomeRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

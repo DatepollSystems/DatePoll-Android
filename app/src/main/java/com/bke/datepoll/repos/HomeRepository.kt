@@ -2,9 +2,9 @@ package com.bke.datepoll.repos
 
 import android.util.Log
 import com.bke.datepoll.connection.DatepollApi
-import com.bke.datepoll.connection.model.CurrentUserResponseModel
-import com.bke.datepoll.connection.model.RefreshTokenWithSessionRequest
-import com.bke.datepoll.connection.model.RefreshTokenWithSessionResponse
+import com.bke.datepoll.data.requests.CurrentUserResponseModel
+import com.bke.datepoll.data.requests.RefreshTokenWithSessionRequest
+import com.bke.datepoll.data.requests.RefreshTokenWithSessionResponse
 import com.bke.datepoll.prefs
 import okhttp3.ResponseBody
 

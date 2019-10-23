@@ -1,4 +1,4 @@
-package com.bke.datepoll.connection.model
+package com.bke.datepoll.data.requests
 
 data class LoginResponseModel (
     val token: String,

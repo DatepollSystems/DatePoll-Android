@@ -1,4 +1,4 @@
-package com.bke.datepoll.connection.model
+package com.bke.datepoll.data.requests
 
 data class RefreshTokenWithSessionRequest(
     val session_token : String,

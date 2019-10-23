@@ -1,8 +1,8 @@
 package com.bke.datepoll.repos
 
 import com.bke.datepoll.connection.DatepollApi
-import com.bke.datepoll.connection.model.LoginRequestModel
-import com.bke.datepoll.connection.model.LoginResponseModel
+import com.bke.datepoll.data.requests.LoginRequestModel
+import com.bke.datepoll.data.requests.LoginResponseModel
 import okhttp3.ResponseBody
 
 
