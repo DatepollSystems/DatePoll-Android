@@ -1,34 +1,65 @@
 package com.bke.datepoll.ui
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
+import android.view.Menu
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import android.view.Menu
 import com.bke.datepoll.R
+import com.bke.datepoll.databinding.ActivityMainBinding
+import com.bke.datepoll.vm.DatepollViewModelFactory
+import com.bke.datepoll.vm.MainViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.nav_header_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+    private lateinit var mainViewModel: MainViewModel
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
+        initDatabinding()
+        initUiAndNavigation()
 
+        mainViewModel.user.observe(this, Observer {
+            val s = "${it.firstname} ${it.surname}"
+            tvName.setText(s)
+            tvUserName.setText(it.username)
+        })
+
+        mainViewModel.renewTokenAndRefreshUserData()
+
+    }
+
+    private fun initDatabinding(){
+        val binding =
+            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        mainViewModel = ViewModelProviders.of(this, DatepollViewModelFactory())
+            .get(MainViewModel::class.java)
+        binding.vm = mainViewModel
+    }
+
+    private fun initUiAndNavigation(){
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
+            mainViewModel.getDataOfCurrentUser()
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
@@ -57,6 +88,12 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    override fun onStart() {
+        super.onStart()
+        //TODO check if jwt is ok and if server is online
+    }
+
 
     override fun onBackPressed() {
         finish()

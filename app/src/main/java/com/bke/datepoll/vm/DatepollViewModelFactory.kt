@@ -1,16 +1,12 @@
-package com.bke.datepoll.vm.factory
+package com.bke.datepoll.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bke.datepoll.connection.DatepollServiceFactory
+import com.bke.datepoll.repos.HomeRepository
 import com.bke.datepoll.repos.LoginRepository
-import com.bke.datepoll.vm.LoginViewModel
 
-/**
- * ViewModel provider factory to instantiate LoginViewModel.
- * Required given LoginViewModel has a non-empty constructor
- */
-class LoginViewModelFactory : ViewModelProvider.Factory {
+class DatepollViewModelFactory : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -21,6 +17,15 @@ class LoginViewModelFactory : ViewModelProvider.Factory {
                 )
             ) as T
         }
+
+        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+            return MainViewModel(
+                homeRepository = HomeRepository(
+                    DatepollServiceFactory.createDatepollService()
+                )
+            ) as T
+        }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
+
 }

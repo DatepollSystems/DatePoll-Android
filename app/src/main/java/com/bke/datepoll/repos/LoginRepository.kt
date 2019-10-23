@@ -10,8 +10,9 @@ class LoginRepository(private val api : DatepollApi) : BaseRepository(){
 
     suspend fun isServiceOnline(): ResponseBody? {
         return safeApiCall(
+            api,
             call = {api.checkIfServiceIsOnline()},
-            errorMessage = "Error Fetching Popular Movies"
+            errorMessage = "Service could not be reached"
         )
     }
 
@@ -19,6 +20,7 @@ class LoginRepository(private val api : DatepollApi) : BaseRepository(){
         val requestObj = LoginRequestModel(username, password)
 
         return safeApiCall(
+            api,
             call = { api.login(requestObj)},
             errorMessage = "Could not sign in"
         )

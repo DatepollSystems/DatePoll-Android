@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProviders
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.ActivityLoginBinding
 import com.bke.datepoll.prefs
+import com.bke.datepoll.vm.DatepollViewModelFactory
 import com.bke.datepoll.vm.LoginViewModel
-import com.bke.datepoll.vm.factory.LoginViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class LoginActivity : AppCompatActivity() {
@@ -25,22 +25,19 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         if(!prefs.JWT.isNullOrEmpty()){
+            Log.i("JWT", "JWT is saved")
             startActivity(Intent(this, MainActivity::class.java))
         }
 
         val binding =
             DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
-
-
-        loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
+        loginViewModel = ViewModelProviders.of(this, DatepollViewModelFactory())
             .get(LoginViewModel::class.java)
-
         binding.vm = loginViewModel
 
 
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
-
 
         login.isEnabled = true
         login.setOnClickListener {
