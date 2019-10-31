@@ -5,7 +5,6 @@ import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.bke.datepoll.connection.DatepollServiceFactory
 import com.bke.datepoll.prefs
 import com.bke.datepoll.repos.LoginRepository

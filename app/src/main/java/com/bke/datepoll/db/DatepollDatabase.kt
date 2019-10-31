@@ -4,9 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.bke.datepoll.data.model.UserModel
+import com.bke.datepoll.db.model.EmailAddressDbModel
+import com.bke.datepoll.data.model.PerformanceBadgesModel
+import com.bke.datepoll.data.model.PhoneNumberDbModel
+import com.bke.datepoll.db.model.UserDbModel
 
-@Database(entities = [UserModel::class], version = 1)
+@Database(entities = [  UserDbModel::class,
+                        PhoneNumberDbModel::class,
+                        PerformanceBadgesModel::class,
+                        EmailAddressDbModel::class], version = 1)
 abstract class DatepollDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 

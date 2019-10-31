@@ -2,22 +2,22 @@ package com.bke.datepoll.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.bke.datepoll.data.model.UserModel
+import com.bke.datepoll.db.model.UserDbModel
 
 @Dao
 interface UserDao {
     @Query("select * from users")
-    fun getAllUsers(): LiveData<List<UserModel>>
+    fun getAllUsers(): LiveData<List<UserDbModel>>
 
     @Query("select * from users where id = :id")
-    fun getUserById(id: Long) : LiveData<UserModel>
+    fun getUserById(id: Long) : LiveData<UserDbModel>
 
-    @Insert
-    fun addUser(user: UserModel)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addUser(user: UserDbModel): Long
 
     @Update
-    fun updateUser(user: UserModel)
+    fun updateUser(user: UserDbModel)
 
     @Delete
-    fun deleteUser(user: UserModel)
+    fun deleteUser(user: UserDbModel)
 }
