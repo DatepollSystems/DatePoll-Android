@@ -5,10 +5,11 @@ import com.bke.datepoll.connection.DatepollApi
 import com.bke.datepoll.data.requests.CurrentUserResponseModel
 import com.bke.datepoll.data.requests.RefreshTokenWithSessionRequest
 import com.bke.datepoll.data.requests.RefreshTokenWithSessionResponse
+import com.bke.datepoll.db.UserDao
 import com.bke.datepoll.prefs
 import okhttp3.ResponseBody
 
-class HomeRepository(private val api: DatepollApi) : BaseRepository() {
+class HomeRepository(private val api: DatepollApi, private val dao: UserDao) : BaseRepository() {
 
     suspend fun getCurrentUser(): CurrentUserResponseModel? {
         return safeApiCall(
@@ -21,7 +22,7 @@ class HomeRepository(private val api: DatepollApi) : BaseRepository() {
     suspend fun isServiceOnline(): ResponseBody? {
         return safeApiCall(
             api,
-            call = {api.checkIfServiceIsOnline()},
+            call = { api.checkIfServiceIsOnline() },
             errorMessage = "Service could not be reached"
         )
     }

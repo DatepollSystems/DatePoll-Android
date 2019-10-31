@@ -15,7 +15,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.ActivityMainBinding
-import com.bke.datepoll.vm.DatepollViewModelFactory
 import com.bke.datepoll.vm.MainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     private fun initDatabinding(){
         val binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        mainViewModel = ViewModelProviders.of(this, DatepollViewModelFactory())
+        mainViewModel = ViewModelProviders.of(this)
             .get(MainViewModel::class.java)
         binding.vm = mainViewModel
     }

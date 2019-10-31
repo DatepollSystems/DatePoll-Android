@@ -1,7 +1,9 @@
 package com.bke.datepoll.vm
 
+import android.app.Application
 import android.util.Log
 import android.util.Patterns
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bke.datepoll.connection.DatepollServiceFactory
@@ -11,22 +13,7 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 
-class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
-
-
-    // A placeholder username validation check
-    private fun isUserNameValid(username: String): Boolean {
-        return if (username.contains('@')) {
-            Patterns.EMAIL_ADDRESS.matcher(username).matches()
-        } else {
-            username.isNotBlank()
-        }
-    }
-
-    // A placeholder password validation check
-    private fun isPasswordValid(password: String): Boolean {
-        return password.length > 5
-    }
+class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
 
     private val parentJob = Job()
@@ -72,6 +59,20 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                 }
             }
         }
+    }
+
+    // A placeholder username validation check
+    private fun isUserNameValid(username: String): Boolean {
+        return if (username.contains('@')) {
+            Patterns.EMAIL_ADDRESS.matcher(username).matches()
+        } else {
+            username.isNotBlank()
+        }
+    }
+
+    // A placeholder password validation check
+    private fun isPasswordValid(password: String): Boolean {
+        return password.length > 5
     }
 
     fun cancelAllRequests() = coroutineContext.cancel()

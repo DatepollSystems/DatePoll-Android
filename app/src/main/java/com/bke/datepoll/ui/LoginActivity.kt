@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.ActivityLoginBinding
 import com.bke.datepoll.prefs
-import com.bke.datepoll.vm.DatepollViewModelFactory
 import com.bke.datepoll.vm.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -31,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
 
         val binding =
             DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
-        loginViewModel = ViewModelProviders.of(this, DatepollViewModelFactory())
+        loginViewModel = ViewModelProviders.of(this)
             .get(LoginViewModel::class.java)
         binding.vm = loginViewModel
 
