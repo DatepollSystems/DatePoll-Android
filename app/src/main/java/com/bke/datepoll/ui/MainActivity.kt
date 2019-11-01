@@ -34,14 +34,23 @@ class MainActivity : AppCompatActivity() {
         initDatabinding()
         initUiAndNavigation()
 
-        mainViewModel.user.observe(this, Observer {
-            val s = "${it.firstname} ${it.surname}"
-            tvName.setText(s)
-            tvUserName.setText(it.username)
+        mainViewModel.loaded.observe(this, Observer {
+            if(it) {
+                mainViewModel.loaded.value = false
+                mainViewModel.user.observe(this, Observer { u ->
+                    val s = "${u.firstname} ${u.surname}"
+                    tvName.text = s
+                    tvUserName.text = u.username
+                })
+            }
         })
 
-        mainViewModel.renewTokenAndRefreshUserData()
+    }
 
+    override fun onRestart() {
+        super.onRestart()
+
+        mainViewModel.renewDataOfCurrentUser()
     }
 
     private fun initDatabinding(){
@@ -58,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
-            mainViewModel.getDataOfCurrentUser()
+            mainViewModel.renewDataOfCurrentUser()
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
@@ -87,12 +96,6 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
-    override fun onStart() {
-        super.onStart()
-        //TODO check if jwt is ok and if server is online
-    }
-
 
     override fun onBackPressed() {
         finish()

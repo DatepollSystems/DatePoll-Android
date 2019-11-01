@@ -1,5 +1,6 @@
 package com.bke.datepoll.data.model
 
+import com.bke.datepoll.db.model.PhoneNumberDbModel
 import com.bke.datepoll.db.model.UserDbModel
 
 data class UserModel(

@@ -1,11 +1,11 @@
-package com.bke.datepoll.db
+package com.bke.datepoll.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.bke.datepoll.data.model.PhoneNumberDbModel
+import com.bke.datepoll.db.model.PhoneNumberDbModel
 
 @Dao
 interface PhoneNumberDao {

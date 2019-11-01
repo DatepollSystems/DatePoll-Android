@@ -1,11 +1,12 @@
 package com.bke.datepoll.db.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
-@Entity(foreignKeys = [ForeignKey(entity = UserDbModel::class, parentColumns = arrayOf("id"), childColumns = arrayOf("user_id"))])
+@Entity(
+    tableName = "performance_badges",
+    indices = [Index(value = arrayOf("user_id"))],
+    foreignKeys = [ForeignKey(entity = UserDbModel::class, parentColumns = arrayOf("id"), childColumns = arrayOf("user_id"))]
+)
 data class PerformanceBadgesDbModel(
     @PrimaryKey val id: Long,
     val performance_badge_id: Long,

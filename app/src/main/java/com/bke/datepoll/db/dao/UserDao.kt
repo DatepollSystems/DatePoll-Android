@@ -1,4 +1,4 @@
-package com.bke.datepoll.db
+package com.bke.datepoll.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

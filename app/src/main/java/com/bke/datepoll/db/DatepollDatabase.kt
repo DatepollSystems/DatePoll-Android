@@ -4,17 +4,21 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.bke.datepoll.db.model.EmailAddressDbModel
-import com.bke.datepoll.data.model.PerformanceBadgesModel
-import com.bke.datepoll.data.model.PhoneNumberDbModel
-import com.bke.datepoll.db.model.UserDbModel
+import com.bke.datepoll.db.dao.*
+import com.bke.datepoll.db.model.*
+import java.security.Permission
 
 @Database(entities = [  UserDbModel::class,
                         PhoneNumberDbModel::class,
-                        PerformanceBadgesModel::class,
-                        EmailAddressDbModel::class], version = 1)
+                        PerformanceBadgesDbModel::class,
+                        EmailAddressDbModel::class,
+                        PermissionDbModel::class], version = 1)
 abstract class DatepollDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
+    abstract fun phoneDao(): PhoneNumberDao
+    abstract fun emailDao(): EmailDao
+    abstract fun performanceBadgesDao(): PerformanceBadgesDao
+    abstract fun permissionDao(): PermissionsDao
 
     companion object {
 
