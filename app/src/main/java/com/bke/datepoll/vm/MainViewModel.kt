@@ -1,11 +1,10 @@
 package com.bke.datepoll.vm
 
-import android.app.Application
+import android.content.Context
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.bke.datepoll.connection.DatepollServiceFactory
+import androidx.lifecycle.ViewModel
 import com.bke.datepoll.data.model.UserLiveDataElements
 import com.bke.datepoll.db.DatepollDatabase
 import com.bke.datepoll.db.model.PermissionDbModel
@@ -17,7 +16,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+
+class MainViewModel(context: Context, private val homeRepository: HomeRepository) : ViewModel() {
 
     private val parentJob = Job()
 
@@ -25,16 +25,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         get() = parentJob + Dispatchers.Default
 
     private val scope = CoroutineScope(coroutineContext)
-
-    private val db = DatepollDatabase.getDatabase(application)
-
-    private val homeRepository: HomeRepository = HomeRepository(
-        DatepollServiceFactory.createDatepollService(),
-        db.userDao(),
-        db.phoneDao(),
-        db.emailDao(),
-        db.performanceBadgesDao(),
-        db.permissionDao())
 
     val loaded = MutableLiveData<Boolean>(false)
     lateinit var user: LiveData<UserDbModel>

@@ -6,6 +6,7 @@ import com.bke.datepoll.data.model.UserLiveDataElements
 import com.bke.datepoll.data.requests.CurrentUserResponseModel
 import com.bke.datepoll.data.requests.RefreshTokenWithSessionRequest
 import com.bke.datepoll.data.requests.RefreshTokenWithSessionResponse
+import com.bke.datepoll.db.DatepollDatabase
 import com.bke.datepoll.db.dao.*
 import com.bke.datepoll.db.model.*
 import com.bke.datepoll.prefs
@@ -13,11 +14,15 @@ import okhttp3.ResponseBody
 
 class HomeRepository(
     private val api: DatepollApi,
-    private val userDao: UserDao,
-    private val phoneNumberDao: PhoneNumberDao,
-    private val emailDao: EmailDao,
-    private val performanceBadgesDao: PerformanceBadgesDao,
-    private val permissionsDao: PermissionsDao) : BaseRepository() {
+    private val db: DatepollDatabase
+    ) : BaseRepository() {
+
+
+    private val userDao: UserDao = db.userDao()
+    private val phoneNumberDao: PhoneNumberDao = db.phoneDao()
+    private val emailDao: EmailDao = db.emailDao()
+    private val performanceBadgesDao: PerformanceBadgesDao = db.performanceBadgesDao()
+    private val permissionsDao: PermissionsDao = db.permissionDao()
 
     suspend fun getCurrentUserAndStoreIt(): UserLiveDataElements {
         val current: CurrentUserResponseModel? = safeApiCall(

@@ -6,7 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.bke.datepoll.db.dao.*
 import com.bke.datepoll.db.model.*
-import java.security.Permission
 
 @Database(entities = [  UserDbModel::class,
                         PhoneNumberDbModel::class,

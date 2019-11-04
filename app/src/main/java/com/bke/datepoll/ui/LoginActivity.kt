@@ -15,10 +15,11 @@ import com.bke.datepoll.databinding.ActivityLoginBinding
 import com.bke.datepoll.prefs
 import com.bke.datepoll.vm.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +31,6 @@ class LoginActivity : AppCompatActivity() {
 
         val binding =
             DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
-        loginViewModel = ViewModelProviders.of(this)
-            .get(LoginViewModel::class.java)
         binding.vm = loginViewModel
 
 

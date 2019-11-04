@@ -1,10 +1,9 @@
 package com.bke.datepoll.vm
 
-import android.app.Application
 import android.util.Log
 import android.util.Patterns
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.bke.datepoll.connection.DatepollServiceFactory
 import com.bke.datepoll.prefs
 import com.bke.datepoll.repos.LoginRepository
@@ -12,7 +11,7 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 
-class LoginViewModel(application: Application) : AndroidViewModel(application) {
+class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
 
 
     private val parentJob = Job()
@@ -22,9 +21,6 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     private val scope = CoroutineScope(coroutineContext)
 
-    private val repository : LoginRepository = LoginRepository(DatepollServiceFactory.createDatepollService())
-
-
     val userName = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     val loginSuccessful = MutableLiveData<Boolean>()
@@ -32,7 +28,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     fun checkIfServiceIsOnline(){
         scope.launch {
             val online = repository.isServiceOnline()!!.string()
-            Log.i("repsonse", online)
+            Log.i("response", online)
             userName.postValue(online)
         }
     }
@@ -44,7 +40,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
             if(isUserNameValid(user) && isPasswordValid(pass)){
                 val login = repository.login(user, pass)
-                Log.i("LoginRepsonse", login.toString())
+                Log.i("LoginResponse", login.toString())
                 login?.let {
                     if (it.token.isNotEmpty()) {
                         prefs.JWT = it.token

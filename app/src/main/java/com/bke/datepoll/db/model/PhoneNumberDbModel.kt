@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.bke.datepoll.db.model.UserDbModel
 
 @Entity(
     tableName = "phone_numbers",

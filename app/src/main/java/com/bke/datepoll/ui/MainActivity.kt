@@ -20,12 +20,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.nav_header_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel: MainViewModel by viewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,8 +57,6 @@ class MainActivity : AppCompatActivity() {
     private fun initDatabinding(){
         val binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        mainViewModel = ViewModelProviders.of(this)
-            .get(MainViewModel::class.java)
         binding.vm = mainViewModel
     }
 
