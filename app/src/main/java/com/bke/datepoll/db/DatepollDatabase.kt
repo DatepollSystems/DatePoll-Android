@@ -34,7 +34,7 @@ abstract class DatepollDatabase : RoomDatabase() {
                     context.applicationContext,
                     DatepollDatabase::class.java,
                     "datepoll_database"
-                ).build()
+                ).allowMainThreadQueries().build()
                 INSTANCE = instance
                 return instance
             }

@@ -3,10 +3,10 @@ package com.bke.datepoll.vm
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bke.datepoll.data.model.UserLiveDataElements
-import com.bke.datepoll.db.DatepollDatabase
+import com.bke.datepoll.data.requests.CurrentUserResponseModel
 import com.bke.datepoll.db.model.PermissionDbModel
 import com.bke.datepoll.db.model.UserDbModel
 import com.bke.datepoll.repos.HomeRepository
@@ -26,17 +26,21 @@ class MainViewModel(context: Context, private val homeRepository: HomeRepository
 
     private val scope = CoroutineScope(coroutineContext)
 
-    val loaded = MutableLiveData<Boolean>(false)
-    lateinit var user: LiveData<UserDbModel>
+    val loaded = MutableLiveData<CurrentUserResponseModel>()
+    val user = MediatorLiveData<UserDbModel>()
     val permissions = MutableLiveData<List<PermissionDbModel>>()
 
-    init {
-        scope.launch {
-            Log.i("try to", "do")
-            val response: UserLiveDataElements = homeRepository.getCurrentUserAndStoreIt()
-            user = response.user
+    fun storeUser(user: CurrentUserResponseModel): LiveData<UserDbModel>{
+        return homeRepository.storeUser(user).user
+    }
 
-            loaded.postValue(true)
+    fun loadUserData() {
+       scope.launch {
+            Log.i("try to", "do")
+            val response: CurrentUserResponseModel? = homeRepository.getCurrentUser()
+            let {
+               loaded.postValue(response)
+            }
         }
     }
 

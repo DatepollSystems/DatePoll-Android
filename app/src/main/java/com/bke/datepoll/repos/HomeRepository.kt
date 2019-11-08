@@ -24,13 +24,15 @@ class HomeRepository(
     private val performanceBadgesDao: PerformanceBadgesDao = db.performanceBadgesDao()
     private val permissionsDao: PermissionsDao = db.permissionDao()
 
-    suspend fun getCurrentUserAndStoreIt(): UserLiveDataElements {
-        val current: CurrentUserResponseModel? = safeApiCall(
+    suspend fun getCurrentUser(): CurrentUserResponseModel? {
+        return safeApiCall(
             api,
             call = { api.currentUser(prefs.JWT!!) },
             errorMessage = "Could not get current user"
         )
+    }
 
+    fun storeUser(current: CurrentUserResponseModel?): UserLiveDataElements{
         //Store user
         val user = current!!.user
         val userId = userDao.addUser(user.getUserDbModelPart())
@@ -76,7 +78,6 @@ class HomeRepository(
             performanceBadges = performanceBadgesDao.getPerformanceBadgesByUserId(user.id),
             emailAddress = emailDao.getEmailsOfUser(user.id)
         )
-
     }
 
     fun updateUser(user: UserDbModel){

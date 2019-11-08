@@ -7,7 +7,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -35,17 +34,22 @@ class MainActivity : AppCompatActivity() {
         initDatabinding()
         initUiAndNavigation()
 
+        mainViewModel.user.observe(this, Observer { u ->
+            val s = "${u.firstname} ${u.surname}"
+            tvName.text = s
+            tvUserName.text = u.username
+        })
+
         mainViewModel.loaded.observe(this, Observer {
-            if(it) {
-                mainViewModel.loaded.value = false
-                mainViewModel.user.observe(this, Observer { u ->
-                    val s = "${u.firstname} ${u.surname}"
-                    tvName.text = s
-                    tvUserName.text = u.username
-                })
+            if(it != null){
+                mainViewModel.user.addSource(mainViewModel.storeUser(it)){ user ->
+                    mainViewModel.user.value = user
+                }
+                mainViewModel.loaded.value = null
             }
         })
 
+        mainViewModel.loadUserData()
     }
 
     override fun onRestart() {
