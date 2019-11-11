@@ -23,12 +23,11 @@ open class BaseRepository{
             is Result.Success ->
                 data = result.data
             is Result.Error -> {
-                Log.d("1.DataRepository", "$errorMessage & Exception - ${result.exception}")
+                Log.d("BaseRepository", "$errorMessage & Exception - ${result.exception}")
             }
         }
 
         return data
-
     }
 
     private suspend fun <T: Any> safeApiResult(api: DatepollApi ,call: suspend ()-> Response<T>, errorMessage: String) : Result<T>{
@@ -38,10 +37,10 @@ open class BaseRepository{
 
             val moshi = Moshi.Builder().build()
             val adapter = moshi.adapter(ErrorMsg::class.java)
-            val errorBody = response.errorBody().toString()
-
-            if(errorBody.isNotBlank()){
-                Log.e("ErrorRepsonse", errorBody)
+            val errorBody = response.errorBody()?.string()
+            Log.e("code", response.code().toString())
+            if(errorBody!!.isNotBlank()){
+                Log.e("ErrorResponse", errorBody )
                 val errorMsg: ErrorMsg = adapter.fromJson(errorBody)!!
                 Log.e("Error during Request", errorMsg.msg)
 
@@ -58,6 +57,7 @@ open class BaseRepository{
                     if(newjwt != null) {
                         prefs.JWT = newjwt.token
                         Log.i("Refreshed jwt token", newjwt.msg)
+
                     } else {
                         throw AuthorizationFailedException("Could not renew jwt token")
                     }

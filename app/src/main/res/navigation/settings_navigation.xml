@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/settings_navigation"
+    app:startDestination="@id/settingsHomeFragment">
+
+    <fragment
+        android:id="@+id/settingsHomeFragment"
+        android:name="com.bke.datepoll.ui.settings.SettingsHomeFragment"
+        android:label="SettingsHomeFragment" >
+        <action
+            android:id="@+id/action_settingsHomeFragment_to_settingsUserFragment"
+            app:destination="@id/settingsUserFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsUserFragment"
+        android:name="com.bke.datepoll.ui.settings.SettingsUserFragment"
+        android:label="SettingsUserFragment" />
+</navigation>

@@ -1,4 +1,5 @@
-package com.bke.datepoll.ui
+package com.bke.datepoll.ui.settings
+
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,30 +10,37 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.FragmentHomeBinding
-import com.bke.datepoll.vm.MainViewModel
+import com.bke.datepoll.databinding.FragmentSettingsHomeBinding
+import com.bke.datepoll.vm.SettingsViewModel
 import kotlinx.android.synthetic.main.fragment_settings_home.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
+class SettingsHomeFragment : Fragment() {
 
-class HomeFragment : Fragment() {
-
-    private val vm: MainViewModel by sharedViewModel()
+    private val vm: SettingsViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentHomeBinding>(
-            inflater, R.layout.fragment_home, container, false
+
+        val binding = DataBindingUtil.inflate<FragmentSettingsHomeBinding>(
+            inflater, R.layout.fragment_settings_home, container, false
         )
         val view = binding.root
 
         binding.vm = vm
         binding.lifecycleOwner = this
 
-
-
-
         return view
     }
+
+    override fun onStart() {
+        btnUserSettings.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_settingsHomeFragment_to_settingsUserFragment)
+        )
+        super.onStart()
+    }
+
+
 }

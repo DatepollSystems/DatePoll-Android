@@ -50,7 +50,7 @@ class MainViewModel(context: Context, private val homeRepository: HomeRepository
         scope.launch {
             Log.i("try to", "do")
             val user = user.value!!
-            val new = UserDbModel(user.id, user.title, user.firstname, user.surname, "geht", user.birthday, user.join_date, user.streetname, user.zipcode, user.location,user.activated, user.activity, user.force_password_change)
+            val new = UserDbModel(user.id, user.title, user.firstname, user.surname, user.username, user.birthday, user.join_date, user.streetname, user.zipcode, user.location,user.activated, user.activity, user.force_password_change)
             homeRepository.updateUser(new)
         }
     }

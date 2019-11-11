@@ -24,6 +24,10 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //TODO create LauncherActivity with initial renew session request if the user was logged in
+        //TODO else route to LoginActivity
+
+
         if(!prefs.JWT.isNullOrEmpty()){
             Log.i("JWT", "JWT is saved")
             startActivity(Intent(this, MainActivity::class.java))
