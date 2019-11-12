@@ -6,7 +6,7 @@ import com.bke.datepoll.data.requests.LoginResponseModel
 import okhttp3.ResponseBody
 
 
-class LoginRepository(private val api : DatepollApi) : BaseRepository(){
+class LoginRepository(private val api : DatepollApi) : BaseRepository("LoginRepository"){
 
     suspend fun isServiceOnline(): ResponseBody? {
         return safeApiCall(

@@ -10,9 +10,11 @@ import com.bke.datepoll.prefs
 import com.squareup.moshi.Moshi
 import retrofit2.Response
 import java.io.IOException
+import java.lang.Exception
 
 
-open class BaseRepository{
+open class BaseRepository(private val tag: String){
+
 
     suspend fun <T : Any> safeApiCall(api:DatepollApi, call: suspend () -> Response<T>, errorMessage: String): T? {
 
@@ -46,20 +48,23 @@ open class BaseRepository{
 
                 if(response.code() == 401){
                     Log.e("Authorization failed", "try to get a new token")
+                    try {
+                        val jwtRefreshRequest = RefreshTokenWithSessionRequest(prefs.SESSION!!)
+                        val newjwt = safeApiCall(
+                            api,
+                            call= { api.refreshTokenWithSession(jwtRefreshRequest) },
+                            errorMessage = "Could not refresh the jwt token"
+                        )
 
-                    val jwtRefreshRequest = RefreshTokenWithSessionRequest(prefs.SESSION!!)
-                    val newjwt = safeApiCall(
-                        api,
-                        call= { api.refreshTokenWithSession(jwtRefreshRequest) },
-                        errorMessage = "Could not refresh the jwt token"
-                    )
+                        if(newjwt != null) {
+                            prefs.JWT = newjwt.token
+                            Log.i("Refreshed jwt token", newjwt.msg)
 
-                    if(newjwt != null) {
-                        prefs.JWT = newjwt.token
-                        Log.i("Refreshed jwt token", newjwt.msg)
-
-                    } else {
-                        throw AuthorizationFailedException("Could not renew jwt token")
+                        } else {
+                            throw AuthorizationFailedException("Could not renew jwt token")
+                        }
+                    } catch (e: Exception) {
+                        Log.e(tag, e.message!!)
                     }
                 }
             }

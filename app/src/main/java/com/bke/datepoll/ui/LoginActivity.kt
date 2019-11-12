@@ -9,7 +9,6 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.ActivityLoginBinding
 import com.bke.datepoll.prefs

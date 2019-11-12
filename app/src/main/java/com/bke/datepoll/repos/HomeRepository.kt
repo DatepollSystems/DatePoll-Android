@@ -15,7 +15,7 @@ import okhttp3.ResponseBody
 class HomeRepository(
     private val api: DatepollApi,
     private val db: DatepollDatabase
-    ) : BaseRepository() {
+    ) : BaseRepository("HomeRepository") {
 
 
     private val userDao: UserDao = db.userDao()
