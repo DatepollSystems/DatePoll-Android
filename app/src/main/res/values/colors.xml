@@ -3,8 +3,11 @@
     <color name="colorPrimary">#2B8D90</color>
     <color name="colorPrimaryDark">#226F72</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorOnPrimary">#2B8D90</color>
+    <color name="colorSecondary">#2B8D90</color>
+    <color name="colorSecondaryVariant">#2B8D90</color>
+    <color name="colorOnSecondary">#2B8D90</color>
 
     <color name="colorWhite">#FFFFFF</color>
-
     <color name="colorSettingsBtnClickEffect">#2B8D90</color>
 </resources>

@@ -1,17 +1,15 @@
 package com.bke.datepoll.vm
 
-import android.util.Log
-import android.util.Patterns
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bke.datepoll.connection.DatepollServiceFactory
-import com.bke.datepoll.prefs
-import com.bke.datepoll.repos.LoginRepository
-import kotlinx.coroutines.*
+import com.bke.datepoll.Prefs
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 import kotlin.coroutines.CoroutineContext
 
 
-class SettingsViewModel() : ViewModel() {
+class SettingsViewModel(private val prefs: Prefs) : ViewModel() {
 
 
     private val parentJob = Job()

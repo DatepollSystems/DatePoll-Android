@@ -9,15 +9,16 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/AppTheme"
         android:tag="@string/settings_home_fragment"
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.settings.SettingsHomeFragment">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnUserSettings"
-            style="@style/Widget.AppCompat.Button.Borderless"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:paddingStart="30dp"

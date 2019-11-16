@@ -9,15 +9,17 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.bke.datepoll.Prefs
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.ActivityLoginBinding
-import com.bke.datepoll.prefs
 import com.bke.datepoll.vm.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
 
+    private val prefs: Prefs by inject()
     private val loginViewModel: LoginViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,10 +29,7 @@ class LoginActivity : AppCompatActivity() {
         //TODO else route to LoginActivity
 
 
-        if(!prefs.JWT.isNullOrEmpty()){
-            Log.i("JWT", "JWT is saved")
-            startActivity(Intent(this, MainActivity::class.java))
-        }
+
 
         val binding =
             DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)

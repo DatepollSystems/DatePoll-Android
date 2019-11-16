@@ -12,7 +12,7 @@ object DatepollServiceFactory {
     fun createDatepollService() : DatepollApi {
         val retrofit = Retrofit.Builder()
             .client(datepollClient)
-            .baseUrl("https://datepoll-testing.dafnik.me:8443")
+            .baseUrl("https://datepoll-testing.dafnik.me:9330")
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
 

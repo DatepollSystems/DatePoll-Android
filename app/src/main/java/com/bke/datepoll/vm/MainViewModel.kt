@@ -1,12 +1,14 @@
 package com.bke.datepoll.vm
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.bke.datepoll.Prefs
 import com.bke.datepoll.data.requests.CurrentUserResponseModel
+import com.bke.datepoll.data.requests.LogoutRequestModel
+import com.bke.datepoll.data.requests.LogoutResponseModel
 import com.bke.datepoll.db.model.PermissionDbModel
 import com.bke.datepoll.db.model.UserDbModel
 import com.bke.datepoll.repos.HomeRepository
@@ -17,7 +19,12 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 
-class MainViewModel(context: Context, private val homeRepository: HomeRepository) : ViewModel() {
+class MainViewModel(
+    private val prefs: Prefs,
+    private val homeRepository: HomeRepository
+) : ViewModel() {
+
+    private val tag = "MainViewModel"
 
     private val parentJob = Job()
 
@@ -28,6 +35,7 @@ class MainViewModel(context: Context, private val homeRepository: HomeRepository
 
     val loaded = MutableLiveData<CurrentUserResponseModel>()
     val user = MediatorLiveData<UserDbModel>()
+    val logout = MutableLiveData<Boolean>(false)
     val permissions = MutableLiveData<List<PermissionDbModel>>()
 
     fun storeUser(user: CurrentUserResponseModel): LiveData<UserDbModel>{
@@ -40,6 +48,23 @@ class MainViewModel(context: Context, private val homeRepository: HomeRepository
             val response: CurrentUserResponseModel? = homeRepository.getCurrentUser()
             let {
                loaded.postValue(response)
+            }
+        }
+    }
+
+    fun logout(){
+        scope.launch {
+            Log.i(tag, "start logout process")
+
+            val session = prefs.SESSION!!
+            val response: LogoutResponseModel? =
+                homeRepository.logout(LogoutRequestModel(session_token = session))
+
+            if(response != null && response.username.isNotBlank()){
+                Log.i(tag, "logout successful")
+                prefs.SESSION = ""
+                prefs.JWT = ""
+                logout.postValue(true)
             }
         }
     }

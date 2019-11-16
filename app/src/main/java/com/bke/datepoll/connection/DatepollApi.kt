@@ -30,6 +30,8 @@ interface DatepollApi {
     @POST("/api/auth/IamLoggedIn")
     suspend fun refreshTokenWithSession(@Body request:RefreshTokenWithSessionRequest): Response<RefreshTokenWithSessionResponse>
 
+    @POST("/api/v1/user/myself/session/logoutCurrentSession")
+    suspend fun logout(@Body requestModel: LogoutRequestModel): Response<LogoutResponseModel>
 
     /**
      * General requests for getting user information

@@ -3,15 +3,16 @@ package com.bke.datepoll.repos
 import android.util.Log
 import com.bke.datepoll.connection.DatepollApi
 import com.bke.datepoll.data.model.UserLiveDataElements
-import com.bke.datepoll.data.requests.CurrentUserResponseModel
-import com.bke.datepoll.data.requests.RefreshTokenWithSessionRequest
-import com.bke.datepoll.data.requests.RefreshTokenWithSessionResponse
+import com.bke.datepoll.data.requests.*
 import com.bke.datepoll.db.DatepollDatabase
 import com.bke.datepoll.db.dao.*
-import com.bke.datepoll.db.model.*
-import com.bke.datepoll.prefs
+import com.bke.datepoll.db.model.EmailAddressDbModel
+import com.bke.datepoll.db.model.PerformanceBadgesDbModel
+import com.bke.datepoll.db.model.PermissionDbModel
+import com.bke.datepoll.db.model.UserDbModel
 import okhttp3.ResponseBody
 
+//TODO change constructor to DI
 class HomeRepository(
     private val api: DatepollApi,
     private val db: DatepollDatabase
@@ -29,6 +30,14 @@ class HomeRepository(
             api,
             call = { api.currentUser(prefs.JWT!!) },
             errorMessage = "Could not get current user"
+        )
+    }
+
+    suspend fun logout(logout: LogoutRequestModel): LogoutResponseModel? {
+        return safeApiCall(
+            api,
+            call = { api.logout(logout) },
+            errorMessage = "Could not perform logout"
         )
     }
 
