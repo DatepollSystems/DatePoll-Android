@@ -62,10 +62,11 @@ class MainViewModel(
 
             if(response != null && response.username.isNotBlank()){
                 Log.i(tag, "logout successful")
-                prefs.SESSION = ""
-                prefs.JWT = ""
-                logout.postValue(true)
             }
+
+            prefs.SESSION = ""
+            prefs.JWT = ""
+            logout.postValue(true)
         }
     }
 

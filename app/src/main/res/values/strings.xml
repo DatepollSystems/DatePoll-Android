@@ -33,4 +33,7 @@
     <string name="settings">Settings</string>
     <string name="logo_description">Logo of Datepoll</string>
     <string name="logout">Logout</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="logo">Logo</string>
 </resources>

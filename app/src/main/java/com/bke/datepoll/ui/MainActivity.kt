@@ -17,10 +17,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.ActivityMainBinding
 import com.bke.datepoll.ui.settings.SettingsActivity
+import com.bke.datepoll.vm.AppViewModel
 import com.bke.datepoll.vm.MainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,44 +31,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private val mainViewModel: MainViewModel by viewModel()
-
+    private val appViewModel: AppViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initDatabinding()
         initUiAndNavigation()
-
-        mainViewModel.user.observe(this, Observer { u ->
-            val s = "${u.firstname} ${u.surname}"
-            tvName.text = s
-            tvUserName.text = u.username
-        })
-
-        mainViewModel.loaded.observe(this, Observer {
-            if(it != null){
-                mainViewModel.user.addSource(mainViewModel.storeUser(it)){ user ->
-                    mainViewModel.user.value = user
-                }
-                mainViewModel.loaded.value = null
-            }
-        })
-
-
-
-        mainViewModel.logout.observe(this, Observer {
-            if(it != null && it){
-                startActivity(Intent(this@MainActivity, LoginActivity::class.java))
-                mainViewModel.logout.value = false
-            }
-        })
+        initObservers()
+        actionBar?.setDisplayHomeAsUpEnabled(false)
 
         mainViewModel.loadUserData()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        mainViewModel.renewDataOfCurrentUser()
     }
 
     private fun initDatabinding(){
@@ -80,10 +55,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            mainViewModel.renewDataOfCurrentUser()
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        fab.setOnClickListener {
+            appViewModel.networkError.value = true
         }
 
 
@@ -99,6 +72,39 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    private fun initObservers(){
+        mainViewModel.user.observe(this, Observer { u ->
+            val s = "${u.firstname} ${u.surname}"
+            tvName.text = s
+            tvUserName.text = u.username
+        })
+
+        mainViewModel.loaded.observe(this, Observer {
+            if(it != null){
+                mainViewModel.user.addSource(mainViewModel.storeUser(it)){ user ->
+                    mainViewModel.user.value = user
+                }
+
+                findNavController(R.id.nav_host_fragment).navigate(R.id.action_home_loaded)
+
+                mainViewModel.loaded.value = null
+            }
+        })
+
+        mainViewModel.logout.observe(this, Observer {
+            if(it != null && it){
+                startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+                mainViewModel.logout.value = false
+            }
+        })
+    }
+
+
+    override fun onRestart() {
+        super.onRestart()
+        mainViewModel.renewDataOfCurrentUser()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -126,6 +132,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        moveTaskToBack(true)
+        if(supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!.childFragmentManager.fragments[0].isVisible) {
+            moveTaskToBack(true)
+        } else {
+            super.onBackPressed()
+        }
     }
 }

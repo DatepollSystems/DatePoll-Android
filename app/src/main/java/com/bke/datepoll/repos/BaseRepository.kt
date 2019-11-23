@@ -2,12 +2,11 @@ package com.bke.datepoll.repos
 
 import android.util.Log
 import com.bke.datepoll.Prefs
-import com.bke.datepoll.R
 import com.bke.datepoll.connection.DatepollApi
 import com.bke.datepoll.connection.Result
 import com.bke.datepoll.data.requests.ErrorMsg
 import com.bke.datepoll.data.requests.RefreshTokenWithSessionRequest
-import com.bke.datepoll.exceptions.AuthorizationFailedException
+import com.bke.datepoll.error.AuthorizationFailedException
 import com.squareup.moshi.Moshi
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -43,9 +42,6 @@ open class BaseRepository(private val tag: String) : KoinComponent{
         try {
             val response = call.invoke()
 
-
-
-
             if(response.isSuccessful)
                 return Result.Success(response.body()!!)
             else {
@@ -58,7 +54,7 @@ open class BaseRepository(private val tag: String) : KoinComponent{
                     val errorMsg: ErrorMsg = adapter.fromJson(errorBody)!!
                     Log.e("Error during Request", errorMsg.msg)
 
-                    if (response.code() == 401) {
+                    if (response.code() == 401 && errorMsg.error_code == "token_incorrect") {
                         Log.e("Authorization failed", "try to get a new token")
                         try {
                             val jwtRefreshRequest = RefreshTokenWithSessionRequest(prefs.SESSION!!)
@@ -71,6 +67,10 @@ open class BaseRepository(private val tag: String) : KoinComponent{
                             if (newjwt != null) {
                                 prefs.JWT = newjwt.token
                                 Log.i("Refreshed jwt token", newjwt.msg)
+
+                                //retry original request
+
+
 
                             } else {
                                 throw AuthorizationFailedException("Could not renew jwt token")

@@ -1,21 +1,18 @@
 package com.bke.datepoll
 
 import android.app.Application
-import android.content.Intent
 import com.bke.datepoll.connection.DatepollServiceFactory
 import com.bke.datepoll.db.DatepollDatabase
 import com.bke.datepoll.repos.HomeRepository
 import com.bke.datepoll.repos.LoginRepository
-import com.bke.datepoll.ui.MainActivity
+import com.bke.datepoll.vm.AppViewModel
 import com.bke.datepoll.vm.LoginViewModel
 import com.bke.datepoll.vm.MainViewModel
 import com.bke.datepoll.vm.SettingsViewModel
-import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
-import org.koin.dsl.koinApplication
 import org.koin.dsl.module
 
 
@@ -35,6 +32,7 @@ val appModule = module {
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel(get(), get()) }
     viewModel { SettingsViewModel(get()) }
+    viewModel { AppViewModel() }
 }
 
 class App : Application() {
@@ -47,6 +45,8 @@ class App : Application() {
             androidContext(applicationContext)
             modules(appModule)
         }
+
+
     }
 }
 

@@ -33,10 +33,10 @@ class HomeRepository(
         )
     }
 
-    suspend fun logout(logout: LogoutRequestModel): LogoutResponseModel? {
+    suspend fun logout(request: LogoutRequestModel): LogoutResponseModel? {
         return safeApiCall(
             api,
-            call = { api.logout(logout) },
+            call = { api.logout(request) },
             errorMessage = "Could not perform logout"
         )
     }
