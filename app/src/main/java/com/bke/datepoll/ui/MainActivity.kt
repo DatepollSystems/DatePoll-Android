@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -22,6 +23,7 @@ import com.bke.datepoll.vm.MainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -59,11 +61,9 @@ class MainActivity : AppCompatActivity() {
             appViewModel.networkError.value = true
         }
 
-
-
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navController = findNavController(R.id.nav_host_main)
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
@@ -75,6 +75,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObservers(){
+        appViewModel.networkError.observe(this, Observer {
+            it.let {
+                if(it) {
+                    Snackbar.make(mainLayout, "Ups... something went wrong", Snackbar.LENGTH_LONG).show()
+                    appViewModel.networkError.value = false
+                }
+            }
+        })
+
         mainViewModel.user.observe(this, Observer { u ->
             val s = "${u.firstname} ${u.surname}"
             tvName.text = s
@@ -87,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                     mainViewModel.user.value = user
                 }
 
-                findNavController(R.id.nav_host_fragment).navigate(R.id.action_home_loaded)
+                findNavController(R.id.nav_host_main).navigate(R.id.action_home_loaded)
 
                 mainViewModel.loaded.value = null
             }
@@ -100,6 +109,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
 
 
     override fun onRestart() {
@@ -127,12 +137,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navController = findNavController(R.id.nav_host_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     override fun onBackPressed() {
-        if(supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!.childFragmentManager.fragments[0].isVisible) {
+        if(supportFragmentManager.findFragmentById(R.id.nav_host_main)!!.childFragmentManager.fragments[0].isVisible) {
             moveTaskToBack(true)
         } else {
             super.onBackPressed()

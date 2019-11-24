@@ -36,7 +36,7 @@ class LauncherActivity : AppCompatActivity() {
 
 
         Thread(Runnable {
-            Thread.sleep(3000)
+            Thread.sleep(1000)
 
             if(!prefs.JWT.isNullOrEmpty()){
                 Log.i("JWT", "JWT is saved")
