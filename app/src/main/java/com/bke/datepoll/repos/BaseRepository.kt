@@ -16,6 +16,7 @@ import java.io.IOException
 import java.lang.Exception
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+import java.util.*
 
 
 open class BaseRepository(private val tag: String) : KoinComponent{
@@ -23,6 +24,22 @@ open class BaseRepository(private val tag: String) : KoinComponent{
     protected val prefs: Prefs by inject()
 
     suspend fun <T : Any> safeApiCall(api:DatepollApi, call: suspend () -> Response<T>, errorMessage: String): T? {
+
+        // Check if JWT is older than 1 hour -> if yes than renew, else -> Throw error
+        val jwtTime = prefs.JWT_RENEWAL_TIME
+        if(prefs.IS_LOGGED_IN && jwtTime > 0){
+            val diff = Date().time - jwtTime
+            if(diff > 3600000){
+                val request = RefreshTokenWithSessionRequest(session_token = prefs.SESSION!!)
+                val response = api.refreshTokenWithSession(request)
+                if(!response.isSuccessful){
+                    //maybe error livedata
+                    return null
+                } else {
+                    Log.i(tag, "Token refresh successful")
+                }
+            }
+        }
 
         val result : Result<T> = safeApiResult(api, call,errorMessage)
         var data : T? = null

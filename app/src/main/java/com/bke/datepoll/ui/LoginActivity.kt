@@ -29,8 +29,6 @@ class LoginActivity : AppCompatActivity() {
         //TODO else route to LoginActivity
 
 
-
-
         val binding =
             DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
         binding.vm = loginViewModel
@@ -49,6 +47,8 @@ class LoginActivity : AppCompatActivity() {
             it?.let {
                 if(it) {
                     loginViewModel.loginSuccessful.value = null
+                    prefs.IS_LOGGED_IN = true
+                    // renew user now
                     startActivity(Intent(this, MainActivity::class.java))
                 } else {
                     loginViewModel.loginSuccessful.value = null

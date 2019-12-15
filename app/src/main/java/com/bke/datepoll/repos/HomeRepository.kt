@@ -101,20 +101,18 @@ class HomeRepository(
         )
     }
 
-    suspend fun renewToken(){
+    suspend fun renewToken() {
         val jwtRefreshRequest = RefreshTokenWithSessionRequest(prefs.SESSION!!)
 
         val response: RefreshTokenWithSessionResponse? = safeApiCall(
             api,
-            call = { api.refreshTokenWithSession(jwtRefreshRequest)},
+            call = { api.refreshTokenWithSession(jwtRefreshRequest) },
             errorMessage = "Could not renew token"
         )
 
-        if(response != null) {
+        if (response != null) {
             prefs.JWT = response.token
             Log.i("Refreshed jwt token", response.msg)
         }
     }
-
-
 }

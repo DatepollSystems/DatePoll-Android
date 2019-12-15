@@ -44,7 +44,6 @@ class MainViewModel(
 
     fun loadUserData() {
        scope.launch {
-            Log.i("try to", "do")
             val response: CurrentUserResponseModel? = homeRepository.getCurrentUser()
             let {
                loaded.postValue(response)
@@ -74,17 +73,10 @@ class MainViewModel(
         //TODO Check if data is older than 1 hour!!! remove test code
 
         scope.launch {
-            Log.i("try to", "do")
             val user = user.value!!
             val new = UserDbModel(user.id, user.title, user.firstname, user.surname, user.username, user.birthday, user.join_date, user.streetname, user.zipcode, user.location,user.activated, user.activity, user.force_password_change)
             homeRepository.updateUser(new)
         }
     }
 
-    fun renewToken(){
-        scope.launch {
-            Log.i("try to", "do")
-            homeRepository.renewToken()
-        }
-    }
 }

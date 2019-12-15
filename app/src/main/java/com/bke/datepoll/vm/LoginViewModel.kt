@@ -8,6 +8,7 @@ import com.bke.datepoll.Prefs
 import com.bke.datepoll.repos.LoginRepository
 import kotlinx.coroutines.*
 import org.koin.core.KoinComponent
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 
@@ -48,6 +49,7 @@ class LoginViewModel(
                 login?.let {
                     if (it.token.isNotEmpty()) {
                         prefs.JWT = it.token
+                        prefs.JWT_RENEWAL_TIME = Date().time
                         prefs.SESSION = it.session_token
                         loginSuccessful.postValue(true)
                     } else {

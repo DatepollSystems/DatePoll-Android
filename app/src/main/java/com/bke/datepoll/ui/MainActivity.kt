@@ -1,10 +1,11 @@
 package com.bke.datepoll.ui
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -18,23 +19,18 @@ import androidx.navigation.ui.setupWithNavController
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.ActivityMainBinding
 import com.bke.datepoll.ui.settings.SettingsActivity
-import com.bke.datepoll.vm.AppViewModel
 import com.bke.datepoll.vm.MainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private val mainViewModel: MainViewModel by viewModel()
-    private val appViewModel: AppViewModel by viewModel()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -58,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
-            appViewModel.networkError.value = true
+
         }
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -75,14 +71,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObservers(){
-        appViewModel.networkError.observe(this, Observer {
-            it.let {
-                if(it) {
-                    Snackbar.make(mainLayout, "Ups... something went wrong", Snackbar.LENGTH_LONG).show()
-                    appViewModel.networkError.value = false
-                }
-            }
-        })
 
         mainViewModel.user.observe(this, Observer { u ->
             val s = "${u.firstname} ${u.surname}"
@@ -104,8 +92,11 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.logout.observe(this, Observer {
             if(it != null && it){
-                startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+                val i = Intent(this@MainActivity, LoginActivity::class.java)
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(i)
                 mainViewModel.logout.value = false
+                finish()
             }
         })
     }
@@ -129,7 +120,14 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_logout -> {
-                mainViewModel.logout()
+                AlertDialog.Builder(this)
+                    .setTitle(R.string.logout_title)
+                    .setMessage(R.string.logout_dialog_desc)
+                    .setPositiveButton(android.R.string.yes, DialogInterface.OnClickListener { dialog, which ->
+                        mainViewModel.logout()
+                    })
+                    .setNegativeButton(android.R.string.no, null).create().show()
+
                 return true
             }
         }

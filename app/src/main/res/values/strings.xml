@@ -36,4 +36,6 @@
     <string name="password">Password</string>
     <string name="username">Username</string>
     <string name="logo">Logo</string>
+    <string name="logout_title">Logout</string>
+    <string name="logout_dialog_desc">Do you really want to logout?</string>
 </resources>
