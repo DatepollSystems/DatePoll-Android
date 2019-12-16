@@ -1,24 +1,27 @@
 package com.bke.datepoll.vm
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bke.datepoll.Prefs
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
+import com.bke.datepoll.db.model.UserDbModel
+import com.bke.datepoll.repos.SettingsRepository
+import com.bke.datepoll.repos.UserRepository
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 
-class SettingsViewModel(private val prefs: Prefs) : ViewModel() {
+class SettingsViewModel(
+    private val prefs: Prefs,
+    private val settingsRepo: SettingsRepository,
+    private val userRepo: UserRepository
+) : BaseViewModel() {
 
+    val user = MutableLiveData<UserDbModel>()
 
-    private val parentJob = Job()
-
-    private val coroutineContext: CoroutineContext
-        get() = parentJob + Dispatchers.Default
-
-    private val scope = CoroutineScope(coroutineContext)
-
-
-    fun cancelAllRequests() = coroutineContext.cancel()
+    fun loadUser(){
+        scope.launch {
+            val u = userRepo.loadUser()
+            user.postValue(u)
+        }
+    }
 }

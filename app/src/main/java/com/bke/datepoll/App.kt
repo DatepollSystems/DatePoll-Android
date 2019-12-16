@@ -5,6 +5,7 @@ import com.bke.datepoll.connection.DatepollServiceFactory
 import com.bke.datepoll.db.DatepollDatabase
 import com.bke.datepoll.repos.HomeRepository
 import com.bke.datepoll.repos.LoginRepository
+import com.bke.datepoll.repos.SettingsRepository
 import com.bke.datepoll.repos.UserRepository
 import com.bke.datepoll.vm.*
 import org.koin.android.ext.koin.androidContext
@@ -19,18 +20,21 @@ val appModule = module {
     single { DatepollServiceFactory.createDatepollService() }
     single { DatepollDatabase.getDatabase(androidContext()) }
 
-    // Preferences
+    // others
     single { Prefs(androidContext()) }
+    single { AppObservableHandler() }
 
     // Repositories
     single { HomeRepository(get(), get()) }
     single { LoginRepository(get()) }
-    single { UserRepository(get()) }
+    single { UserRepository(get(), get()) }
+    single { SettingsRepository(get()) }
+
 
     // ViewModels
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel(get(), get()) }
-    viewModel { SettingsViewModel(get()) }
+    viewModel { SettingsViewModel(get(), get(), get()) }
 }
 
 class App : Application() {

@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bke.datepoll.R
 import com.bke.datepoll.vm.SettingsViewModel
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_settings_user.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -22,6 +24,13 @@ class SettingsActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        init()
+    }
+
+    private fun init(){
+
+
     }
 
     override fun onDestroy() {

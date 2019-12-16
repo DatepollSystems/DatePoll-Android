@@ -2,7 +2,6 @@ package com.bke.datepoll.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -48,12 +47,13 @@ class LoginActivity : AppCompatActivity() {
                 if(it) {
                     loginViewModel.loginSuccessful.value = null
                     prefs.IS_LOGGED_IN = true
-                    // renew user now
                     startActivity(Intent(this, MainActivity::class.java))
                 } else {
                     loginViewModel.loginSuccessful.value = null
                     loading.visibility = View.INVISIBLE
-                    this.currentFocus?.let { it1 -> Snackbar.make(it1, "Could not login", Snackbar.LENGTH_LONG).show() }
+                    this.currentFocus?.let { it1 ->
+                        Snackbar.make(it1, "Could not login", Snackbar.LENGTH_LONG).show()
+                    }
                 }
             }
         })

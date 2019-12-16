@@ -3,28 +3,16 @@ package com.bke.datepoll.vm
 import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.bke.datepoll.Prefs
 import com.bke.datepoll.repos.LoginRepository
-import kotlinx.coroutines.*
-import org.koin.core.KoinComponent
+import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.coroutines.CoroutineContext
 
 
 class LoginViewModel(
     private val prefs: Prefs,
     private val repository: LoginRepository
-) : ViewModel(), KoinComponent {
-
-
-
-    private val parentJob = Job()
-
-    private val coroutineContext: CoroutineContext
-        get() = parentJob + Dispatchers.Default
-
-    private val scope = CoroutineScope(coroutineContext)
+) : BaseViewModel() {
 
     val userName = MutableLiveData<String>()
     val password = MutableLiveData<String>()
@@ -75,6 +63,4 @@ class LoginViewModel(
     private fun isPasswordValid(password: String): Boolean {
         return password.length > 5
     }
-
-    fun cancelAllRequests() = coroutineContext.cancel()
 }

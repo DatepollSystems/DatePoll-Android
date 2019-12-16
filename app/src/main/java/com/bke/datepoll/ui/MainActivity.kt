@@ -3,10 +3,12 @@ package com.bke.datepoll.ui
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -19,21 +21,28 @@ import androidx.navigation.ui.setupWithNavController
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.ActivityMainBinding
 import com.bke.datepoll.ui.settings.SettingsActivity
+import com.bke.datepoll.vm.AppObservableHandler
 import com.bke.datepoll.vm.MainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.nav_header_main.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
+    override lateinit var activityView: View
+
+    val test: AppObservableHandler by inject()
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private val mainViewModel: MainViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        activityView = findViewById(android.R.id.content)
         initDatabinding()
         initUiAndNavigation()
         initObservers()
@@ -55,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
 
+            test.showSnackbar.value = "test"
         }
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)

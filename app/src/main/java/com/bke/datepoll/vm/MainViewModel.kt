@@ -16,22 +16,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 
 class MainViewModel(
     private val prefs: Prefs,
     private val homeRepository: HomeRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val tag = "MainViewModel"
-
-    private val parentJob = Job()
-
-    private val coroutineContext: CoroutineContext
-        get() = parentJob + Dispatchers.Default
-
-    private val scope = CoroutineScope(coroutineContext)
 
     val loaded = MutableLiveData<CurrentUserResponseModel>()
     val user = MediatorLiveData<UserDbModel>()
@@ -74,7 +68,14 @@ class MainViewModel(
 
         scope.launch {
             val user = user.value!!
-            val new = UserDbModel(user.id, user.title, user.firstname, user.surname, user.username, user.birthday, user.join_date, user.streetname, user.zipcode, user.location,user.activated, user.activity, user.force_password_change)
+            val new = UserDbModel(
+                user.id, user.title,
+                user.firstname, user.surname,
+                user.username, user.birthday,
+                user.join_date, user.streetname,
+                user.zipcode, user.location,
+                user.activated, user.activity,
+                user.force_password_change, Date().time)
             homeRepository.updateUser(new)
         }
     }

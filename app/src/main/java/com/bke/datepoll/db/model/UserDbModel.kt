@@ -31,5 +31,7 @@ data class UserDbModel(
 
     val activity: String?,
 
-    val force_password_change: Int?
+    val force_password_change: Int?,
+
+    val savedAt: Long?
 )

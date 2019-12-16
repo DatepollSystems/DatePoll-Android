@@ -33,9 +33,11 @@ open class BaseRepository(private val tag: String) : KoinComponent{
                 val request = RefreshTokenWithSessionRequest(session_token = prefs.SESSION!!)
                 val response = api.refreshTokenWithSession(request)
                 if(!response.isSuccessful){
-                    //maybe error livedata
+                    //TODO maybe error livedata -> Notify over snackbar
                     return null
                 } else {
+                    prefs.JWT_RENEWAL_TIME = Date().time
+                    prefs.JWT = response.body()?.token
                     Log.i(tag, "Token refresh successful")
                 }
             }

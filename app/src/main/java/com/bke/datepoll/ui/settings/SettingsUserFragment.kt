@@ -11,6 +11,8 @@ import com.bke.datepoll.R
 import com.bke.datepoll.databinding.FragmentHomeBinding
 import com.bke.datepoll.databinding.FragmentSettingsUserBinding
 import com.bke.datepoll.vm.SettingsViewModel
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_settings_user.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SettingsUserFragment : Fragment() {
@@ -31,8 +33,22 @@ class SettingsUserFragment : Fragment() {
         binding.vm = vm
         binding.lifecycleOwner = this
 
+
+
         return view
     }
 
+
+    override fun onStart() {
+        userSettingsSwipeRefresh.isRefreshing = true
+
+
+
+        userSettingsSwipeRefresh.setOnRefreshListener {
+            Snackbar.make(this.requireView(), "Test", Snackbar.LENGTH_LONG).show()
+            userSettingsSwipeRefresh.isRefreshing = false
+        }
+        super.onStart()
+    }
 
 }

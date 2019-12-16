@@ -2,6 +2,7 @@ package com.bke.datepoll.data.model
 
 import com.bke.datepoll.db.model.PhoneNumberDbModel
 import com.bke.datepoll.db.model.UserDbModel
+import java.util.*
 
 data class UserModel(
     val id: Long,
@@ -53,7 +54,8 @@ data class UserModel(
             location,
             activated,
             activity,
-            force_password_change
+            force_password_change,
+            Date().time
         )
     }
 }
