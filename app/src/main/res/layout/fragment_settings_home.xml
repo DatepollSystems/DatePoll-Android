@@ -9,12 +9,25 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        style="@style/AppTheme"
-        android:tag="@string/settings_home_fragment"
         android:id="@+id/frameLayout"
+        style="@style/AppTheme"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:tag="@string/settings_home_fragment"
         tools:context=".ui.settings.SettingsHomeFragment">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSettingsAbout"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:paddingStart="30dp"
+            android:text="@string/about"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnUserSettings"
+            tools:ignore="RtlSymmetry" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnUserSettings"
@@ -27,7 +40,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry" />
 
         <View
             android:id="@+id/divider"

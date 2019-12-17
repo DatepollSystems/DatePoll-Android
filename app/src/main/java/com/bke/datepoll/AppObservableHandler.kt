@@ -1,4 +1,4 @@
-package com.bke.datepoll.vm
+package com.bke.datepoll
 
 import androidx.lifecycle.MutableLiveData
 

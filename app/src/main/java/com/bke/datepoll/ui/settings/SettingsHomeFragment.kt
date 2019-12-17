@@ -9,12 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bke.datepoll.R
-import com.bke.datepoll.databinding.FragmentHomeBinding
 import com.bke.datepoll.databinding.FragmentSettingsHomeBinding
 import com.bke.datepoll.vm.SettingsViewModel
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_settings_home.*
-import kotlinx.android.synthetic.main.fragment_settings_user.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SettingsHomeFragment : Fragment() {
@@ -41,6 +38,10 @@ class SettingsHomeFragment : Fragment() {
     override fun onStart() {
         btnUserSettings.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_settingsHomeFragment_to_settingsUserFragment)
+        )
+
+        btnSettingsAbout.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_settingsHomeFragment_to_settingsAboutFragment)
         )
         super.onStart()
     }

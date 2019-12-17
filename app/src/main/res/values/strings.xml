@@ -38,4 +38,6 @@
     <string name="logo">Logo</string>
     <string name="logout_title">Logout</string>
     <string name="logout_dialog_desc">Do you really want to logout?</string>
+    <string name="version">Version</string>
+    <string name="about">About</string>
 </resources>

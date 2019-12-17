@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.bke.datepoll.vm.AppObservableHandler
+import com.bke.datepoll.AppObservableHandler
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
 
