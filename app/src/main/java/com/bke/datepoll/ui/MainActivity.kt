@@ -31,8 +31,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : BaseActivity() {
 
     override lateinit var activityView: View
+    private val appObservableHandler: AppObservableHandler by inject()
 
-    val test: AppObservableHandler by inject()
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private val mainViewModel: MainViewModel by viewModel()
@@ -61,7 +61,7 @@ class MainActivity : BaseActivity() {
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
 
-            test.showSnackbar.value = "test"
+            appObservableHandler.showSnackbar.value = "test"
         }
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)

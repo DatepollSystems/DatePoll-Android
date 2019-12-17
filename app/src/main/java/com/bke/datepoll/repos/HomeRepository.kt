@@ -1,18 +1,15 @@
 package com.bke.datepoll.repos
 
-import android.util.Log
 import com.bke.datepoll.connection.DatepollApi
 import com.bke.datepoll.data.model.UserLiveDataElements
-import com.bke.datepoll.data.requests.*
+import com.bke.datepoll.data.requests.CurrentUserResponseModel
 import com.bke.datepoll.db.DatepollDatabase
 import com.bke.datepoll.db.dao.*
 import com.bke.datepoll.db.model.EmailAddressDbModel
 import com.bke.datepoll.db.model.PerformanceBadgesDbModel
 import com.bke.datepoll.db.model.PermissionDbModel
 import com.bke.datepoll.db.model.UserDbModel
-import okhttp3.ResponseBody
 
-//TODO change constructor to DI
 class HomeRepository(
     private val api: DatepollApi,
     private val db: DatepollDatabase
@@ -30,14 +27,6 @@ class HomeRepository(
             api,
             call = { api.currentUser(prefs.JWT!!) },
             errorMessage = "Could not get current user"
-        )
-    }
-
-    suspend fun logout(request: LogoutRequestModel): LogoutResponseModel? {
-        return safeApiCall(
-            api,
-            call = { api.logout(request) },
-            errorMessage = "Could not perform logout"
         )
     }
 
@@ -91,28 +80,5 @@ class HomeRepository(
 
     fun updateUser(user: UserDbModel){
         userDao.addUser(user)
-    }
-
-    suspend fun isServiceOnline(): ResponseBody? {
-        return safeApiCall(
-            api,
-            call = { api.checkIfServiceIsOnline() },
-            errorMessage = "Service could not be reached"
-        )
-    }
-
-    suspend fun renewToken() {
-        val jwtRefreshRequest = RefreshTokenWithSessionRequest(prefs.SESSION!!)
-
-        val response: RefreshTokenWithSessionResponse? = safeApiCall(
-            api,
-            call = { api.refreshTokenWithSession(jwtRefreshRequest) },
-            errorMessage = "Could not renew token"
-        )
-
-        if (response != null) {
-            prefs.JWT = response.token
-            Log.i("Refreshed jwt token", response.msg)
-        }
     }
 }

@@ -40,4 +40,12 @@
     <string name="logout_dialog_desc">Do you really want to logout?</string>
     <string name="version">Version</string>
     <string name="about">About</string>
+    <string name="surname">Surname</string>
+    <string name="firstname">Firstname</string>
+    <string name="title">Title</string>
+    <string name="birthday">Birthday</string>
+    <string name="street">Street</string>
+    <string name="city">City</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="save">Save</string>
 </resources>

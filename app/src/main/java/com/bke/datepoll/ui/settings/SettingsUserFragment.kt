@@ -34,15 +34,11 @@ class SettingsUserFragment : Fragment() {
         binding.lifecycleOwner = this
 
 
-
         return view
     }
 
 
     override fun onStart() {
-        userSettingsSwipeRefresh.isRefreshing = true
-
-
 
         userSettingsSwipeRefresh.setOnRefreshListener {
             Snackbar.make(this.requireView(), "Test", Snackbar.LENGTH_LONG).show()

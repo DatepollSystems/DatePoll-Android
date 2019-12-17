@@ -11,7 +11,7 @@ import com.bke.datepoll.db.model.*
                         PhoneNumberDbModel::class,
                         PerformanceBadgesDbModel::class,
                         EmailAddressDbModel::class,
-                        PermissionDbModel::class], version = 1)
+                        PermissionDbModel::class], version = 2)
 abstract class DatepollDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun phoneDao(): PhoneNumberDao

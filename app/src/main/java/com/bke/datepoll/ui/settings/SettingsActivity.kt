@@ -2,22 +2,32 @@ package com.bke.datepoll.ui.settings
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.bke.datepoll.AppObservableHandler
 import com.bke.datepoll.R
+import com.bke.datepoll.ui.BaseActivity
 import com.bke.datepoll.vm.SettingsViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_settings_user.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : BaseActivity() {
+
+    override lateinit var activityView: View
+    private val appObservableHandler: AppObservableHandler by inject()
+
 
     private val vm: SettingsViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+        activityView = findViewById(android.R.id.content)
+
 
         val toolbar: Toolbar = findViewById(R.id.settingsToolbar)
         setSupportActionBar(toolbar)
@@ -29,7 +39,6 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun init(){
-
 
     }
 
