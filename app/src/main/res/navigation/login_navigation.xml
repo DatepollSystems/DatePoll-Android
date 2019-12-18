@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_navigation"
+    app:startDestination="@id/serverInputFragment">
+
+    <fragment
+        android:id="@+id/serverInputFragment"
+        android:name="com.bke.datepoll.ui.login.ServerInputFragment"
+        android:label="fragment_server_input"
+        tools:layout="@layout/fragment_server_input" >
+        <action
+            android:id="@+id/action_serverInputFragment_to_loginHomeFragment"
+            app:destination="@id/loginHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginHomeFragment"
+        android:name="com.bke.datepoll.ui.login.LoginHomeFragment"
+        android:label="fragment_login_home"
+        tools:layout="@layout/fragment_login_home" />
+</navigation>

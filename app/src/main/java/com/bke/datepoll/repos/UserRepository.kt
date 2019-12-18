@@ -21,23 +21,25 @@ class UserRepository(private val api: DatepollApi, private val db: DatepollDatab
     private val permissionsDao: PermissionsDao = db.permissionDao()
 
     suspend fun loadUser(force: Boolean = false): LiveData<UserDbModel>{
-        val userLiveData = db.userDao().getUser()
-        val user: UserDbModel = userLiveData.value!!
 
-
-        return if(db.userDao().getCount() != 1L){
+        val size = db.userDao().getCount() != 1L
+        if(!size){
             val reloadedUser = loadUserFromServer()
             val userLiveDataElements: UserLiveDataElements = storeUser(reloadedUser)
-            userLiveDataElements.user
-        } else if((Date().time - user.savedAt) > 3600000 || force){
-            //user is older then 1 hour -> reload user from server
-            val reloadedUser = loadUserFromServer()
-            //update user TODO update also child tables!!!
-            userDao.addUser(reloadedUser.getUserDbModelPart())
-
-            userDao.getUser()
+            return userLiveDataElements.user
         } else {
-            userLiveData
+            val userLiveData: LiveData<UserDbModel> = db.userDao().getUser()
+            val user: UserDbModel? = userLiveData.value
+
+            return if (user != null && (Date().time - user.savedAt) > 3600000 || force) {
+                //user is older then 1 hour -> reload user from server
+                val reloadedUser = loadUserFromServer()
+                //update user TODO update also child tables!!!
+                userDao.addUser(reloadedUser.getUserDbModelPart())
+                userDao.getUser()
+            } else {
+                userLiveData
+            }
         }
     }
 

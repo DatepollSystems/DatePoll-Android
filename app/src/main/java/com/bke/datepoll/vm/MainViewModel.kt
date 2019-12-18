@@ -31,7 +31,7 @@ class MainViewModel(
 
     private val tag = "MainViewModel"
 
-    val loaded = MutableLiveData<CurrentUserResponseModel>()
+    val loaded = MutableLiveData<LiveData<UserDbModel>>()
     val user = MediatorLiveData<UserDbModel>()
     val logout = MutableLiveData<Boolean>(false)
     val permissions = MutableLiveData<List<PermissionDbModel>>()
@@ -42,11 +42,9 @@ class MainViewModel(
 
     fun loadUserData() {
        scope.launch {
-            val response: CurrentUserResponseModel? = homeRepository.getCurrentUser()
-            let {
-               loaded.postValue(response)
-            }
-        }
+           val loadedUser = userRepository.loadUser(true)
+           loaded.postValue(loadedUser)
+       }
     }
 
     fun logout(){
@@ -67,8 +65,7 @@ class MainViewModel(
         }
     }
 
-    fun renewDataOfCurrentUser(){
-        //TODO Check if data is older than 1 hour!!! remove test code
+    /*fun renewDataOfCurrentUser(){
 
         scope.launch {
             val user = user.value!!
@@ -82,6 +79,6 @@ class MainViewModel(
                 user.force_password_change, Date().time)
             homeRepository.updateUser(new)
         }
-    }
+    }*/
 
 }

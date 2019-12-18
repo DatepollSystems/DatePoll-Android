@@ -1,12 +1,10 @@
 package com.bke.datepoll.ui
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -16,13 +14,13 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bke.datepoll.AppObservableHandler
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.ActivityMainBinding
+import com.bke.datepoll.ui.login.LoginActivity
 import com.bke.datepoll.ui.settings.SettingsActivity
-import com.bke.datepoll.AppObservableHandler
 import com.bke.datepoll.vm.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.dialog.MaterialDialogs
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.nav_header_main.*
@@ -38,6 +36,7 @@ class MainActivity : BaseActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private val mainViewModel: MainViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -89,12 +88,12 @@ class MainActivity : BaseActivity() {
 
         mainViewModel.loaded.observe(this, Observer {
             if(it != null){
-                mainViewModel.user.addSource(mainViewModel.storeUser(it)){ user ->
-                    mainViewModel.user.value = user
+
+                mainViewModel.user.addSource(it){ u ->
+                    mainViewModel.user.value = u
                 }
 
                 findNavController(R.id.nav_host_main).navigate(R.id.action_home_loaded)
-
                 mainViewModel.loaded.value = null
             }
         })
@@ -114,7 +113,7 @@ class MainActivity : BaseActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        mainViewModel.renewDataOfCurrentUser()
+        mainViewModel.loadUserData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -48,4 +48,9 @@
     <string name="city">City</string>
     <string name="postal_code">Postal Code</string>
     <string name="save">Save</string>
+    <string name="domain">Domain</string>
+    <string name="more">more</string>
+    <string name="set">set</string>
+    <string name="port">Port</string>
+    <string name="advanced">Advanced</string>
 </resources>
