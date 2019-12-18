@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import com.bke.datepoll.connection.DatepollApi
 import com.bke.datepoll.data.model.UserLiveDataElements
 import com.bke.datepoll.data.model.UserModel
-import com.bke.datepoll.data.requests.CurrentUserResponseModel
 import com.bke.datepoll.db.DatepollDatabase
 import com.bke.datepoll.db.dao.*
 import com.bke.datepoll.db.model.EmailAddressDbModel

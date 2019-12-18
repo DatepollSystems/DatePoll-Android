@@ -21,6 +21,8 @@ import com.bke.datepoll.databinding.ActivityMainBinding
 import com.bke.datepoll.ui.settings.SettingsActivity
 import com.bke.datepoll.AppObservableHandler
 import com.bke.datepoll.vm.MainViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.dialog.MaterialDialogs
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.nav_header_main.*
@@ -127,12 +129,12 @@ class MainActivity : BaseActivity() {
                 return true
             }
             R.id.action_logout -> {
-                AlertDialog.Builder(this)
+                MaterialAlertDialogBuilder(this)
                     .setTitle(R.string.logout_title)
                     .setMessage(R.string.logout_dialog_desc)
-                    .setPositiveButton(android.R.string.yes, DialogInterface.OnClickListener { dialog, which ->
+                    .setPositiveButton(android.R.string.yes) { _, _ ->
                         mainViewModel.logout()
-                    })
+                    }
                     .setNegativeButton(android.R.string.no, null).create().show()
 
                 return true

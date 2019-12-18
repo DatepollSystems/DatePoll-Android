@@ -27,7 +27,6 @@ val appModule = module {
     single { LoginRepository(get()) }
     single { UserRepository(get(), get()) }
 
-
     // ViewModels
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel(get(), get(), get(), get()) }
