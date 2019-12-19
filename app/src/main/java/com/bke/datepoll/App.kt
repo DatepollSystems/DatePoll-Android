@@ -14,7 +14,7 @@ import org.koin.dsl.module
 
 val appModule = module {
     // Database
-    single { DatepollServiceFactory.createDatepollService() }
+    single { DatepollServiceFactory.createDatepollService(get()) }
     single { DatepollDatabase.getDatabase(androidContext()) }
 
     // others

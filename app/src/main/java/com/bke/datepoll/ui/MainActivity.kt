@@ -27,7 +27,6 @@ import kotlinx.android.synthetic.main.nav_header_main.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class MainActivity : BaseActivity() {
 
     override lateinit var activityView: View
@@ -108,8 +107,6 @@ class MainActivity : BaseActivity() {
             }
         })
     }
-
-
 
     override fun onRestart() {
         super.onRestart()

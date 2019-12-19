@@ -15,6 +15,14 @@ class Prefs(context: Context) {
         get() = prefs.getString("session", null)
         set(value) = prefs.edit().putString("session", value).apply()
 
+    var SERVER_ADDRESS: String?
+        get() = prefs.getString("server", "https://duckduckgo.com")
+        set(value) = prefs.edit().putString("server", value).apply()
+
+    var SERVER_PORT : Int
+        get() = prefs.getInt("port", 9330)
+        set(value) = prefs.edit().putInt("port", value).apply()
+
     var JWT: String?
         get() = prefs.getString("jwt", null)
         set(value) = prefs.edit().putString("jwt", value).apply()
