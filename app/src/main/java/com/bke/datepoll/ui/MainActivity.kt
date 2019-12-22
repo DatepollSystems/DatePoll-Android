@@ -2,6 +2,7 @@ package com.bke.datepoll.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -26,6 +27,7 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.nav_header_main.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.IllegalArgumentException
 
 class MainActivity : BaseActivity() {
 
@@ -92,8 +94,13 @@ class MainActivity : BaseActivity() {
                     mainViewModel.user.value = u
                 }
 
-                findNavController(R.id.nav_host_main).navigate(R.id.action_home_loaded)
-                mainViewModel.loaded.value = null
+                try {
+                    findNavController(R.id.nav_host_main).navigate(R.id.action_home_loaded)
+                } catch (e: IllegalArgumentException){
+                    Log.e("MainActivity", "View wasn't loaded")
+                } finally {
+                    mainViewModel.loaded.value = null
+                }
             }
         })
 
