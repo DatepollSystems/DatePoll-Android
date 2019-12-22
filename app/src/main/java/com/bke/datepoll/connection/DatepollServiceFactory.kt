@@ -8,8 +8,6 @@ import javax.net.ssl.HttpsURLConnection
 
 object DatepollServiceFactory {
 
-
-
     fun createDatepollService(prefs: Prefs) : DatepollApi {
 
         val url = "${prefs.SERVER_ADDRESS}:${prefs.SERVER_PORT}"

@@ -1,10 +1,18 @@
 package com.bke.datepoll
 
 import android.app.Application
+import android.widget.EditText
+import androidx.databinding.BindingConversion
+import androidx.databinding.InverseBindingAdapter
 import com.bke.datepoll.connection.DatepollServiceFactory
 import com.bke.datepoll.db.DatepollDatabase
-import com.bke.datepoll.repos.*
-import com.bke.datepoll.vm.*
+import com.bke.datepoll.repos.HomeRepository
+import com.bke.datepoll.repos.LoginRepository
+import com.bke.datepoll.repos.ServerRepository
+import com.bke.datepoll.repos.UserRepository
+import com.bke.datepoll.vm.LoginViewModel
+import com.bke.datepoll.vm.MainViewModel
+import com.bke.datepoll.vm.SettingsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel

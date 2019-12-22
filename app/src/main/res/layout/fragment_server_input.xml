@@ -129,7 +129,7 @@
                     android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:inputType="number"
-                    app:bindInt="@={vm.serverPort}" />
+                    android:text="@={vm.serverPortDisplay}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -2,6 +2,9 @@ package com.bke.datepoll.vm
 
 import android.util.Log
 import android.util.Patterns
+import android.widget.EditText
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.Prefs
 import com.bke.datepoll.repos.LoginRepository
@@ -18,7 +21,8 @@ class LoginViewModel(
     val password = MutableLiveData<String>()
     val loginSuccessful = MutableLiveData<Boolean>()
     val serverAddress = MutableLiveData<String>()
-    val serverPort = MutableLiveData(9330)
+    val serverPort = MutableLiveData<Int>(9330)
+    val serverPortDisplay = MutableLiveData<String>(serverPort.value.toString())
 
     fun checkIfServiceIsOnline(){
         scope.launch {
@@ -65,4 +69,6 @@ class LoginViewModel(
     private fun isPasswordValid(password: String): Boolean {
         return password.length > 5
     }
+
+
 }

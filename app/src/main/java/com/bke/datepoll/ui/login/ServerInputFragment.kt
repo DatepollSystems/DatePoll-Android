@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.bke.datepoll.Prefs
@@ -42,6 +43,10 @@ class ServerInputFragment : Fragment() {
         binding.vm = loginViewModel
         binding.lifecycleOwner = this
 
+
+        loginViewModel.serverPort.observeForever{
+            Log.i("Observer", it.toString())
+        }
 
         return view
     }
