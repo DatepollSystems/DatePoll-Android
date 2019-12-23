@@ -16,31 +16,41 @@
         android:tag="@string/settings_home_fragment"
         tools:context=".ui.settings.SettingsHomeFragment">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSettingsAbout"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+        <View
+            android:id="@+id/divider2"
             android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:paddingStart="30dp"
-            android:text="@string/about"
-            android:textAlignment="textStart"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnUserSettings"
-            tools:ignore="RtlSymmetry" />
+            app:layout_constraintTop_toBottomOf="@+id/btnUserSettings" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnUserSettings"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
             android:layout_height="56dp"
+            android:layout_marginTop="12dp"
             android:paddingStart="30dp"
             android:text="@string/user_settings"
             android:textAlignment="textStart"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:ignore="RtlSymmetry" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSettingsChangePhoneNumber"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:paddingStart="30dp"
+            android:text="@string/change_phone_number"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider2"
             tools:ignore="RtlSymmetry" />
 
         <View
@@ -50,6 +60,42 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnUserSettings" />
+            app:layout_constraintTop_toTopOf="@+id/btnUserSettings" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSettingsAbout"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:paddingStart="30dp"
+            android:text="@string/about"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/personal_data"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/general"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnSettingsChangePhoneNumber" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

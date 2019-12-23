@@ -3,7 +3,6 @@ package com.bke.datepoll.ui.login
  import android.os.Bundle
  import androidx.appcompat.app.AppCompatActivity
  import androidx.databinding.DataBindingUtil
- import androidx.lifecycle.Observer
  import com.bke.datepoll.Prefs
  import com.bke.datepoll.R
  import com.bke.datepoll.databinding.ActivityLoginBinding
@@ -20,17 +19,6 @@ open class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         initDatabinding()
-        loginViewModel.serverPortDisplay.observe(this, Observer {
-            if (it != null && it.isNotBlank()) {
-                loginViewModel.serverPort.value = it.toInt()
-            }
-        })
-
-        loginViewModel.serverPort.observe(this, Observer {
-            if(it != null && it.toString() != loginViewModel.serverPortDisplay.value)
-                loginViewModel.serverPortDisplay.value = it.toString()
-        })
-
     }
 
     private fun initDatabinding(){

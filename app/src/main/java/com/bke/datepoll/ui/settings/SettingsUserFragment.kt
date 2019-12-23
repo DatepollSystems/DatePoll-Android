@@ -1,14 +1,12 @@
 package com.bke.datepoll.ui.settings
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-
+import androidx.fragment.app.Fragment
 import com.bke.datepoll.R
-import com.bke.datepoll.databinding.FragmentHomeBinding
 import com.bke.datepoll.databinding.FragmentSettingsUserBinding
 import com.bke.datepoll.vm.SettingsViewModel
 import com.google.android.material.snackbar.Snackbar

@@ -53,4 +53,7 @@
     <string name="set">set</string>
     <string name="port">Port</string>
     <string name="advanced">Advanced</string>
+    <string name="personal_data">Personal data</string>
+    <string name="change_phone_number">Change phone number</string>
+    <string name="general">General</string>
 </resources>
