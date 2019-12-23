@@ -15,8 +15,23 @@ class Prefs(context: Context) {
         get() = prefs.getString("session", null)
         set(value) = prefs.edit().putString("session", value).apply()
 
+    var SERVER_ADDRESS: String?
+        get() = prefs.getString("server", "https://duckduckgo.com")
+        set(value) = prefs.edit().putString("server", value).apply()
+
+    var SERVER_PORT : Int
+        get() = prefs.getInt("port", 9330)
+        set(value) = prefs.edit().putInt("port", value).apply()
+
     var JWT: String?
         get() = prefs.getString("jwt", null)
         set(value) = prefs.edit().putString("jwt", value).apply()
 
+    var JWT_RENEWAL_TIME: Long
+        get() = prefs.getLong("jwtRenewalTime", 0)
+        set(value) = prefs.edit().putLong("jwtRenewalTime", value).apply()
+
+    var IS_LOGGED_IN: Boolean
+        get() = prefs.getBoolean("loggedin", false)
+        set(value) = prefs.edit().putBoolean("loggedin", value).apply()
 }

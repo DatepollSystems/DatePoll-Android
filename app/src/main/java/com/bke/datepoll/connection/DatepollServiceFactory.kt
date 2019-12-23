@@ -1,19 +1,26 @@
 package com.bke.datepoll.connection
 
+import com.bke.datepoll.Prefs
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-
+import javax.net.ssl.HttpsURLConnection
 
 object DatepollServiceFactory {
 
-    private val datepollClient = OkHttpClient().newBuilder()
-        .build()
+    fun createDatepollService(prefs: Prefs) : DatepollApi {
 
-    fun createDatepollService() : DatepollApi {
+        val url = "${prefs.SERVER_ADDRESS}:${prefs.SERVER_PORT}"
+
+        val datepollClient = OkHttpClient().newBuilder()
+                .hostnameVerifier { hostname, session ->
+                    val hv = HttpsURLConnection.getDefaultHostnameVerifier()
+                    hv.verify(prefs.SERVER_ADDRESS?.removePrefix("https://"), session)
+                }.build()
+
         val retrofit = Retrofit.Builder()
             .client(datepollClient)
-            .baseUrl("https://datepoll-testing.dafnik.me:8443")
+            .baseUrl(url)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
 

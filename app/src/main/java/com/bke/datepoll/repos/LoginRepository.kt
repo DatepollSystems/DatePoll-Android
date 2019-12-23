@@ -1,12 +1,13 @@
 package com.bke.datepoll.repos
 
 import com.bke.datepoll.connection.DatepollApi
-import com.bke.datepoll.connection.model.LoginRequestModel
-import com.bke.datepoll.connection.model.LoginResponseModel
+import com.bke.datepoll.data.requests.LoginRequestModel
+import com.bke.datepoll.data.requests.LoginResponseModel
 import okhttp3.ResponseBody
+import org.koin.core.KoinComponent
 
 
-class LoginRepository(private val api : DatepollApi) : BaseRepository(){
+class LoginRepository(private val api : DatepollApi) : BaseRepository("LoginRepository") {
 
     suspend fun isServiceOnline(): ResponseBody? {
         return safeApiCall(
