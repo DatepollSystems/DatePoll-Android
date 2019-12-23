@@ -1,7 +1,10 @@
 package com.bke.datepoll.ui.login
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,6 +59,33 @@ class ServerInputFragment : Fragment() {
             btnShowMoreServer.isEnabled = false
             advancedServerSettings.animateVisibility(true)
         }
+
+
+            etServerAddress.addTextChangedListener(object : TextWatcher {
+
+                override fun afterTextChanged(s: Editable) {
+
+                }
+
+                override fun beforeTextChanged(s: CharSequence, start: Int,
+                                               count: Int, after: Int) {
+
+                }
+
+                override fun onTextChanged(s: CharSequence, start: Int,
+                                           before: Int, count: Int) {
+                    if(Patterns.WEB_URL.matcher(s).matches()){
+                        btnSetServer.isEnabled = true
+                        tiServerDomain.error = ""
+                    } else {
+                        btnSetServer.isEnabled = false
+                        tiServerDomain.error = "This is no correct URL"
+                    }
+                }
+            })
+
+
+        btnSetServer.isEnabled = false
 
         btnSetServer.setOnClickListener {
             loadingServer.visibility = View.VISIBLE

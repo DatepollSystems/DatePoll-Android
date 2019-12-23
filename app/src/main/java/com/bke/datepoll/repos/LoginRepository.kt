@@ -7,9 +7,7 @@ import okhttp3.ResponseBody
 import org.koin.core.KoinComponent
 
 
-class LoginRepository(private val api : DatepollApi) : BaseRepository("LoginRepository"), KoinComponent{
-
-    
+class LoginRepository(private val api : DatepollApi) : BaseRepository("LoginRepository") {
 
     suspend fun isServiceOnline(): ResponseBody? {
         return safeApiCall(

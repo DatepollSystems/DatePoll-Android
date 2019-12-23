@@ -36,10 +36,6 @@ class MainViewModel(
     val logout = MutableLiveData<Boolean>(false)
     val permissions = MutableLiveData<List<PermissionDbModel>>()
 
-    fun storeUser(user: CurrentUserResponseModel): LiveData<UserDbModel>{
-        return homeRepository.storeUser(user).user
-    }
-
     fun loadUserData() {
        scope.launch {
            val loadedUser = userRepository.loadUser(true)
@@ -61,24 +57,8 @@ class MainViewModel(
 
             prefs.SESSION = ""
             prefs.JWT = ""
+            prefs.IS_LOGGED_IN = false
             logout.postValue(true)
         }
     }
-
-    /*fun renewDataOfCurrentUser(){
-
-        scope.launch {
-            val user = user.value!!
-            val new = UserDbModel(
-                user.id, user.title,
-                user.firstname, user.surname,
-                user.username, user.birthday,
-                user.join_date, user.streetname,
-                user.zipcode, user.location,
-                user.activated, user.activity,
-                user.force_password_change, Date().time)
-            homeRepository.updateUser(new)
-        }
-    }*/
-
 }
