@@ -20,8 +20,6 @@ class LoginViewModel(
     val userName = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     val loginSuccessful = MutableLiveData<Boolean>()
-    val serverAddress = MutableLiveData<String>()
-    val serverPort = MutableLiveData<Int>(9330)
 
     fun checkIfServiceIsOnline(){
         scope.launch {

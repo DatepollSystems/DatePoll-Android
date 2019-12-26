@@ -2,18 +2,19 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
 
         <variable
             name="vm"
-            type="com.bke.datepoll.vm.LoginViewModel" />
+            type="com.bke.datepoll.vm.ServerInputViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragmentServeRInputLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.login.ServerInputFragment">
+        tools:context=".ui.ServerInputActivity">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSetServer"
@@ -137,5 +138,4 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

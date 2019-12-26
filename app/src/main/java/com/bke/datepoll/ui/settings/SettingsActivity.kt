@@ -33,12 +33,6 @@ class SettingsActivity : BaseActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-
-        init()
-    }
-
-    private fun init(){
-
     }
 
     override fun onDestroy() {

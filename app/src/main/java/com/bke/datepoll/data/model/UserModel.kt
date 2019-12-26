@@ -2,6 +2,9 @@ package com.bke.datepoll.data.model
 
 import com.bke.datepoll.db.model.PhoneNumberDbModel
 import com.bke.datepoll.db.model.UserDbModel
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 data class UserModel(
@@ -20,6 +23,8 @@ data class UserModel(
     val join_date: String?,
 
     val streetname: String?,
+
+    val streetnumber: String?,
 
     val zipcode: Int?,
 
@@ -41,15 +46,19 @@ data class UserModel(
     val performance_badges: List<PerformanceBadgesModel>
 ){
     fun getUserDbModelPart(): UserDbModel {
+
+        val date = SimpleDateFormat("dd-MM-yyyy").parse(birthday)
+
         return UserDbModel(
             id,
             title,
             firstname,
             surname,
             username,
-            birthday,
+            date.time,
             join_date,
             streetname,
+            streetnumber,
             zipcode,
             location,
             activated,

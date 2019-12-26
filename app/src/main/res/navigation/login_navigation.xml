@@ -3,21 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_navigation"
-    app:startDestination="@id/serverInputFragment">
+    app:startDestination="@id/loginHomeFragment">
 
-    <fragment
-        android:id="@+id/serverInputFragment"
-        android:name="com.bke.datepoll.ui.login.ServerInputFragment"
-        android:label="fragment_server_input"
-        tools:layout="@layout/fragment_server_input" >
-        <action
-            android:id="@+id/action_serverInputFragment_to_loginHomeFragment"
-            app:destination="@id/loginHomeFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_left"/>
-    </fragment>
     <fragment
         android:id="@+id/loginHomeFragment"
         android:name="com.bke.datepoll.ui.login.LoginHomeFragment"

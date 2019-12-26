@@ -83,12 +83,12 @@ open class BaseRepository(private val tag: String) : KoinComponent{
                                 errorMessage = "Could not refresh the jwt token"
                             )
 
+
                             if (newjwt != null) {
                                 prefs.JWT = newjwt.token
                                 Log.i("Refreshed jwt token", newjwt.msg)
 
-                                //retry original request
-
+                                //retry
 
 
                             } else {

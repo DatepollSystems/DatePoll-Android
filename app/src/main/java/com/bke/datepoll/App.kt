@@ -12,6 +12,7 @@ import com.bke.datepoll.repos.ServerRepository
 import com.bke.datepoll.repos.UserRepository
 import com.bke.datepoll.vm.LoginViewModel
 import com.bke.datepoll.vm.MainViewModel
+import com.bke.datepoll.vm.ServerInputViewModel
 import com.bke.datepoll.vm.SettingsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -39,6 +40,7 @@ val appModule = module {
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel(get(), get(), get(), get()) }
     viewModel { SettingsViewModel(get(), get()) }
+    viewModel { ServerInputViewModel() }
 }
 
 class App : Application() {

@@ -3,10 +3,7 @@ package com.bke.datepoll.connection
 import com.bke.datepoll.data.requests.*
 import okhttp3.ResponseBody
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  * DatepollAPI
@@ -39,8 +36,7 @@ interface DatepollApi {
     @GET("/api/v1/user/myself")
     suspend fun currentUser(@Query("token") token: String) : Response<CurrentUserResponseModel>
 
-
-
-
+    @PUT("/api/v1/user/myself")
+    suspend fun updateCurrentUser(@Query("token") token: String, @Body u: UpdateUserRequest) : Response<CurrentUserResponseModel>
 
 }

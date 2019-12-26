@@ -26,7 +26,7 @@ class LauncherActivity : AppCompatActivity() {
                 Log.i("JWT", "JWT is saved")
                 startActivity(Intent(this, MainActivity::class.java))
             } else {
-                startActivity(Intent(this@LauncherActivity, LoginActivity::class.java))
+                startActivity(Intent(this@LauncherActivity, ServerInputActivity::class.java))
             }
         }).start()
     }
