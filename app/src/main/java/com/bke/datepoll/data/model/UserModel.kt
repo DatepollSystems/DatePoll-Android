@@ -1,5 +1,6 @@
 package com.bke.datepoll.data.model
 
+import android.annotation.SuppressLint
 import com.bke.datepoll.db.model.PhoneNumberDbModel
 import com.bke.datepoll.db.model.UserDbModel
 import java.text.SimpleDateFormat
@@ -45,9 +46,10 @@ data class UserModel(
 
     val performance_badges: List<PerformanceBadgesModel>
 ){
+    @SuppressLint("SimpleDateFormat")
     fun getUserDbModelPart(): UserDbModel {
 
-        val date = SimpleDateFormat("yyyy-MM-dd").parse(birthday)
+        val date = SimpleDateFormat("yyyy-MM-dd").parse(birthday!!)!!
 
         return UserDbModel(
             id,

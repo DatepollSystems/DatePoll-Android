@@ -13,7 +13,6 @@ import com.bke.datepoll.R
 import com.bke.datepoll.data.requests.UpdateUserRequest
 import com.bke.datepoll.databinding.FragmentSettingsUserBinding
 import com.bke.datepoll.vm.SettingsViewModel
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.fragment_settings_user.*
 import org.koin.android.ext.android.inject
@@ -98,7 +97,7 @@ class SettingsUserFragment : Fragment() {
                     o.showSnackbar.postValue("Updated user successfully")
                     findNavController().popBackStack()
                 } else {
-
+                    o.showSnackbar.postValue("Something went wrong!")
                 }
             }
         })

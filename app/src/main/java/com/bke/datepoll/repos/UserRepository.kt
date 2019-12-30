@@ -68,7 +68,6 @@ class UserRepository(private val api: DatepollApi, private val db: DatepollDatab
     }
 
     private fun storeUser(user: UserModel): UserLiveDataElements {
-        val userId = userDao.addUser(user.getUserDbModelPart())
 
         val performanceBadgesToStore = ArrayList<PerformanceBadgesDbModel>()
         val emailsToStore = ArrayList<EmailAddressDbModel>()

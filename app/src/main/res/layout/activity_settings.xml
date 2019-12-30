@@ -30,7 +30,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ProgressBar
+        <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/settingsProgressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
