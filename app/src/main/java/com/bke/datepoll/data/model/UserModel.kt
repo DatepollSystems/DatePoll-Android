@@ -47,7 +47,7 @@ data class UserModel(
 ){
     fun getUserDbModelPart(): UserDbModel {
 
-        val date = SimpleDateFormat("dd-MM-yyyy").parse(birthday)
+        val date = SimpleDateFormat("yyyy-MM-dd").parse(birthday)
 
         return UserDbModel(
             id,

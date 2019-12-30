@@ -106,7 +106,7 @@ class MainActivity : BaseActivity() {
 
         mainViewModel.logout.observe(this, Observer {
             if(it != null && it){
-                val i = Intent(this@MainActivity, LoginActivity::class.java)
+                val i = Intent(this@MainActivity, ServerInputActivity::class.java)
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(i)
                 mainViewModel.logout.value = false

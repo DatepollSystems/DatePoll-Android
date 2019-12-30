@@ -58,6 +58,7 @@ class SettingsUserFragment : Fragment() {
         btnUpdateUser.setOnClickListener {
             o.progressBar.postValue(true)
             vm.updateUser(UpdateUserRequest(
+                    title = tiTitle.editText?.text.toString(),
                     firstname = tiFirstname.editText?.text.toString(),
                     surname = tiSurname.editText?.text.toString(),
                     birthday = tiBirthday.editText?.text.toString(),
@@ -75,9 +76,9 @@ class SettingsUserFragment : Fragment() {
         o.progressBar.observe(this, Observer {
             if(it != null){
                 if(it)
-                    settingsProgressBar.visibility = View.VISIBLE
+                    settingsProgressBar?.visibility = View.VISIBLE
                 else
-                    settingsProgressBar.visibility = View.INVISIBLE
+                    settingsProgressBar?.visibility = View.INVISIBLE
 
                 o.progressBar.postValue(null)
             }
@@ -94,6 +95,7 @@ class SettingsUserFragment : Fragment() {
         vm.userUpdated.observe(this, Observer {
             if(it != null){
                 if(it){
+                    o.showSnackbar.postValue("Updated user successfully")
                     findNavController().popBackStack()
                 } else {
 

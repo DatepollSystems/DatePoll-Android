@@ -47,6 +47,7 @@ data class UserDbModel(
         val date: String = simpleDateFormat.format(Date(birthday!!))
 
         return UpdateUserRequest(
+                title!!,
                 firstname!!,
                 surname!!,
                 streetname!!,

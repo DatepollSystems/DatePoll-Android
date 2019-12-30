@@ -97,7 +97,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:inputType="date"
-                        android:text="@={Converter.dateToString(this, vm.user.birthday)}" />
+                        android:text="@{Converter.dateToString(vm.user.birthday)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
