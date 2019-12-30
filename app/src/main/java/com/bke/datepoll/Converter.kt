@@ -1,27 +1,28 @@
 package com.bke.datepoll
 
-import android.widget.EditText
-import androidx.databinding.BindingConversion
-import androidx.databinding.InverseBindingAdapter
+import android.annotation.SuppressLint
+import androidx.databinding.InverseMethod
+import java.text.SimpleDateFormat
+import java.util.*
 
 object Converter {
 
-    @BindingConversion
+    @SuppressLint("SimpleDateFormat")
     @JvmStatic
-    fun intToStr(value: Int?): String? {
-        // Important to break potential infinite loops.
-        return value.toString()
+    fun stringToDate(
+            value: String
+    ): Long {
+        val date = SimpleDateFormat("yyyy-MM-dd").parse(value)!!
+        return date.time
     }
 
-    @InverseBindingAdapter(attribute = "android:text")
+    @SuppressLint("SimpleDateFormat")
     @JvmStatic
-    fun captureIntValue(view: EditText?): Int? {
-        var value: Long = 0
-        try {
-            value = view!!.text.toString().toInt().toLong()
-        } catch (e: NumberFormatException) {
-            e.printStackTrace()
-        }
-        return value.toInt()
+    @InverseMethod("stringToDate")
+    fun dateToString(
+            value: Long
+    ): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd")
+        return formatter.format(Date(value))
     }
 }

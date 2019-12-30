@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.bke.datepoll.Converter"/>
 
         <variable
             name="vm"
@@ -23,7 +24,9 @@
 
 
             <LinearLayout
+                android:id="@+id/userSettingsLayout"
                 android:layout_width="match_parent"
+                android:visibility="invisible"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -41,7 +44,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:text="" />
+                        android:text="@{vm.user.title}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -58,11 +61,11 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:text="" />
+                        android:text="@{vm.user.firstname}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/Surname"
+                    android:id="@+id/tiSurname"
                     style="@style/LoginInputField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -75,7 +78,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:text="" />
+                        android:text="@{vm.user.surname}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,7 +97,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:inputType="date"
-                        android:text="" />
+                        android:text="@{Converter.dateToString(vm.user.birthday)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
@@ -102,7 +105,7 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tiSteet"
+                        android:id="@+id/tiStreetName"
                         style="@style/LoginInputField"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -116,7 +119,7 @@
                             android:layout_width="200dp"
                             android:layout_height="50dp"
                             android:inputType="text"
-                            android:text="" />
+                            android:text="@{vm.user.streetname}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -125,15 +128,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="20dp"
-                        android:layout_marginRight="30dp"
+                        android:layout_marginEnd="30dp"
                         android:layout_marginBottom="20dp"
-                        android:hint="StreetNumber">
+                        android:hint="@string/street_number">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:inputType="number"
-                            android:text="" />
+                            android:inputType="text"
+                            android:text="@{vm.user.streetnumber}" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -142,7 +145,7 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tiPostalCode"
+                        android:id="@+id/tiZipCode"
                         style="@style/LoginInputField"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -156,16 +159,16 @@
                             android:layout_width="100dp"
                             android:layout_height="50dp"
                             android:inputType="number"
-                            android:text="" />
+                            android:text="@{String.valueOf(vm.user.zipcode)}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tiCity"
+                        android:id="@+id/tiLocation"
                         style="@style/LoginInputField"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="20dp"
-                        android:layout_marginRight="30dp"
+                        android:layout_marginEnd="30dp"
                         android:layout_marginBottom="20dp"
                         android:hint="@string/city">
 
@@ -173,7 +176,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:inputType="text"
-                            android:text="" />
+                            android:text="@{vm.user.location}" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -183,7 +186,7 @@
                     android:layout_marginTop="30dp">
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/saveUser"
+                        android:id="@+id/btnUpdateUser"
                         style=""
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

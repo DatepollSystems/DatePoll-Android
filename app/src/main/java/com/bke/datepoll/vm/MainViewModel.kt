@@ -4,27 +4,18 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.bke.datepoll.Prefs
-import com.bke.datepoll.data.requests.CurrentUserResponseModel
 import com.bke.datepoll.data.requests.LogoutRequestModel
 import com.bke.datepoll.data.requests.LogoutResponseModel
 import com.bke.datepoll.db.model.PermissionDbModel
 import com.bke.datepoll.db.model.UserDbModel
-import com.bke.datepoll.repos.HomeRepository
 import com.bke.datepoll.repos.ServerRepository
 import com.bke.datepoll.repos.UserRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.util.*
-import kotlin.coroutines.CoroutineContext
 
 
 class MainViewModel(
     private val prefs: Prefs,
-    private val homeRepository: HomeRepository,
     private val userRepository: UserRepository,
     private val serverRepository: ServerRepository
 ) : BaseViewModel() {

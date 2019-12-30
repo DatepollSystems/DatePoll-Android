@@ -4,7 +4,12 @@
       <w>coroutine</w>
       <w>databinding</w>
       <w>datepoll</w>
+      <w>firstname</w>
       <w>moshi</w>
+      <w>snackbar</w>
+      <w>streetname</w>
+      <w>streetnumber</w>
+      <w>zipcode</w>
     </words>
   </dictionary>
 </component>

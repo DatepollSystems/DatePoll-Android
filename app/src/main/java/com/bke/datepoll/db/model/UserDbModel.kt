@@ -1,7 +1,11 @@
 package com.bke.datepoll.db.model
 
+import android.annotation.SuppressLint
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.bke.datepoll.data.requests.UpdateUserRequest
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Entity(tableName = "users")
 data class UserDbModel(
@@ -17,11 +21,13 @@ data class UserDbModel(
 
     val username: String?,
 
-    val birthday: String?,
+    val birthday: Long?,
 
     val join_date: String?,
 
     val streetname: String?,
+
+    val streetnumber: String?,
 
     val zipcode: Int?,
 
@@ -34,4 +40,23 @@ data class UserDbModel(
     val force_password_change: Int?,
 
     val savedAt: Long
-)
+){
+    @SuppressLint("SimpleDateFormat")
+    fun getUpdateUserPart(): UpdateUserRequest{
+
+        val pattern = "yyyy-MM-dd"
+        val simpleDateFormat = SimpleDateFormat(pattern)
+        val date: String = simpleDateFormat.format(Date(birthday!!))
+
+        return UpdateUserRequest(
+                title!!,
+                firstname!!,
+                surname!!,
+                streetname!!,
+                streetnumber!!.toString(),
+                zipcode!!,
+                location!!,
+                date
+        )
+    }
+}

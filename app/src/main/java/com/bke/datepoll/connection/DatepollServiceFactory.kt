@@ -13,7 +13,7 @@ object DatepollServiceFactory {
         val url = "${prefs.SERVER_ADDRESS}:${prefs.SERVER_PORT}"
 
         val datepollClient = OkHttpClient().newBuilder()
-                .hostnameVerifier { hostname, session ->
+                .hostnameVerifier { _, session ->
                     val hv = HttpsURLConnection.getDefaultHostnameVerifier()
                     hv.verify(prefs.SERVER_ADDRESS?.removePrefix("https://"), session)
                 }.build()
