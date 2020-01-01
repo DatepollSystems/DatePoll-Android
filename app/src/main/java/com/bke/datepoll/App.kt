@@ -27,9 +27,9 @@ val appModule = module {
     single { AppObservableHandler() }
 
     // Repositories
-    single { ServerRepository(get(), get()) }
-    single { LoginRepository(get()) }
-    single { UserRepository(get(), get()) }
+    single { ServerRepository() }
+    single { LoginRepository() }
+    single { UserRepository() }
 
     // ViewModels
     viewModel { LoginViewModel() }
@@ -45,8 +45,8 @@ class App : Application() {
 
         startKoin {
             androidLogger()
-            androidContext(applicationContext)
-            modules(appModule)
+            androidContext(this@App)
+            modules(listOf(appModule))
         }
 
 

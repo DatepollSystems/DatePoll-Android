@@ -1,15 +1,17 @@
 package com.bke.datepoll.repos
 
+import com.bke.datepoll.Prefs
 import com.bke.datepoll.connection.DatepollApi
 import com.bke.datepoll.data.requests.LogoutRequestModel
 import com.bke.datepoll.data.requests.LogoutResponseModel
 import com.bke.datepoll.db.DatepollDatabase
 import okhttp3.ResponseBody
+import org.koin.core.inject
 
-class ServerRepository(
-    private val api: DatepollApi,
-    private val db: DatepollDatabase
-) : BaseRepository("ServerRepository"){
+class ServerRepository: BaseRepository("ServerRepository"){
+
+    private val api: DatepollApi by inject()
+    private val db: DatepollDatabase by inject()
 
     suspend fun isServiceOnline(): ResponseBody? {
         return safeApiCall(
@@ -24,7 +26,7 @@ class ServerRepository(
         
         return safeApiCall(
             api,
-            call = { api.logout(request) },
+            call = { api.logout(prefs.JWT!!, request) },
             errorMessage = "Could not perform logout"
         )
     }

@@ -25,18 +25,18 @@ interface DatepollApi {
     suspend fun login(@Body request: LoginRequestModel): Response<LoginResponseModel>
 
     @POST("/api/auth/IamLoggedIn")
-    suspend fun refreshTokenWithSession(@Body request:RefreshTokenWithSessionRequest): Response<RefreshTokenWithSessionResponse>
+    suspend fun refreshTokenWithSession(@Body request: RefreshTokenWithSessionRequest): Response<RefreshTokenWithSessionResponse>
 
     @POST("/api/v1/user/myself/session/logoutCurrentSession")
-    suspend fun logout(@Body requestModel: LogoutRequestModel): Response<LogoutResponseModel>
+    suspend fun logout(@Query("token") token: String, @Body requestModel: LogoutRequestModel): Response<LogoutResponseModel>
 
     /**
      * General requests for getting user information
      */
     @GET("/api/v1/user/myself")
-    suspend fun currentUser(@Query("token") token: String) : Response<CurrentUserResponseModel>
+    suspend fun currentUser(@Query("token") token: String): Response<CurrentUserResponseModel>
 
     @PUT("/api/v1/user/myself")
-    suspend fun updateCurrentUser(@Query("token") token: String, @Body u: UpdateUserRequest) : Response<CurrentUserResponseModel>
+    suspend fun updateCurrentUser(@Query("token") token: String, @Body u: UpdateUserRequest): Response<CurrentUserResponseModel>
 
 }

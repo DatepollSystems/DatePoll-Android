@@ -1,6 +1,5 @@
 package com.bke.datepoll.repos
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.bke.datepoll.connection.DatepollApi
 import com.bke.datepoll.data.model.UserLiveDataElements
@@ -12,10 +11,13 @@ import com.bke.datepoll.db.model.EmailAddressDbModel
 import com.bke.datepoll.db.model.PerformanceBadgesDbModel
 import com.bke.datepoll.db.model.PermissionDbModel
 import com.bke.datepoll.db.model.UserDbModel
-import kotlinx.android.synthetic.main.fragment_settings_user.view.*
+import org.koin.core.inject
 import java.util.*
 
-class UserRepository(private val api: DatepollApi, private val db: DatepollDatabase) : BaseRepository("UserRepository") {
+class UserRepository : BaseRepository("UserRepository") {
+
+    private val api: DatepollApi by inject()
+    private val db: DatepollDatabase by inject()
 
     private val userDao: UserDao = db.userDao()
     private val phoneNumberDao: PhoneNumberDao = db.phoneDao()

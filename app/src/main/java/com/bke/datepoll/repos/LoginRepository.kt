@@ -5,14 +5,17 @@ import com.bke.datepoll.data.requests.LoginRequestModel
 import com.bke.datepoll.data.requests.LoginResponseModel
 import okhttp3.ResponseBody
 import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 
-class LoginRepository(private val api : DatepollApi) : BaseRepository("LoginRepository") {
+class LoginRepository : BaseRepository("LoginRepository") {
+
+    private val api: DatepollApi by inject()
 
     suspend fun isServiceOnline(): ResponseBody? {
         return safeApiCall(
             api,
-            call = {api.checkIfServiceIsOnline()},
+            call = { api.checkIfServiceIsOnline() },
             errorMessage = "Service could not be reached"
         )
     }
@@ -22,7 +25,7 @@ class LoginRepository(private val api : DatepollApi) : BaseRepository("LoginRepo
 
         return safeApiCall(
             api,
-            call = { api.login(requestObj)},
+            call = { api.login(requestObj) },
             errorMessage = "Could not sign in"
         )
     }
