@@ -2,20 +2,18 @@ package com.bke.datepoll.vm
 
 import android.util.Log
 import android.util.Patterns
-import android.widget.EditText
-import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseBindingAdapter
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.Prefs
 import com.bke.datepoll.repos.LoginRepository
 import kotlinx.coroutines.launch
+import org.koin.core.inject
 import java.util.*
 
 
-class LoginViewModel(
-    private val prefs: Prefs,
-    private val repository: LoginRepository
-) : BaseViewModel() {
+class LoginViewModel: BaseViewModel() {
+
+    private val prefs: Prefs by inject()
+    private val repository: LoginRepository by inject()
 
     val userName = MutableLiveData<String>()
     val password = MutableLiveData<String>()

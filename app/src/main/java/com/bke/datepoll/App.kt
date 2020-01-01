@@ -32,9 +32,9 @@ val appModule = module {
     single { UserRepository(get(), get()) }
 
     // ViewModels
-    viewModel { LoginViewModel(get(), get()) }
-    viewModel { MainViewModel(get(), get(), get()) }
-    viewModel { SettingsViewModel(get(), get()) }
+    viewModel { LoginViewModel() }
+    viewModel { MainViewModel() }
+    viewModel { SettingsViewModel() }
     viewModel { ServerInputViewModel() }
 }
 

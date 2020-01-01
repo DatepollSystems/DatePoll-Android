@@ -12,15 +12,16 @@ import com.bke.datepoll.db.model.UserDbModel
 import com.bke.datepoll.repos.ServerRepository
 import com.bke.datepoll.repos.UserRepository
 import kotlinx.coroutines.launch
+import org.koin.core.inject
 
 
-class MainViewModel(
-    private val prefs: Prefs,
-    private val userRepository: UserRepository,
-    private val serverRepository: ServerRepository
-) : BaseViewModel() {
+class MainViewModel: BaseViewModel() {
 
     private val tag = "MainViewModel"
+
+    private val prefs: Prefs by inject()
+    private val userRepository: UserRepository by inject()
+    private val serverRepository: ServerRepository by inject()
 
     val loaded = MutableLiveData<LiveData<UserDbModel>>()
     val user = MediatorLiveData<UserDbModel>()

@@ -7,12 +7,13 @@ import com.bke.datepoll.Prefs
 import com.bke.datepoll.data.requests.UpdateUserRequest
 import com.bke.datepoll.db.model.UserDbModel
 import com.bke.datepoll.repos.UserRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.launch
+import org.koin.core.inject
 
-class SettingsViewModel(
-    private val prefs: Prefs,
-    private val userRepo: UserRepository
-) : BaseViewModel() {
+class SettingsViewModel: BaseViewModel() {
+
+    private val prefs: Prefs by inject()
+    private val userRepo: UserRepository by inject()
 
     val user = MediatorLiveData<UserDbModel>()
     val userLoaded = MutableLiveData<LiveData<UserDbModel>>()
