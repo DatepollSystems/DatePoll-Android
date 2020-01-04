@@ -25,6 +25,9 @@ class UserRepository : BaseRepository("UserRepository") {
     private val performanceBadgesDao: PerformanceBadgesDao = db.performanceBadgesDao()
     private val permissionsDao: PermissionsDao = db.permissionDao()
 
+
+    val user = userDao.getUser()
+
     suspend fun updateUser(user: UpdateUserRequest): LiveData<UserDbModel>{
         val u = updateUserOnServer(user)
         return storeUser(u).user
@@ -55,6 +58,25 @@ class UserRepository : BaseRepository("UserRepository") {
 
     }
 
+    suspend fun getUser(force: Boolean = false){
+        val size = db.userDao().getCount() != 1L
+
+        if(!size){
+            val reloadedUser = loadUserFromServer()
+            storeUser(reloadedUser)
+        }
+
+        val userLiveData: LiveData<UserDbModel> = db.userDao().getUser()
+        val user: UserDbModel? = userLiveData.value
+
+        if (user != null && (Date().time - user.savedAt) > 3600000 || force) {
+            //user is older then 1 hour -> reload user from server
+            val reloadedUser = loadUserFromServer()
+            //update user TODO update also child tables!!!
+            userDao.addUser(reloadedUser.getUserDbModelPart())
+        }
+    }
+
     private suspend fun updateUserOnServer(user: UpdateUserRequest) : UserModel{
         return safeApiCall(
                 api,
@@ -62,7 +84,7 @@ class UserRepository : BaseRepository("UserRepository") {
                 errorMessage = "")!!.user
     }
 
-    private suspend fun loadUserFromServer(): UserModel{
+    private suspend fun loadUserFromServer(): UserModel {
         return safeApiCall(
             api,
             call = { api.currentUser(prefs.JWT!!) },

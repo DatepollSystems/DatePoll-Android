@@ -1,10 +1,7 @@
 package com.bke.datepoll.db.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.bke.datepoll.db.model.EmailAddressDbModel
 
 @Dao
@@ -15,4 +12,7 @@ interface EmailDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addEmails(emails: List<EmailAddressDbModel>)
+
+    @Query("delete from email_addresses")
+    fun deleteAllEntries()
 }

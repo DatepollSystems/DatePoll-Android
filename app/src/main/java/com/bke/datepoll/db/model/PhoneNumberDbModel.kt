@@ -2,6 +2,7 @@ package com.bke.datepoll.db.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
@@ -9,6 +10,7 @@ import androidx.room.PrimaryKey
     tableName = "phone_numbers",
     indices = [Index(value = arrayOf("user_id"))],
     foreignKeys = [ForeignKey(
+        onDelete = CASCADE,
         entity = UserDbModel::class,
         parentColumns = arrayOf("id"),
         childColumns = arrayOf("user_id"))

@@ -6,8 +6,6 @@ import com.bke.datepoll.db.model.UserDbModel
 
 @Dao
 interface UserDao {
-    //@Query("select * from users")
-    //fun getAllUsers(): LiveData<List<UserDbModel>>
 
     @Query("select count(users.id) from users")
     fun getCount(): Long
@@ -20,9 +18,6 @@ interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addUser(user: UserDbModel): Long
-
-    @Update
-    fun updateUser(user: UserDbModel)
 
     @Delete
     fun deleteUser(user: UserDbModel)

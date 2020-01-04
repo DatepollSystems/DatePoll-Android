@@ -16,4 +16,6 @@ interface PerformanceBadgesDao {
     @Query("select * from performance_badges where user_id = :id")
     fun getPerformanceBadgesByUserId(id: Long): LiveData<List<PerformanceBadgesDbModel>>
 
+    @Query("delete from performance_badges")
+    fun deleteAllEntries()
 }

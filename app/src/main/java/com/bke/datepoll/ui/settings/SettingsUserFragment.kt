@@ -84,11 +84,14 @@ class SettingsUserFragment : Fragment() {
         })
 
         vm.userLoaded.observe(this, Observer {
-            vm.user.addSource(it){u ->
+            /*vm.user.addSource(it){u ->
                 vm.user.value = u
+            }*/
+            if(it != null) {
+                userSettingsSwipeRefresh.isRefreshing = false
+                userSettingsLayout.visibility = View.VISIBLE
+                vm.userLoaded.postValue(null)
             }
-            userSettingsSwipeRefresh.isRefreshing = false
-            userSettingsLayout.visibility = View.VISIBLE
         })
 
         vm.userUpdated.observe(this, Observer {
@@ -99,6 +102,7 @@ class SettingsUserFragment : Fragment() {
                 } else {
                     o.showSnackbar.postValue("Something went wrong!")
                 }
+                vm.userUpdated.postValue(null)
             }
         })
     }

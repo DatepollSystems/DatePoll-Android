@@ -15,7 +15,6 @@
         android:tag="homeFragment"
         tools:context=".ui.HomeFragment">
 
-        <!-- TODO: Update blank fragment layout -->
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
