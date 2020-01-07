@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.FragmentHomeBinding
@@ -33,6 +34,22 @@ class HomeFragment : Fragment() {
 
         (activity as AppCompatActivity?)!!.supportActionBar!!.show()
 
+        val adapter = BirthdayAdapter()
+
+        binding.birthdays.adapter = adapter
+
+        vm.birthdays.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.data = it
+            }
+        })
+
+
         return view
+    }
+
+    override fun onStart() {
+        vm.loadHomepage()
+        super.onStart()
     }
 }

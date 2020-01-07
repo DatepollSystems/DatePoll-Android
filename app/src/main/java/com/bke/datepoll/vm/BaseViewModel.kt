@@ -16,7 +16,5 @@ abstract class BaseViewModel: ViewModel(), KoinComponent {
 
     protected val scope = CoroutineScope(coroutineContext)
 
-
     fun cancelAllRequests() = coroutineContext.cancel()
-
 }

@@ -37,19 +37,19 @@ open class BaseRepository(private val tag: String) : KoinComponent {
         state: MutableLiveData<ENetworkState>
     ): T? {
 
-        state.value = ENetworkState.LOADING
+        state.postValue(ENetworkState.LOADING)
         var response: Response<T>? = null
         try {
-            if(checkIfJwtIsValid()){
+            if(!checkIfJwtIsValid()){
                 Log.i(tag, "User not authenticated")
             }
             response = call.invoke()
             if (response.isSuccessful) {
-                state.value = ENetworkState.DONE
+                state.postValue(ENetworkState.DONE)
             }
         } catch (e: Exception) {
             Log.e(tag, e.message!!)
-            state.value = ENetworkState.ERROR
+            state.postValue(ENetworkState.ERROR)
         }
 
         return response?.body()
@@ -69,7 +69,7 @@ open class BaseRepository(private val tag: String) : KoinComponent {
          * Check if JWT is older than 1 hour -> then renew JWT
          */
         if (isLoggedIn() && (Date().time - jwtTime) > 3600000) {
-
+            Log.i(tag, "Try to refresh jwt")
             val request = RefreshTokenWithSessionRequest(session_token = prefs.SESSION!!)
             val response = api.refreshTokenWithSession(request)
 
@@ -98,6 +98,9 @@ open class BaseRepository(private val tag: String) : KoinComponent {
     ): T? {
 
         // Check if JWT is older than 1 hour -> if yes than renew, else -> Throw error
+
+        checkIfJwtIsValid()
+
         val result: Result<T> = safeApiResult(api, call, errorMessage)
         var data: T? = null
 
