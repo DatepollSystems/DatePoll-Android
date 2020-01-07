@@ -1,4 +1,4 @@
-package com.bke.datepoll.ui
+package com.bke.datepoll.ui.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,7 +18,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.bke.datepoll.AppObservableHandler
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.ActivityMainBinding
-import com.bke.datepoll.ui.login.LoginActivity
+import com.bke.datepoll.ui.BaseActivity
+import com.bke.datepoll.ui.ServerInputActivity
 import com.bke.datepoll.ui.settings.SettingsActivity
 import com.bke.datepoll.vm.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

@@ -3,8 +3,8 @@ package com.bke.datepoll.repos
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.Prefs
-import com.bke.datepoll.connection.DatepollApi
-import com.bke.datepoll.connection.Result
+import com.bke.datepoll.network.DatepollApi
+import com.bke.datepoll.network.Result
 import com.bke.datepoll.data.requests.ErrorMsg
 import com.bke.datepoll.data.requests.RefreshTokenWithSessionRequest
 import com.bke.datepoll.error.AuthorizationFailedException

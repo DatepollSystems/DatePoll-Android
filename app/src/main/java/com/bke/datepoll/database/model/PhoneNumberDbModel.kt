@@ -1,4 +1,4 @@
-package com.bke.datepoll.db.model
+package com.bke.datepoll.database.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey

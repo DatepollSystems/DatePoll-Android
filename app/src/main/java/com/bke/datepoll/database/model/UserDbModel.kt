@@ -1,4 +1,4 @@
-package com.bke.datepoll.db.model
+package com.bke.datepoll.database.model
 
 import android.annotation.SuppressLint
 import androidx.room.Entity

@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.Prefs
 import com.bke.datepoll.data.requests.LogoutRequestModel
 import com.bke.datepoll.data.requests.LogoutResponseModel
-import com.bke.datepoll.db.model.PermissionDbModel
-import com.bke.datepoll.db.model.UserDbModel
+import com.bke.datepoll.database.model.PermissionDbModel
+import com.bke.datepoll.database.model.UserDbModel
 import com.bke.datepoll.repos.ServerRepository
 import com.bke.datepoll.repos.UserRepository
 import kotlinx.coroutines.launch

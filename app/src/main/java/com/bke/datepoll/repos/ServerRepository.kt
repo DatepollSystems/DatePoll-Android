@@ -1,10 +1,9 @@
 package com.bke.datepoll.repos
 
-import com.bke.datepoll.Prefs
-import com.bke.datepoll.connection.DatepollApi
+import com.bke.datepoll.network.DatepollApi
 import com.bke.datepoll.data.requests.LogoutRequestModel
 import com.bke.datepoll.data.requests.LogoutResponseModel
-import com.bke.datepoll.db.DatepollDatabase
+import com.bke.datepoll.database.DatepollDatabase
 import okhttp3.ResponseBody
 import org.koin.core.inject
 

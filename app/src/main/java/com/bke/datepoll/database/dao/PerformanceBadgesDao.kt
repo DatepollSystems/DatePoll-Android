@@ -1,11 +1,11 @@
-package com.bke.datepoll.db.dao
+package com.bke.datepoll.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.bke.datepoll.db.model.PerformanceBadgesDbModel
+import com.bke.datepoll.database.model.PerformanceBadgesDbModel
 
 @Dao
 interface PerformanceBadgesDao {

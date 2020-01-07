@@ -1,8 +1,8 @@
-package com.bke.datepoll.db.dao
+package com.bke.datepoll.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.bke.datepoll.db.model.UserDbModel
+import com.bke.datepoll.database.model.UserDbModel
 
 @Dao
 interface UserDao {

@@ -1,4 +1,4 @@
-package com.bke.datepoll.connection
+package com.bke.datepoll.network
 
 import com.bke.datepoll.Prefs
 import okhttp3.OkHttpClient

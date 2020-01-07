@@ -1,8 +1,8 @@
 package com.bke.datepoll
 
 import android.app.Application
-import com.bke.datepoll.connection.DatepollServiceFactory
-import com.bke.datepoll.db.DatepollDatabase
+import com.bke.datepoll.network.DatepollServiceFactory
+import com.bke.datepoll.database.DatepollDatabase
 import com.bke.datepoll.repos.LoginRepository
 import com.bke.datepoll.repos.ServerRepository
 import com.bke.datepoll.repos.UserRepository

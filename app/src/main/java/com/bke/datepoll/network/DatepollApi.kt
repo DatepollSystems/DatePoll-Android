@@ -1,5 +1,6 @@
-package com.bke.datepoll.connection
+package com.bke.datepoll.network
 
+import com.bke.datepoll.data.model.HomeScreen
 import com.bke.datepoll.data.requests.*
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -39,4 +40,10 @@ interface DatepollApi {
     @PUT("/api/v1/user/myself")
     suspend fun updateCurrentUser(@Query("token") token: String, @Body u: UpdateUserRequest): Response<CurrentUserResponseModel>
 
+
+    /**
+     * Home screen
+     */
+    @GET("/api/v1/user/homepage")
+    suspend fun getHomepage(@Query("token") token: String): Response<HomeScreen>
 }

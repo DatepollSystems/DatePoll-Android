@@ -1,16 +1,16 @@
 package com.bke.datepoll.repos
 
 import androidx.lifecycle.LiveData
-import com.bke.datepoll.connection.DatepollApi
+import com.bke.datepoll.network.DatepollApi
 import com.bke.datepoll.data.model.UserLiveDataElements
 import com.bke.datepoll.data.model.UserModel
 import com.bke.datepoll.data.requests.UpdateUserRequest
-import com.bke.datepoll.db.DatepollDatabase
-import com.bke.datepoll.db.dao.*
-import com.bke.datepoll.db.model.EmailAddressDbModel
-import com.bke.datepoll.db.model.PerformanceBadgesDbModel
-import com.bke.datepoll.db.model.PermissionDbModel
-import com.bke.datepoll.db.model.UserDbModel
+import com.bke.datepoll.database.DatepollDatabase
+import com.bke.datepoll.database.dao.*
+import com.bke.datepoll.database.model.EmailAddressDbModel
+import com.bke.datepoll.database.model.PerformanceBadgesDbModel
+import com.bke.datepoll.database.model.PermissionDbModel
+import com.bke.datepoll.database.model.UserDbModel
 import org.koin.core.inject
 import java.util.*
 

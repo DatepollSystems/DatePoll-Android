@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.bke.datepoll.Prefs
 import com.bke.datepoll.R
-import com.bke.datepoll.ui.login.LoginActivity
+import com.bke.datepoll.ui.main.MainActivity
 import org.koin.android.ext.android.inject
 
 class LauncherActivity : AppCompatActivity() {

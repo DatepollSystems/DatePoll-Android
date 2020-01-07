@@ -1,11 +1,11 @@
-package com.bke.datepoll.db
+package com.bke.datepoll.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.bke.datepoll.db.dao.*
-import com.bke.datepoll.db.model.*
+import com.bke.datepoll.database.dao.*
+import com.bke.datepoll.database.model.*
 
 @Database(entities = [  UserDbModel::class,
                         PhoneNumberDbModel::class,
