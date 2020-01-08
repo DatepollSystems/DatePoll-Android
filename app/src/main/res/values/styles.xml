@@ -36,10 +36,6 @@
         <item name="colorOnSurface">#000000</item>
         <item name="colorOnBackground">@color/colorWhite</item>
         
-        <item name="snackbarStyle">@style/Snackbar</item>
-    </style>
-
-    <style name="Snackbar" parent="Widget.Design.Snackbar">
 
     </style>
 
