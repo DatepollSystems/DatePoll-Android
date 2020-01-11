@@ -1,5 +1,6 @@
 package com.bke.datepoll.repos
 
+import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.network.DatepollApi
 import com.bke.datepoll.data.requests.LoginRequestModel
 import com.bke.datepoll.data.requests.LoginResponseModel
@@ -12,20 +13,18 @@ class LoginRepository : BaseRepository("LoginRepository") {
     private val api: DatepollApi by inject()
 
     suspend fun isServiceOnline(): ResponseBody? {
-        return safeApiCall(
-            api,
+        return apiCall(
             call = { api.checkIfServiceIsOnline() },
-            errorMessage = "Service could not be reached"
+            state = MutableLiveData()
         )
     }
 
     suspend fun login(username: String, password: String): LoginResponseModel? {
         val requestObj = LoginRequestModel(username, password)
 
-        return safeApiCall(
-            api,
+        return apiCall(
             call = { api.login(requestObj) },
-            errorMessage = "Could not sign in"
+            state = MutableLiveData()
         )
     }
 }

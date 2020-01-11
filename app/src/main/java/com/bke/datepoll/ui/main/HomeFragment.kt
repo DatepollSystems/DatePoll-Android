@@ -1,6 +1,7 @@
 package com.bke.datepoll.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,9 @@ import com.bke.datepoll.R
 import com.bke.datepoll.databinding.FragmentHomeBinding
 import com.bke.datepoll.vm.MainViewModel
 import kotlinx.android.synthetic.main.fragment_settings_home.*
+import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import java.util.*
 
 
 class HomeFragment : Fragment() {
@@ -34,15 +37,37 @@ class HomeFragment : Fragment() {
 
         (activity as AppCompatActivity?)!!.supportActionBar!!.show()
 
-        val adapter = BirthdayAdapter()
 
-        binding.birthdays.adapter = adapter
+        //Birthday List
+        val birthdayAdapter = BirthdayAdapter()
+        binding.birthdays.adapter = birthdayAdapter
 
         vm.birthdays.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.data = it
+                birthdayAdapter.data = LinkedList(it)
             }
         })
+
+        //Event List
+        val eventAdapter = EventAdapter()
+        binding.events.adapter = eventAdapter
+
+        vm.events.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                eventAdapter.data = LinkedList(it)
+            }
+        })
+
+        //Booking List
+        val bookingAdapter = BookingAdapter()
+        binding.bookings.adapter = bookingAdapter
+
+        vm.bookings.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                bookingAdapter.data = it
+            }
+        })
+
 
 
         return view

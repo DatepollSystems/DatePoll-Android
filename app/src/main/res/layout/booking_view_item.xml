@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvMovieItemName"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="140dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/testmovie"
+        app:layout_constraintBottom_toTopOf="@+id/tvTitleSeats"
+        app:layout_constraintEnd_toStartOf="@+id/tvMovieItemDate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMovieItemDate"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="180dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/_10_10_2019"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintBottom_toTopOf="@+id/tvBookedSeats"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvMovieItemName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView14"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:paddingTop="19dp"
+        android:text="@string/emergency_duty"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnReportEmergencyDuty"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDuty" />
+
+
+    <TextView
+        android:id="@+id/tvDuty"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:paddingTop="14dp"
+        android:text="@string/duty"
+        app:layout_constraintBottom_toTopOf="@+id/textView14"
+        app:layout_constraintEnd_toStartOf="@+id/btnReportDuty"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleSeats" />
+
+
+    <Button
+        android:id="@+id/btnReportDuty"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/report_for_duty"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btnReportEmergencyDuty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvDuty"
+        app:layout_constraintTop_toBottomOf="@+id/tvBookedSeats" />
+
+    <TextView
+        android:id="@+id/tvReportDuty"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:paddingTop="14dp"
+        android:text="@string/duty"
+        app:layout_constraintBottom_toTopOf="@+id/btnReportEmergencyDuty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvDuty"
+        app:layout_constraintTop_toBottomOf="@+id/tvBookedSeats"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvBookedSeats"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="180dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/_4"
+        app:layout_constraintBottom_toTopOf="@+id/btnReportDuty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvTitleSeats"
+        app:layout_constraintTop_toBottomOf="@+id/tvMovieItemDate" />
+
+    <TextView
+        android:id="@+id/tvTitleSeats"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="140dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/booked_seats"
+        app:layout_constraintBottom_toTopOf="@+id/tvDuty"
+        app:layout_constraintEnd_toStartOf="@+id/tvBookedSeats"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMovieItemName" />
+
+    <Button
+        android:id="@+id/btnReportEmergencyDuty"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/report_for_emergency_duty"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/btnReportDuty" />
+
+    <TextView
+        android:id="@+id/tvReportEmergencyDuty"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:paddingTop="19dp"
+        android:text="@string/emergency_duty"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/btnReportDuty" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

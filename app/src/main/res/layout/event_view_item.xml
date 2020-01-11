@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
@@ -10,43 +11,54 @@
 
 
     <TextView
-        android:id="@+id/tvBirthdayName"
+        android:id="@+id/tvEventName"
         style="@style/TextAppearance.MaterialComponents.Headline5"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Testname"
+        android:text="@string/app_name"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/tvBirthdayDate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvDate"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvBirthdayDate"
+        android:id="@+id/tvDate"
         style="@style/TextAppearance.MaterialComponents.Headline5"
-        android:layout_width="110dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="01-01-2000"
+        android:text="@string/example_date_time"
+        android:textAlignment="center"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnAnswer"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvEventName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnAnswer"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="47dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:icon="@drawable/ic_mode_edit_black"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvBirthdayName"
+        app:layout_constraintStart_toEndOf="@+id/tvDate"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/divider6"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBirthdayName" />
-
+        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,9 @@ interface UserDao {
     @Query("select * from users LIMIT 1")
     fun getUser(): LiveData<UserDbModel>
 
+    @Query("select savedAt from users LIMIT 1")
+    fun getSavedAt(): Long
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addUser(user: UserDbModel): Long
 

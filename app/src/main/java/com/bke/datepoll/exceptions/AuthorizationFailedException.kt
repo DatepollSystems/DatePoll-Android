@@ -1,4 +1,4 @@
-package com.bke.datepoll.error
+package com.bke.datepoll.exceptions
 
 import java.lang.Exception
 

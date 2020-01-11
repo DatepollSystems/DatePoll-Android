@@ -23,7 +23,6 @@ import com.bke.datepoll.ui.ServerInputActivity
 import com.bke.datepoll.ui.settings.SettingsActivity
 import com.bke.datepoll.vm.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.nav_header_main.*
 import org.koin.android.ext.android.inject
@@ -61,11 +60,6 @@ class MainActivity : BaseActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener {
-
-            appObservableHandler.showSnackbar.value = "test"
-        }
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -84,25 +78,8 @@ class MainActivity : BaseActivity() {
 
         mainViewModel.user.observe(this, Observer { u ->
             val s = "${u.firstname} ${u.surname}"
-            tvName.text = s
-            tvUserName.text = u.username
-        })
-
-        mainViewModel.loaded.observe(this, Observer {
-            if(it != null){
-
-                mainViewModel.user.addSource(it){ u ->
-                    mainViewModel.user.value = u
-                }
-
-                try {
-                    findNavController(R.id.nav_host_main).navigate(R.id.action_home_loaded)
-                } catch (e: IllegalArgumentException){
-                    Log.e("MainActivity", "View wasn't loaded")
-                } finally {
-                    mainViewModel.loaded.value = null
-                }
-            }
+            tvNavHeaderName?.text = s
+            tvNavHeaderUsername?.text = u.username
         })
 
         mainViewModel.logout.observe(this, Observer {

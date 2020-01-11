@@ -6,6 +6,8 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.Prefs
 import com.bke.datepoll.data.model.Birthday
+import com.bke.datepoll.data.model.Booking
+import com.bke.datepoll.data.model.Event
 import com.bke.datepoll.data.model.HomeScreen
 import com.bke.datepoll.data.requests.LogoutRequestModel
 import com.bke.datepoll.data.requests.LogoutResponseModel
@@ -19,7 +21,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.inject
 
 
-class MainViewModel: BaseViewModel() {
+class MainViewModel : BaseViewModel() {
 
     private val tag = "MainViewModel"
 
@@ -29,20 +31,25 @@ class MainViewModel: BaseViewModel() {
     private val homeRepository: HomeRepository by inject()
 
     val loaded = MutableLiveData<LiveData<UserDbModel>>()
-    val user = MediatorLiveData<UserDbModel>()
+    val user = userRepository.user
     val logout = MutableLiveData<Boolean>(false)
     val permissions = MutableLiveData<List<PermissionDbModel>>()
-    val state = MutableLiveData<ENetworkState>()
+
+    val loadUserState = MutableLiveData<ENetworkState>()
+    val loadUserHomepage = MutableLiveData<ENetworkState>()
+
     val birthdays = MutableLiveData<List<Birthday>>()
+    val events = MutableLiveData<List<Event>>()
+    val bookings = MutableLiveData<List<Booking>>()
+
 
     fun loadUserData() {
-       scope.launch {
-           val loadedUser = userRepository.loadUser(true)
-           loaded.postValue(loadedUser)
-       }
+        scope.launch {
+            userRepository.getUser(loadUserState, force = true)
+        }
     }
 
-    fun logout(){
+    fun logout() {
         scope.launch {
             Log.i(tag, "start logout process")
 
@@ -50,7 +57,7 @@ class MainViewModel: BaseViewModel() {
             val response: LogoutResponseModel? =
                 serverRepository.logout(LogoutRequestModel(session_token = session))
 
-            if(response != null && response.username.isNotBlank()){
+            if (response != null && response.username.isNotBlank()) {
                 Log.i(tag, "logout successful")
             }
 
@@ -63,9 +70,11 @@ class MainViewModel: BaseViewModel() {
 
     fun loadHomepage() {
         scope.launch {
-            val h = homeRepository.loadHomepage(state)
+            val h = homeRepository.loadHomepage(loadUserHomepage)
             Log.i(tag, h.toString())
             birthdays.postValue(h?.birthdays)
+            events.postValue(h?.events)
+            bookings.postValue(h?.bookings)
         }
     }
 }
