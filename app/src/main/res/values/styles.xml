@@ -16,7 +16,7 @@
         <item name="colorOnSurface">@color/colorPrimary</item>
     </style>
 
-    <style name="LoginInputField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="InputField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
     </style>
 
@@ -36,7 +36,6 @@
         <item name="colorOnSurface">#000000</item>
         <item name="colorOnBackground">@color/colorWhite</item>
         <item name="materialCardViewStyle">@style/DatepollCardView</item>
-
 
     </style>
 

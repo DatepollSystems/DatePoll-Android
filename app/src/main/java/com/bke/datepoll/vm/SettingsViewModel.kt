@@ -14,6 +14,8 @@ class SettingsViewModel: BaseViewModel() {
     private val userRepo: UserRepository by inject()
 
     val user = userRepo.user
+    val phoneNumbers = userRepo.phoneNumbers
+
     val updateUserState = MutableLiveData<ENetworkState>()
     val loadUserState = MutableLiveData<ENetworkState>()
 

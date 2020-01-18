@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
         })
 
         //Event List
-        val eventAdapter = EventAdapter()
+        val eventAdapter = EventAdapter(activity as AppCompatActivity)
         binding.events.adapter = eventAdapter
 
         vm.events.observe(viewLifecycleOwner, Observer {
@@ -67,7 +67,6 @@ class HomeFragment : Fragment() {
                 bookingAdapter.data = it
             }
         })
-
 
 
         return view

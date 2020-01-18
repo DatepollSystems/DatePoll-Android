@@ -19,14 +19,6 @@ class LoginViewModel: BaseViewModel() {
     val password = MutableLiveData<String>()
     val loginSuccessful = MutableLiveData<Boolean>()
 
-    fun checkIfServiceIsOnline(){
-        scope.launch {
-            val online = repository.isServiceOnline()!!.string()
-            Log.i("response", online)
-            userName.postValue(online)
-        }
-    }
-
     fun login(){
         scope.launch {
             val user = userName.value!!

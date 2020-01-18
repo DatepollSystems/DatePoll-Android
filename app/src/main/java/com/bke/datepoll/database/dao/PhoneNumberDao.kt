@@ -10,8 +10,8 @@ import com.bke.datepoll.database.model.PhoneNumberDbModel
 @Dao
 interface PhoneNumberDao {
 
-    @Query("Select * from phone_numbers where user_id = :id ")
-    fun getPhoneNumbersForUser(id: Long) : LiveData<List<PhoneNumberDbModel>>
+    @Query("select * from phone_numbers")
+    fun getPhoneNumbers() : LiveData<List<PhoneNumberDbModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveSetOfPhoneNumbers(list: List<PhoneNumberDbModel>)

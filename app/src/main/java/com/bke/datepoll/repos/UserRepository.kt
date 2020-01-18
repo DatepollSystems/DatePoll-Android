@@ -25,6 +25,7 @@ class UserRepository : BaseRepository("UserRepository") {
     private val permissionsDao: PermissionsDao = db.permissionDao()
 
     val user = userDao.getUser()
+    val phoneNumbers = phoneNumberDao.getPhoneNumbers()
 
     suspend fun updateUser(state: MutableLiveData<ENetworkState>, user: UpdateUserRequest) {
         updateUserOnServer(state, user)?.let {
@@ -35,7 +36,7 @@ class UserRepository : BaseRepository("UserRepository") {
     suspend fun getUser(state: MutableLiveData<ENetworkState>, force: Boolean = false) {
         val size = db.userDao().getCount() != 1L
 
-        if (!size) {
+        if (size) {
             loadUserFromServer(state)?.let {
                 storeUser(it)
             }
@@ -50,8 +51,10 @@ class UserRepository : BaseRepository("UserRepository") {
              */
             loadUserFromServer(state)?.let {
                 userDao.addUser(it.getUserDbModelPart())
+                // TODO update also child tables!!!
+                phoneNumberDao.saveSetOfPhoneNumbers(it.phone_numbers)
+                //performanceBadgesDao.addPerformanceBadges()
                 state.postValue(ENetworkState.DONE)
-                //update user TODO update also child tables!!!
             }
         }
     }
@@ -111,7 +114,7 @@ class UserRepository : BaseRepository("UserRepository") {
 
         return UserLiveDataElements(
             user = userDao.getUserById(user.id),
-            phoneNumbers = phoneNumberDao.getPhoneNumbersForUser(user.id),
+            phoneNumbers = phoneNumberDao.getPhoneNumbers(),
             permissions = permissionsDao.getAllPermissionsByUserId(user.id),
             performanceBadges = performanceBadgesDao.getPerformanceBadgesByUserId(user.id),
             emailAddress = emailDao.getEmailsOfUser(user.id)

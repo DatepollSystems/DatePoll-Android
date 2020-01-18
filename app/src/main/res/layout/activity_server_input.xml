@@ -49,7 +49,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tiServerDomain"
-            style="@style/LoginInputField"
+            style="@style/InputField"
             android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginStart="32dp"
@@ -120,7 +120,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tiServerPort"
-                style="@style/LoginInputField"
+                style="@style/InputField"
                 android:layout_width="100dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"

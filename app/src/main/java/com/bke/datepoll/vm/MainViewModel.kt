@@ -57,7 +57,7 @@ class MainViewModel : BaseViewModel() {
             val response: LogoutResponseModel? =
                 serverRepository.logout(LogoutRequestModel(session_token = session))
 
-            if (response != null && response.username.isNotBlank()) {
+            response?.username?.let {
                 Log.i(tag, "logout successful")
             }
 

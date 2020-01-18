@@ -61,10 +61,18 @@
     <string name="could_not_load_data">Could not load data</string>
     <string name="testmovie">Testmovie</string>
     <string name="_10_10_2019">10.10.2019</string>
-    <string name="booked_seats">Booked seats:</string>
+    <string name="booked_seats">Reserved cards:</string>
     <string name="emergency_duty">Emergency duty:</string>
     <string name="duty">Duty:</string>
     <string name="report_for_duty">Report for duty</string>
     <string name="report_for_emergency_duty">Report for emergency duty</string>
     <string name="_4">4</string>
+    <string name="yes">yes</string>
+    <string name="maybe">maybe</string>
+    <string name="no">no</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="phone_number">Phone number</string>
+    <string name="label">Label</string>
 </resources>

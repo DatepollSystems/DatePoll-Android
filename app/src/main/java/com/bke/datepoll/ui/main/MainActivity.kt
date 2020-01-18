@@ -76,10 +76,12 @@ class MainActivity : BaseActivity() {
 
     private fun initObservers(){
 
-        mainViewModel.user.observe(this, Observer { u ->
-            val s = "${u.firstname} ${u.surname}"
-            tvNavHeaderName?.text = s
-            tvNavHeaderUsername?.text = u.username
+        mainViewModel.user.observe(this, Observer {
+            it?.let {
+                val s = "${it.firstname} ${it.surname}"
+                tvNavHeaderName?.text = s
+                tvNavHeaderUsername?.text = it.username
+            }
         })
 
         mainViewModel.logout.observe(this, Observer {
@@ -93,8 +95,8 @@ class MainActivity : BaseActivity() {
         })
     }
 
-    override fun onRestart() {
-        super.onRestart()
+    override fun onStart() {
+        super.onStart()
         mainViewModel.loadUserData()
     }
 
