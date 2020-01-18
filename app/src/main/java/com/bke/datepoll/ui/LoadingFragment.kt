@@ -26,4 +26,5 @@ class LoadingFragment : Fragment() {
 
         return inflater.inflate(R.layout.fragment_loading, container, false)
     }
+
 }

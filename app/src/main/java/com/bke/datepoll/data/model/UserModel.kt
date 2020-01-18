@@ -1,11 +1,9 @@
 package com.bke.datepoll.data.model
 
 import android.annotation.SuppressLint
-import com.bke.datepoll.db.model.PhoneNumberDbModel
-import com.bke.datepoll.db.model.UserDbModel
+import com.bke.datepoll.database.model.PhoneNumberDbModel
+import com.bke.datepoll.database.model.UserDbModel
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 data class UserModel(
@@ -70,3 +68,16 @@ data class UserModel(
         )
     }
 }
+
+
+/*
+fun NetworkVideoContainer.asDatabaseModel(): Array<DatabaseVideo> {
+    return videos.map {
+        DatabaseVideo (
+            title = it.title,
+            description = it.description,
+            url = it.url,
+            updated = it.updated,
+            thumbnail = it.thumbnail)
+    }.toTypedArray()
+}*/

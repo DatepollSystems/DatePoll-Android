@@ -1,6 +1,5 @@
 package com.bke.datepoll.ui.settings
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,12 +36,23 @@ class SettingsHomeFragment : Fragment() {
 
     override fun onStart() {
         btnUserSettings.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_settingsHomeFragment_to_settingsUserFragment)
+            Navigation.createNavigateOnClickListener(
+                R.id.action_settingsHomeFragment_to_settingsUserFragment
+            )
         )
 
         btnSettingsAbout.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_settingsHomeFragment_to_settingsAboutFragment)
+            Navigation.createNavigateOnClickListener(
+                R.id.action_settingsHomeFragment_to_settingsAboutFragment
+            )
         )
+
+        btnSettingsChangePhoneNumber.setOnClickListener(
+            Navigation.createNavigateOnClickListener(
+                R.id.action_settingsHomeFragment_to_settingsChangePhoneNumberFragment
+            )
+        )
+
         super.onStart()
     }
 

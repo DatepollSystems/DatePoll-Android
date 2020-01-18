@@ -15,7 +15,7 @@ import com.bke.datepoll.Prefs
 
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.FragmentLoginHomeBinding
-import com.bke.datepoll.ui.MainActivity
+import com.bke.datepoll.ui.main.MainActivity
 import com.bke.datepoll.vm.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject

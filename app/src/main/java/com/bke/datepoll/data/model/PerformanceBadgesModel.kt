@@ -1,6 +1,6 @@
 package com.bke.datepoll.data.model
 
-import com.bke.datepoll.db.model.PerformanceBadgesDbModel
+import com.bke.datepoll.database.model.PerformanceBadgesDbModel
 
 
 data class PerformanceBadgesModel(

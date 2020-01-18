@@ -1,8 +1,9 @@
 package com.bke.datepoll
 
 import android.app.Application
-import com.bke.datepoll.connection.DatepollServiceFactory
-import com.bke.datepoll.db.DatepollDatabase
+import com.bke.datepoll.network.DatepollServiceFactory
+import com.bke.datepoll.database.DatepollDatabase
+import com.bke.datepoll.repos.HomeRepository
 import com.bke.datepoll.repos.LoginRepository
 import com.bke.datepoll.repos.ServerRepository
 import com.bke.datepoll.repos.UserRepository
@@ -16,7 +17,6 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
-
 val appModule = module {
     // Database
     single { DatepollServiceFactory.createDatepollService(get()) }
@@ -27,14 +27,15 @@ val appModule = module {
     single { AppObservableHandler() }
 
     // Repositories
-    single { ServerRepository(get(), get()) }
-    single { LoginRepository(get()) }
-    single { UserRepository(get(), get()) }
+    single { ServerRepository() }
+    single { LoginRepository() }
+    single { UserRepository() }
+    single { HomeRepository() }
 
     // ViewModels
-    viewModel { LoginViewModel(get(), get()) }
-    viewModel { MainViewModel(get(), get(), get()) }
-    viewModel { SettingsViewModel(get(), get()) }
+    viewModel { LoginViewModel() }
+    viewModel { MainViewModel() }
+    viewModel { SettingsViewModel() }
     viewModel { ServerInputViewModel() }
 }
 
@@ -45,8 +46,8 @@ class App : Application() {
 
         startKoin {
             androidLogger()
-            androidContext(applicationContext)
-            modules(appModule)
+            androidContext(this@App)
+            modules(listOf(appModule))
         }
 
 

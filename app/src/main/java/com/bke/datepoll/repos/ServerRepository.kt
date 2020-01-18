@@ -1,31 +1,31 @@
 package com.bke.datepoll.repos
 
-import com.bke.datepoll.connection.DatepollApi
+import androidx.lifecycle.MutableLiveData
+import com.bke.datepoll.network.DatepollApi
 import com.bke.datepoll.data.requests.LogoutRequestModel
 import com.bke.datepoll.data.requests.LogoutResponseModel
-import com.bke.datepoll.db.DatepollDatabase
+import com.bke.datepoll.database.DatepollDatabase
 import okhttp3.ResponseBody
+import org.koin.core.inject
 
-class ServerRepository(
-    private val api: DatepollApi,
-    private val db: DatepollDatabase
-) : BaseRepository("ServerRepository"){
+class ServerRepository: BaseRepository("ServerRepository"){
+
+    private val api: DatepollApi by inject()
+
 
     suspend fun isServiceOnline(): ResponseBody? {
-        return safeApiCall(
-            api,
+        return apiCall(
             call = { api.checkIfServiceIsOnline() },
-            errorMessage = "Service could not be reached"
+            state = MutableLiveData()
         )
     }
 
     suspend fun logout(request: LogoutRequestModel): LogoutResponseModel? {
         //TODO Drop all DBs
         
-        return safeApiCall(
-            api,
-            call = { api.logout(request) },
-            errorMessage = "Could not perform logout"
+        return apiCall(
+            call = { api.logout(prefs.JWT!!, request) },
+            state = MutableLiveData()
         )
     }
 }

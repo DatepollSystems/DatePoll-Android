@@ -12,6 +12,7 @@ import com.bke.datepoll.AppObservableHandler
 import com.bke.datepoll.R
 import com.bke.datepoll.data.requests.UpdateUserRequest
 import com.bke.datepoll.databinding.FragmentSettingsUserBinding
+import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.vm.SettingsViewModel
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.fragment_settings_user.*
@@ -83,23 +84,55 @@ class SettingsUserFragment : Fragment() {
             }
         })
 
-        vm.userLoaded.observe(this, Observer {
-            vm.user.addSource(it){u ->
-                vm.user.value = u
-            }
-            userSettingsSwipeRefresh.isRefreshing = false
-            userSettingsLayout.visibility = View.VISIBLE
-        })
+        vm.updateUserState.observe(this, Observer {
+            it?.let {
+                when(it){
+                    ENetworkState.LOADING -> {
 
-        vm.userUpdated.observe(this, Observer {
-            if(it != null){
-                if(it){
-                    o.showSnackbar.postValue("Updated user successfully")
-                    findNavController().popBackStack()
-                } else {
-                    o.showSnackbar.postValue("Something went wrong!")
+                    }
+
+                    ENetworkState.DONE -> {
+                        userSettingsSwipeRefresh.isRefreshing = false
+                        o.showSnackbar.postValue("Updated user successfully")
+                        vm.updateUserState.postValue(null)
+                        findNavController().popBackStack()
+                    }
+
+                    ENetworkState.ERROR -> {
+                        userSettingsSwipeRefresh.isRefreshing = false
+                        userSettingsLayout.visibility = View.VISIBLE
+                        vm.updateUserState.postValue(null)
+                        networkErrorOccurred()
+                    }
                 }
             }
         })
+
+        vm.loadUserState.observe(this, Observer {
+            it?.let {
+                when(it){
+                    ENetworkState.LOADING -> {
+
+                    }
+
+                    ENetworkState.DONE -> {
+                        userSettingsSwipeRefresh.isRefreshing = false
+                        userSettingsLayout.visibility = View.VISIBLE
+                        vm.loadUserState.postValue(null)
+
+                    }
+
+                    ENetworkState.ERROR -> {
+                        userSettingsSwipeRefresh.isRefreshing = false
+                        networkErrorOccurred()
+                        vm.loadUserState.postValue(null)
+                    }
+                }
+            }
+        })
+    }
+
+    private fun networkErrorOccurred(){
+        o.showSnackbar.postValue(context?.getString(R.string.could_not_load_data))
     }
 }
