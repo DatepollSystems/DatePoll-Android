@@ -1,6 +1,8 @@
 package com.bke.datepoll.repos
 
 import androidx.lifecycle.MutableLiveData
+import com.bke.datepoll.data.model.NewPhoneNumberRequest
+import com.bke.datepoll.data.model.NewPhoneNumberResponse
 import com.bke.datepoll.data.model.UserLiveDataElements
 import com.bke.datepoll.data.model.UserModel
 import com.bke.datepoll.data.requests.UpdateUserRequest
@@ -34,9 +36,7 @@ class UserRepository : BaseRepository("UserRepository") {
     }
 
     suspend fun getUser(state: MutableLiveData<ENetworkState>, force: Boolean = false) {
-        val size = db.userDao().getCount() != 1L
-
-        if (size) {
+        if (db.userDao().getCount() != 1L) {
             loadUserFromServer(state)?.let {
                 storeUser(it)
             }
@@ -56,6 +56,17 @@ class UserRepository : BaseRepository("UserRepository") {
                 //performanceBadgesDao.addPerformanceBadges()
                 state.postValue(ENetworkState.DONE)
             }
+        }
+    }
+
+    suspend fun addPhoneNumber(state: MutableLiveData<ENetworkState>, p: NewPhoneNumberRequest) {
+        val result = apiCall(
+            call = { api.addPhoneNumber(prefs.JWT!!, p) },
+            state = state
+        )
+
+        result?.let {
+            phoneNumberDao.savePhoneNumer(it.phoneNumber)
         }
     }
 

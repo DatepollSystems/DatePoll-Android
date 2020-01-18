@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bke.datepoll.R
+import com.bke.datepoll.data.model.NewPhoneNumberRequest
 import com.bke.datepoll.databinding.FragmentSettingsChangePhoneNumberBinding
 import com.bke.datepoll.vm.SettingsViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -41,6 +42,15 @@ class SettingsChangePhoneNumberFragment : Fragment() {
                 adapter.data = LinkedList(it)
             }
         })
+
+        binding.button.setOnClickListener {
+            val label = binding.tiLabel.editText?.text.toString()
+            val number = binding.tiPhoneNumber.editText?.text.toString()
+
+            if(label.isNotBlank() && number.isNotBlank())
+                vm.addPhoneNumber(NewPhoneNumberRequest(label, number))
+
+        }
 
         return view
     }

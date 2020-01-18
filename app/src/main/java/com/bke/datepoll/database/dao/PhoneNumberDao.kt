@@ -15,4 +15,7 @@ interface PhoneNumberDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveSetOfPhoneNumbers(list: List<PhoneNumberDbModel>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun savePhoneNumer(phoneNumberDbModel: PhoneNumberDbModel)
 }

@@ -1,6 +1,8 @@
 package com.bke.datepoll.network
 
 import com.bke.datepoll.data.model.HomeScreen
+import com.bke.datepoll.data.model.NewPhoneNumberRequest
+import com.bke.datepoll.data.model.NewPhoneNumberResponse
 import com.bke.datepoll.data.model.VoteResponse
 import com.bke.datepoll.data.requests.*
 import okhttp3.ResponseBody
@@ -70,4 +72,14 @@ interface DatepollApi {
     suspend fun voteForEvent(
         @Query("token") token: String
     ): Response<VoteResponse>
+
+    /**
+     * Settings screen
+     */
+    @POST("/api/v1/user/myself/phoneNumber")
+    suspend fun addPhoneNumber(
+        @Query("token") token: String,
+        @Body newNumber: NewPhoneNumberRequest
+    ): Response<NewPhoneNumberResponse>
+
 }

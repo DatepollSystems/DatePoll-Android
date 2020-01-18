@@ -2,6 +2,7 @@ package com.bke.datepoll.vm
 
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.Prefs
+import com.bke.datepoll.data.model.NewPhoneNumberRequest
 import com.bke.datepoll.data.requests.UpdateUserRequest
 import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.repos.UserRepository
@@ -18,6 +19,7 @@ class SettingsViewModel: BaseViewModel() {
 
     val updateUserState = MutableLiveData<ENetworkState>()
     val loadUserState = MutableLiveData<ENetworkState>()
+    val addPhoneNumberState = MutableLiveData<ENetworkState>()
 
     fun loadUserdata(){
         scope.launch {
@@ -28,6 +30,12 @@ class SettingsViewModel: BaseViewModel() {
     fun updateUser(u: UpdateUserRequest) {
         scope.launch {
             userRepo.updateUser(updateUserState, u)
+        }
+    }
+
+    fun addPhoneNumber(p: NewPhoneNumberRequest){
+        scope.launch {
+            userRepo.addPhoneNumber(addPhoneNumberState, p)
         }
     }
 }
