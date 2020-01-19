@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.bke.datepoll.database.model.PhoneNumberDbModel
+import retrofit2.http.DELETE
 
 @Dao
 interface PhoneNumberDao {
@@ -18,4 +19,7 @@ interface PhoneNumberDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun savePhoneNumer(phoneNumberDbModel: PhoneNumberDbModel)
+
+    @Query("DELETE from phone_numbers where id = :id")
+    fun deletePhoneNumber(id: Long)
 }

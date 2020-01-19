@@ -30,7 +30,7 @@ class SettingsChangePhoneNumberFragment : Fragment() {
         binding.vm = vm
         binding.lifecycleOwner = this
 
-        val adapter = PhoneNumberAdapter()
+        val adapter = PhoneNumberAdapter(vm)
         binding.phoneNumbers.adapter = adapter
 
         vm.phoneNumbers.value?.let {

@@ -1,5 +1,6 @@
 package com.bke.datepoll.repos
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.data.model.NewPhoneNumberRequest
 import com.bke.datepoll.data.model.NewPhoneNumberResponse
@@ -68,6 +69,15 @@ class UserRepository : BaseRepository("UserRepository") {
         result?.let {
             phoneNumberDao.savePhoneNumer(it.phoneNumber)
         }
+    }
+
+    suspend fun removePhoneNumber(state: MutableLiveData<ENetworkState>, id: Int){
+        val result = apiCall(
+            call = { api.removePhoneNumber(id, prefs.JWT!!)},
+            state = state
+        )
+
+        phoneNumberDao.deletePhoneNumber(id.toLong())
     }
 
     private suspend fun updateUserOnServer(

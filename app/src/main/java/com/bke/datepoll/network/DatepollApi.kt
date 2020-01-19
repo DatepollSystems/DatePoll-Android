@@ -82,4 +82,10 @@ interface DatepollApi {
         @Body newNumber: NewPhoneNumberRequest
     ): Response<NewPhoneNumberResponse>
 
+    @DELETE("/api/v1/user/myself/phoneNumber/{id}")
+    suspend fun removePhoneNumber(
+        @Path("id") id: Int,
+        @Query("token") token: String
+    ): Response<ResponseBody>
+
 }
