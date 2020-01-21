@@ -53,6 +53,12 @@ class SettingsHomeFragment : Fragment() {
             )
         )
 
+        btnSettingsChangeEmail.setOnClickListener(
+            Navigation.createNavigateOnClickListener(
+                R.id.action_settingsHomeFragment_to_settingsChangeEmail
+            )
+        )
+
         super.onStart()
     }
 

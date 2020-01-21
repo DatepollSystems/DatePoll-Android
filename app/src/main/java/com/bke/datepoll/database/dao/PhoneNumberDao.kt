@@ -18,7 +18,7 @@ interface PhoneNumberDao {
     fun saveSetOfPhoneNumbers(list: List<PhoneNumberDbModel>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun savePhoneNumer(phoneNumberDbModel: PhoneNumberDbModel)
+    fun savePhoneNumber(phoneNumberDbModel: PhoneNumberDbModel)
 
     @Query("DELETE from phone_numbers where id = :id")
     fun deletePhoneNumber(id: Long)

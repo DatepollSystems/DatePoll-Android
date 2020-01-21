@@ -76,4 +76,5 @@
     <string name="phone_number">Phone number</string>
     <string name="label">Label</string>
     <string name="change_email">Change email</string>
+    <string name="email">Email</string>
 </resources>

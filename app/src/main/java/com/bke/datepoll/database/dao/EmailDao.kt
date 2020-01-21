@@ -10,6 +10,13 @@ interface EmailDao {
     @Query("select * from email_addresses where user_id = :id")
     fun getEmailsOfUser(id: Long): LiveData<List<EmailAddressDbModel>>
 
+
+    @Query("select email from email_addresses where user_id = :id")
+    fun getEmailsByUser(id: Long): List<String>
+
+    @Query("select * from email_addresses")
+    fun getEmails(): LiveData<List<EmailAddressDbModel>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addEmails(emails: List<EmailAddressDbModel>)
 
