@@ -27,7 +27,7 @@ class EmailAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return when (viewType) {
             1 -> EmailHeadlineViewHolder(
                 layoutInflater.inflate(
-                    R.layout.event_headline_item,
+                    R.layout.email_headline,
                     parent,
                     false
                 )
