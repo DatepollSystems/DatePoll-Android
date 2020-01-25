@@ -1,0 +1,25 @@
+<resources>
+    <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/primaryDarkColor</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <item name="materialCardViewStyle">@style/DatepollCardView</item>
+
+        <item name="appBarLayoutStyle">@style/AppTheme.NoActionBar</item>
+
+
+    </style>
+
+    <style name="DatepollCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">5dp</item>
+        <item name="cardElevation">8dp</item>
+    </style>
+
+    <style name="AppTheme.AppBarLayout" parent="Widget.MaterialComponents.AppBarLayout.Surface"/>
+
+    <style name="AppTheme.SettingsMenuItem" parent="AppTheme.NoActionBar">
+        <item name="android:tint">#000000</item>
+    </style>
+
+</resources>
