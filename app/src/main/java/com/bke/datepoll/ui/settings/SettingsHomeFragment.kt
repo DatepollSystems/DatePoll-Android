@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -53,8 +54,18 @@ class SettingsHomeFragment : Fragment() {
             )
         )
 
+        btnSettingsChangeEmail.setOnClickListener(
+            Navigation.createNavigateOnClickListener(
+                R.id.action_settingsHomeFragment_to_settingsChangeEmail
+            )
+        )
+
         super.onStart()
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.settings)
+    }
 
 }

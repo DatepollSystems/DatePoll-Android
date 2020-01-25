@@ -9,9 +9,7 @@ import androidx.room.ForeignKey.CASCADE
     foreignKeys = [ForeignKey(onDelete = CASCADE, entity = UserDbModel::class, parentColumns = arrayOf("id"), childColumns = arrayOf("user_id"))]
 )
 data class EmailAddressDbModel(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long,
-
+    @PrimaryKey
     val email: String,
 
     @ColumnInfo(name = "user_id")
