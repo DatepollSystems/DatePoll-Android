@@ -1,6 +1,8 @@
 package com.bke.datepoll.repos
 
 import androidx.lifecycle.MutableLiveData
+import com.bke.datepoll.data.model.AddEmailRequest
+import com.bke.datepoll.data.model.NewPhoneNumberRequest
 import com.bke.datepoll.data.model.UserLiveDataElements
 import com.bke.datepoll.data.model.UserModel
 import com.bke.datepoll.data.requests.UpdateUserRequest
@@ -12,6 +14,7 @@ import com.bke.datepoll.database.model.PermissionDbModel
 import com.bke.datepoll.network.DatepollApi
 import org.koin.core.inject
 import java.util.*
+import kotlin.collections.ArrayList
 
 class UserRepository : BaseRepository("UserRepository") {
 
@@ -25,7 +28,8 @@ class UserRepository : BaseRepository("UserRepository") {
     private val permissionsDao: PermissionsDao = db.permissionDao()
 
     val user = userDao.getUser()
-    val phoneNumbers = phoneNumberDao.getPhoneNumbers()
+    val phoneNumbers by lazy { phoneNumberDao.getPhoneNumbers() }
+    val emails by lazy { emailDao.getEmails() }
 
     suspend fun updateUser(state: MutableLiveData<ENetworkState>, user: UpdateUserRequest) {
         updateUserOnServer(state, user)?.let {
@@ -34,9 +38,7 @@ class UserRepository : BaseRepository("UserRepository") {
     }
 
     suspend fun getUser(state: MutableLiveData<ENetworkState>, force: Boolean = false) {
-        val size = db.userDao().getCount() != 1L
-
-        if (size) {
+        if (db.userDao().getCount() != 1L) {
             loadUserFromServer(state)?.let {
                 storeUser(it)
             }
@@ -49,14 +51,70 @@ class UserRepository : BaseRepository("UserRepository") {
             /**
              * user is older then 1 hour -> reload user from server
              */
-            loadUserFromServer(state)?.let {
-                userDao.addUser(it.getUserDbModelPart())
-                // TODO update also child tables!!!
-                phoneNumberDao.saveSetOfPhoneNumbers(it.phone_numbers)
+            loadUserFromServer(state)?.let {u ->
+                userDao.addUser(u.getUserDbModelPart())
+                //TODO update also child tables!!!
+                phoneNumberDao.saveSetOfPhoneNumbers(u.phone_numbers)
+                val email = ArrayList<EmailAddressDbModel>()
+
+                u.email_addresses.forEach {
+                    email.add(
+                        EmailAddressDbModel(
+                            email = it,
+                            userId = u.id
+                    ))
+                }
+                emailDao.addEmails(email)
+
+
                 //performanceBadgesDao.addPerformanceBadges()
                 state.postValue(ENetworkState.DONE)
             }
         }
+    }
+
+    suspend fun addPhoneNumber(state: MutableLiveData<ENetworkState>, p: NewPhoneNumberRequest) {
+        val result = apiCall(
+            call = { api.addPhoneNumber(prefs.JWT!!, p) },
+            state = state
+        )
+
+        result?.let {
+            phoneNumberDao.savePhoneNumber(it.phoneNumber)
+        }
+    }
+
+    suspend fun removePhoneNumber(state: MutableLiveData<ENetworkState>, id: Int){
+        val result = apiCall(
+            call = { api.removePhoneNumber(id, prefs.JWT!!)},
+            state = state
+        )
+
+        phoneNumberDao.deletePhoneNumber(id.toLong())
+    }
+
+    suspend fun saveEmailsToServer(state: MutableLiveData<ENetworkState>){
+        val emails = ArrayList<String>()
+        for (e in this.emails.value!!.iterator()){
+            emails.add(e.email)
+        }
+
+        val result = apiCall(
+            call = { api.addEmail(prefs.JWT!!, AddEmailRequest(emails = emails)) },
+            state = state
+        )
+
+        result?.let {
+            storeUser(it.user)
+        }
+    }
+
+    suspend fun addEmail(e: String){
+        emailDao.addEmail(EmailAddressDbModel(email = e, userId = user.value!!.id))
+    }
+
+    suspend fun removeEmail(e: String){
+        emailDao.deleteEmail(e)
     }
 
     private suspend fun updateUserOnServer(
@@ -78,6 +136,8 @@ class UserRepository : BaseRepository("UserRepository") {
 
     private fun storeUser(user: UserModel): UserLiveDataElements {
 
+        userDao.addUser(user.getUserDbModelPart())
+
         val performanceBadgesToStore = ArrayList<PerformanceBadgesDbModel>()
         val emailsToStore = ArrayList<EmailAddressDbModel>()
         val permissionsToStore = ArrayList<PermissionDbModel>()
@@ -88,7 +148,7 @@ class UserRepository : BaseRepository("UserRepository") {
         if (user.email_addresses.isNotEmpty()) {
 
             user.email_addresses.forEach {
-                emailsToStore.add(EmailAddressDbModel(0, it, user.id))
+                emailsToStore.add(EmailAddressDbModel(it, user.id))
             }
 
             emailDao.addEmails(emailsToStore)

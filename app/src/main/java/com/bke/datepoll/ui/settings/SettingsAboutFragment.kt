@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 
 import com.bke.datepoll.R
 import kotlinx.android.synthetic.main.fragment_settings_about.*
@@ -31,5 +32,9 @@ class SettingsAboutFragment : Fragment() {
         super.onStart()
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.about)
+    }
 
 }
