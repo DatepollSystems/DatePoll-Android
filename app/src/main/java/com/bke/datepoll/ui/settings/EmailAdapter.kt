@@ -1,5 +1,6 @@
 package com.bke.datepoll.ui.settings
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bke.datepoll.R
 import com.bke.datepoll.database.model.EmailAddressDbModel
+import com.bke.datepoll.vm.SettingsEmailViewModel
+import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
-class EmailAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class EmailAdapter(val activity: Activity, val vm: SettingsEmailViewModel): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var data = LinkedList<EmailAddressDbModel>()
         set(value) {
@@ -49,7 +52,13 @@ class EmailAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             viewHolder.email.text = item.email
 
             viewHolder.action.setOnClickListener {
-               // TODO
+                if(data.size > 2)
+                    vm.deleteEmail(item.email)
+                else {
+                    Snackbar.make(activity.findViewById(android.R.id.content),
+                        activity.getString(R.string.could_not_delete_min_one),
+                        Snackbar.LENGTH_LONG).show()
+                }
             }
 
             if(position + 1 == itemCount){

@@ -1,9 +1,6 @@
 package com.bke.datepoll.network
 
-import com.bke.datepoll.data.model.HomeScreen
-import com.bke.datepoll.data.model.NewPhoneNumberRequest
-import com.bke.datepoll.data.model.NewPhoneNumberResponse
-import com.bke.datepoll.data.model.VoteResponse
+import com.bke.datepoll.data.model.*
 import com.bke.datepoll.data.requests.*
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -87,5 +84,11 @@ interface DatepollApi {
         @Path("id") id: Int,
         @Query("token") token: String
     ): Response<ResponseBody>
+
+    @POST("/api/v1/user/myself/changeEmailAddresses")
+    suspend fun addEmail(
+        @Query("token") token: String,
+        @Body body: AddEmailRequest
+    ): Response<CurrentUserResponseModel>
 
 }

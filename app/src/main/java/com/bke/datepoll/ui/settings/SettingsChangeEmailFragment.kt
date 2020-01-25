@@ -13,12 +13,14 @@ import androidx.lifecycle.Observer
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.FragmentSettingsChangeEmailBinding
 import com.bke.datepoll.databinding.FragmentSettingsChangePhoneNumberBinding
+import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.vm.SettingsEmailViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_settings_change_email.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class SettingsChangeEmail : Fragment() {
+class SettingsChangeEmailFragment : Fragment() {
 
     val vm: SettingsEmailViewModel by viewModel()
 
@@ -35,7 +37,7 @@ class SettingsChangeEmail : Fragment() {
         binding.vm = vm
         binding.lifecycleOwner = this
 
-        val adapter = EmailAdapter()
+        val adapter = EmailAdapter(activity!!, vm)
         binding.emails.adapter = adapter
 
         vm.emails.value?.let {
@@ -47,6 +49,38 @@ class SettingsChangeEmail : Fragment() {
                 adapter.data = LinkedList(it)
             }
         })
+
+        vm.saveEmailsState.observe(this, Observer {
+            it?.let {
+                when(it){
+                    ENetworkState.DONE -> {
+                        Snackbar.make(view, getString(R.string.saved_successfully), Snackbar.LENGTH_LONG).show()
+                    }
+                    ENetworkState.LOADING -> {
+
+                    }
+                    ENetworkState.ERROR -> {
+                        Snackbar.make(view, getString(R.string.something_went_wrong), Snackbar.LENGTH_LONG).show()
+                    }
+                }
+            }
+        })
+
+        binding.button.setOnClickListener {
+            val e = binding.tiEmail.editText?.text.toString()
+
+            if(e.isNotBlank()){
+                binding.tiEmail.error = ""
+                binding.tiEmail.editText?.setText("")
+                vm.addEmail(e)
+            } else {
+                binding.tiEmail.error = getString(R.string.field_is_empty)
+            }
+        }
+
+        binding.btnSave.setOnClickListener {
+            vm.saveEmails()
+        }
 
         return view
     }

@@ -1,6 +1,7 @@
 package com.bke.datepoll.repos
 
 import androidx.lifecycle.MutableLiveData
+import com.bke.datepoll.data.model.AddEmailRequest
 import com.bke.datepoll.data.model.NewPhoneNumberRequest
 import com.bke.datepoll.data.model.UserLiveDataElements
 import com.bke.datepoll.data.model.UserModel
@@ -90,6 +91,30 @@ class UserRepository : BaseRepository("UserRepository") {
         )
 
         phoneNumberDao.deletePhoneNumber(id.toLong())
+    }
+
+    suspend fun saveEmailsToServer(state: MutableLiveData<ENetworkState>){
+        val emails = ArrayList<String>()
+        for (e in this.emails.value!!.iterator()){
+            emails.add(e.email)
+        }
+
+        val result = apiCall(
+            call = { api.addEmail(prefs.JWT!!, AddEmailRequest(emails = emails)) },
+            state = state
+        )
+
+        result?.let {
+            storeUser(it.user)
+        }
+    }
+
+    suspend fun addEmail(e: String){
+        emailDao.addEmail(EmailAddressDbModel(email = e, userId = user.value!!.id))
+    }
+
+    suspend fun removeEmail(e: String){
+        emailDao.deleteEmail(e)
     }
 
     private suspend fun updateUserOnServer(

@@ -54,6 +54,6 @@
         tools:layout="@layout/fragment_settings_change_phone_number" />
     <fragment
         android:id="@+id/settingsChangeEmail"
-        android:name="com.bke.datepoll.ui.settings.SettingsChangeEmail"
+        android:name="com.bke.datepoll.ui.settings.SettingsChangeEmailFragment"
         android:label="SettingsChangeEmail" />
 </navigation>

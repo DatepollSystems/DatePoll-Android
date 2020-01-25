@@ -77,4 +77,8 @@
     <string name="label">Label</string>
     <string name="change_email">Change email</string>
     <string name="email">Email</string>
+    <string name="field_is_empty">Field is empty</string>
+    <string name="saved_successfully">Saved successfully</string>
+    <string name="something_went_wrong">Ups... something went wrong</string>
+    <string name="could_not_delete_min_one">Could not delete item, because minimum one email must exist</string>
 </resources>

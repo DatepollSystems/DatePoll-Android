@@ -20,6 +20,12 @@ interface EmailDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addEmails(emails: List<EmailAddressDbModel>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addEmail(email: EmailAddressDbModel)
+
     @Query("delete from email_addresses")
     fun deleteAllEntries()
+
+    @Query("delete from email_addresses where email = :e")
+    fun deleteEmail(e: String)
 }
