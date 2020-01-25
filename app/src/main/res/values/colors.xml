@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2B8D90</color>
-    <color name="colorPrimaryDark">#226F72</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="colorOnPrimary">#2B8D90</color>
-    <color name="colorSecondary">#2B8D90</color>
-    <color name="colorSecondaryVariant">#2B8D90</color>
-    <color name="colorOnSecondary">#2B8D90</color>
+    <color name="primaryColor">#2b8d90</color>
+    <color name="primaryLightColor">#62bdc0</color>
+    <color name="primaryDarkColor">#005f63</color>
+    <color name="secondaryColor">#2b5a90</color>
+    <color name="secondaryLightColor">#5f87c1</color>
+    <color name="secondaryDarkColor">#003162</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#ffffff</color>
 
+    <color name="error">#CF6679</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorSettingsBtnClickEffect">#2B8D90</color>
 </resources>

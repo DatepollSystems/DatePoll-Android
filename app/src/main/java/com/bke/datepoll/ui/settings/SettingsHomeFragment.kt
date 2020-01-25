@@ -42,7 +42,7 @@ class SettingsHomeFragment : Fragment() {
             )
         )
 
-        btnSettingsAbout.setOnClickListener(
+        btnAbout.setOnClickListener(
             Navigation.createNavigateOnClickListener(
                 R.id.action_settingsHomeFragment_to_settingsAboutFragment
             )
