@@ -35,8 +35,6 @@ class HomeFragment : Fragment() {
         binding.vm = vm
         binding.lifecycleOwner = this
 
-        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
-
 
         //Birthday List
         val birthdayAdapter = BirthdayAdapter()

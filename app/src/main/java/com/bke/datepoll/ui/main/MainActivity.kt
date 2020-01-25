@@ -22,6 +22,7 @@ import com.bke.datepoll.ui.BaseActivity
 import com.bke.datepoll.ui.ServerInputActivity
 import com.bke.datepoll.ui.settings.SettingsActivity
 import com.bke.datepoll.vm.MainViewModel
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.nav_header_main.*
@@ -57,9 +58,8 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initUiAndNavigation(){
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        val toolbar: BottomAppBar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
