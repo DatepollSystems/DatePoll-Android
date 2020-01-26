@@ -71,7 +71,7 @@ class SettingsHomeFragment : Fragment() {
 
         btnTheme.setOnClickListener {
 
-            var selection: String = "Default"
+            var selection = ""
 
             val b = AlertDialog.Builder(activity!!)
             b.setTitle(getString(R.string.theme))
@@ -82,12 +82,15 @@ class SettingsHomeFragment : Fragment() {
             }
 
             b.setPositiveButton(getString(R.string.ok)) { _, _ ->
-                prefs.THEME = selection
+                if(selection.isNotBlank())
+                    prefs.THEME = selection
+
                 Log.i("Theme attached:", "${prefs.THEME}")
                 when(prefs.THEME){
                     themeOptions[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                     themeOptions[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     themeOptions[2] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    else -> null
                 }
             }
 

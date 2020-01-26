@@ -1,6 +1,7 @@
 <resources>
     <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorSecondary">@color/primaryColor</item>
         <item name="colorSurface">#121212</item>
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
         <item name="materialCardViewStyle">@style/DatepollCardView</item>

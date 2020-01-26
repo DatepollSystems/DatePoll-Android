@@ -3,12 +3,11 @@
         <item name="android:statusBarColor">@color/primaryDarkColor</item>
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorSecondary">@color/primaryColor</item>
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
         <item name="materialCardViewStyle">@style/DatepollCardView</item>
 
         <item name="appBarLayoutStyle">@style/AppTheme.NoActionBar</item>
-
-
     </style>
 
     <style name="DatepollCardView" parent="Widget.MaterialComponents.CardView">
