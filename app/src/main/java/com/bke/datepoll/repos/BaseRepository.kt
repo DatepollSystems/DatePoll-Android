@@ -1,5 +1,6 @@
 package com.bke.datepoll.repos
 
+import android.accounts.NetworkErrorException
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.Prefs
@@ -45,6 +46,8 @@ open class BaseRepository(private val tag: String) : KoinComponent {
             response = call.invoke()
             if (response.isSuccessful) {
                 state.postValue(ENetworkState.DONE)
+            } else {
+                throw NetworkErrorException("")
             }
         } catch (e: Exception) {
             Log.e(tag, e.message!!)

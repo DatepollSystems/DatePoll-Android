@@ -27,8 +27,9 @@ class SettingsActivity : BaseActivity() {
 
 
         val toolbar: Toolbar = findViewById(R.id.settingsToolbar)
-        toolbar.title = ""
+        toolbar.title = resources.getString(R.string.settings)
         setSupportActionBar(toolbar)
+
 
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

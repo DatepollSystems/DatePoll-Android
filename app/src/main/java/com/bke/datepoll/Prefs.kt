@@ -34,4 +34,8 @@ class Prefs(context: Context) {
     var IS_LOGGED_IN: Boolean
         get() = prefs.getBoolean("loggedin", false)
         set(value) = prefs.edit().putBoolean("loggedin", value).apply()
+
+    var THEME: String?
+        get() = prefs.getString("theme", "Default")
+        set(value) = prefs.edit().putString("theme", value).apply()
 }

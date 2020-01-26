@@ -32,7 +32,6 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tiTitle"
-                    style="@style/InputField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -49,7 +48,6 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tiFirstname"
-                    style="@style/InputField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
@@ -66,7 +64,6 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tiSurname"
-                    style="@style/InputField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
@@ -84,7 +81,6 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tiBirthday"
-                    style="@style/InputField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
@@ -106,7 +102,6 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tiStreetName"
-                        style="@style/InputField"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="30dp"
@@ -124,7 +119,6 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tiStreetNumber"
-                        style="@style/InputField"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="20dp"
@@ -146,7 +140,6 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tiZipCode"
-                        style="@style/InputField"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="30dp"
@@ -164,7 +157,6 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tiLocation"
-                        style="@style/InputField"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="20dp"

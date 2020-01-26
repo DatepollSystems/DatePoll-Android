@@ -30,6 +30,13 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_settingsHomeFragment_to_settingsChangeEmail"
+            app:destination="@id/settingsChangeEmail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/settingsUserFragment"
@@ -45,4 +52,8 @@
         android:name="com.bke.datepoll.ui.settings.SettingsChangePhoneNumberFragment"
         android:label="fragment_settings_change_phone_number"
         tools:layout="@layout/fragment_settings_change_phone_number" />
+    <fragment
+        android:id="@+id/settingsChangeEmail"
+        android:name="com.bke.datepoll.ui.settings.SettingsChangeEmailFragment"
+        android:label="SettingsChangeEmail" />
 </navigation>

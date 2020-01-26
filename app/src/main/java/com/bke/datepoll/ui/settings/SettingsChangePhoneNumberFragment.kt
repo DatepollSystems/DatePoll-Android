@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bke.datepoll.R
+import com.bke.datepoll.data.model.NewPhoneNumberRequest
 import com.bke.datepoll.databinding.FragmentSettingsChangePhoneNumberBinding
 import com.bke.datepoll.vm.SettingsViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -29,7 +31,7 @@ class SettingsChangePhoneNumberFragment : Fragment() {
         binding.vm = vm
         binding.lifecycleOwner = this
 
-        val adapter = PhoneNumberAdapter()
+        val adapter = PhoneNumberAdapter(vm)
         binding.phoneNumbers.adapter = adapter
 
         vm.phoneNumbers.value?.let {
@@ -42,6 +44,20 @@ class SettingsChangePhoneNumberFragment : Fragment() {
             }
         })
 
+        binding.button.setOnClickListener {
+            val label = binding.tiLabel.editText?.text.toString()
+            val number = binding.tiPhoneNumber.editText?.text.toString()
+
+            if(label.isNotBlank() && number.isNotBlank())
+                vm.addPhoneNumber(NewPhoneNumberRequest(label, number))
+
+        }
+
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.change_phone_number)
     }
 }

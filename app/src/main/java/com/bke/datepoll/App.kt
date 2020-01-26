@@ -1,16 +1,16 @@
 package com.bke.datepoll
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import com.bke.datepoll.network.DatepollServiceFactory
 import com.bke.datepoll.database.DatepollDatabase
 import com.bke.datepoll.repos.HomeRepository
 import com.bke.datepoll.repos.LoginRepository
 import com.bke.datepoll.repos.ServerRepository
 import com.bke.datepoll.repos.UserRepository
-import com.bke.datepoll.vm.LoginViewModel
-import com.bke.datepoll.vm.MainViewModel
-import com.bke.datepoll.vm.ServerInputViewModel
-import com.bke.datepoll.vm.SettingsViewModel
+import com.bke.datepoll.ui.settings.themeOptions
+import com.bke.datepoll.vm.*
+import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -36,6 +36,7 @@ val appModule = module {
     viewModel { LoginViewModel() }
     viewModel { MainViewModel() }
     viewModel { SettingsViewModel() }
+    viewModel { SettingsEmailViewModel() }
     viewModel { ServerInputViewModel() }
 }
 
@@ -50,7 +51,12 @@ class App : Application() {
             modules(listOf(appModule))
         }
 
-
+        val prefs: Prefs by inject()
+        when(prefs.THEME){
+            themeOptions[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            themeOptions[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            themeOptions[2] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
     }
 }
 
