@@ -47,7 +47,7 @@ open class BaseRepository(private val tag: String) : KoinComponent {
             if (response.isSuccessful) {
                 state.postValue(ENetworkState.DONE)
             } else {
-                throw NetworkErrorException()
+                throw NetworkErrorException("")
             }
         } catch (e: Exception) {
             Log.e(tag, e.message!!)

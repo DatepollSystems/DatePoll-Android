@@ -70,6 +70,7 @@
     <string name="yes">yes</string>
     <string name="maybe">maybe</string>
     <string name="no">no</string>
+    <string name="theme">Theme</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -81,4 +82,5 @@
     <string name="saved_successfully">Saved successfully</string>
     <string name="something_went_wrong">Ups... something went wrong</string>
     <string name="could_not_delete_min_one">Could not delete item, because minimum one email must exist</string>
+    <string name="ok">OK</string>
 </resources>
