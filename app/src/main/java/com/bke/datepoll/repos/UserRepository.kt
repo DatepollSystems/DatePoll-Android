@@ -90,7 +90,9 @@ class UserRepository : BaseRepository("UserRepository") {
             state = state
         )
 
-        phoneNumberDao.deletePhoneNumber(id.toLong())
+        result?.let {
+            phoneNumberDao.deletePhoneNumber(id.toLong())
+        }
     }
 
     suspend fun saveEmailsToServer(state: MutableLiveData<ENetworkState>){

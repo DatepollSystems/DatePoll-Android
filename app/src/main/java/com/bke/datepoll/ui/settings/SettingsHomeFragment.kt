@@ -15,6 +15,7 @@ import com.bke.datepoll.Prefs
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.FragmentSettingsHomeBinding
 import com.bke.datepoll.vm.SettingsViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_settings_home.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -68,6 +69,21 @@ class SettingsHomeFragment : Fragment() {
             )
         )
 
+        btnChangePassword.setOnClickListener(
+            Navigation.createNavigateOnClickListener(
+                R.id.action_settingsHomeFragment_to_settingsChangePasswordFragment
+            )
+        )
+
+        btnManageSessions.setOnClickListener(
+            Navigation.createNavigateOnClickListener(
+                R.id.action_settingsHomeFragment_to_settingsManageSessionsFragment
+            )
+        )
+
+        btnManageCalendar.setOnClickListener {
+            Snackbar.make(it, "Feature will be there in the future :D", Snackbar.LENGTH_SHORT).show()
+        }
 
         btnTheme.setOnClickListener {
 
@@ -75,7 +91,7 @@ class SettingsHomeFragment : Fragment() {
 
             val b = AlertDialog.Builder(activity!!)
             b.setTitle(getString(R.string.theme))
-            var checkedItem = themeOptions.indexOf(prefs.THEME!!)
+            val checkedItem = themeOptions.indexOf(prefs.THEME!!)
 
             b.setSingleChoiceItems(themeOptions, checkedItem) { _, which ->
                 selection = themeOptions[which]
