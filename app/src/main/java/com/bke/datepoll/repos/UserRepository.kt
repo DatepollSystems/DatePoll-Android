@@ -1,10 +1,7 @@
 package com.bke.datepoll.repos
 
 import androidx.lifecycle.MutableLiveData
-import com.bke.datepoll.data.model.AddEmailRequest
-import com.bke.datepoll.data.model.NewPhoneNumberRequest
-import com.bke.datepoll.data.model.UserLiveDataElements
-import com.bke.datepoll.data.model.UserModel
+import com.bke.datepoll.data.model.*
 import com.bke.datepoll.data.requests.UpdateUserRequest
 import com.bke.datepoll.database.DatepollDatabase
 import com.bke.datepoll.database.dao.*
@@ -13,6 +10,8 @@ import com.bke.datepoll.database.model.PerformanceBadgesDbModel
 import com.bke.datepoll.database.model.PermissionDbModel
 import com.bke.datepoll.network.DatepollApi
 import org.koin.core.inject
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -117,6 +116,32 @@ class UserRepository : BaseRepository("UserRepository") {
 
     suspend fun removeEmail(e: String){
         emailDao.deleteEmail(e)
+    }
+
+    suspend fun loadSessions(state: MutableLiveData<ENetworkState>): List<SessionModel>{
+        val result = apiCall(
+            call = { api.getSessions(prefs.JWT!!) },
+            state = state
+        )
+
+        val s = ArrayList<SessionModel>()
+        val TS_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+        val DATE_UI_PATTERN = "dd.MM.yyyy HH:mm:ss"
+        val formatter = SimpleDateFormat(TS_DATE_PATTERN)
+        val uiFormatter = SimpleDateFormat(DATE_UI_PATTERN)
+
+        result?.let {
+            for (item in it.sessions){
+                val oldDate = formatter.parse(item.lastUsed)
+
+                val newDate = uiFormatter.format(oldDate)
+                val se = SessionModel(item.id, item.information, newDate, item.deleteSession)
+                s.add(se)
+            }
+        }
+
+
+        return s
     }
 
     private suspend fun updateUserOnServer(

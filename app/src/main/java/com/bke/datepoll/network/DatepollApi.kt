@@ -91,4 +91,9 @@ interface DatepollApi {
         @Body body: AddEmailRequest
     ): Response<CurrentUserResponseModel>
 
+    @GET("/api/v1/user/myself/session")
+    suspend fun getSessions(
+        @Query("token") token: String
+    ): Response<Session>
+
 }

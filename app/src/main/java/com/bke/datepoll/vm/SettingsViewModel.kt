@@ -3,6 +3,8 @@ package com.bke.datepoll.vm
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.Prefs
 import com.bke.datepoll.data.model.NewPhoneNumberRequest
+import com.bke.datepoll.data.model.Session
+import com.bke.datepoll.data.model.SessionModel
 import com.bke.datepoll.data.requests.UpdateUserRequest
 import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.repos.UserRepository
@@ -16,11 +18,14 @@ class SettingsViewModel: BaseViewModel() {
 
     val user = userRepo.user
     val phoneNumbers = userRepo.phoneNumbers
+    val sessions = MutableLiveData<List<SessionModel>>()
 
     val updateUserState = MutableLiveData<ENetworkState>()
     val loadUserState = MutableLiveData<ENetworkState>()
     val addPhoneNumberState = MutableLiveData<ENetworkState>()
     val removePhoneNumberState = MutableLiveData<ENetworkState>()
+    val loadSessionsState = MutableLiveData<ENetworkState>()
+
 
     fun loadUserdata(){
         scope.launch {
@@ -43,6 +48,15 @@ class SettingsViewModel: BaseViewModel() {
     fun removePhoneNumber(id: Int){
         scope.launch {
             userRepo.removePhoneNumber(removePhoneNumberState, id)
+        }
+    }
+
+    fun loadSessions(){
+        scope.launch {
+            val s = userRepo.loadSessions(loadSessionsState)
+            s?.let {
+                sessions.postValue(s)
+            }
         }
     }
 }
