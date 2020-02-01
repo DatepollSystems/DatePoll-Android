@@ -31,7 +31,7 @@ class SettingsManageSessionsFragment : Fragment() {
 
         vm.loadSessions()
 
-        val a = SessionsAdapter()
+        val a = SessionsAdapter(vm)
         v.findViewById<RecyclerView>(R.id.sessions).adapter = a
 
         a.data = LinkedList()

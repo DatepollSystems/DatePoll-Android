@@ -96,4 +96,10 @@ interface DatepollApi {
         @Query("token") token: String
     ): Response<Session>
 
+    @DELETE("/api/v1/user/myself/session/{id}")
+    suspend fun deleteSession(
+        @Path("id") id: Int,
+        @Query("token") token: String
+    ): Response<Message>
+
 }

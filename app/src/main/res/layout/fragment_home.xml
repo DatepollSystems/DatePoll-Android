@@ -115,22 +115,23 @@
                 android:id="@+id/cardViewBookings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardVisible="@{vm.bookings.size()}"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
+                app:cardVisible="@{vm.bookings.size()}"
                 app:layout_constraintBottom_toTopOf="@+id/cardViewEvents"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardViewBirthdays">
+                app:layout_constraintTop_toBottomOf="@+id/cardViewBirthdays"
+                app:layout_constraintVertical_bias="0.0">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_margin="0dp">
+                    android:layout_margin="0dp"
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/TextAppearance.MaterialComponents.Body1"

@@ -9,9 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bke.datepoll.R
 import com.bke.datepoll.data.model.SessionModel
+import com.bke.datepoll.vm.SettingsViewModel
 import java.util.*
 
-class SessionsAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SessionsAdapter(val vm: SettingsViewModel): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val tag = "SessionAdapter"
 
@@ -41,7 +42,7 @@ class SessionsAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             viewHolder.tvInformation.text = item.information
             viewHolder.tvLastUsage.text = item.lastUsed
             viewHolder.btnDelete.setOnClickListener {
-                Log.i(tag, "Deleted item")
+                vm.deleteSession(item)
             }
         }
     }

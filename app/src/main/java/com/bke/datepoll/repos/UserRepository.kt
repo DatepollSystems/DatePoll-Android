@@ -2,6 +2,7 @@ package com.bke.datepoll.repos
 
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.data.model.*
+import com.bke.datepoll.data.requests.Message
 import com.bke.datepoll.data.requests.UpdateUserRequest
 import com.bke.datepoll.database.DatepollDatabase
 import com.bke.datepoll.database.dao.*
@@ -10,6 +11,7 @@ import com.bke.datepoll.database.model.PerformanceBadgesDbModel
 import com.bke.datepoll.database.model.PermissionDbModel
 import com.bke.datepoll.network.DatepollApi
 import org.koin.core.inject
+import org.koin.core.logger.MESSAGE
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -134,7 +136,7 @@ class UserRepository : BaseRepository("UserRepository") {
             for (item in it.sessions){
                 val oldDate = formatter.parse(item.lastUsed)
 
-                val newDate = uiFormatter.format(oldDate)
+                val newDate = uiFormatter.format(oldDate!!)
                 val se = SessionModel(item.id, item.information, newDate, item.deleteSession)
                 s.add(se)
             }
@@ -142,6 +144,13 @@ class UserRepository : BaseRepository("UserRepository") {
 
 
         return s
+    }
+
+    suspend fun deleteSession(state: MutableLiveData<ENetworkState>, item: SessionModel): Message? {
+       return apiCall(
+            state = state,
+            call = { api.deleteSession(item.id, prefs.JWT!!) }
+        )
     }
 
     private suspend fun updateUserOnServer(
