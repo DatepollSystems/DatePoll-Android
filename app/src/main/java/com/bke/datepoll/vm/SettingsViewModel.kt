@@ -23,8 +23,7 @@ class SettingsViewModel : BaseViewModel() {
 
     val updateUserState = MutableLiveData<ENetworkState>()
     val loadUserState = MutableLiveData<ENetworkState>()
-    val addPhoneNumberState = MutableLiveData<ENetworkState>()
-    val removePhoneNumberState = MutableLiveData<ENetworkState>()
+    val removeAddPhoneNumberState = MutableLiveData<ENetworkState>()
     val loadSessionsState = MutableLiveData<ENetworkState>()
     val deleteSessionSate = MutableLiveData<ENetworkState>()
 
@@ -43,13 +42,13 @@ class SettingsViewModel : BaseViewModel() {
 
     fun addPhoneNumber(p: NewPhoneNumberRequest) {
         scope.launch {
-            userRepo.addPhoneNumber(addPhoneNumberState, p)
+            userRepo.addPhoneNumber(removeAddPhoneNumberState, p)
         }
     }
 
     fun removePhoneNumber(id: Int) {
         scope.launch {
-            userRepo.removePhoneNumber(removePhoneNumberState, id)
+            userRepo.removePhoneNumber(removeAddPhoneNumberState, id)
         }
     }
 

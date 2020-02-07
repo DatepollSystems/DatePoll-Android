@@ -11,10 +11,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.*
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.bke.datepoll.AppObservableHandler
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.ActivityMainBinding
@@ -25,12 +23,13 @@ import com.bke.datepoll.vm.MainViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.IllegalArgumentException
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(),  NavigationView.OnNavigationItemSelectedListener{
 
     override lateinit var activityView: View
     private val appObservableHandler: AppObservableHandler by inject()
@@ -66,12 +65,15 @@ class MainActivity : BaseActivity() {
         val navController = findNavController(R.id.nav_host_main)
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
+                R.id.nav_home,
+                R.id.nav_event,
+                R.id.nav_slideshow,
                 R.id.nav_tools
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        setupWithNavController(navView, navController)
+        navView.setNavigationItemSelectedListener(this)
     }
 
     private fun initObservers(){
@@ -93,6 +95,10 @@ class MainActivity : BaseActivity() {
                 finish()
             }
         })
+    }
+
+    override fun onNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(findNavController(R.id.nav_host_main), drawer_layout)
     }
 
     override fun onStart() {
@@ -128,7 +134,7 @@ class MainActivity : BaseActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_main)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        return navController.navigateUp(appBarConfiguration)
     }
 
     override fun onBackPressed() {
@@ -137,5 +143,19 @@ class MainActivity : BaseActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+        menuItem.isChecked = true
+        drawer_layout.closeDrawers()
+
+        val id = menuItem.itemId
+
+        when(id){
+            R.id.nav_event -> findNavController(R.id.nav_host_main).navigate(R.id.action_nav_home_to_eventFragment)
+        }
+
+        return true
+
     }
 }

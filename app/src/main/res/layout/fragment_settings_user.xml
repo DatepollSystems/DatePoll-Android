@@ -4,21 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.bke.datepoll.Converter"/>
+
+        <import type="com.bke.datepoll.Converter" />
 
         <variable
             name="vm"
             type="com.bke.datepoll.vm.SettingsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frameLayout2"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/userSettingsSwipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.settings.SettingsUserFragment">
+        android:layout_height="match_parent">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/userSettingsSwipeRefresh"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -26,9 +25,9 @@
             <LinearLayout
                 android:id="@+id/userSettingsLayout"
                 android:layout_width="match_parent"
-                android:visibility="invisible"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="invisible">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tiTitle"
@@ -183,6 +182,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
+                        android:layout_marginBottom="16dp"
                         android:enabled="true"
                         android:text="@string/save"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -191,6 +191,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

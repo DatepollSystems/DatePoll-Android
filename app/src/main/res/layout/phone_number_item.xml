@@ -30,7 +30,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/divider7"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintStart_toEndOf="@+id/tvLabel"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,7 +62,7 @@
         tools:layout_editor_absoluteX="411dp" />
 
     <View
-        android:id="@+id/divider7"
+        android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider"

@@ -11,9 +11,7 @@ import com.bke.datepoll.database.model.PerformanceBadgesDbModel
 import com.bke.datepoll.database.model.PermissionDbModel
 import com.bke.datepoll.network.DatepollApi
 import org.koin.core.inject
-import org.koin.core.logger.MESSAGE
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -91,8 +89,10 @@ class UserRepository : BaseRepository("UserRepository") {
             state = state
         )
 
-        result?.let {
+        if(result != null){
             phoneNumberDao.deletePhoneNumber(id.toLong())
+        } else {
+            state.postValue(ENetworkState.ERROR)
         }
     }
 
@@ -112,11 +112,11 @@ class UserRepository : BaseRepository("UserRepository") {
         }
     }
 
-    suspend fun addEmail(e: String){
+    fun addEmail(e: String){
         emailDao.addEmail(EmailAddressDbModel(email = e, userId = user.value!!.id))
     }
 
-    suspend fun removeEmail(e: String){
+    fun removeEmail(e: String){
         emailDao.deleteEmail(e)
     }
 
@@ -127,10 +127,10 @@ class UserRepository : BaseRepository("UserRepository") {
         )
 
         val s = ArrayList<SessionModel>()
-        val TS_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
-        val DATE_UI_PATTERN = "dd.MM.yyyy HH:mm:ss"
-        val formatter = SimpleDateFormat(TS_DATE_PATTERN)
-        val uiFormatter = SimpleDateFormat(DATE_UI_PATTERN)
+        val serverPattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+        val uiPattern = "dd.MM.yyyy HH:mm:ss"
+        val formatter = SimpleDateFormat(serverPattern)
+        val uiFormatter = SimpleDateFormat(uiPattern)
 
         result?.let {
             for (item in it.sessions){
