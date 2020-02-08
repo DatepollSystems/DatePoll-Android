@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor">@color/primaryDarkColor</item>
         <item name="colorPrimary">@color/primaryColor</item>
@@ -20,4 +20,7 @@
         <item name="android:tint">#000000</item>
     </style>
 
+    <style name="AppTheme.IconBlackGrey" parent="AppTheme.NoActionBar">
+        <item name="android:tint">#000000</item>
+    </style>
 </resources>

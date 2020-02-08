@@ -1,16 +1,17 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
     <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorSecondary">@color/primaryColor</item>
         <item name="colorSurface">#121212</item>
-        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox
+        </item>
         <item name="materialCardViewStyle">@style/DatepollCardView</item>
 
 
         <item name="appBarLayoutStyle">@style/AppTheme.AppBarLayout</item>
 
     </style>
-
 
 
     <style name="DatepollCardView" parent="Widget.MaterialComponents.CardView">
@@ -20,11 +21,14 @@
         <item name="cardElevation">8dp</item>
     </style>
 
-    <style name="AppTheme.AppBarLayout" parent="Widget.MaterialComponents.AppBarLayout.Surface"/>
+    <style name="AppTheme.AppBarLayout" parent="Widget.MaterialComponents.AppBarLayout.Surface" />
 
 
     <style name="AppTheme.SettingsMenuItem" parent="AppTheme.NoActionBar">
         <item name="android:tint">#FFFFFF</item>
     </style>
 
+    <style name="AppTheme.IconBlackGrey" parent="AppTheme.NoActionBar">
+        <item name="android:tint">?attr/colorOnSurface</item>
+    </style>
 </resources>

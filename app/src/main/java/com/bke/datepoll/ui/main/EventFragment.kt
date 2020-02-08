@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 
 import com.bke.datepoll.R
+import kotlinx.android.synthetic.main.fragment_event.view.*
 
 
 class EventFragment : Fragment() {
@@ -18,9 +19,12 @@ class EventFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        val view =
+            inflater.inflate(R.layout.fragment_event, container, false)
 
+        view.refresh.isRefreshing = true
 
-        return inflater.inflate(R.layout.fragment_event, container, false)
+        return view
     }
 
 

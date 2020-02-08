@@ -2,13 +2,11 @@ package com.bke.datepoll.vm
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.Prefs
 import com.bke.datepoll.data.model.Birthday
 import com.bke.datepoll.data.model.Booking
 import com.bke.datepoll.data.model.Event
-import com.bke.datepoll.data.model.HomeScreen
 import com.bke.datepoll.data.requests.LogoutRequestModel
 import com.bke.datepoll.data.requests.LogoutResponseModel
 import com.bke.datepoll.database.model.PermissionDbModel
@@ -36,7 +34,7 @@ class MainViewModel : BaseViewModel() {
     val permissions = MutableLiveData<List<PermissionDbModel>>()
 
     val loadUserState = MutableLiveData<ENetworkState>()
-    val loadUserHomepage = MutableLiveData<ENetworkState>()
+    val loadHomepageState = MutableLiveData<ENetworkState>()
 
     val birthdays = MutableLiveData<List<Birthday>>()
     val events = MutableLiveData<List<Event>>()
@@ -70,7 +68,7 @@ class MainViewModel : BaseViewModel() {
 
     fun loadHomepage() {
         scope.launch {
-            val h = homeRepository.loadHomepage(loadUserHomepage)
+            val h = homeRepository.loadHomepage(loadHomepageState)
             Log.i(tag, h.toString())
             birthdays.postValue(h?.birthdays)
             events.postValue(h?.events)
