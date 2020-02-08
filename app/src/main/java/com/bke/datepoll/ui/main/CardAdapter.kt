@@ -18,7 +18,7 @@ class CardAdapter(val activity: AppCompatActivity) :
     private val bookings = activity.getString(R.string.bookings)
     private val events = activity.getString(R.string.events)
 
-    var data = listOf(birthday, bookings, events, bookings, bookings)
+    var data = listOf(birthday, bookings, events)
 
     var birthdayData: LinkedList<Birthday> = LinkedList()
         set(value){
