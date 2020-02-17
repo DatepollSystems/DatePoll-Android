@@ -5,18 +5,10 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.Prefs
 import com.bke.datepoll.network.DatepollApi
-import com.bke.datepoll.network.Result
-import com.bke.datepoll.data.requests.ErrorMsg
 import com.bke.datepoll.data.requests.RefreshTokenWithSessionRequest
-import com.bke.datepoll.exceptions.AuthorizationFailedException
-import com.squareup.moshi.Moshi
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import retrofit2.HttpException
 import retrofit2.Response
-import java.io.IOException
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 import java.util.*
 
 enum class ENetworkState { LOADING, DONE, ERROR }
@@ -72,9 +64,9 @@ open class BaseRepository(private val tag: String) : KoinComponent {
          */
         if (isLoggedIn() && (Date().time - jwtTime) > 3600000) {
             Log.i(tag, "Try to refresh jwt")
-            val request = RefreshTokenWithSessionRequest(session_token = prefs.SESSION!!)
-            val response = api.refreshTokenWithSession(request)
-
+            val request = RefreshTokenWithSessionRequest(sessionToken = prefs.SESSION!!)
+            val response = api.refreshTokenWithSession(request
+            )
             if (!response.isSuccessful) {
                 return false
             }

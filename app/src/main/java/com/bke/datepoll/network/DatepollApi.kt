@@ -101,5 +101,4 @@ interface DatepollApi {
         @Path("id") id: Int,
         @Query("token") token: String
     ): Response<Message>
-
 }

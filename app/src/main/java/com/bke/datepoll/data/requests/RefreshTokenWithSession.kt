@@ -1,8 +1,10 @@
 package com.bke.datepoll.data.requests
 
+import com.squareup.moshi.Json
+
 data class RefreshTokenWithSessionRequest(
-    val session_token : String,
-    val session_information: String = "Android smartphone"
+    @field:Json(name = "session_token") val sessionToken : String,
+    @field:Json(name = "session_information") val sessionInformation: String = "Android smartphone"
 )
 
 data class RefreshTokenWithSessionResponse(
