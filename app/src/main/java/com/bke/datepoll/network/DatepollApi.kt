@@ -101,4 +101,17 @@ interface DatepollApi {
         @Path("id") id: Int,
         @Query("token") token: String
     ): Response<Message>
+
+
+    @POST("/api/v1/user/myself/changePassword/checkOldPassword")
+    suspend fun checkOldPassword(
+        @Query("token") token: String,
+        @Body body: PasswordRequestModel
+    ): Response<Message>
+
+    @POST("/api/v1/user/myself/changePassword/changePassword")
+    suspend fun changeOldPassword(
+        @Query("token") token: String,
+        @Body body: ChangePasswordRequestModel
+    ): Response<Message>
 }

@@ -16,6 +16,7 @@ class SettingsViewModel : BaseViewModel() {
 
     private val prefs: Prefs by inject()
     private val userRepo: UserRepository by inject()
+    private val tag = "SettingsViewModel"
 
     val user = userRepo.user
     val phoneNumbers = userRepo.phoneNumbers
@@ -26,6 +27,8 @@ class SettingsViewModel : BaseViewModel() {
     val removeAddPhoneNumberState = MutableLiveData<ENetworkState>()
     val loadSessionsState = MutableLiveData<ENetworkState>()
     val deleteSessionSate = MutableLiveData<ENetworkState>()
+    val checkPasswordState = MutableLiveData<ENetworkState>()
+    val changePasswordState = MutableLiveData<ENetworkState>()
 
 
     fun loadUserdata() {
@@ -77,6 +80,26 @@ class SettingsViewModel : BaseViewModel() {
                 Log.i("New List: ", list.toString())
 
                 sessions.postValue(list)
+            }
+        }
+    }
+
+    fun checkPassword(password: String) {
+        scope.launch {
+            val msg: Message? = userRepo.checkPassword(checkPasswordState, password)
+
+            msg?.let {
+                Log.i(tag, msg.msg)
+            }
+        }
+    }
+
+    fun changePassword(oldPassword: String, newPassword: String) {
+        scope.launch {
+            val msg: Message? = userRepo.changePassword(changePasswordState, oldPassword, newPassword)
+
+            msg?.let {
+                Log.i(tag, msg.msg)
             }
         }
     }

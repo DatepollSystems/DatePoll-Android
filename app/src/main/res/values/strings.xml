@@ -85,5 +85,6 @@
     <string name="manage_sessions">Manage sessions</string>
     <string name="manage_calendar">Manage calendar</string>
     <string name="action">Action</string>
+    <string name="passwords_dont_match">Passwords don\'t match</string>
 
 </resources>
