@@ -67,10 +67,14 @@ class SettingsChangePasswordFragment : Fragment() {
 
             if (!quit) {
                 if (p1 == p2) {
-                    oldPass?.let {
-                        view.tiConfirmNewPassword.error = ""
-                        view.tiNewPassword.error = ""
-                        vm.changePassword(it, p1)
+                    if (p1.length >= 6)
+                        oldPass?.let {
+                            view.tiConfirmNewPassword.error = ""
+                            view.tiNewPassword.error = ""
+                            vm.changePassword(it, p1)
+                        }
+                    else {
+                        view.tiNewPassword.error = "Password must have min. 6 characters"
                     }
                 } else {
                     view.tiNewPassword.error = getString(R.string.passwords_dont_match)
@@ -122,6 +126,9 @@ class SettingsChangePasswordFragment : Fragment() {
                             getString(R.string.something_went_wrong),
                             Snackbar.LENGTH_LONG
                         ).show()
+
+                        refresh.isRefreshing = false
+                        refresh.isEnabled = false
                     }
                     ENetworkState.LOADING -> {
                         refresh.isEnabled = true
@@ -146,6 +153,9 @@ class SettingsChangePasswordFragment : Fragment() {
                             getString(R.string.something_went_wrong),
                             Snackbar.LENGTH_LONG
                         ).show()
+
+                        refresh.isRefreshing = false
+                        refresh.isEnabled = false
                     }
                     ENetworkState.LOADING -> {
                         refresh.isEnabled = true
