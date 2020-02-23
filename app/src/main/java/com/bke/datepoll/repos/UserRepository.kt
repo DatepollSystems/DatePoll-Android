@@ -1,5 +1,6 @@
 package com.bke.datepoll.repos
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.data.model.*
 import com.bke.datepoll.data.requests.ChangePasswordRequestModel
@@ -124,6 +125,7 @@ class UserRepository : BaseRepository("UserRepository") {
         emailDao.deleteEmail(e)
     }
 
+    @SuppressLint("SimpleDateFormat")
     suspend fun loadSessions(state: MutableLiveData<ENetworkState>): List<SessionModel> {
         val result = apiCall(
             call = { api.getSessions(prefs.JWT!!) },

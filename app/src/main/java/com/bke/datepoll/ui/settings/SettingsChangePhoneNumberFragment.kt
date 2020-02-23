@@ -66,6 +66,8 @@ class SettingsChangePhoneNumberFragment : Fragment() {
             it?.let {
                 when(it) {
                     ENetworkState.ERROR -> Snackbar.make(v, getString(R.string.something_went_wrong), Snackbar.LENGTH_LONG).show()
+                    ENetworkState.LOADING -> null
+                    ENetworkState.DONE -> null
                 }
             }
         })

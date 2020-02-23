@@ -86,6 +86,7 @@ class SettingsChangePasswordFragment : Fragment() {
                 view.tiOldPassword.error = ""
             }
         }
+
         currentView = view
         return view
     }
@@ -103,10 +104,17 @@ class SettingsChangePasswordFragment : Fragment() {
                 }
             })
 
+        refresh.isEnabled = false
+
         vm.checkPasswordState.observe(viewLifecycleOwner, Observer {
             it?.let {
                 when (it) {
-                    ENetworkState.DONE -> changeCurrentStep(currentView, true)
+                    ENetworkState.DONE -> {
+                        changeCurrentStep(currentView, true)
+                        refresh.isRefreshing = false
+                        refresh.isEnabled = false
+                    }
+
                     ENetworkState.ERROR -> {
                         Log.e(tag, "Something went wrong while validating old password")
                         Snackbar.make(
@@ -115,7 +123,10 @@ class SettingsChangePasswordFragment : Fragment() {
                             Snackbar.LENGTH_LONG
                         ).show()
                     }
-                    ENetworkState.LOADING -> null //TODO add loading progress
+                    ENetworkState.LOADING -> {
+                        refresh.isEnabled = true
+                        refresh.isRefreshing = true
+                    }
                 }
             }
         })
@@ -123,7 +134,11 @@ class SettingsChangePasswordFragment : Fragment() {
         vm.changePasswordState.observe(viewLifecycleOwner, Observer {
             it?.let {
                 when (it) {
-                    ENetworkState.DONE -> changeCurrentStep(currentView, true)
+                    ENetworkState.DONE -> {
+                        changeCurrentStep(currentView, true)
+                        refresh.isRefreshing = false
+                        refresh.isEnabled = false
+                    }
                     ENetworkState.ERROR -> {
                         Log.e(tag, "Something went wrong while validating old password")
                         Snackbar.make(
@@ -132,7 +147,10 @@ class SettingsChangePasswordFragment : Fragment() {
                             Snackbar.LENGTH_LONG
                         ).show()
                     }
-                    ENetworkState.LOADING -> null //TODO add loading progress
+                    ENetworkState.LOADING -> {
+                        refresh.isEnabled = true
+                        refresh.isRefreshing = true
+                    }
                 }
             }
         })
