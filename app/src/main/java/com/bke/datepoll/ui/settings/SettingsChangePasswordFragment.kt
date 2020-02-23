@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.bke.datepoll.R
+import com.bke.datepoll.databinding.FragmentSettingsChangePasswordBinding
 import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.vm.SettingsViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -18,30 +20,31 @@ import kotlinx.android.synthetic.main.fragment_settings_change_password.*
 import kotlinx.android.synthetic.main.fragment_settings_change_password.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
+enum class EStep { ONE, TWO, THREE }
+
 class SettingsChangePasswordFragment : Fragment() {
-
-    enum class Step { ONE, TWO, THREE }
-
-    var currentStep: Step = Step.ONE
 
     lateinit var currentView: View
 
     val vm: SettingsViewModel by sharedViewModel()
-
-    private var oldPass: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+        val binding = DataBindingUtil.inflate<FragmentSettingsChangePasswordBinding>(
+            inflater, R.layout.fragment_settings_change_password, container, false
+        )
 
-        val view = inflater.inflate(R.layout.fragment_settings_change_password, container, false)
+        binding.vm = vm
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        val view = binding.root
 
         view.btnConfirmOldPasswd.setOnClickListener {
-            val p = view.tiOldPassword.editText?.text.toString()
+            val p = vm.changePasswordOldPass.value!!
             if (p.isNotBlank()) {
-                oldPass = p
                 vm.checkPassword(p)
             } else {
                 tiOldPassword.error = getString(R.string.field_is_empty)
@@ -49,8 +52,8 @@ class SettingsChangePasswordFragment : Fragment() {
         }
 
         view.btnConfirmNewPassword.setOnClickListener {
-            val p1 = view.tiNewPassword.editText?.text.toString()
-            val p2 = view.tiConfirmNewPassword.editText?.text.toString()
+            val p1 = vm.changePasswordNewPass.value!!
+            val p2 = vm.changePasswordConfirmNewPass.value!!
 
             var quit = false
 
@@ -68,13 +71,13 @@ class SettingsChangePasswordFragment : Fragment() {
             if (!quit) {
                 if (p1 == p2) {
                     if (p1.length >= 6)
-                        oldPass?.let {
+                        vm.changePasswordOldPass.value?.let {
                             view.tiConfirmNewPassword.error = ""
                             view.tiNewPassword.error = ""
                             vm.changePassword(it, p1)
                         }
                     else {
-                        view.tiNewPassword.error = "Password must have min. 6 characters"
+                        view.tiNewPassword.error = getString(R.string.password_min_six_char)
                     }
                 } else {
                     view.tiNewPassword.error = getString(R.string.passwords_dont_match)
@@ -95,15 +98,28 @@ class SettingsChangePasswordFragment : Fragment() {
         return view
     }
 
+    private fun resetViewAndGoBack(){
+        findNavController().popBackStack()
+        currentView.ivCheck1.visibility = View.INVISIBLE
+        currentView.ivCheck2.visibility = View.INVISIBLE
+        currentView.tvOne.visibility = View.VISIBLE
+        currentView.tvTwo.visibility = View.VISIBLE
+        currentView.tiOldPassword.visibility = View.VISIBLE
+        vm.changePasswordStep.value = EStep.ONE
+        vm.changePasswordOldPass.value = ""
+        vm.changePasswordNewPass.value = ""
+        vm.changePasswordConfirmNewPass.value = ""
+    }
+
     override fun onStart() {
         requireActivity()
             .onBackPressedDispatcher
             .addCallback(this, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    when (currentStep) {
-                        Step.ONE -> findNavController().popBackStack()
-                        Step.TWO -> changeCurrentStep(currentView, false)
-                        Step.THREE -> findNavController().popBackStack()
+                    when (vm.changePasswordStep.value) {
+                        EStep.ONE -> resetViewAndGoBack()
+                        EStep.TWO -> changeCurrentStep(currentView, false)
+                        EStep.THREE -> resetViewAndGoBack()
                     }
                 }
             })
@@ -135,6 +151,8 @@ class SettingsChangePasswordFragment : Fragment() {
                         refresh.isRefreshing = true
                     }
                 }
+
+                vm.checkPasswordState.postValue(null)
             }
         })
 
@@ -162,6 +180,8 @@ class SettingsChangePasswordFragment : Fragment() {
                         refresh.isRefreshing = true
                     }
                 }
+
+                vm.changePasswordState.postValue(null)
             }
         })
 
@@ -173,10 +193,10 @@ class SettingsChangePasswordFragment : Fragment() {
      * @param direction true -> next step; false -> one step back
      */
     private fun changeCurrentStep(view: View, direction: Boolean) {
-        when (currentStep) {
-            Step.ONE -> {
+        when (vm.changePasswordStep.value) {
+            EStep.ONE -> {
                 if (direction) {
-                    currentStep = Step.TWO
+                    vm.changePasswordStep.value = EStep.TWO
                     tiOldPassword.visibility = View.GONE
                     btnConfirmOldPasswd.visibility = View.GONE
                     tvOne.visibility = View.INVISIBLE
@@ -190,9 +210,9 @@ class SettingsChangePasswordFragment : Fragment() {
                 }
             }
 
-            Step.TWO -> {
+            EStep.TWO -> {
                 if (direction) {
-                    currentStep = Step.THREE
+                    vm.changePasswordStep.value = EStep.THREE
 
 
                     ivCheck2.visibility = View.VISIBLE
@@ -203,7 +223,7 @@ class SettingsChangePasswordFragment : Fragment() {
 
                     Snackbar.make(view, "Password update successful", Snackbar.LENGTH_SHORT).show()
                 } else {
-                    currentStep = Step.ONE
+                    vm.changePasswordStep.value = EStep.ONE
                     tiOldPassword.visibility = View.VISIBLE
                     btnConfirmOldPasswd.visibility = View.VISIBLE
                     tvOne.visibility = View.VISIBLE
@@ -215,7 +235,7 @@ class SettingsChangePasswordFragment : Fragment() {
                 }
             }
 
-            Step.THREE -> {
+            EStep.THREE -> {
                 if (direction) {
                     Log.i(tag, "Last step reached, can't go further")
                     Thread.sleep(2000)
@@ -223,7 +243,7 @@ class SettingsChangePasswordFragment : Fragment() {
                     onDestroy()
                     findNavController().popBackStack()
                 } else {
-                    currentStep = Step.TWO
+                    vm.changePasswordStep.value = EStep.TWO
                     ivCheck2.visibility = View.INVISIBLE
                     tvTwo.visibility = View.VISIBLE
                     tiConfirmNewPassword.visibility = View.VISIBLE

@@ -94,5 +94,6 @@
     <string name="confirm_new_password">Confirm new password</string>
     <string name="checked">Checked</string>
     <string name="circle">Circle</string>
+    <string name="password_min_six_char">Password must have min. 6 characters</string>
 
 </resources>

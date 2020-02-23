@@ -9,6 +9,8 @@ import com.bke.datepoll.data.requests.Message
 import com.bke.datepoll.data.requests.UpdateUserRequest
 import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.repos.UserRepository
+import com.bke.datepoll.ui.settings.EStep
+import com.bke.datepoll.ui.settings.SettingsChangePasswordFragment
 import kotlinx.coroutines.launch
 import org.koin.core.inject
 
@@ -29,6 +31,12 @@ class SettingsViewModel : BaseViewModel() {
     val deleteSessionSate = MutableLiveData<ENetworkState>()
     val checkPasswordState = MutableLiveData<ENetworkState>()
     val changePasswordState = MutableLiveData<ENetworkState>()
+
+    val changePasswordStep = MutableLiveData<EStep>(EStep.ONE)
+    val changePasswordOldPass = MutableLiveData<String>("")
+    val changePasswordNewPass = MutableLiveData<String>("")
+    val changePasswordConfirmNewPass = MutableLiveData<String>("")
+
 
 
     fun loadUserdata() {
