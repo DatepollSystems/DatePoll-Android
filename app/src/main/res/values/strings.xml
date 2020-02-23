@@ -54,7 +54,7 @@
     <string name="birthdays_in_this_month">Birthdays in this month</string>
     <string name="bookings">Bookings</string>
     <string name="events">Events</string>
-    <string name="example_date_time">01-01-2020 18:33:00</string>
+    <string name="example_date_time">01–01–2020 18:33:00</string>
     <string name="name">Name</string>
     <string name="date">Date</string>
     <string name="no_internet_connection">No internet connection</string>
@@ -77,7 +77,7 @@
     <string name="email">Email</string>
     <string name="field_is_empty">Field is empty</string>
     <string name="saved_successfully">Saved successfully</string>
-    <string name="something_went_wrong">Ups... something went wrong</string>
+    <string name="something_went_wrong">Ups… something went wrong</string>
     <string name="could_not_delete_min_one">Could not delete item, because minimum one email must exist</string>
     <string name="ok">OK</string>
     <string name="security">Security</string>
@@ -86,5 +86,13 @@
     <string name="manage_calendar">Manage calendar</string>
     <string name="action">Action</string>
     <string name="passwords_dont_match">Passwords don\'t match</string>
+    <string name="enter_your_old_password">Enter your old password</string>
+    <string name="old_password">Old password</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="checked">Checked</string>
+    <string name="circle">Circle</string>
 
 </resources>
