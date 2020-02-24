@@ -7,6 +7,7 @@
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
         <item name="materialCardViewStyle">@style/DatepollCardView</item>
         <item name="appBarLayoutStyle">@style/AppTheme.NoActionBar</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
     <style name="DatepollCardView" parent="Widget.MaterialComponents.CardView">
@@ -22,5 +23,15 @@
 
     <style name="AppTheme.IconBlackGrey" parent="AppTheme.NoActionBar">
         <item name="android:tint">#000000</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/rounded_dialog</item>
     </style>
 </resources>

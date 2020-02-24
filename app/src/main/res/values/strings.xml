@@ -95,5 +95,8 @@
     <string name="checked">Checked</string>
     <string name="circle">Circle</string>
     <string name="password_min_six_char">Password must have min. 6 characters</string>
+    <string name="calendar_token">Calendar token</string>
+    <string name="reset_token">Reset token</string>
+    <string name="close">Close</string>
 
 </resources>

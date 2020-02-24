@@ -102,7 +102,6 @@ interface DatepollApi {
         @Query("token") token: String
     ): Response<Message>
 
-
     @POST("/api/v1/user/myself/changePassword/checkOldPassword")
     suspend fun checkOldPassword(
         @Query("token") token: String,
@@ -113,5 +112,15 @@ interface DatepollApi {
     suspend fun changeOldPassword(
         @Query("token") token: String,
         @Body body: ChangePasswordRequestModel
+    ): Response<Message>
+
+    @GET("/api/v1/user/myself/token/calendar")
+    suspend fun getCalendarToken(
+        @Query("token") token: String
+    ): Response<MessageToken>
+
+    @DELETE("/api/v1/user/myself/token")
+    suspend fun deleteCalendarToken(
+        @Query("token") token: String
     ): Response<Message>
 }

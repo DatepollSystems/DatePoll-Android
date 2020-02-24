@@ -10,13 +10,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.bke.datepoll.Prefs
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.FragmentSettingsHomeBinding
+import com.bke.datepoll.ui.main.VoteBottomSheetDialog
 import com.bke.datepoll.vm.SettingsViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_settings_home.*
+import kotlinx.android.synthetic.main.fragment_settings_home.view.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -39,6 +43,7 @@ class SettingsHomeFragment : Fragment() {
         binding.vm = vm
         binding.lifecycleOwner = this
 
+        view.refresh.isEnabled = false
 
         return view
     }
@@ -82,7 +87,8 @@ class SettingsHomeFragment : Fragment() {
         )
 
         btnManageCalendar.setOnClickListener {
-            Snackbar.make(it, "Feature will be there in the future :D", Snackbar.LENGTH_SHORT).show()
+            val bottomSheetFragment = ManageCalendarTokenBottomSheetDialog()
+            bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
         }
 
         btnTheme.setOnClickListener {
