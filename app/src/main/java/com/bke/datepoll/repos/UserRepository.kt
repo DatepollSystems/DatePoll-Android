@@ -1,12 +1,10 @@
 package com.bke.datepoll.repos
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.data.model.*
-import com.bke.datepoll.data.requests.ChangePasswordRequestModel
-import com.bke.datepoll.data.requests.Message
-import com.bke.datepoll.data.requests.PasswordRequestModel
-import com.bke.datepoll.data.requests.UpdateUserRequest
+import com.bke.datepoll.data.requests.*
 import com.bke.datepoll.database.DatepollDatabase
 import com.bke.datepoll.database.dao.*
 import com.bke.datepoll.database.model.EmailAddressDbModel
@@ -180,6 +178,27 @@ class UserRepository : BaseRepository("UserRepository") {
             },
             state = state
         )
+    }
+
+    suspend fun getCalendarToken(state: MutableLiveData<ENetworkState>): MessageToken? {
+        return apiCall(
+            call = { api.getCalendarToken(prefs.JWT!!) },
+            state = state
+        )
+    }
+
+    suspend fun resetCalendarToken(state: MutableLiveData<ENetworkState>): MessageToken? {
+        val otherState = MutableLiveData<ENetworkState>()
+
+        val delete = apiCall(state = otherState, call = { api.deleteCalendarToken(prefs.JWT!!) })
+
+        if(otherState.value!! == ENetworkState.ERROR){
+            state.postValue(ENetworkState.ERROR)
+            return null
+        } else
+            Log.i("UserRepository", delete!!.msg)
+
+        return getCalendarToken(state)
     }
 
     private suspend fun updateUserOnServer(

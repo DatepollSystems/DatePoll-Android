@@ -10,17 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.bke.datepoll.Prefs
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.FragmentSettingsHomeBinding
-import com.bke.datepoll.ui.main.VoteBottomSheetDialog
+import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.vm.SettingsViewModel
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_settings_home.*
 import kotlinx.android.synthetic.main.fragment_settings_home.view.*
+import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -29,6 +28,8 @@ class SettingsHomeFragment : Fragment() {
     private val vm: SettingsViewModel by sharedViewModel()
 
     private val prefs: Prefs by inject()
+
+    private var bottomSheetFragment: ManageCalendarTokenBottomSheetDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,9 +88,31 @@ class SettingsHomeFragment : Fragment() {
         )
 
         btnManageCalendar.setOnClickListener {
-            val bottomSheetFragment = ManageCalendarTokenBottomSheetDialog()
-            bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+            bottomSheetFragment = ManageCalendarTokenBottomSheetDialog(vm.calendarSessionToken)
+            vm.getCalendarToken()
         }
+
+        vm.calendarSessionTokenState.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                when(it) {
+                    ENetworkState.DONE -> {
+                        refresh.isRefreshing = false
+                        refresh.isEnabled = false
+                        bottomSheetFragment?.show(parentFragmentManager, bottomSheetFragment?.tag)
+                    }
+
+                    ENetworkState.LOADING -> {
+                        refresh.isEnabled = true
+                        refresh.isRefreshing = true
+                    }
+
+                    ENetworkState.ERROR -> {
+                        refresh.isRefreshing = false
+                        refresh.isEnabled = false
+                    }
+                }
+            }
+        })
 
         btnTheme.setOnClickListener {
 

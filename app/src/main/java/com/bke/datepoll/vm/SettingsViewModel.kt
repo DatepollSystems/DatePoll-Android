@@ -6,12 +6,14 @@ import com.bke.datepoll.Prefs
 import com.bke.datepoll.data.model.NewPhoneNumberRequest
 import com.bke.datepoll.data.model.SessionModel
 import com.bke.datepoll.data.requests.Message
+import com.bke.datepoll.data.requests.MessageToken
 import com.bke.datepoll.data.requests.UpdateUserRequest
 import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.repos.UserRepository
 import com.bke.datepoll.ui.settings.EStep
 import com.bke.datepoll.ui.settings.SettingsChangePasswordFragment
 import kotlinx.coroutines.launch
+import org.koin.core.get
 import org.koin.core.inject
 
 class SettingsViewModel : BaseViewModel() {
@@ -37,7 +39,9 @@ class SettingsViewModel : BaseViewModel() {
     val changePasswordNewPass = MutableLiveData<String>("")
     val changePasswordConfirmNewPass = MutableLiveData<String>("")
 
-
+    val calendarSessionToken = MutableLiveData<String>()
+    val calendarSessionTokenResetState = MutableLiveData<ENetworkState>()
+    val calendarSessionTokenState = MutableLiveData<ENetworkState>()
 
     fun loadUserdata() {
         scope.launch {
@@ -108,6 +112,25 @@ class SettingsViewModel : BaseViewModel() {
 
             msg?.let {
                 Log.i(tag, msg.msg)
+            }
+        }
+    }
+
+    fun resetCalendarToken(){
+        scope.launch {
+            val msg: MessageToken? = userRepo.resetCalendarToken(calendarSessionTokenResetState)
+
+            calendarSessionToken.postValue(msg?.token)
+        }
+    }
+
+    fun getCalendarToken(){
+        scope.launch {
+            val msg: MessageToken? = userRepo.getCalendarToken(calendarSessionTokenState)
+            msg?.let {
+                calendarSessionToken.postValue(
+                    "${prefs.SERVER_ADDRESS}:${prefs.SERVER_PORT}/api/user/calendar/${it.token}"
+                )
             }
         }
     }
