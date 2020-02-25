@@ -46,6 +46,30 @@ class SettingsHomeFragment : Fragment() {
 
         view.refresh.isEnabled = false
 
+        vm.calendarSessionTokenState.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                when(it) {
+                    ENetworkState.DONE -> {
+                        refresh.isRefreshing = false
+                        refresh.isEnabled = false
+                        bottomSheetFragment?.show(parentFragmentManager, bottomSheetFragment?.tag)
+                    }
+
+                    ENetworkState.LOADING -> {
+                        refresh.isEnabled = true
+                        refresh.isRefreshing = true
+                    }
+
+                    ENetworkState.ERROR -> {
+                        refresh.isRefreshing = false
+                        refresh.isEnabled = false
+                    }
+                }
+
+                vm.calendarSessionTokenState.postValue(null)
+            }
+        })
+
         return view
     }
 
@@ -91,28 +115,6 @@ class SettingsHomeFragment : Fragment() {
             bottomSheetFragment = ManageCalendarTokenBottomSheetDialog(vm.calendarSessionToken)
             vm.getCalendarToken()
         }
-
-        vm.calendarSessionTokenState.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                when(it) {
-                    ENetworkState.DONE -> {
-                        refresh.isRefreshing = false
-                        refresh.isEnabled = false
-                        bottomSheetFragment?.show(parentFragmentManager, bottomSheetFragment?.tag)
-                    }
-
-                    ENetworkState.LOADING -> {
-                        refresh.isEnabled = true
-                        refresh.isRefreshing = true
-                    }
-
-                    ENetworkState.ERROR -> {
-                        refresh.isRefreshing = false
-                        refresh.isEnabled = false
-                    }
-                }
-            }
-        })
 
         btnTheme.setOnClickListener {
 
