@@ -67,7 +67,6 @@
             app:layout_constraintStart_toEndOf="@+id/btnResetToken"
             app:layout_constraintTop_toBottomOf="@+id/tiCalendarToken" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

@@ -17,8 +17,10 @@ import com.bke.datepoll.R
 import com.bke.datepoll.databinding.FragmentSettingsHomeBinding
 import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.vm.SettingsViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_settings_home.*
 import kotlinx.android.synthetic.main.fragment_settings_home.view.*
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -48,7 +50,7 @@ class SettingsHomeFragment : Fragment() {
 
         vm.calendarSessionTokenState.observe(viewLifecycleOwner, Observer {
             it?.let {
-                when(it) {
+                when (it) {
                     ENetworkState.DONE -> {
                         refresh.isRefreshing = false
                         refresh.isEnabled = false
@@ -63,10 +65,33 @@ class SettingsHomeFragment : Fragment() {
                     ENetworkState.ERROR -> {
                         refresh.isRefreshing = false
                         refresh.isEnabled = false
+                        Snackbar.make(
+                            view,
+                            getString(R.string.something_went_wrong),
+                            Snackbar.LENGTH_LONG
+                        ).show()
                     }
                 }
 
                 vm.calendarSessionTokenState.postValue(null)
+            }
+        })
+
+        vm.calendarSessionTokenResetState.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                when (it) {
+                    ENetworkState.ERROR -> {
+
+                    }
+
+                    ENetworkState.LOADING -> {
+
+                    }
+
+                    ENetworkState.DONE -> {
+
+                    }
+                }
             }
         })
 
@@ -129,11 +154,11 @@ class SettingsHomeFragment : Fragment() {
             }
 
             b.setPositiveButton(getString(R.string.ok)) { _, _ ->
-                if(selection.isNotBlank())
+                if (selection.isNotBlank())
                     prefs.THEME = selection
 
                 Log.i("Theme attached:", "${prefs.THEME}")
-                when(prefs.THEME){
+                when (prefs.THEME) {
                     themeOptions[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                     themeOptions[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     themeOptions[2] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
