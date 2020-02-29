@@ -40,7 +40,7 @@ class SettingsManageSessionsFragment : Fragment() {
             a.data = LinkedList(it)
         }
 
-        vm.sessions.observe(this, Observer {
+        vm.sessions.observe(viewLifecycleOwner, Observer {
             a.data = LinkedList(it)
         })
 

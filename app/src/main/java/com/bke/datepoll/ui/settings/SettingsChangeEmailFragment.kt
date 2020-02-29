@@ -44,13 +44,13 @@ class SettingsChangeEmailFragment : Fragment() {
             adapter.data = LinkedList(it)
         }
 
-        vm.emails.observe(this, Observer {
+        vm.emails.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.data = LinkedList(it)
             }
         })
 
-        vm.saveEmailsState.observe(this, Observer {
+        vm.saveEmailsState.observe(viewLifecycleOwner, Observer {
             it?.let {
                 when(it){
                     ENetworkState.DONE -> {
