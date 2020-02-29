@@ -7,10 +7,14 @@ import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.bke.datepoll.R
+import com.bke.datepoll.vm.SettingsViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.settings_manage_cal_token_bottom_sheet.view.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ManageCalendarTokenBottomSheetDialog(val data: MutableLiveData<String>): BottomSheetDialogFragment(){
+
+    val vm: SettingsViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +29,8 @@ class ManageCalendarTokenBottomSheetDialog(val data: MutableLiveData<String>): B
 
         v.btnResetToken.setOnClickListener {
             //TODO
+
+            vm.resetCalendarToken()
         }
 
         data.observe(viewLifecycleOwner, Observer {

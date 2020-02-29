@@ -119,7 +119,7 @@ interface DatepollApi {
         @Query("token") token: String
     ): Response<MessageToken>
 
-    @DELETE("/api/v1/user/myself/token")
+    @DELETE("/api/v1/user/myself/token/calendar")
     suspend fun deleteCalendarToken(
         @Query("token") token: String
     ): Response<Message>

@@ -81,17 +81,32 @@ class SettingsHomeFragment : Fragment() {
             it?.let {
                 when (it) {
                     ENetworkState.ERROR -> {
-
+                        refresh.isRefreshing = false
+                        refresh.isEnabled = false
+                        Snackbar.make(
+                            view,
+                            getString(R.string.something_went_wrong),
+                            Snackbar.LENGTH_LONG
+                        ).show()
                     }
 
                     ENetworkState.LOADING -> {
-
+                        refresh.isRefreshing = true
+                        refresh.isEnabled = true
                     }
 
                     ENetworkState.DONE -> {
-
+                        refresh.isRefreshing = false
+                        refresh.isEnabled = false
+                        Snackbar.make(
+                            view,
+                            "Calendar token successfully reset",
+                            Snackbar.LENGTH_LONG
+                        ).show()
                     }
                 }
+
+                vm.calendarSessionTokenResetState.postValue(null)
             }
         })
 
