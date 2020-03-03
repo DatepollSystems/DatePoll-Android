@@ -31,6 +31,7 @@ class BookingAdapter : RecyclerView.Adapter<BookingViewHolder>() {
             holder.btnReportDuty.visibility = View.VISIBLE
 
             holder.btnReportDuty.setOnClickListener {
+                Thread.sleep(300)
                 holder.btnReportDuty.visibility = View.INVISIBLE
                 holder.pbReportDuty.visibility = View.VISIBLE
                 holder.btnEmergencyDuty.isEnabled = false
@@ -46,6 +47,7 @@ class BookingAdapter : RecyclerView.Adapter<BookingViewHolder>() {
             holder.btnEmergencyDuty.visibility = View.VISIBLE
 
             holder.btnEmergencyDuty.setOnClickListener {
+                Thread.sleep(300)
                 holder.pbReportEmergencyDuty.visibility = View.VISIBLE
                 holder.btnEmergencyDuty.visibility = View.INVISIBLE
                 holder.btnReportDuty.isEnabled = false

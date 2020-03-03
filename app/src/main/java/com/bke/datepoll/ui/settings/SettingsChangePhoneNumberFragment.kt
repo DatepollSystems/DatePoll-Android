@@ -11,7 +11,9 @@ import androidx.lifecycle.Observer
 import com.bke.datepoll.R
 import com.bke.datepoll.data.model.NewPhoneNumberRequest
 import com.bke.datepoll.databinding.FragmentSettingsChangePhoneNumberBinding
+import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.vm.SettingsViewModel
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.*
 
@@ -44,6 +46,9 @@ class SettingsChangePhoneNumberFragment : Fragment() {
             }
         })
 
+        initStateObservers(view)
+
+
         binding.button.setOnClickListener {
             val label = binding.tiLabel.editText?.text.toString()
             val number = binding.tiPhoneNumber.editText?.text.toString()
@@ -54,6 +59,18 @@ class SettingsChangePhoneNumberFragment : Fragment() {
         }
 
         return view
+    }
+
+    private fun initStateObservers(v: View){
+        vm.removeAddPhoneNumberState.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                when(it) {
+                    ENetworkState.ERROR -> Snackbar.make(v, getString(R.string.something_went_wrong), Snackbar.LENGTH_LONG).show()
+                    ENetworkState.LOADING -> null
+                    ENetworkState.DONE -> null
+                }
+            }
+        })
     }
 
     override fun onResume() {

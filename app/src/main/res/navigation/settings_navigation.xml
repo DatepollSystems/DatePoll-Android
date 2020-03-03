@@ -8,7 +8,8 @@
     <fragment
         android:id="@+id/settingsHomeFragment"
         android:name="com.bke.datepoll.ui.settings.SettingsHomeFragment"
-        android:label="SettingsHomeFragment" >
+        android:label="SettingsHomeFragment"
+        tools:layout="@layout/fragment_settings_home">
         <action
             android:id="@+id/action_settingsHomeFragment_to_settingsUserFragment"
             app:destination="@id/settingsUserFragment"
@@ -37,11 +38,27 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_settingsHomeFragment_to_settingsChangePasswordFragment"
+            app:destination="@id/settingsChangePasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_settingsHomeFragment_to_settingsManageSessionsFragment"
+            app:destination="@id/settingsManageSessionsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
+
     <fragment
         android:id="@+id/settingsUserFragment"
         android:name="com.bke.datepoll.ui.settings.SettingsUserFragment"
-        android:label="SettingsUserFragment" />
+        android:label="SettingsUserFragment"
+        tools:layout="@layout/fragment_settings_user"/>
     <fragment
         android:id="@+id/settingsAboutFragment"
         android:name="com.bke.datepoll.ui.settings.SettingsAboutFragment"
@@ -55,5 +72,16 @@
     <fragment
         android:id="@+id/settingsChangeEmail"
         android:name="com.bke.datepoll.ui.settings.SettingsChangeEmailFragment"
-        android:label="SettingsChangeEmail" />
+        android:label="SettingsChangeEmail"
+        tools:layout="@layout/fragment_settings_change_email"/>
+    <fragment
+        android:id="@+id/settingsChangePasswordFragment"
+        android:name="com.bke.datepoll.ui.settings.SettingsChangePasswordFragment"
+        android:label="fragment_settings_change_password"
+        tools:layout="@layout/fragment_settings_change_password" />
+    <fragment
+        android:id="@+id/settingsManageSessionsFragment"
+        android:name="com.bke.datepoll.ui.settings.SettingsManageSessionsFragment"
+        android:label="fragment_settings_manage_sessions"
+        tools:layout="@layout/fragment_settings_manage_sessions" />
 </navigation>

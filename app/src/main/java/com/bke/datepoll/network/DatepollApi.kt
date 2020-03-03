@@ -91,4 +91,36 @@ interface DatepollApi {
         @Body body: AddEmailRequest
     ): Response<CurrentUserResponseModel>
 
+    @GET("/api/v1/user/myself/session")
+    suspend fun getSessions(
+        @Query("token") token: String
+    ): Response<Session>
+
+    @DELETE("/api/v1/user/myself/session/{id}")
+    suspend fun deleteSession(
+        @Path("id") id: Int,
+        @Query("token") token: String
+    ): Response<Message>
+
+    @POST("/api/v1/user/myself/changePassword/checkOldPassword")
+    suspend fun checkOldPassword(
+        @Query("token") token: String,
+        @Body body: PasswordRequestModel
+    ): Response<Message>
+
+    @POST("/api/v1/user/myself/changePassword/changePassword")
+    suspend fun changeOldPassword(
+        @Query("token") token: String,
+        @Body body: ChangePasswordRequestModel
+    ): Response<Message>
+
+    @GET("/api/v1/user/myself/token/calendar")
+    suspend fun getCalendarToken(
+        @Query("token") token: String
+    ): Response<MessageToken>
+
+    @DELETE("/api/v1/user/myself/token/calendar")
+    suspend fun deleteCalendarToken(
+        @Query("token") token: String
+    ): Response<Message>
 }

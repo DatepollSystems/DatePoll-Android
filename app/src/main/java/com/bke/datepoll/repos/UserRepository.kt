@@ -1,11 +1,10 @@
 package com.bke.datepoll.repos
 
+import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.bke.datepoll.data.model.AddEmailRequest
-import com.bke.datepoll.data.model.NewPhoneNumberRequest
-import com.bke.datepoll.data.model.UserLiveDataElements
-import com.bke.datepoll.data.model.UserModel
-import com.bke.datepoll.data.requests.UpdateUserRequest
+import com.bke.datepoll.data.model.*
+import com.bke.datepoll.data.requests.*
 import com.bke.datepoll.database.DatepollDatabase
 import com.bke.datepoll.database.dao.*
 import com.bke.datepoll.database.model.EmailAddressDbModel
@@ -13,6 +12,8 @@ import com.bke.datepoll.database.model.PerformanceBadgesDbModel
 import com.bke.datepoll.database.model.PermissionDbModel
 import com.bke.datepoll.network.DatepollApi
 import org.koin.core.inject
+import org.koin.core.logger.MESSAGE
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -51,7 +52,7 @@ class UserRepository : BaseRepository("UserRepository") {
             /**
              * user is older then 1 hour -> reload user from server
              */
-            loadUserFromServer(state)?.let {u ->
+            loadUserFromServer(state)?.let { u ->
                 userDao.addUser(u.getUserDbModelPart())
                 //TODO update also child tables!!!
                 phoneNumberDao.saveSetOfPhoneNumbers(u.phone_numbers)
@@ -62,7 +63,8 @@ class UserRepository : BaseRepository("UserRepository") {
                         EmailAddressDbModel(
                             email = it,
                             userId = u.id
-                    ))
+                        )
+                    )
                 }
                 emailDao.addEmails(email)
 
@@ -84,18 +86,22 @@ class UserRepository : BaseRepository("UserRepository") {
         }
     }
 
-    suspend fun removePhoneNumber(state: MutableLiveData<ENetworkState>, id: Int){
+    suspend fun removePhoneNumber(state: MutableLiveData<ENetworkState>, id: Int) {
         val result = apiCall(
-            call = { api.removePhoneNumber(id, prefs.JWT!!)},
+            call = { api.removePhoneNumber(id, prefs.JWT!!) },
             state = state
         )
 
-        phoneNumberDao.deletePhoneNumber(id.toLong())
+        if (result != null) {
+            phoneNumberDao.deletePhoneNumber(id.toLong())
+        } else {
+            state.postValue(ENetworkState.ERROR)
+        }
     }
 
-    suspend fun saveEmailsToServer(state: MutableLiveData<ENetworkState>){
+    suspend fun saveEmailsToServer(state: MutableLiveData<ENetworkState>) {
         val emails = ArrayList<String>()
-        for (e in this.emails.value!!.iterator()){
+        for (e in this.emails.value!!.iterator()) {
             emails.add(e.email)
         }
 
@@ -109,12 +115,90 @@ class UserRepository : BaseRepository("UserRepository") {
         }
     }
 
-    suspend fun addEmail(e: String){
+    fun addEmail(e: String) {
         emailDao.addEmail(EmailAddressDbModel(email = e, userId = user.value!!.id))
     }
 
-    suspend fun removeEmail(e: String){
+    fun removeEmail(e: String) {
         emailDao.deleteEmail(e)
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    suspend fun loadSessions(state: MutableLiveData<ENetworkState>): List<SessionModel> {
+        val result = apiCall(
+            call = { api.getSessions(prefs.JWT!!) },
+            state = state
+        )
+
+        val s = ArrayList<SessionModel>()
+        val serverPattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+        val uiPattern = "dd.MM.yyyy HH:mm:ss"
+        val formatter = SimpleDateFormat(serverPattern)
+        val uiFormatter = SimpleDateFormat(uiPattern)
+
+        result?.let {
+            for (item in it.sessions) {
+                val oldDate = formatter.parse(item.lastUsed)
+
+                val newDate = uiFormatter.format(oldDate!!)
+                val se = SessionModel(item.id, item.information, newDate, item.deleteSession)
+                s.add(se)
+            }
+        }
+
+
+        return s
+    }
+
+    suspend fun deleteSession(state: MutableLiveData<ENetworkState>, item: SessionModel): Message? {
+        return apiCall(
+            state = state,
+            call = { api.deleteSession(item.id, prefs.JWT!!) }
+        )
+    }
+
+    suspend fun checkPassword(state: MutableLiveData<ENetworkState>, password: String): Message? {
+        return apiCall(
+            state = state,
+            call = { api.checkOldPassword(prefs.JWT!!, PasswordRequestModel(password)) }
+        )
+    }
+
+    suspend fun changePassword(
+        state: MutableLiveData<ENetworkState>,
+        oldPassword: String,
+        newPassword: String
+    ): Message? {
+        return apiCall(
+            call = {
+                api.changeOldPassword(
+                    prefs.JWT!!,
+                    ChangePasswordRequestModel(oldPassword, newPassword)
+                )
+            },
+            state = state
+        )
+    }
+
+    suspend fun getCalendarToken(state: MutableLiveData<ENetworkState>): MessageToken? {
+        return apiCall(
+            call = { api.getCalendarToken(prefs.JWT!!) },
+            state = state
+        )
+    }
+
+    suspend fun resetCalendarToken(state: MutableLiveData<ENetworkState>): MessageToken? {
+        val otherState = MutableLiveData<ENetworkState>()
+
+        val delete = apiCall(state = otherState, call = { api.deleteCalendarToken(prefs.JWT!!) })
+
+        if(otherState.value!! == ENetworkState.ERROR){
+            state.postValue(ENetworkState.ERROR)
+            return null
+        } else
+            Log.i("UserRepository", delete!!.msg)
+
+        return getCalendarToken(state)
     }
 
     private suspend fun updateUserOnServer(

@@ -42,7 +42,6 @@ class ServerInputActivity : AppCompatActivity() {
             advancedServerSettings.animateVisibility(true)
         }
 
-
         etServerAddress.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {

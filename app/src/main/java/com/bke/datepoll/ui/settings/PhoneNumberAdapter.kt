@@ -36,6 +36,10 @@ class PhoneNumberAdapter(val vm: SettingsViewModel): RecyclerView.Adapter<Recycl
                 vm.removePhoneNumber(data[position].id.toInt())
                 Log.i(tag, "Deleted item")
             }
+
+            if(position + 1 == itemCount){
+                viewHolder.divider.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -60,6 +64,7 @@ class PhoneNumberViewHolder(val view: View): RecyclerView.ViewHolder(view) {
     val tvLabel: TextView = view.findViewById(R.id.tvLabel)
     val tvNumber: TextView = view.findViewById(R.id.tvNumber)
     val btnDelete: Button = view.findViewById(R.id.btnDelete)
+    val divider: View = view.findViewById(R.id.divider)
 }
 
 class PhoneNumberHeadlineViewHolder(val view: View): RecyclerView.ViewHolder(view)
