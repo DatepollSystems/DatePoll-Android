@@ -13,10 +13,10 @@ class ServerRepository: BaseRepository("ServerRepository"){
     private val api: DatepollApi by inject()
 
 
-    suspend fun isServiceOnline(): ResponseBody? {
+    suspend fun isServiceOnline(state: MutableLiveData<ENetworkState>): ResponseBody? {
         return apiCall(
             call = { api.checkIfServiceIsOnline() },
-            state = MutableLiveData()
+            state = state
         )
     }
 

@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginTop="36dp"
-            android:text="@string/set"
+            android:text="check"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,13 +48,13 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tiServerDomain"
             android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="32dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="56dp"
             android:layout_marginEnd="32dp"
             android:hint="@string/domain"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
             app:layout_constraintTop_toBottomOf="@+id/ivLogo">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -132,6 +132,19 @@
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView11"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:text="https://"
+            app:layout_constraintBottom_toBottomOf="@+id/tiServerDomain"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tiServerDomain" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -98,5 +98,7 @@
     <string name="calendar_token">Calendar token</string>
     <string name="reset_token">Reset token</string>
     <string name="close">Close</string>
+    <string name="url_incorrect">This is no correct URL</string>
+    <string name="check">Check</string>
 
 </resources>
