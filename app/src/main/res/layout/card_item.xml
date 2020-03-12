@@ -8,7 +8,7 @@
     android:layout_marginStart="16dp"
     android:layout_marginTop="32dp"
     android:layout_marginEnd="16dp"
-    android:layout_marginBottom="8dp">
+    android:layout_marginBottom="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,8 +17,8 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/TextAppearance.MaterialComponents.Body1"
             android:id="@+id/tvHeadline"
+            style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginBottom="4dp"
