@@ -8,4 +8,5 @@ This is the Android app for DatePoll. To run and use the app, you must have a Da
 
 The app supports a light and a dark theme:
 
-![Screenshot Home Light](/sc/SC1.png = 200x)
+<img src="/sc/SC1.png" width="200px"/>
+<img scr="/sc/SC2.png" width="200px" float="left" />
