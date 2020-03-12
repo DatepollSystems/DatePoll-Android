@@ -8,4 +8,4 @@ This is the Android app for DatePoll. To run and use the app, you must have a Da
 
 The app supports a light and a dark theme:
 
-![Screenshot Home Light](/sc/SC1.png "Screenshot Home Light")
+![Screenshot Home Light](/sc/SC1.png "Screenshot Home Light" = 200x)
