@@ -13,7 +13,6 @@ The app supports a light and a dark theme:
 <img src="/sc/SC2.png" width="200px" float="left" />
 
 
-
 ### Also checkout: 
 - [Datepoll Backend](https://gitlab.com/BuergerkorpsEggenburg/datepoll-backend-php)
 - [Datepoll Dockerized](https://gitlab.com/BuergerkorpsEggenburg/datepoll-dockerized)
