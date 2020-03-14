@@ -1,6 +1,7 @@
 package com.bke.datepoll
 
 import android.app.Application
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.bke.datepoll.network.DatepollServiceFactory
 import com.bke.datepoll.database.DatepollDatabase

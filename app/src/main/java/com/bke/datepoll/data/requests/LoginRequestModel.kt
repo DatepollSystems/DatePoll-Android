@@ -3,6 +3,6 @@ package com.bke.datepoll.data.requests
 data class LoginRequestModel(
     val username: String,
     val password: String,
-    val session_information: String = "Android Smartphone",
+    val session_information: String = "${android.os.Build.MANUFACTURER} ${android.os.Build.DEVICE}",
     val stay_logged_in: Boolean = true
 )
