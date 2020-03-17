@@ -102,5 +102,9 @@
     <string name="check">Check</string>
     <string name="https">https://</string>
     <string name="scan_info">Scan the QR code of your Datepoll service</string>
+    <string name="event_management">Event management</string>
+    <string name="movieticket">Movieticket</string>
+    <string name="cinema_duty">Cinema duty</string>
+    <string name="movie_management">Movie management</string>
 
 </resources>

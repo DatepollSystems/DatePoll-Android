@@ -10,12 +10,10 @@
         android:name="com.bke.datepoll.ui.main.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_nav_home_to_eventFragment"
-            app:destination="@id/eventFragment" />
     </fragment>
     <fragment
-        android:id="@+id/eventFragment"
+        android:id="@+id/nav_events"
         android:name="com.bke.datepoll.ui.main.EventFragment"
-        android:label="EventFragment" />
+        android:label="EventFragment"
+        tools:layout="@layout/fragment_event"/>
 </navigation>

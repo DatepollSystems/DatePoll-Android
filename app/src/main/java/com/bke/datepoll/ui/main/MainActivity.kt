@@ -1,14 +1,19 @@
 package com.bke.datepoll.ui.main
 
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.bke.datepoll.AppObservableHandler
@@ -26,7 +31,7 @@ import kotlinx.android.synthetic.main.nav_header_main.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity(),  NavigationView.OnNavigationItemSelectedListener{
+class MainActivity : BaseActivity(), AppBarConfiguration.OnNavigateUpListener {
 
     override lateinit var activityView: View
     private val appObservableHandler: AppObservableHandler by inject()
@@ -39,41 +44,58 @@ class MainActivity : BaseActivity(),  NavigationView.OnNavigationItemSelectedLis
         super.onCreate(savedInstanceState)
 
         activityView = findViewById(android.R.id.content)
-        initDatabinding()
-        initUiAndNavigation()
+
+        val binding =
+            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
+        binding.vm = mainViewModel
+
+
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        val navController = findNavController(R.id.nav_host_main)
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        setupNavigation(navController)
+        setupActionBar(
+            navController,
+            appBarConfiguration
+        )
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            val dest: String = try {
+                resources.getResourceName(destination.id)
+            } catch (e: Resources.NotFoundException) {
+                Integer.toString(destination.id)
+            }
+        }
+
         initObservers()
-        actionBar?.setDisplayHomeAsUpEnabled(false)
 
         mainViewModel.loadUserData()
     }
 
-    private fun initDatabinding(){
-        val binding =
-            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        binding.vm = mainViewModel
+    private fun setupActionBar(
+        navController: NavController,
+        appBarConfig: AppBarConfiguration
+    ) {
+        setupActionBarWithNavController(navController, appBarConfig)
     }
 
-    private fun initUiAndNavigation(){
-        val toolbar: BottomAppBar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+    private fun setupNavigation(navController: NavController) {
+        val sideNavView = findViewById<NavigationView>(R.id.nav_view)
+        sideNavView?.setupWithNavController(navController)
+        val drawerLayout: DrawerLayout? = findViewById(R.id.drawer_layout)
 
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_main)
+        //fragments load from here but how ?
         appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_home,
-                R.id.nav_event,
-                R.id.nav_slideshow,
-                R.id.nav_tools
-            ), drawerLayout
+            setOf(R.id.nav_home, R.id.nav_events),
+            drawerLayout
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        setupWithNavController(navView, navController)
-        navView.setNavigationItemSelectedListener(this)
     }
 
-    private fun initObservers(){
+    private fun initObservers() {
 
         mainViewModel.user.observe(this, Observer {
             it?.let {
@@ -84,7 +106,7 @@ class MainActivity : BaseActivity(),  NavigationView.OnNavigationItemSelectedLis
         })
 
         mainViewModel.logout.observe(this, Observer {
-            if(it != null && it){
+            if (it != null && it) {
                 val i = Intent(this@MainActivity, ServerInputActivity::class.java)
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(i)
@@ -109,11 +131,13 @@ class MainActivity : BaseActivity(),  NavigationView.OnNavigationItemSelectedLis
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.action_settings -> {
                 startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
                 return true
             }
+            android.R.id.home ->
+                drawer_layout.openDrawer(GravityCompat.START)
             R.id.action_logout -> {
                 MaterialAlertDialogBuilder(this)
                     .setTitle(R.string.logout_title)
@@ -135,24 +159,10 @@ class MainActivity : BaseActivity(),  NavigationView.OnNavigationItemSelectedLis
     }
 
     override fun onBackPressed() {
-        if(supportFragmentManager.findFragmentById(R.id.nav_host_main)!!.childFragmentManager.fragments[0].isVisible) {
+        if (supportFragmentManager.findFragmentById(R.id.nav_host_main)!!.childFragmentManager.fragments[0].isVisible) {
             moveTaskToBack(true)
         } else {
             super.onBackPressed()
         }
-    }
-
-    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-        menuItem.isChecked = true
-        drawer_layout.closeDrawers()
-
-        val id = menuItem.itemId
-
-        when(id){
-            R.id.nav_event -> findNavController(R.id.nav_host_main).navigate(R.id.action_nav_home_to_eventFragment)
-        }
-
-        return true
-
     }
 }

@@ -2,14 +2,13 @@ package com.bke.datepoll.ui.main
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.bke.datepoll.R
-import kotlinx.android.synthetic.main.fragment_event.view.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class EventFragment : Fragment() {
@@ -22,10 +21,7 @@ class EventFragment : Fragment() {
         val view =
             inflater.inflate(R.layout.fragment_event, container, false)
 
-        view.refresh.isRefreshing = true
 
         return view
     }
-
-
 }

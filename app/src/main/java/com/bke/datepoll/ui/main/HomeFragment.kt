@@ -72,8 +72,6 @@ class HomeFragment : Fragment() {
     }
 
     override fun onStart() {
-        vm.loadHomepage()
-
         vm.loadHomepageState.observe(viewLifecycleOwner, Observer {
             it?.let {
                 val s = swipeToRefresh
