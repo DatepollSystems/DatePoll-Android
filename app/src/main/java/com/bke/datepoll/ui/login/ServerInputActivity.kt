@@ -1,16 +1,12 @@
 package com.bke.datepoll.ui.login
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -22,15 +18,10 @@ import com.bke.datepoll.databinding.ActivityServerInputBinding
 import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.vm.ServerInputViewModel
 import com.google.android.material.snackbar.Snackbar
-import com.google.zxing.ResultPoint
-import com.journeyapps.barcodescanner.BarcodeCallback
-import com.journeyapps.barcodescanner.BarcodeResult
-import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.activity_server_input.*
 import kotlinx.android.synthetic.main.activity_server_input.view.*
-import org.koin.android.ext.android.bind
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

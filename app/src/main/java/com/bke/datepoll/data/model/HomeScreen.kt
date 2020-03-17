@@ -1,7 +1,9 @@
 package com.bke.datepoll.data.model
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class Event(
     val id: Int,
     val name: String?,
@@ -14,6 +16,7 @@ data class Event(
     @field:Json(name = "already_voted") val alreadyVoted: Boolean
     )
 
+@JsonClass(generateAdapter = true)
 data class Decision(
     val id: Int,
     val decision: String?,
@@ -21,6 +24,7 @@ data class Decision(
     @field:Json(name = "show_in_calendar") val showInCalendar: Int?
     )
 
+@JsonClass(generateAdapter = true)
 data class Booking(
     @field:Json(name = "movie_id") val movieId: Int,
     @field:Json(name = "movie_name") val movieName: String,
@@ -32,11 +36,13 @@ data class Booking(
     @field:Json(name = "emergency_worker_name") val emergencyWorkerName: String?
 )
 
+@JsonClass(generateAdapter = true)
 data class Birthday(
     val name: String?,
     val date: String?
 )
 
+@JsonClass(generateAdapter = true)
 data class HomeScreen(
     val msg: String?,
     val events: List<Event>,

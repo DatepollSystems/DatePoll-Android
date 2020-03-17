@@ -1,5 +1,8 @@
 package com.bke.datepoll.data.requests
 
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class UpdateUserRequest(
         val title: String,
         val firstname: String,

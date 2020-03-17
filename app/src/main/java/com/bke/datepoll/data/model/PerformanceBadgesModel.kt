@@ -1,8 +1,9 @@
 package com.bke.datepoll.data.model
 
 import com.bke.datepoll.database.model.PerformanceBadgesDbModel
+import com.squareup.moshi.JsonClass
 
-
+@JsonClass(generateAdapter = true)
 data class PerformanceBadgesModel(
     val id: Long,
     val performance_badge_id: Long,

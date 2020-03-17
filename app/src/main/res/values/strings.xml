@@ -101,5 +101,6 @@
     <string name="url_incorrect">This is no correct URL</string>
     <string name="check">Check</string>
     <string name="https">https://</string>
+    <string name="scan_info">Scan the QR code of your Datepoll service</string>
 
 </resources>

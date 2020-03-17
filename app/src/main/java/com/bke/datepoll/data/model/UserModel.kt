@@ -3,9 +3,11 @@ package com.bke.datepoll.data.model
 import android.annotation.SuppressLint
 import com.bke.datepoll.database.model.PhoneNumberDbModel
 import com.bke.datepoll.database.model.UserDbModel
+import com.squareup.moshi.JsonClass
 import java.text.SimpleDateFormat
 import java.util.*
 
+@JsonClass(generateAdapter = true)
 data class UserModel(
     val id: Long,
 
