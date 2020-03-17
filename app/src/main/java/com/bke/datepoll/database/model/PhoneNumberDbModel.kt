@@ -5,7 +5,9 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 @Entity(
     tableName = "phone_numbers",
     indices = [Index(value = arrayOf("user_id"))],
