@@ -2,11 +2,9 @@ package com.bke.datepoll.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
@@ -17,7 +15,7 @@ import com.bke.datepoll.AppObservableHandler
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.ActivityMainBinding
 import com.bke.datepoll.ui.BaseActivity
-import com.bke.datepoll.ui.ServerInputActivity
+import com.bke.datepoll.ui.login.ServerInputActivity
 import com.bke.datepoll.ui.settings.SettingsActivity
 import com.bke.datepoll.vm.MainViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -27,7 +25,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.lang.IllegalArgumentException
 
 class MainActivity : BaseActivity(),  NavigationView.OnNavigationItemSelectedListener{
 

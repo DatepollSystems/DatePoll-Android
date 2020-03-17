@@ -1,26 +1,36 @@
-package com.bke.datepoll.ui
+package com.bke.datepoll.ui.login
 
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import com.bke.datepoll.Prefs
 import com.bke.datepoll.R
 import com.bke.datepoll.animateVisibility
 import com.bke.datepoll.appModule
 import com.bke.datepoll.databinding.ActivityServerInputBinding
 import com.bke.datepoll.repos.ENetworkState
-import com.bke.datepoll.ui.login.LoginActivity
 import com.bke.datepoll.vm.ServerInputViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.zxing.ResultPoint
+import com.journeyapps.barcodescanner.BarcodeCallback
+import com.journeyapps.barcodescanner.BarcodeResult
+import com.journeyapps.barcodescanner.DecoratedBarcodeView
+import com.squareup.moshi.JsonClass
+import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.activity_server_input.*
 import kotlinx.android.synthetic.main.activity_server_input.view.*
+import org.koin.android.ext.android.bind
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -30,8 +40,13 @@ import org.koin.core.context.stopKoin
 
 class ServerInputActivity : AppCompatActivity() {
 
+    private val tag = "ServerInputActivity"
+
     private val serverInputViewModel: ServerInputViewModel by viewModel()
     private val prefs: Prefs by inject()
+
+    private val GET_QR_CODE_RES = 1
+    private val QR_CODE_DATA = "qrCodeData"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,16 +57,18 @@ class ServerInputActivity : AppCompatActivity() {
                 this,
                 R.layout.activity_server_input
             )
+        binding.lifecycleOwner = this
         binding.vm = serverInputViewModel
+
 
         val view = binding.root
 
-        btnShowMoreServer.setOnClickListener {
+        view.btnShowMoreServer.setOnClickListener {
             view.btnShowMoreServer.isEnabled = false
             view.advancedServerSettings.animateVisibility(true)
         }
 
-        etServerAddress.addTextChangedListener {
+        view.etServerAddress.addTextChangedListener {
             it?.let {
                 val s = it.toString()
                 if (Patterns.WEB_URL.matcher(s).matches()) {
@@ -63,7 +80,6 @@ class ServerInputActivity : AppCompatActivity() {
                 }
             }
         }
-
 
         serverInputViewModel.validateInstanceState.observe(this, Observer {
             it?.let {
@@ -90,6 +106,10 @@ class ServerInputActivity : AppCompatActivity() {
                 serverInputViewModel.validateInstanceState.postValue(null)
             }
         })
+
+        view.btnQRCodeScan.setOnClickListener {
+            startActivityForResult(Intent(this, QrCodeScanActivity::class.java), GET_QR_CODE_RES)
+        }
 
         view.btnSetServer.isEnabled = false
 
@@ -119,4 +139,39 @@ class ServerInputActivity : AppCompatActivity() {
             serverInputViewModel.validateInstance(s)
         }
     }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == GET_QR_CODE_RES) {
+            if (resultCode == Activity.RESULT_OK) {
+                val d = data?.getStringExtra(QR_CODE_DATA)
+                Log.i(tag, "QrScan successfully")
+                val dataObj = mapResultIntoObj(d)
+                dataObj?.let {
+                    val url = dataObj.url.removePrefix("https://")
+                    serverInputViewModel.serverAddress.value = url
+                }
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    private fun mapResultIntoObj(s: String?): QRCodeData? {
+        Log.i(tag, "Try to map it into object")
+        s?.let {
+            val m = Moshi.Builder().build()
+            val adapter = m.adapter(QRCodeData::class.java)
+            return adapter.fromJson(s)
+        }
+        Log.e(tag, "Result is not a datepoll qr code")
+        return null
+    }
 }
+
+@JsonClass(generateAdapter = true)
+data class QRCodeData(
+    val type: String,
+    val url: String,
+    val session_token: String?
+)
