@@ -37,41 +37,22 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this
 
         view.connectionView.visibility = View.INVISIBLE
+        //view.cardList.visibility = View.INVISIBLE
+
         val adapter = CardAdapter(activity as AppCompatActivity)
-        binding.cardList.adapter = adapter
+        view.cardList.adapter = adapter
         setupObservers(view, adapter)
         adapter.notifyDataSetChanged()
         view.swipeToRefresh.setOnRefreshListener {
             vm.loadHomepage()
         }
 
+        vm.loadHomepage()
         return view
     }
 
     private fun setupObservers(view: View, mainAdapter: CardAdapter) {
 
-
-        vm.bookings.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                mainAdapter.bookingsData = LinkedList(it)
-            }
-        })
-
-        vm.events.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                mainAdapter.eventsData = LinkedList(it)
-            }
-        })
-
-        vm.birthdays.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                mainAdapter.birthdayData = LinkedList(it)
-            }
-        })
-
-    }
-
-    override fun onStart() {
         vm.loadHomepageState.observe(viewLifecycleOwner, Observer {
             it?.let {
                 val s = swipeToRefresh
@@ -93,6 +74,24 @@ class HomeFragment : Fragment() {
                 vm.loadHomepageState.postValue(null)
             }
         })
-        super.onStart()
+
+        vm.bookings.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                mainAdapter.bookingsData = LinkedList(it)
+            }
+        })
+
+        vm.events.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                mainAdapter.eventsData = LinkedList(it)
+            }
+        })
+
+        vm.birthdays.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                mainAdapter.birthdayData = LinkedList(it)
+            }
+        })
+
     }
 }

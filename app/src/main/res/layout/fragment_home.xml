@@ -10,8 +10,8 @@
             type="com.bke.datepoll.vm.MainViewModel" />
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:animateLayoutChanges="true"
         android:minHeight="400dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
