@@ -3,7 +3,7 @@ package com.bke.datepoll.database.model
 import android.annotation.SuppressLint
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.bke.datepoll.data.requests.UpdateUserRequest
+import com.bke.datepoll.data.UpdateUserRequest
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -42,21 +42,21 @@ data class UserDbModel(
     val savedAt: Long
 ){
     @SuppressLint("SimpleDateFormat")
-    fun getUpdateUserPart(): UpdateUserRequest{
+    fun getUpdateUserPart(): UpdateUserRequest {
 
         val pattern = "yyyy-MM-dd"
         val simpleDateFormat = SimpleDateFormat(pattern)
         val date: String = simpleDateFormat.format(Date(birthday!!))
 
         return UpdateUserRequest(
-                title!!,
-                firstname!!,
-                surname!!,
-                streetname!!,
-                streetnumber!!.toString(),
-                zipcode!!,
-                location!!,
-                date
+            title!!,
+            firstname!!,
+            surname!!,
+            streetname!!,
+            streetnumber!!.toString(),
+            zipcode!!,
+            location!!,
+            date
         )
     }
 }

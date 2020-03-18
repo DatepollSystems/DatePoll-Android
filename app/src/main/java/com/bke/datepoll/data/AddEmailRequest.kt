@@ -1,4 +1,4 @@
-package com.bke.datepoll.data.model
+package com.bke.datepoll.data
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

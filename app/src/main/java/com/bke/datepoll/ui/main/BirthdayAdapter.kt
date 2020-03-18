@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bke.datepoll.R
-import com.bke.datepoll.data.model.Birthday
+import com.bke.datepoll.data.Birthday
 import java.util.*
 
 class BirthdayAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){

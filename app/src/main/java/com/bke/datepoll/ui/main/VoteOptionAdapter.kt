@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bke.datepoll.R
-import com.bke.datepoll.data.model.Decision
+import com.bke.datepoll.data.Decision
 
 class VoteOptionAdapter(val sheet: VoteBottomSheetDialog, val liveData: MutableLiveData<Decision>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

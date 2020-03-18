@@ -12,8 +12,37 @@
         tools:layout="@layout/fragment_home" >
     </fragment>
     <fragment
+        android:id="@+id/nav_calendar"
+        android:name="com.bke.datepoll.ui.main.EventFragment"
+        android:label="EventFragment"
+        tools:layout="@layout/fragment_event"/>
+    <fragment
         android:id="@+id/nav_events"
         android:name="com.bke.datepoll.ui.main.EventFragment"
         android:label="EventFragment"
         tools:layout="@layout/fragment_event"/>
+    <fragment
+        android:id="@+id/nav_event_management"
+        android:name="com.bke.datepoll.ui.main.EventFragment"
+        android:label="EventFragment"
+        tools:layout="@layout/fragment_event"/>
+
+    <fragment
+        android:id="@+id/nav_movie_tickets"
+        android:name="com.bke.datepoll.ui.main.EventFragment"
+        android:label="EventFragment"
+        tools:layout="@layout/fragment_event"/>
+    <fragment
+        android:id="@+id/nav_cinema_duty"
+        android:name="com.bke.datepoll.ui.main.EventFragment"
+        android:label="EventFragment"
+        tools:layout="@layout/fragment_event"/>
+
+    <fragment
+        android:id="@+id/nav_movie_management"
+        android:name="com.bke.datepoll.ui.main.EventFragment"
+        android:label="EventFragment"
+        tools:layout="@layout/fragment_event"/>
+
+
 </navigation>

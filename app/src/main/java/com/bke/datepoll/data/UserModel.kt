@@ -1,4 +1,4 @@
-package com.bke.datepoll.data.model
+package com.bke.datepoll.data
 
 import android.annotation.SuppressLint
 import com.bke.datepoll.database.model.PhoneNumberDbModel

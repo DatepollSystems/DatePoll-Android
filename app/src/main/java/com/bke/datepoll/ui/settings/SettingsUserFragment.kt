@@ -11,11 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.bke.datepoll.AppObservableHandler
 import com.bke.datepoll.R
-import com.bke.datepoll.data.requests.UpdateUserRequest
+import com.bke.datepoll.data.UpdateUserRequest
 import com.bke.datepoll.databinding.FragmentSettingsUserBinding
 import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.vm.SettingsViewModel
-import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.fragment_settings_user.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -57,7 +56,8 @@ class SettingsUserFragment : Fragment() {
         }
 
         btnUpdateUser.setOnClickListener {
-            vm.updateUser(UpdateUserRequest(
+            vm.updateUser(
+                UpdateUserRequest(
                     title = tiTitle.editText?.text.toString(),
                     firstname = tiFirstname.editText?.text.toString(),
                     surname = tiSurname.editText?.text.toString(),
@@ -66,7 +66,8 @@ class SettingsUserFragment : Fragment() {
                     streetname = tiStreetName.editText?.text.toString(),
                     streetnumber = tiStreetNumber.editText?.text.toString(),
                     zipcode = tiZipCode.editText?.text.toString().toInt()
-            ))
+                )
+            )
         }
 
         super.onStart()

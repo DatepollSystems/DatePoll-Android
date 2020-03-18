@@ -1,6 +1,5 @@
 package com.bke.datepoll.ui.settings
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bke.datepoll.R
-import com.bke.datepoll.data.model.SessionModel
+import com.bke.datepoll.data.SessionModel
 import com.bke.datepoll.vm.SettingsViewModel
 import java.util.*
 

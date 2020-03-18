@@ -3,17 +3,15 @@ package com.bke.datepoll.vm
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.Prefs
-import com.bke.datepoll.data.model.NewPhoneNumberRequest
-import com.bke.datepoll.data.model.SessionModel
-import com.bke.datepoll.data.requests.Message
-import com.bke.datepoll.data.requests.MessageToken
-import com.bke.datepoll.data.requests.UpdateUserRequest
+import com.bke.datepoll.data.NewPhoneNumberRequest
+import com.bke.datepoll.data.SessionModel
+import com.bke.datepoll.data.Message
+import com.bke.datepoll.data.MessageToken
+import com.bke.datepoll.data.UpdateUserRequest
 import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.repos.UserRepository
 import com.bke.datepoll.ui.settings.EStep
-import com.bke.datepoll.ui.settings.SettingsChangePasswordFragment
 import kotlinx.coroutines.launch
-import org.koin.core.get
 import org.koin.core.inject
 
 class SettingsViewModel : BaseViewModel() {

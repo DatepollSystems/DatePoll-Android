@@ -8,7 +8,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bke.datepoll.R
-import com.bke.datepoll.data.model.Booking
+import com.bke.datepoll.data.Booking
 
 class BookingAdapter : RecyclerView.Adapter<BookingViewHolder>() {
     var data = listOf<Booking>()

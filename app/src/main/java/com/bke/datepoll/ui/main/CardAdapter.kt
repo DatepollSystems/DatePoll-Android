@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bke.datepoll.R
-import com.bke.datepoll.data.model.Birthday
-import com.bke.datepoll.data.model.Booking
-import com.bke.datepoll.data.model.Event
+import com.bke.datepoll.data.Birthday
+import com.bke.datepoll.data.Booking
+import com.bke.datepoll.data.Event
 import java.util.*
 
 class CardAdapter(val activity: AppCompatActivity) :

@@ -1,6 +1,5 @@
-package com.bke.datepoll.data.requests
+package com.bke.datepoll.data
 
-import com.bke.datepoll.data.model.UserModel
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)

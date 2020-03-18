@@ -13,28 +13,22 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
-import androidx.navigation.ui.NavigationUI.setupWithNavController
-import com.bke.datepoll.AppObservableHandler
 import com.bke.datepoll.R
 import com.bke.datepoll.databinding.ActivityMainBinding
 import com.bke.datepoll.ui.BaseActivity
 import com.bke.datepoll.ui.login.ServerInputActivity
 import com.bke.datepoll.ui.settings.SettingsActivity
 import com.bke.datepoll.vm.MainViewModel
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity(), AppBarConfiguration.OnNavigateUpListener {
 
     override lateinit var activityView: View
-    private val appObservableHandler: AppObservableHandler by inject()
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -64,10 +58,10 @@ class MainActivity : BaseActivity(), AppBarConfiguration.OnNavigateUpListener {
         )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            val dest: String = try {
+            try {
                 resources.getResourceName(destination.id)
             } catch (e: Resources.NotFoundException) {
-                Integer.toString(destination.id)
+                destination.id.toString()
             }
         }
 
@@ -88,9 +82,15 @@ class MainActivity : BaseActivity(), AppBarConfiguration.OnNavigateUpListener {
         sideNavView?.setupWithNavController(navController)
         val drawerLayout: DrawerLayout? = findViewById(R.id.drawer_layout)
 
-        //fragments load from here but how ?
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.nav_home, R.id.nav_events),
+            setOf(
+                R.id.nav_home,
+                R.id.nav_calendar,
+                R.id.nav_events,
+                R.id.nav_event_management,
+                R.id.nav_movie_tickets,
+                R.id.nav_cinema_duty,
+                R.id.nav_movie_management),
             drawerLayout
         )
     }

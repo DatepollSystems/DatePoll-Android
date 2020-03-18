@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.Prefs
-import com.bke.datepoll.data.model.Birthday
-import com.bke.datepoll.data.model.Booking
-import com.bke.datepoll.data.model.Event
-import com.bke.datepoll.data.requests.LogoutRequestModel
-import com.bke.datepoll.data.requests.LogoutResponseModel
+import com.bke.datepoll.data.Birthday
+import com.bke.datepoll.data.Booking
+import com.bke.datepoll.data.Event
+import com.bke.datepoll.data.LogoutRequestModel
+import com.bke.datepoll.data.LogoutResponseModel
 import com.bke.datepoll.database.model.PermissionDbModel
 import com.bke.datepoll.database.model.UserDbModel
 import com.bke.datepoll.repos.ENetworkState
@@ -53,7 +53,11 @@ class MainViewModel : BaseViewModel() {
 
             val session = prefs.SESSION!!
             val response: LogoutResponseModel? =
-                serverRepository.logout(LogoutRequestModel(session_token = session))
+                serverRepository.logout(
+                    LogoutRequestModel(
+                        session_token = session
+                    )
+                )
 
             response?.username?.let {
                 Log.i(tag, "logout successful")

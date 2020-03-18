@@ -1,14 +1,12 @@
 package com.bke.datepoll.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
-import androidx.recyclerview.widget.RecyclerView
 import com.bke.datepoll.R
-import com.bke.datepoll.data.model.Decision
+import com.bke.datepoll.data.Decision
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.vote_bottom_sheet.view.*
 

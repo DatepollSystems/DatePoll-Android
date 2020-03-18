@@ -1,9 +1,8 @@
-package com.bke.datepoll.data.requests
+package com.bke.datepoll.data
 
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class LoginResponseModel (
-    val token: String,
+data class LogoutRequestModel(
     val session_token: String
 )

@@ -1,4 +1,4 @@
-package com.bke.datepoll.data.model
+package com.bke.datepoll.data
 
 import androidx.lifecycle.LiveData
 import com.bke.datepoll.database.model.*

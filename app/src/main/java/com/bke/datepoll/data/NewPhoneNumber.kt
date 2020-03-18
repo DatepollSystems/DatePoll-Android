@@ -1,4 +1,4 @@
-package com.bke.datepoll.data.model
+package com.bke.datepoll.data
 
 import com.bke.datepoll.database.model.PhoneNumberDbModel
 import com.squareup.moshi.Json

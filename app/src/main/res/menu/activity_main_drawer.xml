@@ -9,32 +9,32 @@
             android:icon="@drawable/ic_home_black"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_events"
+            android:id="@+id/nav_calendar"
             android:icon="@drawable/ic_event"
             android:title="@string/menu_calendar" />
     </group>
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/events"
+            android:id="@+id/nav_events"
             android:icon="@drawable/ic_assessment"
             android:title="@string/events" />
         <item
-            android:id="@+id/eventManagement"
+            android:id="@+id/nav_event_management"
             android:icon="@drawable/ic_class_black_24dp"
             android:title="@string/event_management" />
     </group>
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_movie_tickets"
             android:icon="@drawable/ic_movie_black_24dp"
             android:title="@string/movieticket" />
         <item
-            android:id="@+id/nav_tools"
+            android:id="@+id/nav_cinema_duty"
             android:icon="@drawable/ic_card_giftcard_black_24dp"
             android:title="@string/cinema_duty" />
         <item
-            android:id="@+id/movie_management"
+            android:id="@+id/nav_movie_management"
             android:icon="@drawable/ic_local_movies_black_24dp"
             android:title="@string/movie_management" />
     </group>

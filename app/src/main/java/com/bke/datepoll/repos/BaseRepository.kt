@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.Prefs
 import com.bke.datepoll.network.DatepollApi
-import com.bke.datepoll.data.requests.RefreshTokenWithSessionRequest
+import com.bke.datepoll.data.RefreshTokenWithSessionRequest
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import retrofit2.Response
@@ -65,7 +65,8 @@ open class BaseRepository(private val tag: String) : KoinComponent {
          */
         if (isLoggedIn() && (Date().time - jwtTime) > 3600000) {
             Log.i(tag, "Try to refresh jwt")
-            val request = RefreshTokenWithSessionRequest(sessionToken = prefs.SESSION!!)
+            val request =
+                RefreshTokenWithSessionRequest(sessionToken = prefs.SESSION!!)
             val response = api.refreshTokenWithSession(request
             )
             if (!response.isSuccessful) {

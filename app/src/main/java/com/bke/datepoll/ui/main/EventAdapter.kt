@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bke.datepoll.R
-import com.bke.datepoll.data.model.Event
+import com.bke.datepoll.data.Event
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -17,7 +17,19 @@ import kotlin.collections.ArrayList
 class EventAdapter(val activity: AppCompatActivity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var data = LinkedList<Event>()
         set(value) {
-            value.addFirst(Event(0, null, null, null, null, null, null, ArrayList(), false))
+            value.addFirst(
+                Event(
+                    0,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    ArrayList(),
+                    false
+                )
+            )
             field = value
             notifyDataSetChanged()
         }

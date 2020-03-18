@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bke.datepoll.R
-import com.bke.datepoll.data.model.NewPhoneNumberRequest
+import com.bke.datepoll.data.NewPhoneNumberRequest
 import com.bke.datepoll.databinding.FragmentSettingsChangePhoneNumberBinding
 import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.vm.SettingsViewModel
@@ -54,7 +54,12 @@ class SettingsChangePhoneNumberFragment : Fragment() {
             val number = binding.tiPhoneNumber.editText?.text.toString()
 
             if(label.isNotBlank() && number.isNotBlank())
-                vm.addPhoneNumber(NewPhoneNumberRequest(label, number))
+                vm.addPhoneNumber(
+                    NewPhoneNumberRequest(
+                        label,
+                        number
+                    )
+                )
 
         }
 

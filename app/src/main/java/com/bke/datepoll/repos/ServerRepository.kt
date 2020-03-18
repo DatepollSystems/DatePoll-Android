@@ -2,9 +2,8 @@ package com.bke.datepoll.repos
 
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.network.DatepollApi
-import com.bke.datepoll.data.requests.LogoutRequestModel
-import com.bke.datepoll.data.requests.LogoutResponseModel
-import com.bke.datepoll.database.DatepollDatabase
+import com.bke.datepoll.data.LogoutRequestModel
+import com.bke.datepoll.data.LogoutResponseModel
 import okhttp3.ResponseBody
 import org.koin.core.inject
 

@@ -1,7 +1,7 @@
 package com.bke.datepoll.repos
 
 import androidx.lifecycle.MutableLiveData
-import com.bke.datepoll.data.model.HomeScreen
+import com.bke.datepoll.data.HomeScreen
 import com.bke.datepoll.network.DatepollApi
 import org.koin.core.inject
 

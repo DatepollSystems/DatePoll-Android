@@ -3,8 +3,7 @@ package com.bke.datepoll.repos
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.bke.datepoll.data.model.*
-import com.bke.datepoll.data.requests.*
+import com.bke.datepoll.data.*
 import com.bke.datepoll.database.DatepollDatabase
 import com.bke.datepoll.database.dao.*
 import com.bke.datepoll.database.model.EmailAddressDbModel
@@ -12,7 +11,6 @@ import com.bke.datepoll.database.model.PerformanceBadgesDbModel
 import com.bke.datepoll.database.model.PermissionDbModel
 import com.bke.datepoll.network.DatepollApi
 import org.koin.core.inject
-import org.koin.core.logger.MESSAGE
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -106,7 +104,9 @@ class UserRepository : BaseRepository("UserRepository") {
         }
 
         val result = apiCall(
-            call = { api.addEmail(prefs.JWT!!, AddEmailRequest(emails = emails)) },
+            call = { api.addEmail(prefs.JWT!!,
+                AddEmailRequest(emails = emails)
+            ) },
             state = state
         )
 
@@ -141,7 +141,12 @@ class UserRepository : BaseRepository("UserRepository") {
                 val oldDate = formatter.parse(item.lastUsed)
 
                 val newDate = uiFormatter.format(oldDate!!)
-                val se = SessionModel(item.id, item.information, newDate, item.deleteSession)
+                val se = SessionModel(
+                    item.id,
+                    item.information,
+                    newDate,
+                    item.deleteSession
+                )
                 s.add(se)
             }
         }
@@ -160,7 +165,9 @@ class UserRepository : BaseRepository("UserRepository") {
     suspend fun checkPassword(state: MutableLiveData<ENetworkState>, password: String): Message? {
         return apiCall(
             state = state,
-            call = { api.checkOldPassword(prefs.JWT!!, PasswordRequestModel(password)) }
+            call = { api.checkOldPassword(prefs.JWT!!,
+                PasswordRequestModel(password)
+            ) }
         )
     }
 
@@ -173,7 +180,10 @@ class UserRepository : BaseRepository("UserRepository") {
             call = {
                 api.changeOldPassword(
                     prefs.JWT!!,
-                    ChangePasswordRequestModel(oldPassword, newPassword)
+                    ChangePasswordRequestModel(
+                        oldPassword,
+                        newPassword
+                    )
                 )
             },
             state = state

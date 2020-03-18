@@ -1,7 +1,6 @@
 package com.bke.datepoll.network
 
-import com.bke.datepoll.data.model.*
-import com.bke.datepoll.data.requests.*
+import com.bke.datepoll.data.*
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
