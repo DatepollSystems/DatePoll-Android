@@ -36,8 +36,8 @@ class ServerInputActivity : AppCompatActivity() {
     private val serverInputViewModel: ServerInputViewModel by viewModel()
     private val prefs: Prefs by inject()
 
-    private val GET_QR_CODE_RES = 1
-    private val QR_CODE_DATA = "qrCodeData"
+    private val qrCodeRes = 1
+    private val qrCodeData = "qrCodeData"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,7 +99,7 @@ class ServerInputActivity : AppCompatActivity() {
         })
 
         view.btnQRCodeScan.setOnClickListener {
-            startActivityForResult(Intent(this, QrCodeScanActivity::class.java), GET_QR_CODE_RES)
+            startActivityForResult(Intent(this, QrCodeScanActivity::class.java), qrCodeRes)
         }
 
         view.btnSetServer.isEnabled = false
@@ -133,9 +133,9 @@ class ServerInputActivity : AppCompatActivity() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == GET_QR_CODE_RES) {
+        if (requestCode == qrCodeRes) {
             if (resultCode == Activity.RESULT_OK) {
-                val d = data?.getStringExtra(QR_CODE_DATA)
+                val d = data?.getStringExtra(qrCodeData)
                 Log.i(tag, "QrScan successfully")
                 val dataObj = mapResultIntoObj(d)
                 dataObj?.let {

@@ -33,7 +33,7 @@ class MainViewModel : BaseViewModel() {
     val logout = MutableLiveData<Boolean>(false)
     val permissions = MutableLiveData<List<PermissionDbModel>>()
 
-    val loadUserState = MutableLiveData<ENetworkState>()
+    private val loadUserState = MutableLiveData<ENetworkState>()
     val loadHomepageState = MutableLiveData<ENetworkState>()
 
     val birthdays = MutableLiveData<List<Birthday>>()

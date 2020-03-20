@@ -6,7 +6,12 @@ import androidx.room.ForeignKey.CASCADE
 @Entity(
     tableName = "email_addresses",
     indices = [Index(value = arrayOf("user_id"))],
-    foreignKeys = [ForeignKey(onDelete = CASCADE, entity = UserDbModel::class, parentColumns = arrayOf("id"), childColumns = arrayOf("user_id"))]
+    foreignKeys = [ForeignKey(
+        onDelete = CASCADE,
+        entity = UserDbModel::class,
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("user_id")
+    )]
 )
 data class EmailAddressDbModel(
     @PrimaryKey

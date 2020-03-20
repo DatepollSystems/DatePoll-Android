@@ -1,10 +1,9 @@
 package com.bke.datepoll
 
 import android.app.Application
-import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
-import com.bke.datepoll.network.DatepollServiceFactory
 import com.bke.datepoll.database.DatepollDatabase
+import com.bke.datepoll.network.DatepollServiceFactory
 import com.bke.datepoll.repos.HomeRepository
 import com.bke.datepoll.repos.LoginRepository
 import com.bke.datepoll.repos.ServerRepository
@@ -39,6 +38,7 @@ val appModule = module {
     viewModel { SettingsViewModel() }
     viewModel { SettingsEmailViewModel() }
     viewModel { ServerInputViewModel() }
+    viewModel { EventViewModel() }
 }
 
 class App : Application() {
@@ -53,7 +53,7 @@ class App : Application() {
         }
 
         val prefs: Prefs by inject()
-        when(prefs.THEME){
+        when (prefs.THEME) {
             themeOptions[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             themeOptions[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             themeOptions[2] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

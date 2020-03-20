@@ -37,7 +37,6 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this
 
         view.connectionView.visibility = View.INVISIBLE
-        //view.cardList.visibility = View.INVISIBLE
 
         val adapter = CardAdapter(activity as AppCompatActivity)
         view.cardList.adapter = adapter

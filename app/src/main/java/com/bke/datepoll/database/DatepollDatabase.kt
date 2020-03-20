@@ -6,18 +6,29 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.bke.datepoll.database.dao.*
 import com.bke.datepoll.database.model.*
+import com.bke.datepoll.database.model.event.EventDateDbModel
+import com.bke.datepoll.database.model.event.EventDbModel
+import com.bke.datepoll.database.model.event.UserDecisionDbModel
 
-@Database(entities = [  UserDbModel::class,
-                        PhoneNumberDbModel::class,
-                        PerformanceBadgesDbModel::class,
-                        EmailAddressDbModel::class,
-                        PermissionDbModel::class], version = 2)
+@Database(
+    entities = [
+        UserDbModel::class,
+        PhoneNumberDbModel::class,
+        PerformanceBadgesDbModel::class,
+        EmailAddressDbModel::class,
+        PermissionDbModel::class,
+        EventDbModel::class,
+        UserDecisionDbModel::class,
+        EventDateDbModel::class
+    ], version = 3
+)
 abstract class DatepollDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun phoneDao(): PhoneNumberDao
     abstract fun emailDao(): EmailDao
     abstract fun performanceBadgesDao(): PerformanceBadgesDao
     abstract fun permissionDao(): PermissionsDao
+    abstract fun eventDao(): EventDao
 
     companion object {
 
@@ -34,11 +45,13 @@ abstract class DatepollDatabase : RoomDatabase() {
                     context.applicationContext,
                     DatepollDatabase::class.java,
                     "datepoll_database"
-                ).allowMainThreadQueries().build()
+                ).build()
                 INSTANCE = instance
                 return instance
             }
         }
     }
+
+
 
 }

@@ -48,6 +48,8 @@ class CardAdapter(val activity: AppCompatActivity) :
                 adapter.data = birthdayData
                 holder.tvHeadline.text = birthday
                 holder.recyclerView.adapter = adapter
+                if(birthdayData.isEmpty())
+                    holder.view.visibility = View.INVISIBLE
             }
 
             bookings -> {
@@ -55,6 +57,8 @@ class CardAdapter(val activity: AppCompatActivity) :
                 adapter.data = bookingsData
                 holder.tvHeadline.text = bookings
                 holder.recyclerView.adapter = adapter
+                if(bookingsData.isEmpty())
+                    holder.view.visibility = View.INVISIBLE
             }
 
             events -> {

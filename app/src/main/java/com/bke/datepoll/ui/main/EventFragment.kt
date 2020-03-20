@@ -8,10 +8,15 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bke.datepoll.R
+import com.bke.datepoll.vm.EventViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class EventFragment : Fragment() {
+
+    val vm: EventViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
