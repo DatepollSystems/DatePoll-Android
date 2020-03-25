@@ -1,6 +1,5 @@
 package com.bke.datepoll.vm
 
-import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.repos.ServerRepository
@@ -20,14 +19,5 @@ class ServerInputViewModel : BaseViewModel() {
         scope.launch {
             serverRepo.isServiceOnline(validateInstanceState)
         }
-    }
-
-    fun onTextChanged(
-        newText: CharSequence,
-        start: Int,
-        before: Int,
-        count: Int
-    ) {
-
     }
 }

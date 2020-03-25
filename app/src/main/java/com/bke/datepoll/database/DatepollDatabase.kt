@@ -8,6 +8,7 @@ import com.bke.datepoll.database.dao.*
 import com.bke.datepoll.database.model.*
 import com.bke.datepoll.database.model.event.EventDateDbModel
 import com.bke.datepoll.database.model.event.EventDbModel
+import com.bke.datepoll.database.model.event.EventDecisionDbModel
 import com.bke.datepoll.database.model.event.UserDecisionDbModel
 
 @Database(
@@ -18,9 +19,9 @@ import com.bke.datepoll.database.model.event.UserDecisionDbModel
         EmailAddressDbModel::class,
         PermissionDbModel::class,
         EventDbModel::class,
-        UserDecisionDbModel::class,
+        EventDecisionDbModel::class,
         EventDateDbModel::class
-    ], version = 3
+    ], version = 1
 )
 abstract class DatepollDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
