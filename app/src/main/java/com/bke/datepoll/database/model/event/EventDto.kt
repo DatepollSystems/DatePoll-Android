@@ -15,6 +15,7 @@ data class GetAllEventsResponseMsg(
 data class EventDto(
     val id: Int,
     val name: String,
+    val description: String,
     @field:Json(name = "start_date") val startDate: String,
     @field:Json(name = "end_date") val endDate: String,
     @field:Json(name = "for_everyone") val forEveryone: Int,
@@ -29,13 +30,14 @@ data class EventDto(
                 event = EventDbModel(
                     id = id,
                     name = name,
+                    description = description,
                     startDate = startDate,
                     endDate = endDate,
                     forEveryone = forEveryone,
                     userDecision = UserDecisionDbModel(
                         udId = it.id,
                         decision = it.decision,
-                        shownInCalendar = it.shownInCalendar,
+                        showInCalendar = it.showInCalendar,
                         createdAt = it.createdAt,
                         updatedAt = it.updatedAt,
                         color = it.color,
@@ -54,6 +56,7 @@ data class EventDto(
             event = EventDbModel(
                 id = id,
                 name = name,
+                description = description,
                 startDate = startDate,
                 endDate = endDate,
                 forEveryone = forEveryone,
@@ -71,12 +74,12 @@ data class EventDto(
 data class UserDecisionDto(
     val id: Int,
     val decision: String,
-    @field:Json(name = "shown_in_calendar") val shownInCalendar: Int,
+    @field:Json(name = "show_in_calendar") val showInCalendar: Int,
     @field:Json(name = "event_id") val eventId: Int,
     @field:Json(name = "created_at") val createdAt: String,
     @field:Json(name = "updated_at") val updatedAt: String,
     val color: String,
-    @field:Json(name = "additional_information") val additionalInfo: String
+    @field:Json(name = "additional_information") val additionalInfo: String?
 )
 
 @JsonClass(generateAdapter = true)
@@ -93,6 +96,6 @@ data class EventDecisionDto(
     val id: Int,
     val decision: String,
     @field:Json(name = "event_id") val eventId: Int,
-    @field:Json(name = "shown_in_calendar") val shownInCalendar: Int
+    @field:Json(name = "show_in_calendar") val showInCalendar: Int
 )
 

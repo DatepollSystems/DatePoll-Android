@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.database.DatepollDatabase
 import com.bke.datepoll.database.dao.EventDao
+import com.bke.datepoll.database.model.event.EventDbModel
 import com.bke.datepoll.database.model.event.EventWithDecisions
 import com.bke.datepoll.database.model.event.GetAllEventsResponseMsg
 import com.bke.datepoll.network.DatepollApi
@@ -19,12 +20,12 @@ class EventRepository : BaseRepository("EventRepository") {
 
     private val eventDao: EventDao = db.eventDao()
 
-    suspend fun loadAllEvents(force: Boolean, state: MutableLiveData<ENetworkState>)
-            : LiveData<List<EventWithDecisions>>? {
+    val events = eventDao.loadAllEvents()
 
-        val events = eventDao.loadAllEvents()
+    suspend fun loadAllEvents(force: Boolean, state: MutableLiveData<ENetworkState>)
+            : LiveData<List<EventDbModel>>? {
         events.value?.let { list ->
-            if (force || list.isEmpty() || (list[0].event.insertedAt + 3600000) < Date().time) {
+            if (force || list.isEmpty() || (list[0].insertedAt + 3600000) < Date().time) {
                 Log.i(tag, "Load events from server")
                 val r: GetAllEventsResponseMsg? = apiCall(
                     call = { api.getAllEvents(prefs.JWT!!) },
@@ -54,6 +55,4 @@ class EventRepository : BaseRepository("EventRepository") {
         }
         return null
     }
-
-
 }

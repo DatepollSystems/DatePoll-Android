@@ -4,10 +4,7 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.bke.datepoll.database.DatepollDatabase
 import com.bke.datepoll.network.DatepollServiceFactory
-import com.bke.datepoll.repos.HomeRepository
-import com.bke.datepoll.repos.LoginRepository
-import com.bke.datepoll.repos.ServerRepository
-import com.bke.datepoll.repos.UserRepository
+import com.bke.datepoll.repos.*
 import com.bke.datepoll.ui.settings.themeOptions
 import com.bke.datepoll.vm.*
 import org.koin.android.ext.android.inject
@@ -16,6 +13,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
+import kotlin.math.sin
 
 val appModule = module {
     // Database
@@ -31,6 +29,7 @@ val appModule = module {
     single { LoginRepository() }
     single { UserRepository() }
     single { HomeRepository() }
+    single { EventRepository() }
 
     // ViewModels
     viewModel { LoginViewModel() }

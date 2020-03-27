@@ -6,6 +6,7 @@ import androidx.room.*
 data class EventDbModel(
     @PrimaryKey val id: Int,
     val name: String,
+    val description: String,
     @ColumnInfo(name = "start_date") val startDate: String,
     @ColumnInfo(name = "end_date") val endDate: String,
     @ColumnInfo(name = "for_everyone") val forEveryone: Int,
@@ -17,11 +18,11 @@ data class EventDbModel(
 data class UserDecisionDbModel(
     val udId: Int,
     val decision: String,
-    @ColumnInfo(name = "shown_in_calendar") val shownInCalendar: Int,
+    @ColumnInfo(name = "shown_in_calendar") val showInCalendar: Int,
     @ColumnInfo(name = "created_at") val createdAt: String,
     @ColumnInfo(name = "updated_at") val updatedAt: String,
     val color: String,
-    @ColumnInfo(name = "additional_information") val additionalInfo: String,
+    @ColumnInfo(name = "additional_information") val additionalInfo: String?,
     @ColumnInfo(name = "event_id") val eventId: Int
 )
 

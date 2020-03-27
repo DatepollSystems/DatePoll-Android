@@ -62,7 +62,7 @@ fun List<EventDecisionDto>.transformInDbModelList(): List<EventDecisionDbModel> 
                 EventDecisionDbModel(
                     id = i.id,
                     eventId = i.eventId,
-                    shownInCalendar = i.shownInCalendar,
+                    shownInCalendar = i.showInCalendar,
                     decision = i.decision
                 )
             )
