@@ -1,5 +1,6 @@
 package com.bke.datepoll.repos
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.database.DatepollDatabase
@@ -22,28 +23,35 @@ class EventRepository : BaseRepository("EventRepository") {
             : LiveData<List<EventWithDecisions>>? {
 
         val events = eventDao.loadAllEvents()
-        events.value?.let {
-            if (force || it.isEmpty() || (it[0].event.insertedAt + 3600000) < Date().time) {
-                //load data from server
+        events.value?.let { list ->
+            if (force || list.isEmpty() || (list[0].event.insertedAt + 3600000) < Date().time) {
+                Log.i(tag, "Load events from server")
                 val r: GetAllEventsResponseMsg? = apiCall(
                     call = { api.getAllEvents(prefs.JWT!!) },
                     state = state
                 )
 
-                r?.let {
-                    //Fetch data in db
+                r?.let { response ->
+                    Log.i(tag, "Try to fetch new data into db")
+                    for (e in response.events) {
+                        val data = e.getDbData()
 
+                        eventDao.addEvent(data.event)
 
-                    return events
+                        data.decisions?.let {
+                            eventDao.addDecisions(it)
+                        }
+
+                        data.dates?.let {
+                            eventDao.addDates(it)
+                        }
+                        Log.i(tag, "Fetched events in DB")
+                    }
                 }
-
-                return events
-            } else {
-                //load data form db
-                return events
             }
-        }
 
+            return events
+        }
         return null
     }
 

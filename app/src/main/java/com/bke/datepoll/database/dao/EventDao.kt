@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import com.bke.datepoll.database.model.event.EventDateDbModel
 import com.bke.datepoll.database.model.event.EventDbModel
 import com.bke.datepoll.database.model.event.EventDecisionDbModel
 import com.bke.datepoll.database.model.event.EventWithDecisions
@@ -24,4 +25,7 @@ interface EventDao {
 
     @Insert
     fun addDecisions(decisions: List<EventDecisionDbModel>)
+
+    @Insert
+    fun addDates(dates: List<EventDateDbModel>)
 }
