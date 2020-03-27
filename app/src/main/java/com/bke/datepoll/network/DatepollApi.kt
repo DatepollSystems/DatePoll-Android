@@ -1,6 +1,7 @@
 package com.bke.datepoll.network
 
 import com.bke.datepoll.data.*
+import com.bke.datepoll.database.model.event.GetAllEventsResponseMsg
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -122,4 +123,10 @@ interface DatepollApi {
     suspend fun deleteCalendarToken(
         @Query("token") token: String
     ): Response<Message>
+
+
+    @GET("/api/v1/avent")
+    suspend fun getAllEvents(
+        @Query("token") token: String
+    ): Response<GetAllEventsResponseMsg>
 }

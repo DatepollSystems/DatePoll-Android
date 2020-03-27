@@ -5,6 +5,10 @@ import android.animation.ValueAnimator
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
+import com.bke.datepoll.database.model.event.EventDateDbModel
+import com.bke.datepoll.database.model.event.EventDateDto
+import com.bke.datepoll.database.model.event.EventDecisionDbModel
+import com.bke.datepoll.database.model.event.EventDecisionDto
 
 fun View.animateVisibility(setVisible: Boolean) {
     if (setVisible) expand(this) else collapse(this)
@@ -48,4 +52,46 @@ private fun animateView(v: View, initialHeight: Int, targetHeight: Int) {
     valueAnimator.duration = 1000
     valueAnimator.interpolator = DecelerateInterpolator()
     valueAnimator.start()
+}
+
+fun List<EventDecisionDto>.transformInDbModelList(): List<EventDecisionDbModel> {
+    return if (this.isNotEmpty()) {
+        val l = ArrayList<EventDecisionDbModel>()
+        for (i in this) {
+            l.add(
+                EventDecisionDbModel(
+                    id = i.id,
+                    eventId = i.eventId,
+                    shownInCalendar = i.shownInCalendar,
+                    decision = i.decision
+                )
+            )
+        }
+
+        l
+    } else {
+        ArrayList()
+    }
+}
+
+fun List<EventDateDto>.transformInDbModelList(eventId: Int): List<EventDateDbModel> {
+    return if (this.isNotEmpty()) {
+        val l = ArrayList<EventDateDbModel>()
+        for(i in this){
+            l.add(
+                EventDateDbModel(
+                    id = i.id,
+                    eventId = eventId,
+                    date = i.date,
+                    description = i.description,
+                    x = i.x,
+                    y = i.y
+                )
+            )
+        }
+
+        l
+    } else {
+        ArrayList()
+    }
 }

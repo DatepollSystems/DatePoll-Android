@@ -38,4 +38,5 @@ class Prefs(context: Context) {
     var THEME: String?
         get() = prefs.getString("theme", "Default")
         set(value) = prefs.edit().putString("theme", value).apply()
+
 }

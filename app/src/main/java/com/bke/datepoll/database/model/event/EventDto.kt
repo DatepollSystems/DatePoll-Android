@@ -1,7 +1,15 @@
 package com.bke.datepoll.database.model.event
 
+import com.bke.datepoll.transformInDbModelList
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.util.*
+
+@JsonClass(generateAdapter = true)
+data class GetAllEventsResponseMsg(
+    val msg: String,
+    val events: List<EventDto>
+)
 
 @JsonClass(generateAdapter = true)
 data class EventDto(
@@ -14,7 +22,50 @@ data class EventDto(
     val dates: List<EventDateDto>,
     @field:Json(name = "already_voted") val alreadyVoted: Boolean,
     @field:Json(name = "user_decision") val userDecision: UserDecisionDto?
-)
+) {
+    fun getDbData(): EventsDbDataHolder {
+        userDecision?.let {
+            return EventsDbDataHolder(
+                event = EventDbModel(
+                    id = id,
+                    name = name,
+                    startDate = startDate,
+                    endDate = endDate,
+                    forEveryone = forEveryone,
+                    userDecision = UserDecisionDbModel(
+                        udId = it.id,
+                        decision = it.decision,
+                        shownInCalendar = it.shownInCalendar,
+                        createdAt = it.createdAt,
+                        updatedAt = it.updatedAt,
+                        color = it.color,
+                        additionalInfo = it.additionalInfo,
+                        eventId = id
+                    ),
+                    insertedAt = Date().time,
+                    alreadyVoted = alreadyVoted
+                ),
+                dates = dates.transformInDbModelList(id),
+                decisions = decisions.transformInDbModelList()
+            )
+        }
+
+        return EventsDbDataHolder(
+            event = EventDbModel(
+                id = id,
+                name = name,
+                startDate = startDate,
+                endDate = endDate,
+                forEveryone = forEveryone,
+                userDecision = null,
+                insertedAt = Date().time,
+                alreadyVoted = alreadyVoted
+            ),
+            dates = dates.transformInDbModelList(id),
+            decisions = decisions.transformInDbModelList()
+        )
+    }
+}
 
 @JsonClass(generateAdapter = true)
 data class UserDecisionDto(

@@ -10,7 +10,8 @@ data class EventDbModel(
     @ColumnInfo(name = "end_date") val endDate: String,
     @ColumnInfo(name = "for_everyone") val forEveryone: Int,
     @ColumnInfo(name = "already_voted") val alreadyVoted: Boolean,
-    @Embedded val userDecision: UserDecisionDbModel
+    @ColumnInfo(name = "inserted_at") val insertedAt: Long,
+    @Embedded val userDecision: UserDecisionDbModel?
 )
 
 data class UserDecisionDbModel(
@@ -34,7 +35,7 @@ data class EventDateDbModel(
     @ColumnInfo(name = "event_id") val eventId: Int
 )
 
-@Entity(tableName = "event_decision")
+@Entity(tableName = "event_decisions")
 data class EventDecisionDbModel(
     @PrimaryKey val id: Int,
     val decision: String,
@@ -45,8 +46,14 @@ data class EventDecisionDbModel(
 data class EventWithDecisions(
     @Embedded val event: EventDbModel,
     @Relation(
-        parentColumn = "event_id",
+        parentColumn = "id",
         entityColumn = "event_id"
     )
     val decisions: List<EventDecisionDbModel>
+)
+
+data class EventsDbDataHolder(
+    val event: EventDbModel,
+    val dates: List<EventDateDbModel>?,
+    val decisions: List<EventDecisionDbModel>?
 )
