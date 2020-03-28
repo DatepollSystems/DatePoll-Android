@@ -15,9 +15,9 @@ class EventViewModel : BaseViewModel() {
 
     val loadEventsState = MutableLiveData<ENetworkState>()
 
-    fun loadEventData(){
+    fun loadEventData(force: Boolean = false){
         scope.launch {
-            eventRepository.loadAllEvents(force = false, state = loadEventsState)
+            eventRepository.loadAllEvents(force = force, state = loadEventsState)
         }
     }
 }
