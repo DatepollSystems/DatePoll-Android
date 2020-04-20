@@ -36,11 +36,6 @@ class SettingsActivity : BaseActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        vm.cancelAllRequests()
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             onBackPressed()

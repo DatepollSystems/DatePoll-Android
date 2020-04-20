@@ -5,12 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bke.datepoll.R
 import com.bke.datepoll.database.model.event.EventDbModel
+import com.bke.datepoll.vm.EventViewModel
+import com.google.android.material.snackbar.Snackbar
 import java.util.ArrayList
 
-class EventCardAdapter : RecyclerView.Adapter<EventCardViewHolder>() {
+class EventCardAdapter(private val viewModel: EventViewModel) : RecyclerView.Adapter<EventCardViewHolder>() {
 
     var data = ArrayList<EventDbModel>()
         set(value) {
@@ -30,16 +33,25 @@ class EventCardAdapter : RecyclerView.Adapter<EventCardViewHolder>() {
             tvStartDate.text = item.startDate
             tvEndDate.text = item.endDate
             btnAnswer.setOnClickListener {
-
+                if(btnAnswer.text == it.context.getString(R.string.answer)){
+                    //show answer dialog
+                    viewModel.loadDecisionsForEvent(item.id)
+                } else {
+                    //remove answer
+                }
             }
-            btnInfo.setOnClickListener {
 
+            btnInfo.setOnClickListener {
+                Snackbar.make(it, "Feature will be able in the future", Snackbar.LENGTH_SHORT)
             }
 
             item.userDecision?.let {
                 tvAnswer.visibility = View.VISIBLE
                 tvAnswerTitle.visibility = View.VISIBLE
                 tvAnswer.text = it.decision
+                btnAnswer.apply {
+                    text = context.getString(R.string.remove_answer)
+                }
             }
         }
     }

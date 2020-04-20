@@ -2,6 +2,8 @@ package com.bke.datepoll.network
 
 import com.bke.datepoll.data.*
 import com.bke.datepoll.database.model.event.GetAllEventsResponseMsg
+import com.bke.datepoll.database.model.event.VoteForEventRequestDto
+import com.bke.datepoll.database.model.event.VoteForEventResponseDto
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -64,12 +66,6 @@ interface DatepollApi {
         @Query("token") token: String
     ): Response<HomeScreen>
 
-
-    @POST("/api/v1/avent/vote")
-    suspend fun voteForEvent(
-        @Query("token") token: String
-    ): Response<VoteResponse>
-
     /**
      * Settings screen
      */
@@ -129,4 +125,12 @@ interface DatepollApi {
     suspend fun getAllEvents(
         @Query("token") token: String
     ): Response<GetAllEventsResponseMsg>
+
+    @POST("/api/v1/avent/vote")
+    suspend fun voteForEvent(
+        @Query("token") token: String,
+        @Body vote: VoteForEventRequestDto
+    ): Response<VoteForEventResponseDto>
+
+
 }

@@ -106,5 +106,7 @@
     <string name="movieticket">Movieticket</string>
     <string name="cinema_duty">Cinema duty</string>
     <string name="movie_management">Movie management</string>
+    <string name="remove_answer">Remove answer</string>
+    <string name="answer">Answer</string>
 
 </resources>

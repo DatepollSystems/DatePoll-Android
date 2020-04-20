@@ -44,8 +44,8 @@ class EventAdapter(val activity: AppCompatActivity) : RecyclerView.Adapter<Recyc
             viewHolder.tvDate.text = item.startDate
 
             viewHolder.btnAnswer.setOnClickListener {
-                val bottomSheetFragment = VoteBottomSheetDialog(item.decisions, MutableLiveData())
-                bottomSheetFragment.show(activity.supportFragmentManager, bottomSheetFragment.tag)
+                //val bottomSheetFragment = VoteBottomSheetDialog(item., MutableLiveData())
+                //bottomSheetFragment.show(activity.supportFragmentManager, bottomSheetFragment.tag)
             }
         }
     }

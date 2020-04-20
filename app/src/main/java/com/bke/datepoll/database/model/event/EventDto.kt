@@ -99,3 +99,40 @@ data class EventDecisionDto(
     @field:Json(name = "show_in_calendar") val showInCalendar: Int
 )
 
+@JsonClass(generateAdapter = true)
+data class VoteForEventRequestDto(
+    @field:Json(name = "decision_id") val decisionId: Int,
+    @field:Json(name = "event_id") val eventId: Int,
+    @field:Json(name = "additional_info")val additionalInfo: String
+)
+
+@JsonClass(generateAdapter = true)
+data class VoteForEventResponseDto(
+    val msg: String,
+    @field:Json(name = "user_decision") val userDecision: UserDecisionDto
+){
+    fun getDbModelData(): UserDecisionDbModel{
+        return UserDecisionDbModel(
+            udId = userDecision.id,
+            decision = userDecision.decision,
+            eventId = userDecision.eventId,
+            showInCalendar = userDecision.showInCalendar,
+            createdAt = userDecision.createdAt,
+            updatedAt = userDecision.updatedAt,
+            color = userDecision.color,
+            additionalInfo = userDecision.additionalInfo
+        )
+    }
+}
+
+/**
+@JsonClass(generateAdapter = true)
+data class EventVoteForDecision(
+    val additionalInformation: String?,
+    @field:Json(name = "event_id") val eventId: Int,
+    @field:Json(name = "decision_id") val decisionId: Int,
+    @field:Json(name = "user_id") val userId: Int,
+    @field:Json(name = "created_at") val createdAt: String,
+    @field:Json(name = "updated_at") val updatedAt: String,
+    val id: Int
+)**/

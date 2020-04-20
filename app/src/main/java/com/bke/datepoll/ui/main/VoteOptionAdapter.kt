@@ -9,10 +9,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bke.datepoll.R
 import com.bke.datepoll.data.Decision
+import com.bke.datepoll.database.model.event.EventDecisionDbModel
 
-class VoteOptionAdapter(val sheet: VoteBottomSheetDialog, val liveData: MutableLiveData<Decision>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class VoteOptionAdapter(val sheet: VoteBottomSheetDialog, val response: MutableLiveData<EventDecisionDbModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var data = listOf<Decision>()
+    var data = listOf<EventDecisionDbModel>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -34,8 +35,7 @@ class VoteOptionAdapter(val sheet: VoteBottomSheetDialog, val liveData: MutableL
 
         h.text.text = i.decision
         h.line.setOnClickListener {
-            liveData.postValue(i)
-            Thread.sleep(200)
+            response.postValue(i)
             sheet.dismiss()
         }
     }

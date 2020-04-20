@@ -5,9 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bke.datepoll.database.DatepollDatabase
 import com.bke.datepoll.database.dao.EventDao
-import com.bke.datepoll.database.model.event.EventDbModel
-import com.bke.datepoll.database.model.event.EventWithDecisions
-import com.bke.datepoll.database.model.event.GetAllEventsResponseMsg
+import com.bke.datepoll.database.model.event.*
 import com.bke.datepoll.network.DatepollApi
 import org.koin.core.inject
 import java.util.*
@@ -54,5 +52,30 @@ class EventRepository : BaseRepository("EventRepository") {
             return events
         }
         return null
+    }
+
+    fun loadDecisionForEvent(
+        eventId: Int,
+        state: MutableLiveData<ENetworkState>
+    ): List<EventDecisionDbModel> {
+        return eventDao.loadDecisionsForEvent(eventId)
+    }
+
+    suspend fun voteForEvent(d: EventDecisionDbModel, state: MutableLiveData<ENetworkState>) {
+
+        val requestData = VoteForEventRequestDto(
+            decisionId = d.id,
+            additionalInfo = "",
+            eventId = d.eventId
+        )
+        apiCall(
+            call = { api.voteForEvent(prefs.JWT!!, requestData) },
+            state = state
+        )?.let {
+            eventDao.addUserDecision(it)
+            return
+        }
+
+        state.postValue(ENetworkState.ERROR)
     }
 }
