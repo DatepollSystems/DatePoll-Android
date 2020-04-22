@@ -116,12 +116,12 @@ class ServerInputActivity : AppCompatActivity() {
 
             val url = "https://${s}"
 
-            prefs.SERVER_ADDRESS = url
+            prefs.serverAddress = url
             val port: Int = serverInputViewModel.serverPort.value!!
-            prefs.SERVER_PORT = port
+            prefs.serverPort = port
             stopKoin()
-            Log.i("Login", prefs.SERVER_ADDRESS!!)
-            Log.i("Port", prefs.SERVER_PORT.toString())
+            Log.i("Login", prefs.serverAddress!!)
+            Log.i("Port", prefs.serverPort.toString())
             startKoin {
                 androidLogger()
                 androidContext(applicationContext)

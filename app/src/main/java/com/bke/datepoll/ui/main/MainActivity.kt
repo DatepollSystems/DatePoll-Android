@@ -85,12 +85,13 @@ class MainActivity : BaseActivity(), AppBarConfiguration.OnNavigateUpListener {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,
-                R.id.nav_calendar,
-                R.id.nav_events,
-                R.id.nav_event_management,
-                R.id.nav_movie_tickets,
-                R.id.nav_cinema_duty,
-                R.id.nav_movie_management),
+                //R.id.nav_calendar,
+                R.id.nav_events
+                //R.id.nav_event_management,
+                //R.id.nav_movie_tickets,
+                //R.id.nav_cinema_duty,
+                //R.id.nav_movie_management
+                ),
             drawerLayout
         )
     }

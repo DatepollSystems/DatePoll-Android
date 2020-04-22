@@ -23,7 +23,7 @@ class ServerRepository: BaseRepository("ServerRepository"){
         //TODO Drop all DBs
         
         return apiCall(
-            call = { api.logout(prefs.JWT!!, request) },
+            call = { api.logout(prefs.jwt!!, request) },
             state = MutableLiveData()
         )
     }

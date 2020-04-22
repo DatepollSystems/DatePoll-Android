@@ -12,8 +12,6 @@ import com.bke.datepoll.repos.ENetworkState
 import com.bke.datepoll.vm.EventViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_event.view.*
-import kotlinx.android.synthetic.main.fragment_event.view.connectionView
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.*
 
@@ -26,6 +24,7 @@ class EventFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view =
             inflater.inflate(R.layout.fragment_event, container, false)
 
@@ -38,6 +37,82 @@ class EventFragment : Fragment() {
         view.eventFragmentSwipeToRefresh.setOnRefreshListener {
             vm.loadEventData(force = true)
         }
+
+        initStateObserver(view)
+
+        vm.decisions.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                val bottomSheetFragment = VoteBottomSheetDialog(it, vm.decisionClickResult)
+                activity?.let { a ->
+                    bottomSheetFragment.show(a.supportFragmentManager, bottomSheetFragment.tag)
+                }
+                vm.decisions.postValue(null)
+            }
+        })
+
+        vm.decisionClickResult.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                vm.voteForEvent(it)
+            }
+            vm.decisionClickResult.postValue(null)
+        })
+
+        vm.events.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                eventCardAdapter.data = ArrayList(it)
+            }
+        })
+
+        return view
+    }
+
+    private fun initStateObserver(view: View) {
+
+        vm.makeDecisionState.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                when (it) {
+                    ENetworkState.LOADING -> {
+                        view.eventFragmentSwipeToRefresh.isRefreshing = true
+                    }
+                    ENetworkState.ERROR -> {
+                        view.eventFragmentSwipeToRefresh.isRefreshing = false
+                        Snackbar.make(
+                            view,
+                            getString(R.string.something_went_wrong),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                    ENetworkState.DONE -> {
+                        view.eventFragmentSwipeToRefresh.isRefreshing = false
+                    }
+                }
+
+                vm.makeDecisionState.postValue(null)
+            }
+        })
+
+        vm.removeVoteForEventState.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                when (it) {
+                    ENetworkState.LOADING -> {
+                        view.eventFragmentSwipeToRefresh.isRefreshing = true
+                    }
+                    ENetworkState.ERROR -> {
+                        view.eventFragmentSwipeToRefresh.isRefreshing = false
+                        Snackbar.make(
+                            view,
+                            getString(R.string.something_went_wrong),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                    ENetworkState.DONE -> {
+                        view.eventFragmentSwipeToRefresh.isRefreshing = false
+                    }
+                }
+
+                vm.removeVoteForEventState.postValue(null)
+            }
+        })
 
         vm.loadEventsState.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -64,51 +139,6 @@ class EventFragment : Fragment() {
                 vm.loadEventsState.postValue(null)
             }
         })
-
-        vm.decisions.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                val bottomSheetFragment = VoteBottomSheetDialog(it, vm.decisionClickResult)
-                activity?.let { a ->
-                    bottomSheetFragment.show(a.supportFragmentManager, bottomSheetFragment.tag)
-                }
-                vm.decisions.postValue(null)
-            }
-        })
-
-        vm.decisionClickResult.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                vm.voteForEvent(it)
-            }
-        })
-
-        vm.events.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                eventCardAdapter.data = ArrayList(it)
-            }
-        })
-
-        vm.makeDecisionState.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                when (it) {
-                    ENetworkState.LOADING -> {
-                        view.eventFragmentSwipeToRefresh.isRefreshing = true
-                    }
-                    ENetworkState.ERROR -> {
-                        view.eventFragmentSwipeToRefresh.isRefreshing = false
-                        Snackbar.make(
-                            view,
-                            getString(R.string.something_went_wrong),
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
-                    ENetworkState.DONE -> {
-                        view.eventFragmentSwipeToRefresh.isRefreshing = false
-                    }
-                }
-            }
-        })
-
-        return view
     }
 
     override fun onStart() {

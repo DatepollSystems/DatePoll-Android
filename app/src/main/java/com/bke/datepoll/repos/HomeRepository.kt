@@ -11,7 +11,7 @@ class HomeRepository: BaseRepository("HomeRepository") {
 
     suspend fun loadHomepage(state: MutableLiveData<ENetworkState>): HomeScreen? {
         return apiCall(
-            call = { api.getHomepage(prefs.JWT!!) },
+            call = { api.getHomepage(prefs.jwt!!) },
             state = state
         )
     }

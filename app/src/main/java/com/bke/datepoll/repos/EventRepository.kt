@@ -26,7 +26,7 @@ class EventRepository : BaseRepository("EventRepository") {
             if (force || list.isEmpty() || (list[0].insertedAt + 3600000) < Date().time) {
                 Log.i(tag, "Load events from server")
                 val r: GetAllEventsResponseMsg? = apiCall(
-                    call = { api.getAllEvents(prefs.JWT!!) },
+                    call = { api.getAllEvents(prefs.jwt!!) },
                     state = state
                 )
 
@@ -69,7 +69,7 @@ class EventRepository : BaseRepository("EventRepository") {
             eventId = d.eventId
         )
         apiCall(
-            call = { api.voteForEvent(prefs.JWT!!, requestData) },
+            call = { api.voteForEvent(prefs.jwt!!, requestData) },
             state = state
         )?.let {
             eventDao.addUserDecision(it)
@@ -77,5 +77,18 @@ class EventRepository : BaseRepository("EventRepository") {
         }
 
         state.postValue(ENetworkState.ERROR)
+    }
+
+    suspend fun removeVoteForEvent(id: Int, state: MutableLiveData<ENetworkState>) {
+        val r = apiCall(
+            call = { api.removeVoteForEvent(id, prefs.jwt!!) },
+            state = state
+        )
+
+        r?.let {
+            eventDao.removeUserDecision(id)
+        }
+
+
     }
 }

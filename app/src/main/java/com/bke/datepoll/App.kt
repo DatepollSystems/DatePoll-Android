@@ -13,7 +13,6 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
-import kotlin.math.sin
 
 val appModule = module {
     // Database
@@ -52,7 +51,7 @@ class App : Application() {
         }
 
         val prefs: Prefs by inject()
-        when (prefs.THEME) {
+        when (prefs.theme) {
             themeOptions[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             themeOptions[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             themeOptions[2] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

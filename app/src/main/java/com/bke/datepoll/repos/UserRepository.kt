@@ -75,7 +75,7 @@ class UserRepository : BaseRepository("UserRepository") {
 
     suspend fun addPhoneNumber(state: MutableLiveData<ENetworkState>, p: NewPhoneNumberRequest) {
         val result = apiCall(
-            call = { api.addPhoneNumber(prefs.JWT!!, p) },
+            call = { api.addPhoneNumber(prefs.jwt!!, p) },
             state = state
         )
 
@@ -86,7 +86,7 @@ class UserRepository : BaseRepository("UserRepository") {
 
     suspend fun removePhoneNumber(state: MutableLiveData<ENetworkState>, id: Int) {
         val result = apiCall(
-            call = { api.removePhoneNumber(id, prefs.JWT!!) },
+            call = { api.removePhoneNumber(id, prefs.jwt!!) },
             state = state
         )
 
@@ -104,7 +104,7 @@ class UserRepository : BaseRepository("UserRepository") {
         }
 
         val result = apiCall(
-            call = { api.addEmail(prefs.JWT!!,
+            call = { api.addEmail(prefs.jwt!!,
                 AddEmailRequest(emails = emails)
             ) },
             state = state
@@ -126,7 +126,7 @@ class UserRepository : BaseRepository("UserRepository") {
     @SuppressLint("SimpleDateFormat")
     suspend fun loadSessions(state: MutableLiveData<ENetworkState>): List<SessionModel> {
         val result = apiCall(
-            call = { api.getSessions(prefs.JWT!!) },
+            call = { api.getSessions(prefs.jwt!!) },
             state = state
         )
 
@@ -158,14 +158,14 @@ class UserRepository : BaseRepository("UserRepository") {
     suspend fun deleteSession(state: MutableLiveData<ENetworkState>, item: SessionModel): Message? {
         return apiCall(
             state = state,
-            call = { api.deleteSession(item.id, prefs.JWT!!) }
+            call = { api.deleteSession(item.id, prefs.jwt!!) }
         )
     }
 
     suspend fun checkPassword(state: MutableLiveData<ENetworkState>, password: String): Message? {
         return apiCall(
             state = state,
-            call = { api.checkOldPassword(prefs.JWT!!,
+            call = { api.checkOldPassword(prefs.jwt!!,
                 PasswordRequestModel(password)
             ) }
         )
@@ -179,7 +179,7 @@ class UserRepository : BaseRepository("UserRepository") {
         return apiCall(
             call = {
                 api.changeOldPassword(
-                    prefs.JWT!!,
+                    prefs.jwt!!,
                     ChangePasswordRequestModel(
                         oldPassword,
                         newPassword
@@ -192,7 +192,7 @@ class UserRepository : BaseRepository("UserRepository") {
 
     suspend fun getCalendarToken(state: MutableLiveData<ENetworkState>): MessageToken? {
         return apiCall(
-            call = { api.getCalendarToken(prefs.JWT!!) },
+            call = { api.getCalendarToken(prefs.jwt!!) },
             state = state
         )
     }
@@ -200,7 +200,7 @@ class UserRepository : BaseRepository("UserRepository") {
     suspend fun resetCalendarToken(state: MutableLiveData<ENetworkState>): MessageToken? {
         val otherState = MutableLiveData<ENetworkState>()
 
-        val delete = apiCall(state = otherState, call = { api.deleteCalendarToken(prefs.JWT!!) })
+        val delete = apiCall(state = otherState, call = { api.deleteCalendarToken(prefs.jwt!!) })
 
         if(otherState.value!! == ENetworkState.ERROR){
             state.postValue(ENetworkState.ERROR)
@@ -216,14 +216,14 @@ class UserRepository : BaseRepository("UserRepository") {
         user: UpdateUserRequest
     ): UserModel? {
         return apiCall(
-            call = { api.updateCurrentUser(prefs.JWT!!, user) },
+            call = { api.updateCurrentUser(prefs.jwt!!, user) },
             state = state
         )?.user
     }
 
     private suspend fun loadUserFromServer(state: MutableLiveData<ENetworkState>): UserModel? {
         return apiCall(
-            call = { api.currentUser(prefs.JWT!!) },
+            call = { api.currentUser(prefs.jwt!!) },
             state = state
         )?.user
     }

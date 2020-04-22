@@ -57,7 +57,7 @@ open class BaseRepository(private val tag: String) : KoinComponent {
      */
     private suspend fun checkIfJwtIsValid(): Boolean {
 
-        val jwtTime = prefs.JWT_RENEWAL_TIME
+        val jwtTime = prefs.jwtRenewalTime
 
         /**
          * Check if user is logged in because otherwise he won't need a jwt for a request
@@ -66,15 +66,15 @@ open class BaseRepository(private val tag: String) : KoinComponent {
         if (isLoggedIn() && (Date().time - jwtTime) > 3600000) {
             Log.i(tag, "Try to refresh jwt")
             val request =
-                RefreshTokenWithSessionRequest(sessionToken = prefs.SESSION!!)
+                RefreshTokenWithSessionRequest(sessionToken = prefs.session!!)
             val response = api.refreshTokenWithSession(request
             )
             if (!response.isSuccessful) {
                 return false
             }
 
-            prefs.JWT_RENEWAL_TIME = Date().time
-            prefs.JWT = response.body()?.token
+            prefs.jwtRenewalTime = Date().time
+            prefs.jwt = response.body()?.token
             Log.i(tag, "Token refresh successful")
         }
 
@@ -82,6 +82,6 @@ open class BaseRepository(private val tag: String) : KoinComponent {
     }
 
     private fun isLoggedIn(): Boolean {
-        return prefs.IS_LOGGED_IN && prefs.JWT_RENEWAL_TIME > 0
+        return prefs.isLoggedIn && prefs.jwtRenewalTime > 0
     }
 }

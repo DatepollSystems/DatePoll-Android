@@ -51,4 +51,21 @@ interface EventDao {
         )
     }
 
+    fun removeUserDecision(eventId: Int){
+        val e = getEventById(eventId)
+        updateEvent(
+            EventDbModel(
+                id = e.id,
+                name = e.name,
+                description = e.description,
+                alreadyVoted = e.alreadyVoted,
+                startDate = e.startDate,
+                endDate = e.endDate,
+                insertedAt = e.insertedAt,
+                userDecision = null,
+                forEveryone = e.forEveryone
+            )
+        )
+    }
+
 }

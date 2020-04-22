@@ -132,5 +132,11 @@ interface DatepollApi {
         @Body vote: VoteForEventRequestDto
     ): Response<VoteForEventResponseDto>
 
+    @DELETE("/api/v1/avent/vote/{eventId}")
+    suspend fun removeVoteForEvent(
+        @Path("eventId") id: Int,
+        @Query("token") token: String
+    ): Response<Message>
+
 
 }

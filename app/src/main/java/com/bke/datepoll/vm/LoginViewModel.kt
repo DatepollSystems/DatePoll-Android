@@ -29,9 +29,9 @@ class LoginViewModel: BaseViewModel() {
                 Log.i("LoginResponse", login.toString())
                 login?.let {
                     if (it.token.isNotEmpty()) {
-                        prefs.JWT = it.token
-                        prefs.JWT_RENEWAL_TIME = Date().time
-                        prefs.SESSION = it.session_token
+                        prefs.jwt = it.token
+                        prefs.jwtRenewalTime = Date().time
+                        prefs.session = it.session_token
                         loginSuccessful.postValue(true)
                     } else {
                         loginSuccessful.postValue(false)

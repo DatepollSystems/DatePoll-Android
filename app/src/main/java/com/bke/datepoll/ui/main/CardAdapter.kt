@@ -18,7 +18,7 @@ class CardAdapter(val activity: AppCompatActivity) :
     private val bookings = activity.getString(R.string.bookings)
     private val events = activity.getString(R.string.events)
 
-    var data = listOf(birthday, bookings, events)
+    var data = listOf(birthday, bookings)
 
     var birthdayData: LinkedList<Birthday> = LinkedList()
         set(value){
@@ -53,6 +53,7 @@ class CardAdapter(val activity: AppCompatActivity) :
             }
 
             bookings -> {
+
                 val adapter = BookingAdapter()
                 adapter.data = bookingsData
                 holder.tvHeadline.text = bookings
@@ -79,4 +80,5 @@ class CardAdapter(val activity: AppCompatActivity) :
 class CardViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val tvHeadline: TextView = view.findViewById(R.id.tvHeadline)
     val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
+    var inflate = true
 }

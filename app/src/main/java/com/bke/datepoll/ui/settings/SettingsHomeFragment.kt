@@ -20,8 +20,6 @@ import com.bke.datepoll.vm.SettingsViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_settings_home.*
 import kotlinx.android.synthetic.main.fragment_settings_home.view.*
-import org.koin.android.ext.android.get
-import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -162,7 +160,7 @@ class SettingsHomeFragment : Fragment() {
 
             val b = AlertDialog.Builder(activity!!)
             b.setTitle(getString(R.string.theme))
-            val checkedItem = themeOptions.indexOf(prefs.THEME!!)
+            val checkedItem = themeOptions.indexOf(prefs.theme!!)
 
             b.setSingleChoiceItems(themeOptions, checkedItem) { _, which ->
                 selection = themeOptions[which]
@@ -170,10 +168,10 @@ class SettingsHomeFragment : Fragment() {
 
             b.setPositiveButton(getString(R.string.ok)) { _, _ ->
                 if (selection.isNotBlank())
-                    prefs.THEME = selection
+                    prefs.theme = selection
 
-                Log.i("Theme attached:", "${prefs.THEME}")
-                when (prefs.THEME) {
+                Log.i("Theme attached:", "${prefs.theme}")
+                when (prefs.theme) {
                     themeOptions[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                     themeOptions[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     themeOptions[2] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

@@ -51,7 +51,7 @@ class MainViewModel : BaseViewModel() {
         scope.launch {
             Log.i(tag, "start logout process")
 
-            val session = prefs.SESSION!!
+            val session = prefs.session!!
             val response: LogoutResponseModel? =
                 serverRepository.logout(
                     LogoutRequestModel(
@@ -63,9 +63,9 @@ class MainViewModel : BaseViewModel() {
                 Log.i(tag, "logout successful")
             }
 
-            prefs.SESSION = ""
-            prefs.JWT = ""
-            prefs.IS_LOGGED_IN = false
+            prefs.session = ""
+            prefs.jwt = ""
+            prefs.isLoggedIn = false
             logout.postValue(true)
         }
     }

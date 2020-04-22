@@ -23,7 +23,7 @@ class LauncherActivity : AppCompatActivity() {
         Thread(Runnable {
             Thread.sleep(1000)
 
-            if(!prefs.JWT.isNullOrEmpty()){
+            if(!prefs.jwt.isNullOrEmpty()){
                 Log.i("JWT", "JWT is saved")
                 startActivity(Intent(this, MainActivity::class.java))
             } else {

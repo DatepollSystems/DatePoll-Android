@@ -58,7 +58,7 @@ class LoginHomeFragment : Fragment() {
             it?.let {
                 if(it) {
                     loginViewModel.loginSuccessful.value = null
-                    prefs.IS_LOGGED_IN = true
+                    prefs.isLoggedIn = true
                     startActivity(Intent(activity, MainActivity::class.java))
                 } else {
                     loginViewModel.loginSuccessful.value = null

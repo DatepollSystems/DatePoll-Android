@@ -118,7 +118,7 @@ class SettingsViewModel : BaseViewModel() {
         scope.launch {
             val msg: MessageToken? = userRepo.resetCalendarToken(calendarSessionTokenResetState)
 
-            calendarSessionToken.postValue("${prefs.SERVER_ADDRESS}:${prefs.SERVER_PORT}/api/user/calendar/${msg?.token}")
+            calendarSessionToken.postValue("${prefs.serverAddress}:${prefs.serverPort}/api/user/calendar/${msg?.token}")
         }
     }
 
@@ -127,7 +127,7 @@ class SettingsViewModel : BaseViewModel() {
             val msg: MessageToken? = userRepo.getCalendarToken(calendarSessionTokenState)
             msg?.let {
                 calendarSessionToken.postValue(
-                    "${prefs.SERVER_ADDRESS}:${prefs.SERVER_PORT}/api/user/calendar/${it.token}"
+                    "${prefs.serverAddress}:${prefs.serverPort}/api/user/calendar/${it.token}"
                 )
             }
         }
