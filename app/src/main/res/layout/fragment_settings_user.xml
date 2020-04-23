@@ -5,11 +5,11 @@
 
     <data>
 
-        <import type="com.bke.datepoll.Converter" />
+        <import type="com.datepollsystems.datepoll.Converter" />
 
         <variable
             name="vm"
-            type="com.bke.datepoll.vm.SettingsViewModel" />
+            type="com.datepollsystems.datepoll.vm.SettingsViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

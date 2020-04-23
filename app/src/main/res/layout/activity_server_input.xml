@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.bke.datepoll.vm.ServerInputViewModel" />
+            type="com.datepollsystems.datepoll.vm.ServerInputViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

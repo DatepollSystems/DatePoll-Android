@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.bke.datepoll.vm.SettingsEmailViewModel" />
+            type="com.datepollsystems.datepoll.vm.SettingsEmailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
