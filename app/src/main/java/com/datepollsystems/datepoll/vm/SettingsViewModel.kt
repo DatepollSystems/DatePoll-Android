@@ -2,6 +2,7 @@ package com.datepollsystems.datepoll.vm
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.datepollsystems.datepoll.Prefs
 import com.datepollsystems.datepoll.data.NewPhoneNumberRequest
 import com.datepollsystems.datepoll.data.SessionModel
@@ -11,6 +12,7 @@ import com.datepollsystems.datepoll.data.UpdateUserRequest
 import com.datepollsystems.datepoll.repos.ENetworkState
 import com.datepollsystems.datepoll.repos.UserRepository
 import com.datepollsystems.datepoll.ui.settings.EStep
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.inject
 
@@ -42,31 +44,31 @@ class SettingsViewModel : BaseViewModel() {
     val calendarSessionTokenState = MutableLiveData<ENetworkState>()
 
     fun loadUserdata() {
-        scope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             userRepo.getUser(loadUserState, true)
         }
     }
 
     fun updateUser(u: UpdateUserRequest) {
-        scope.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             userRepo.updateUser(updateUserState, u)
         }
     }
 
     fun addPhoneNumber(p: NewPhoneNumberRequest) {
-        scope.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             userRepo.addPhoneNumber(removeAddPhoneNumberState, p)
         }
     }
 
     fun removePhoneNumber(id: Int) {
-        scope.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             userRepo.removePhoneNumber(removeAddPhoneNumberState, id)
         }
     }
 
     fun loadSessions() {
-        scope.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             val s = userRepo.loadSessions(loadSessionsState)
 
             sessions.postValue(s)
@@ -74,8 +76,7 @@ class SettingsViewModel : BaseViewModel() {
     }
 
     fun deleteSession(item: SessionModel) {
-        scope.launch {
-
+        viewModelScope.launch(Dispatchers.Default) {
 
             val msg: Message? = userRepo.deleteSession(
                 deleteSessionSate,
@@ -95,7 +96,7 @@ class SettingsViewModel : BaseViewModel() {
     }
 
     fun checkPassword(password: String) {
-        scope.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             val msg: Message? = userRepo.checkPassword(checkPasswordState, password)
 
             msg?.let {
@@ -105,8 +106,9 @@ class SettingsViewModel : BaseViewModel() {
     }
 
     fun changePassword(oldPassword: String, newPassword: String) {
-        scope.launch {
-            val msg: Message? = userRepo.changePassword(changePasswordState, oldPassword, newPassword)
+        viewModelScope.launch(Dispatchers.Default) {
+            val msg: Message? =
+                userRepo.changePassword(changePasswordState, oldPassword, newPassword)
 
             msg?.let {
                 Log.i(tag, msg.msg)
@@ -114,16 +116,16 @@ class SettingsViewModel : BaseViewModel() {
         }
     }
 
-    fun resetCalendarToken(){
-        scope.launch {
+    fun resetCalendarToken() {
+        viewModelScope.launch(Dispatchers.Default) {
             val msg: MessageToken? = userRepo.resetCalendarToken(calendarSessionTokenResetState)
 
             calendarSessionToken.postValue("${prefs.serverAddress}:${prefs.serverPort}/api/user/calendar/${msg?.token}")
         }
     }
 
-    fun getCalendarToken(){
-        scope.launch {
+    fun getCalendarToken() {
+        viewModelScope.launch(Dispatchers.Default) {
             val msg: MessageToken? = userRepo.getCalendarToken(calendarSessionTokenState)
             msg?.let {
                 calendarSessionToken.postValue(

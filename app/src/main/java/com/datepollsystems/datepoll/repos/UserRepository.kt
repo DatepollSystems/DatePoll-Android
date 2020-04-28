@@ -10,6 +10,8 @@ import com.datepollsystems.datepoll.database.model.EmailAddressDbModel
 import com.datepollsystems.datepoll.database.model.PerformanceBadgesDbModel
 import com.datepollsystems.datepoll.database.model.PermissionDbModel
 import com.datepollsystems.datepoll.network.DatepollApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.koin.core.inject
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,7 +34,9 @@ class UserRepository : BaseRepository("UserRepository") {
 
     suspend fun updateUser(state: MutableLiveData<ENetworkState>, user: UpdateUserRequest) {
         updateUserOnServer(state, user)?.let {
-            storeUser(it).user
+            withContext(Dispatchers.IO) {
+                storeUser(it).user
+            }
         }
     }
 
@@ -80,7 +84,9 @@ class UserRepository : BaseRepository("UserRepository") {
         )
 
         result?.let {
-            phoneNumberDao.savePhoneNumber(it.phoneNumber)
+            withContext(Dispatchers.IO) {
+                phoneNumberDao.savePhoneNumber(it.phoneNumber)
+            }
         }
     }
 
@@ -91,7 +97,9 @@ class UserRepository : BaseRepository("UserRepository") {
         )
 
         if (result != null) {
-            phoneNumberDao.deletePhoneNumber(id.toLong())
+            withContext(Dispatchers.IO) {
+                phoneNumberDao.deletePhoneNumber(id.toLong())
+            }
         } else {
             state.postValue(ENetworkState.ERROR)
         }
@@ -104,14 +112,19 @@ class UserRepository : BaseRepository("UserRepository") {
         }
 
         val result = apiCall(
-            call = { api.addEmail(prefs.jwt!!,
-                AddEmailRequest(emails = emails)
-            ) },
+            call = {
+                api.addEmail(
+                    prefs.jwt!!,
+                    AddEmailRequest(emails = emails)
+                )
+            },
             state = state
         )
 
         result?.let {
-            storeUser(it.user)
+            withContext(Dispatchers.IO) {
+                storeUser(it.user)
+            }
         }
     }
 
@@ -165,9 +178,12 @@ class UserRepository : BaseRepository("UserRepository") {
     suspend fun checkPassword(state: MutableLiveData<ENetworkState>, password: String): Message? {
         return apiCall(
             state = state,
-            call = { api.checkOldPassword(prefs.jwt!!,
-                PasswordRequestModel(password)
-            ) }
+            call = {
+                api.checkOldPassword(
+                    prefs.jwt!!,
+                    PasswordRequestModel(password)
+                )
+            }
         )
     }
 
@@ -202,7 +218,7 @@ class UserRepository : BaseRepository("UserRepository") {
 
         val delete = apiCall(state = otherState, call = { api.deleteCalendarToken(prefs.jwt!!) })
 
-        if(otherState.value!! == ENetworkState.ERROR){
+        if (otherState.value!! == ENetworkState.ERROR) {
             state.postValue(ENetworkState.ERROR)
             return null
         } else

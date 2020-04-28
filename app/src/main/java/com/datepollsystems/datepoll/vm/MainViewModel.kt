@@ -79,7 +79,7 @@ class MainViewModel : BaseViewModel() {
 
     fun loadHomepage() {
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.Default){
                 val h = homeRepository.loadHomepage(loadHomepageState)
                 Log.i(tag, h.toString())
                 birthdays.postValue(h?.birthdays)

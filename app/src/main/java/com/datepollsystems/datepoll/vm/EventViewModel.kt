@@ -25,39 +25,31 @@ class EventViewModel : BaseViewModel() {
     val removeVoteForEventState = MutableLiveData<ENetworkState>()
 
     fun loadEventData(force: Boolean = false) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                eventRepository.loadAllEvents(force = force, state = loadEventsState)
-            }
+        viewModelScope.launch(Dispatchers.Default) {
+            eventRepository.loadAllEvents(force = force, state = loadEventsState)
         }
     }
 
     fun loadDecisionsForEvent(eventId: Int) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                decisions.postValue(
-                    eventRepository.loadDecisionForEvent(
-                        eventId,
-                        state = loadDecisionsForEventState
-                    )
+        viewModelScope.launch(Dispatchers.Default) {
+            decisions.postValue(
+                eventRepository.loadDecisionForEvent(
+                    eventId,
+                    state = loadDecisionsForEventState
                 )
-            }
+            )
         }
     }
 
     fun voteForEvent(it: EventDecisionDbModel) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                eventRepository.voteForEvent(it, makeDecisionState)
-            }
+        viewModelScope.launch(Dispatchers.Default) {
+            eventRepository.voteForEvent(it, makeDecisionState)
         }
     }
 
     fun removeEventAnswer(id: Int) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                eventRepository.removeVoteForEvent(id, removeVoteForEventState)
-            }
+        viewModelScope.launch(Dispatchers.Default) {
+            eventRepository.removeVoteForEvent(id, removeVoteForEventState)
         }
     }
 }

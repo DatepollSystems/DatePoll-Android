@@ -7,6 +7,8 @@ import com.datepollsystems.datepoll.database.DatepollDatabase
 import com.datepollsystems.datepoll.database.dao.EventDao
 import com.datepollsystems.datepoll.database.model.event.*
 import com.datepollsystems.datepoll.network.DatepollApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.koin.core.inject
 import java.util.*
 
@@ -31,20 +33,23 @@ class EventRepository : BaseRepository("EventRepository") {
                 )
 
                 r?.let { response ->
-                    Log.i(tag, "Try to fetch new data into db")
-                    for (e in response.events) {
-                        val data = e.getDbData()
+                    withContext(Dispatchers.IO) {
+                        Log.i(tag, "Try to fetch new data into db")
+                        for (e in response.events) {
+                            val data = e.getDbData()
 
-                        eventDao.addEvent(data.event)
 
-                        data.decisions?.let {
-                            eventDao.addDecisions(it)
+                            eventDao.addEvent(data.event)
+
+                            data.decisions?.let {
+                                eventDao.addDecisions(it)
+                            }
+
+                            data.dates?.let {
+                                eventDao.addDates(it)
+                            }
+                            Log.i(tag, "Fetched events in DB")
                         }
-
-                        data.dates?.let {
-                            eventDao.addDates(it)
-                        }
-                        Log.i(tag, "Fetched events in DB")
                     }
                 }
             }
@@ -54,11 +59,13 @@ class EventRepository : BaseRepository("EventRepository") {
         return null
     }
 
-    fun loadDecisionForEvent(
+    suspend fun loadDecisionForEvent(
         eventId: Int,
         state: MutableLiveData<ENetworkState>
     ): List<EventDecisionDbModel> {
-        return eventDao.loadDecisionsForEvent(eventId)
+        return withContext(Dispatchers.IO) {
+            eventDao.loadDecisionsForEvent(eventId)
+        }
     }
 
     suspend fun voteForEvent(d: EventDecisionDbModel, state: MutableLiveData<ENetworkState>) {
@@ -72,7 +79,9 @@ class EventRepository : BaseRepository("EventRepository") {
             call = { api.voteForEvent(prefs.jwt!!, requestData) },
             state = state
         )?.let {
-            eventDao.addUserDecision(it)
+            withContext(Dispatchers.IO) {
+                eventDao.addUserDecision(it)
+            }
             return
         }
 
@@ -86,9 +95,9 @@ class EventRepository : BaseRepository("EventRepository") {
         )
 
         r?.let {
-            eventDao.removeUserDecision(id)
+            withContext(Dispatchers.IO){
+                eventDao.removeUserDecision(id)
+            }
         }
-
-
     }
 }

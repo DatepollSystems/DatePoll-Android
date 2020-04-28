@@ -52,7 +52,7 @@ class EventCardAdapter(private val viewModel: EventViewModel) :
             }
 
             btnInfo.setOnClickListener {
-                Snackbar.make(it, "Feature will be able in the future", Snackbar.LENGTH_SHORT)
+                Snackbar.make(it, it.context.getString(R.string.feature_soon), Snackbar.LENGTH_SHORT)
                     .show()
             }
 

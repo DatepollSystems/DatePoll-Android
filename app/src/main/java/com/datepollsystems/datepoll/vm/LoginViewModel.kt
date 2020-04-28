@@ -13,7 +13,7 @@ import org.koin.core.inject
 import java.util.*
 
 
-class LoginViewModel: BaseViewModel() {
+class LoginViewModel : BaseViewModel() {
 
     private val prefs: Prefs by inject()
     private val repository: LoginRepository by inject()
@@ -22,27 +22,27 @@ class LoginViewModel: BaseViewModel() {
     val password = MutableLiveData<String>()
     val loginSuccessful = MutableLiveData<Boolean>()
 
-    fun login(){
-        viewModelScope.launch {
-            withContext(Dispatchers.Default){
-                val user = userName.value!!
-                val pass = password.value!!
+    fun login() {
+        viewModelScope.launch(Dispatchers.Default) {
+            val user = userName.value!!
+            val pass = password.value!!
 
-                if(isUserNameValid(user) && isPasswordValid(pass)){
-                    val login = repository.login(user, pass)
-                    Log.i("LoginResponse", login.toString())
-                    login?.let {
-                        if (it.token.isNotEmpty()) {
+            if (isUserNameValid(user) && isPasswordValid(pass)) {
+                val login = repository.login(user, pass)
+                Log.i("LoginResponse", login.toString())
+                login?.let {
+                    if (it.token.isNotEmpty()) {
+                        withContext(Dispatchers.IO) {
                             prefs.jwt = it.token
                             prefs.jwtRenewalTime = Date().time
                             prefs.session = it.session_token
                             loginSuccessful.postValue(true)
-                        } else {
-                            loginSuccessful.postValue(false)
                         }
-                    } ?:run {
+                    } else {
                         loginSuccessful.postValue(false)
                     }
+                } ?: run {
+                    loginSuccessful.postValue(false)
                 }
             }
         }
