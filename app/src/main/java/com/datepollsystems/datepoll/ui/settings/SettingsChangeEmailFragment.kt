@@ -36,7 +36,7 @@ class SettingsChangeEmailFragment : Fragment() {
         binding.vm = vm
         binding.lifecycleOwner = this
 
-        val adapter = EmailAdapter(activity!!, vm)
+        val adapter = EmailAdapter(requireActivity(), vm)
         binding.emails.adapter = adapter
 
         vm.emails.value?.let {
@@ -86,6 +86,6 @@ class SettingsChangeEmailFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.change_email)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.change_email)
     }
 }

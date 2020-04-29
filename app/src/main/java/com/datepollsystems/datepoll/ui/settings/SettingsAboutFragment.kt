@@ -25,7 +25,7 @@ class SettingsAboutFragment : Fragment() {
 
     override fun onStart() {
         val manager = activity?.packageManager
-        val info = manager!!.getPackageInfo(activity!!.packageName, PackageManager.GET_ACTIVITIES)
+        val info = manager!!.getPackageInfo(requireActivity().packageName, PackageManager.GET_ACTIVITIES)
         val s = "${getString(R.string.version)} ${info.versionName}"
         tvVersion.text = s
 

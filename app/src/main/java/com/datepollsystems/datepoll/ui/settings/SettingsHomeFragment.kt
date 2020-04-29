@@ -158,7 +158,7 @@ class SettingsHomeFragment : Fragment() {
 
             var selection = ""
 
-            val b = AlertDialog.Builder(activity!!)
+            val b = AlertDialog.Builder(requireActivity())
             b.setTitle(getString(R.string.theme))
             val checkedItem = themeOptions.indexOf(prefs.theme!!)
 
