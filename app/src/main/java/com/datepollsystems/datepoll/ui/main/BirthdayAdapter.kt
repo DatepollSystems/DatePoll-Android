@@ -21,7 +21,7 @@ class BirthdayAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        if(holder.itemViewType > 1){
+        if(holder.itemViewType == 2){
             val item = data[position]
             val viewHolder = holder as BirthdayViewHolder
             viewHolder.tvName.text = item.name
@@ -34,12 +34,15 @@ class BirthdayAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
         return when(viewType){
             1 -> BirthdayHeadlineViewHolder(layoutInflater.inflate(R.layout.birthday_headline_item, parent, false))
-            else -> BirthdayViewHolder(layoutInflater.inflate(R.layout.birthady_view_item, parent, false))
+            2 -> BirthdayViewHolder(layoutInflater.inflate(R.layout.birthady_view_item, parent, false))
+            else -> BirthdayHeadlineViewHolder(layoutInflater.inflate(R.layout.item_no_birthdays, parent, false))
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(position == 0)
+        return if(data.size == 1)
+            3
+        else if(position == 0)
             1
         else
             2

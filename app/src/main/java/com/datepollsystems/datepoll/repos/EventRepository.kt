@@ -22,41 +22,36 @@ class EventRepository : BaseRepository("EventRepository") {
 
     val events = eventDao.loadAllEvents()
 
-    suspend fun loadAllEvents(force: Boolean, state: MutableLiveData<ENetworkState>)
-            : LiveData<List<EventDbModel>>? {
-        events.value?.let { list ->
-            if (force || list.isEmpty() || (list[0].insertedAt + 3600000) < Date().time) {
-                Log.i(tag, "Load events from server")
-                val r: GetAllEventsResponseMsg? = apiCall(
-                    call = { api.getAllEvents(prefs.jwt!!) },
-                    state = state
-                )
+    suspend fun loadAllEvents(force: Boolean, state: MutableLiveData<ENetworkState>) {
+        val list = events.value
+        if (force || list == null || list.isEmpty() || (list[0].insertedAt + 3600000) < Date().time) {
+            Log.i(tag, "Load events from server")
+            val r: GetAllEventsResponseMsg? = apiCall(
+                call = { api.getAllEvents(prefs.jwt!!) },
+                state = state
+            )
 
-                r?.let { response ->
-                    withContext(Dispatchers.IO) {
-                        Log.i(tag, "Try to fetch new data into db")
-                        for (e in response.events) {
-                            val data = e.getDbData()
+            r?.let { response ->
+                withContext(Dispatchers.IO) {
+                    Log.i(tag, "Try to fetch new data into db")
+                    for (e in response.events) {
+                        val data = e.getDbData()
 
 
-                            eventDao.addEvent(data.event)
+                        eventDao.addEvent(data.event)
 
-                            data.decisions?.let {
-                                eventDao.addDecisions(it)
-                            }
-
-                            data.dates?.let {
-                                eventDao.addDates(it)
-                            }
-                            Log.i(tag, "Fetched events in DB")
+                        data.decisions?.let {
+                            eventDao.addDecisions(it)
                         }
+
+                        data.dates?.let {
+                            eventDao.addDates(it)
+                        }
+                        Log.i(tag, "Fetched events in DB")
                     }
                 }
             }
-
-            return events
         }
-        return null
     }
 
     suspend fun loadDecisionForEvent(
@@ -95,7 +90,7 @@ class EventRepository : BaseRepository("EventRepository") {
         )
 
         r?.let {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 eventDao.removeUserDecision(id)
             }
         }
