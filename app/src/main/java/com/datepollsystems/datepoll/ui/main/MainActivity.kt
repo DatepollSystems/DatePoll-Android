@@ -20,6 +20,7 @@ import com.datepollsystems.datepoll.ui.BaseActivity
 import com.datepollsystems.datepoll.ui.login.ServerInputActivity
 import com.datepollsystems.datepoll.ui.settings.SettingsActivity
 import com.datepollsystems.datepoll.vm.MainViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,7 +31,6 @@ class MainActivity : BaseActivity(), AppBarConfiguration.OnNavigateUpListener {
 
     override lateinit var activityView: View
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
 
     private val mainViewModel: MainViewModel by viewModel()
 
@@ -50,12 +50,7 @@ class MainActivity : BaseActivity(), AppBarConfiguration.OnNavigateUpListener {
         setSupportActionBar(toolbar)
 
         val navController = findNavController(R.id.nav_host_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
         setupNavigation(navController)
-        setupActionBar(
-            navController,
-            appBarConfiguration
-        )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             try {
@@ -78,22 +73,8 @@ class MainActivity : BaseActivity(), AppBarConfiguration.OnNavigateUpListener {
     }
 
     private fun setupNavigation(navController: NavController) {
-        val sideNavView = findViewById<NavigationView>(R.id.nav_view)
-        sideNavView?.setupWithNavController(navController)
-        val drawerLayout: DrawerLayout? = findViewById(R.id.drawer_layout)
-
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_home,
-                //R.id.nav_calendar,
-                R.id.nav_events
-                //R.id.nav_event_management,
-                //R.id.nav_movie_tickets,
-                //R.id.nav_cinema_duty,
-                //R.id.nav_movie_management
-                ),
-            drawerLayout
-        )
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView?.setupWithNavController(navController)
     }
 
     private fun initObservers() {
@@ -121,44 +102,6 @@ class MainActivity : BaseActivity(), AppBarConfiguration.OnNavigateUpListener {
         return NavigationUI.navigateUp(findNavController(R.id.nav_host_main), drawer_layout)
     }
 
-    override fun onStart() {
-        super.onStart()
-        mainViewModel.loadUserData()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_settings -> {
-                startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
-                return true
-            }
-            android.R.id.home ->
-                drawer_layout.openDrawer(GravityCompat.START)
-            R.id.action_logout -> {
-                MaterialAlertDialogBuilder(this)
-                    .setTitle(R.string.logout_title)
-                    .setMessage(R.string.logout_dialog_desc)
-                    .setPositiveButton(android.R.string.yes) { _, _ ->
-                        mainViewModel.logout()
-                    }
-                    .setNegativeButton(android.R.string.no, null).create().show()
-
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_main)
-        return navController.navigateUp(appBarConfiguration)
-    }
-
     override fun onBackPressed() {
         if (supportFragmentManager.findFragmentById(R.id.nav_host_main)!!.childFragmentManager.fragments[0].isVisible) {
             moveTaskToBack(true)
@@ -167,3 +110,14 @@ class MainActivity : BaseActivity(), AppBarConfiguration.OnNavigateUpListener {
         }
     }
 }
+
+/**
+ *
+ *  MaterialAlertDialogBuilder(this)
+.setTitle(R.string.logout_title)
+.setMessage(R.string.logout_dialog_desc)
+.setPositiveButton(android.R.string.yes) { _, _ ->
+mainViewModel.logout()
+}
+.setNegativeButton(android.R.string.no, null).create().show()
+ */

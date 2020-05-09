@@ -9,43 +9,103 @@
         android:id="@+id/nav_home"
         android:name="com.datepollsystems.datepoll.ui.main.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
-    </fragment>
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_calendar"
-        android:name="com.datepollsystems.datepoll.ui.main.EventFragment"
-        android:label="EventFragment"
-        tools:layout="@layout/fragment_event"/>
+        android:name="com.datepollsystems.datepoll.ui.main.CalendarFragment"
+        android:label="@string/menu_calendar"
+        tools:layout="@layout/fragment_calendar"/>
 
     <fragment
         android:id="@+id/nav_events"
         android:name="com.datepollsystems.datepoll.ui.main.EventFragment"
-        android:label="EventFragment"
+        android:label="@string/events"
         tools:layout="@layout/fragment_event"/>
 
     <fragment
-        android:id="@+id/nav_event_management"
-        android:name="com.datepollsystems.datepoll.ui.main.EventFragment"
-        android:label="EventFragment"
-        tools:layout="@layout/fragment_event"/>
+        android:id="@+id/nav_cinema"
+        android:name="com.datepollsystems.datepoll.ui.main.CinemaFragment"
+        android:label="@string/cinema"
+        tools:layout="@layout/fragment_cinema"/>
 
     <fragment
-        android:id="@+id/nav_movie_tickets"
-        android:name="com.datepollsystems.datepoll.ui.main.EventFragment"
-        android:label="EventFragment"
-        tools:layout="@layout/fragment_event"/>
-    <fragment
-        android:id="@+id/nav_cinema_duty"
-        android:name="com.datepollsystems.datepoll.ui.main.EventFragment"
-        android:label="EventFragment"
-        tools:layout="@layout/fragment_event"/>
+        android:id="@+id/nav_settings"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsHomeFragment"
+        android:label="SettingsHomeFragment"
+        tools:layout="@layout/fragment_settings_home">
+        <action
+            android:id="@+id/action_settingsHomeFragment_to_settingsUserFragment"
+            app:destination="@id/settingsUserFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_settingsHomeFragment_to_settingsAboutFragment"
+            app:destination="@id/settingsAboutFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_settingsHomeFragment_to_settingsChangePhoneNumberFragment"
+            app:destination="@id/settingsChangePhoneNumberFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_settingsHomeFragment_to_settingsChangeEmail"
+            app:destination="@id/settingsChangeEmail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_settingsHomeFragment_to_settingsChangePasswordFragment"
+            app:destination="@id/settingsChangePasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_settingsHomeFragment_to_settingsManageSessionsFragment"
+            app:destination="@id/settingsManageSessionsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_movie_management"
-        android:name="com.datepollsystems.datepoll.ui.main.EventFragment"
-        android:label="EventFragment"
-        tools:layout="@layout/fragment_event"/>
-
-
+        android:id="@+id/settingsUserFragment"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsUserFragment"
+        android:label="SettingsUserFragment"
+        tools:layout="@layout/fragment_settings_user"/>
+    <fragment
+        android:id="@+id/settingsAboutFragment"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsAboutFragment"
+        android:label="fragment_settings_about"
+        tools:layout="@layout/fragment_settings_about" />
+    <fragment
+        android:id="@+id/settingsChangePhoneNumberFragment"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsChangePhoneNumberFragment"
+        android:label="fragment_settings_change_phone_number"
+        tools:layout="@layout/fragment_settings_change_phone_number" />
+    <fragment
+        android:id="@+id/settingsChangeEmail"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsChangeEmailFragment"
+        android:label="SettingsChangeEmail"
+        tools:layout="@layout/fragment_settings_change_email"/>
+    <fragment
+        android:id="@+id/settingsChangePasswordFragment"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsChangePasswordFragment"
+        android:label="fragment_settings_change_password"
+        tools:layout="@layout/fragment_settings_change_password" />
+    <fragment
+        android:id="@+id/settingsManageSessionsFragment"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsManageSessionsFragment"
+        android:label="fragment_settings_manage_sessions"
+        tools:layout="@layout/fragment_settings_manage_sessions" />
 </navigation>
