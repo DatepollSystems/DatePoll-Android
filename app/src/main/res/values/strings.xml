@@ -98,5 +98,20 @@
     <string name="calendar_token">Calendar token</string>
     <string name="reset_token">Reset token</string>
     <string name="close">Close</string>
+    <string name="url_incorrect">This is no correct URL</string>
+    <string name="check">Check</string>
+    <string name="https">https://</string>
+    <string name="scan_info">Scan the QR code of your Datepoll service</string>
+    <string name="event_management">Event management</string>
+    <string name="movieticket">Movieticket</string>
+    <string name="cinema_duty">Cinema duty</string>
+    <string name="movie_management">Movie management</string>
+    <string name="remove_answer">Remove answer</string>
+    <string name="answer">Answer</string>
+    <string name="feature_soon">Feature will be available soon</string>
+    <string name="cinema">Cinema</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

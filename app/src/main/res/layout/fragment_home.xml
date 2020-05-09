@@ -7,11 +7,11 @@
 
         <variable
             name="vm"
-            type="com.bke.datepoll.vm.MainViewModel" />
+            type="com.datepollsystems.datepoll.vm.MainViewModel" />
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:minHeight="400dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -43,7 +43,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/cardList"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:scrollbars="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/card_item" />

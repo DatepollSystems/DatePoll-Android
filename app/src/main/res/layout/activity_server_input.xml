@@ -7,54 +7,40 @@
 
         <variable
             name="vm"
-            type="com.bke.datepoll.vm.ServerInputViewModel" />
+            type="com.datepollsystems.datepoll.vm.ServerInputViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragmentServeRInputLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.ServerInputActivity">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSetServer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginTop="36dp"
-            android:text="@string/set"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/advancedServerSettings" />
+        tools:context=".ui.login.ServerInputActivity">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnShowMoreServer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="19dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="16dp"
             android:drawableLeft="@drawable/ic_arrow_drop_down_white"
             android:paddingStart="5dp"
             android:text="@string/more"
             app:iconPadding="5dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/tiServerDomain"
             tools:ignore="RtlHardcoded,RtlSymmetry" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tiServerDomain"
             android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="32dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="56dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="4dp"
             android:hint="@string/domain"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnQRCodeScan"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
             app:layout_constraintTop_toBottomOf="@+id/ivLogo">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -89,30 +75,15 @@
             app:layout_constraintTop_toBottomOf="@+id/loadingServer"
             app:srcCompat="@drawable/ic_icon" />
 
-        <TextView
-            android:id="@+id/textView3"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="200dp"
-            android:text="@string/advanced"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tiServerDomain" />
-
         <LinearLayout
             android:id="@+id/advancedServerSettings"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="76dp"
+            android:layout_marginTop="32dp"
             android:orientation="vertical"
             android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tiServerDomain"
+            app:layout_constraintStart_toStartOf="@+id/tiServerDomain"
             app:layout_constraintTop_toBottomOf="@+id/tiServerDomain">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -132,6 +103,44 @@
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView11"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="13dp"
+            android:text="@string/https"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tiServerDomain" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnSetServer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:backgroundTint="@color/primaryLightColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_check" />
+
+        <ImageButton
+            android:id="@+id/btnQRCodeScan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="#00000000"
+            android:tint="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tiServerDomain"
+            app:srcCompat="@drawable/ic_photo_camera_black_24dp" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

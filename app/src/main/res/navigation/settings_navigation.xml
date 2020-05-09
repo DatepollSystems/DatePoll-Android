@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/settings_navigation"
-    app:startDestination="@id/settingsHomeFragment">
+    app:startDestination="@id/nav_settings">
 
     <fragment
-        android:id="@+id/settingsHomeFragment"
-        android:name="com.bke.datepoll.ui.settings.SettingsHomeFragment"
+        android:id="@+id/nav_settings"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsHomeFragment"
         android:label="SettingsHomeFragment"
         tools:layout="@layout/fragment_settings_home">
         <action
@@ -56,32 +56,32 @@
 
     <fragment
         android:id="@+id/settingsUserFragment"
-        android:name="com.bke.datepoll.ui.settings.SettingsUserFragment"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsUserFragment"
         android:label="SettingsUserFragment"
         tools:layout="@layout/fragment_settings_user"/>
     <fragment
         android:id="@+id/settingsAboutFragment"
-        android:name="com.bke.datepoll.ui.settings.SettingsAboutFragment"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsAboutFragment"
         android:label="fragment_settings_about"
         tools:layout="@layout/fragment_settings_about" />
     <fragment
         android:id="@+id/settingsChangePhoneNumberFragment"
-        android:name="com.bke.datepoll.ui.settings.SettingsChangePhoneNumberFragment"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsChangePhoneNumberFragment"
         android:label="fragment_settings_change_phone_number"
         tools:layout="@layout/fragment_settings_change_phone_number" />
     <fragment
         android:id="@+id/settingsChangeEmail"
-        android:name="com.bke.datepoll.ui.settings.SettingsChangeEmailFragment"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsChangeEmailFragment"
         android:label="SettingsChangeEmail"
         tools:layout="@layout/fragment_settings_change_email"/>
     <fragment
         android:id="@+id/settingsChangePasswordFragment"
-        android:name="com.bke.datepoll.ui.settings.SettingsChangePasswordFragment"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsChangePasswordFragment"
         android:label="fragment_settings_change_password"
         tools:layout="@layout/fragment_settings_change_password" />
     <fragment
         android:id="@+id/settingsManageSessionsFragment"
-        android:name="com.bke.datepoll.ui.settings.SettingsManageSessionsFragment"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsManageSessionsFragment"
         android:label="fragment_settings_manage_sessions"
         tools:layout="@layout/fragment_settings_manage_sessions" />
 </navigation>
