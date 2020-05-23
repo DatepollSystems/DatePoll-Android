@@ -102,22 +102,19 @@ class MainActivity : BaseActivity(), AppBarConfiguration.OnNavigateUpListener {
         return NavigationUI.navigateUp(findNavController(R.id.nav_host_main), drawer_layout)
     }
 
-    override fun onBackPressed() {
+    override fun onBackPressed(){
+        findNavController(R.id.nav_host_main).popBackStack()
+
+        /**
         if (supportFragmentManager.findFragmentById(R.id.nav_host_main)!!.childFragmentManager.fragments[0].isVisible) {
             moveTaskToBack(true)
         } else {
             super.onBackPressed()
-        }
+        }**/
     }
 }
 
 /**
  *
- *  MaterialAlertDialogBuilder(this)
-.setTitle(R.string.logout_title)
-.setMessage(R.string.logout_dialog_desc)
-.setPositiveButton(android.R.string.yes) { _, _ ->
-mainViewModel.logout()
-}
-.setNegativeButton(android.R.string.no, null).create().show()
+ *
  */

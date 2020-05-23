@@ -16,7 +16,9 @@ import com.datepollsystems.datepoll.Prefs
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.databinding.FragmentSettingsHomeBinding
 import com.datepollsystems.datepoll.repos.ENetworkState
+import com.datepollsystems.datepoll.vm.MainViewModel
 import com.datepollsystems.datepoll.vm.SettingsViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_settings_home.*
 import kotlinx.android.synthetic.main.fragment_settings_home.view.*
@@ -26,6 +28,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class SettingsHomeFragment : Fragment() {
 
     private val vm: SettingsViewModel by sharedViewModel()
+
+    private val mainViewModel: MainViewModel by sharedViewModel()
 
     private val prefs: Prefs by inject()
 
@@ -152,6 +156,16 @@ class SettingsHomeFragment : Fragment() {
         btnManageCalendar.setOnClickListener {
             bottomSheetFragment = ManageCalendarTokenBottomSheetDialog(vm.calendarSessionToken)
             vm.getCalendarToken()
+        }
+
+        btnLogout.setOnClickListener {
+            MaterialAlertDialogBuilder(context)
+                .setTitle(R.string.logout_title)
+                .setMessage(R.string.logout_dialog_desc)
+                .setPositiveButton(android.R.string.yes) { _, _ ->
+                    mainViewModel.logout()
+                }
+                .setNegativeButton(android.R.string.no, null).create().show()
         }
 
         btnTheme.setOnClickListener {
