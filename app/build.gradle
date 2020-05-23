@@ -36,6 +36,7 @@ android {
     }
 
     dataBinding.enabled = true
+    viewBinding.enabled = true
 
     compileOptions {
         sourceCompatibility = 1.8
@@ -107,5 +108,5 @@ dependencies {
     implementation "com.journeyapps:zxing-android-embedded:3.3.0@aar"
     implementation 'com.google.zxing:core:3.4.0'
 
-
+    implementation 'com.applandeo:material-calendar-view:1.9.0-alpha03'
 }

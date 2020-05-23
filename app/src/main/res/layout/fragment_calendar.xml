@@ -6,18 +6,23 @@
     tools:context="com.datepollsystems.datepoll.ui.main.CalendarFragment"
     android:id="@+id/frameLayout2">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        style="@style/TextAppearance.MaterialComponents.Headline4"
-        android:layout_width="wrap_content"
+    <com.applandeo.materialcalendarview.CalendarView
+        style="@style/calendar"
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/feature_soon"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:abbreviationsBarColor="@color/primaryLightColor"
+        app:abbreviationsLabelsColor="@color/colorWhite"
+        app:anotherMonthsDaysLabelsColor="@color/primaryDarkColor"
+        app:disabledDaysLabelsColor="@color/primaryLightColor"
+        app:eventsEnabled="true"
+        app:headerColor="@color/primaryDarkColor"
+        app:headerLabelColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="659dp"
-        tools:layout_conversion_absoluteWidth="411dp" />
+        app:selectionColor="@color/primaryDarkColor"
+        app:selectionLabelColor="@color/primaryDarkColor"
+        app:todayLabelColor="@color/secondaryDarkColor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
