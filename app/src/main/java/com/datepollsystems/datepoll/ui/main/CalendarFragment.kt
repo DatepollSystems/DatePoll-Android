@@ -1,28 +1,28 @@
 package com.datepollsystems.datepoll.ui.main
 
-import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
-import android.util.AttributeSet
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDelegate
-import com.applandeo.materialcalendarview.CalendarView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import com.applandeo.materialcalendarview.EventDay
+import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.datepollsystems.datepoll.Prefs
-
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.ui.settings.themeOptions
+import com.datepollsystems.datepoll.vm.CalendarViewModel
+import com.datepollsystems.datepoll.vm.MainViewModel
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import org.koin.android.ext.android.inject
-import org.koin.ext.getScopeId
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class CalendarFragment : Fragment() {
 
     val prefs: Prefs by inject()
+    val vm: CalendarViewModel by viewModel()
+    val main: MainViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,8 +33,27 @@ class CalendarFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_calendar, container, false)
     }
 
-
     override fun onStart() {
         super.onStart()
+
+        val cal = calendarView
+        val swipeToRefresh = calendarSwipeToRefresh
+
+        vm.calendarEntries.observe(viewLifecycleOwner, Observer {
+            cal.setEvents(it)
+        })
+
+        vm.fillCalendar(main.birthdays.value!!)
+
+        cal.setOnDayClickListener(object :
+            OnDayClickListener {
+            override fun onDayClick(eventDay: EventDay) {
+
+            }
+        })
+
+        swipeToRefresh.setOnRefreshListener {
+            swipeToRefresh.isRefreshing = false
+        }
     }
 }

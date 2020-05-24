@@ -1,28 +1,35 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/calendarSwipeToRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.datepollsystems.datepoll.ui.main.CalendarFragment"
-    android:id="@+id/frameLayout2">
+    android:animateLayoutChanges="true">
 
-    <com.applandeo.materialcalendarview.CalendarView
-        style="@style/calendar"
-        android:id="@+id/calendarView"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:abbreviationsBarColor="@color/primaryLightColor"
-        app:abbreviationsLabelsColor="@color/colorWhite"
-        app:anotherMonthsDaysLabelsColor="@color/primaryDarkColor"
-        app:disabledDaysLabelsColor="@color/primaryLightColor"
-        app:eventsEnabled="true"
-        app:headerColor="@color/primaryDarkColor"
-        app:headerLabelColor="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:selectionColor="@color/primaryDarkColor"
-        app:selectionLabelColor="@color/primaryDarkColor"
-        app:todayLabelColor="@color/secondaryDarkColor" />
+        android:layout_height="match_parent"
+        tools:context="com.datepollsystems.datepoll.ui.main.CalendarFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.applandeo.materialcalendarview.CalendarView
+            android:id="@+id/calendarView"
+            style="@style/calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:abbreviationsBarColor="@color/primaryLightColor"
+            app:abbreviationsLabelsColor="@color/colorWhite"
+            app:anotherMonthsDaysLabelsColor="@color/primaryDarkColor"
+            app:disabledDaysLabelsColor="@color/primaryLightColor"
+            app:eventsEnabled="true"
+            app:headerColor="@color/primaryDarkColor"
+            app:headerLabelColor="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:selectionColor="@color/primaryDarkColor"
+            app:selectionLabelColor="@color/primaryDarkColor"
+            app:todayLabelColor="@color/secondaryColor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
