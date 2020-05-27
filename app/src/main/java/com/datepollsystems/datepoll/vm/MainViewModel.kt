@@ -21,6 +21,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.core.inject
+import java.util.*
 
 class MainViewModel : BaseViewModel() {
 
@@ -43,6 +44,7 @@ class MainViewModel : BaseViewModel() {
     val events = MutableLiveData<List<Event>>()
     val bookings = MutableLiveData<List<Booking>>()
 
+    private var time: Date? = null
 
     fun loadUserData() {
         viewModelScope.launch {
@@ -80,11 +82,17 @@ class MainViewModel : BaseViewModel() {
     fun loadHomepage() {
         viewModelScope.launch {
             withContext(Dispatchers.Default){
-                val h = homeRepository.loadHomepage(loadHomepageState)
-                Log.i(tag, h.toString())
-                birthdays.postValue(h?.birthdays)
-                events.postValue(h?.events)
-                bookings.postValue(h?.bookings)
+                //check if last request is too old
+                val t = time
+                if(t == null || (t.time - Date().time) >= 3600000) {
+                    val h = homeRepository.loadHomepage(loadHomepageState)
+                    Log.i(tag, h.toString())
+                    birthdays.postValue(h?.birthdays)
+                    events.postValue(h?.events)
+                    bookings.postValue(h?.bookings)
+                    time = Date()
+                    loadHomepageState.postValue(ENetworkState.DONE)
+                }
             }
         }
     }
