@@ -1,7 +1,6 @@
 package com.datepollsystems.datepoll.vm
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.applandeo.materialcalendarview.EventDay
@@ -31,8 +30,7 @@ class CalendarViewModel : BaseViewModel() {
                     list.add(
                         EventDay(
                             (formatter.parse(it) as Date).toCalendar(),
-                            R.drawable.ic_cake_black_24dp,
-                            Color.parseColor("#cc4d04")
+                            R.drawable.ic_cake_red_24dp
                         )
                     )
                 }
