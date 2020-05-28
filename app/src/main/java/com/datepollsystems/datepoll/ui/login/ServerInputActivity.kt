@@ -52,6 +52,8 @@ class ServerInputActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.vm = serverInputViewModel
 
+        prefs.serverAddress = null
+        prefs.serverPort = 443
 
         val view = binding.root
 
@@ -80,6 +82,7 @@ class ServerInputActivity : AppCompatActivity() {
 
                     }
                     ENetworkState.DONE -> {
+                        loadingServer.visibility = View.INVISIBLE
                         startActivity(Intent(this@ServerInputActivity, LoginActivity::class.java))
                     }
 
@@ -108,6 +111,8 @@ class ServerInputActivity : AppCompatActivity() {
         view.btnSetServer.setOnClickListener {
             loadingServer.visibility = View.VISIBLE
 
+
+
             //check if there is a datepoll instance running
             btnSetServer.isEnabled = false
             var s = serverInputViewModel.serverAddress.value.toString()
@@ -120,6 +125,7 @@ class ServerInputActivity : AppCompatActivity() {
             prefs.serverAddress = url
             val port: Int = serverInputViewModel.serverPort.value!!
             prefs.serverPort = port
+
             stopKoin()
             Log.i("Login", prefs.serverAddress!!)
             Log.i("Port", prefs.serverPort.toString())
@@ -128,15 +134,17 @@ class ServerInputActivity : AppCompatActivity() {
                 androidContext(applicationContext)
                 modules(appModule)
             }
-            serverInputViewModel.validateInstance(s)
+
+            //TODO Change to a valid check
+            serverInputViewModel.validateInstanceState.postValue(ENetworkState.DONE)
         }
 
         serverInputViewModel.instanceMenuState.observe(this, Observer {
             when (it) {
-                ENetworkState.LOADING -> null
+                ENetworkState.LOADING -> view.loadingServer.visibility = View.VISIBLE
                 ENetworkState.DONE -> {
                     Log.i(tag, "Loaded instances")
-
+                    view.loadingServer.visibility = View.INVISIBLE
                 }
                 ENetworkState.ERROR -> {
                     Snackbar.make(
@@ -144,6 +152,7 @@ class ServerInputActivity : AppCompatActivity() {
                         getString(R.string.something_went_wrong),
                         Snackbar.LENGTH_LONG
                     ).show()
+                    view.loadingServer.visibility = View.INVISIBLE
                 }
             }
         })

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.datepollsystems.datepoll.Prefs
+import com.datepollsystems.datepoll.appModule
 import com.datepollsystems.datepoll.data.Birthday
 import com.datepollsystems.datepoll.data.Booking
 import com.datepollsystems.datepoll.data.Event
@@ -20,6 +21,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
 import org.koin.core.inject
 import java.util.*
 
@@ -74,6 +79,9 @@ class MainViewModel : BaseViewModel() {
                 prefs.session = ""
                 prefs.jwt = ""
                 prefs.isLoggedIn = false
+                prefs.serverAddress = null
+                prefs.serverPort = 443
+
                 logout.postValue(true)
             }
         }
