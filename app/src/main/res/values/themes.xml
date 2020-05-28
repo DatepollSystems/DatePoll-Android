@@ -41,4 +41,10 @@
     <style name="ImageViewIconStyle" parent="Widget.AppCompat.ImageButton">
         <item name="tint">#000000</item>
     </style>
+
+
+    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
 </resources>

@@ -29,6 +29,8 @@ interface DatepollApi {
         @Body request: LoginRequestModel
     ): Response<LoginResponseModel>
 
+    @GET("/en/instances.json")
+    suspend fun getInstances(): Response<Instances>
 
     @POST("/api/auth/IamLoggedIn")
     suspend fun refreshTokenWithSession(

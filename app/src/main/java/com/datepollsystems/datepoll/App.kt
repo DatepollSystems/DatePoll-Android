@@ -37,6 +37,7 @@ val appModule = module {
     viewModel { SettingsEmailViewModel() }
     viewModel { ServerInputViewModel() }
     viewModel { EventViewModel() }
+    viewModel { CalendarViewModel() }
 }
 
 class App : Application() {

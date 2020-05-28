@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/ic_event"
+        android:gravity="top|left"
+        android:tint="@android:color/holo_green_dark" />
+
+    <item
+        android:drawable="@drawable/ic_movie_black_24dp"
+        android:gravity="center"
+        android:tint="@android:color/holo_red_dark" />
+
+    <item
+        android:drawable="@drawable/ic_cake_red_24dp"
+        android:gravity="right"
+        android:left="80dp"
+        android:tint="@android:color/holo_blue_dark" />
+</layer-list>

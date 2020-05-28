@@ -9,6 +9,8 @@ import com.datepollsystems.datepoll.database.model.event.EventDateDbModel
 import com.datepollsystems.datepoll.database.model.event.EventDateDto
 import com.datepollsystems.datepoll.database.model.event.EventDecisionDbModel
 import com.datepollsystems.datepoll.database.model.event.EventDecisionDto
+import java.util.*
+import kotlin.collections.ArrayList
 
 fun View.animateVisibility(setVisible: Boolean) {
     if (setVisible) expand(this) else collapse(this)
@@ -94,4 +96,10 @@ fun List<EventDateDto>.transformInDbModelList(eventId: Int): List<EventDateDbMod
     } else {
         ArrayList()
     }
+}
+
+fun Date.toCalendar(): Calendar{
+    val cal = Calendar.getInstance()
+    cal.time = this
+    return cal
 }

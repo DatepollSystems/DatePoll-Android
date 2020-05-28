@@ -51,11 +51,6 @@ class EventCardAdapter(private val viewModel: EventViewModel) :
                 }
             }
 
-            btnInfo.setOnClickListener {
-                Snackbar.make(it, it.context.getString(R.string.feature_soon), Snackbar.LENGTH_SHORT)
-                    .show()
-            }
-
             val userDecision = item.userDecision
             if (userDecision != null) {
                 tvAnswer.visibility = View.VISIBLE
@@ -96,6 +91,5 @@ class EventCardViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val tvAnswer: TextView = view.findViewById(R.id.tvAnswer)
     val tvAnswerTitle: TextView = view.findViewById(R.id.tvAnswerTitle)
 
-    val btnInfo: Button = view.findViewById(R.id.btnInfo)
     val btnAnswer: Button = view.findViewById(R.id.btnAnswer)
 }

@@ -1,6 +1,7 @@
 package com.datepollsystems.datepoll.repos
 
 import androidx.lifecycle.MutableLiveData
+import com.datepollsystems.datepoll.data.Instances
 import com.datepollsystems.datepoll.network.DatepollApi
 import com.datepollsystems.datepoll.data.LogoutRequestModel
 import com.datepollsystems.datepoll.data.LogoutResponseModel
@@ -25,6 +26,14 @@ class ServerRepository: BaseRepository("ServerRepository"){
         return apiCall(
             call = { api.logout(prefs.jwt!!, request) },
             state = MutableLiveData()
+        )
+    }
+
+
+    suspend fun loadInstances(ld: MutableLiveData<ENetworkState>): Instances? {
+        return apiCall(
+            call = { api.getInstances() },
+            state = ld
         )
     }
 }

@@ -15,6 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.datepollsystems.datepoll.R
+import com.datepollsystems.datepoll.appModule
 import com.datepollsystems.datepoll.databinding.ActivityMainBinding
 import com.datepollsystems.datepoll.ui.BaseActivity
 import com.datepollsystems.datepoll.ui.login.ServerInputActivity
@@ -25,7 +26,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
 
 class MainActivity : BaseActivity(), AppBarConfiguration.OnNavigateUpListener {
 
@@ -89,6 +94,12 @@ class MainActivity : BaseActivity(), AppBarConfiguration.OnNavigateUpListener {
 
         mainViewModel.logout.observe(this, Observer {
             if (it != null && it) {
+                stopKoin()
+                startKoin {
+                    androidLogger()
+                    androidContext(applicationContext)
+                    modules(appModule)
+                }
                 val i = Intent(this@MainActivity, ServerInputActivity::class.java)
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(i)
@@ -102,22 +113,8 @@ class MainActivity : BaseActivity(), AppBarConfiguration.OnNavigateUpListener {
         return NavigationUI.navigateUp(findNavController(R.id.nav_host_main), drawer_layout)
     }
 
-    override fun onBackPressed() {
-        if (supportFragmentManager.findFragmentById(R.id.nav_host_main)!!.childFragmentManager.fragments[0].isVisible) {
-            moveTaskToBack(true)
-        } else {
-            super.onBackPressed()
-        }
+    override fun onBackPressed(){
+        findNavController(R.id.nav_host_main).popBackStack()
     }
 }
 
-/**
- *
- *  MaterialAlertDialogBuilder(this)
-.setTitle(R.string.logout_title)
-.setMessage(R.string.logout_dialog_desc)
-.setPositiveButton(android.R.string.yes) { _, _ ->
-mainViewModel.logout()
-}
-.setNegativeButton(android.R.string.no, null).create().show()
- */

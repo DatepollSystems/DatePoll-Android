@@ -2,13 +2,13 @@ buildscript {
 
     ext {
         kotlin                  =   '1.3.61'
-        room = '2.2.5'
+        room                    =   '2.2.5'
         lifecycle               =   '2.2.0'
         androidx_arch           =   '2.1.0'
         coroutines              =   '1.3.0'
-        navigation = '2.2.2'
-        retrofit = '2.8.1'
-        okhttp3 = '4.5.0'
+        navigation              =   '2.2.2'
+        retrofit                =   '2.8.1'
+        okhttp3                 =   '4.5.0'
         koin                    =   '2.1.3'
         junit                   =   '4.13'
         appcompat               =   '1.1.0'
@@ -19,7 +19,7 @@ buildscript {
         material                =   '1.2.0-alpha02'
         espresso                =   '3.2.0'
         androidx_junit          =   '1.1.1'
-        swiper_refresh_layout = '1.1.0-rc01'
+        swiper_refresh_layout   =   '1.1.0-rc01'
         recycler_view           =   '1.1.0'
         moshi                   =   '1.9.2'
         gson                    =   '2.8.6'
@@ -31,7 +31,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:4.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin"
     }
 }
