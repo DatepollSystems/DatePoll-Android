@@ -16,11 +16,11 @@ class Prefs(context: Context) {
         set(value) = _prefs.edit().putString("session", value).apply()
 
     var serverAddress: String?
-        get() = _prefs.getString("server", "https://duckduckgo.com")
+        get() = _prefs.getString("server", "https://datepoll.org")
         set(value) = _prefs.edit().putString("server", value).apply()
 
     var serverPort : Int
-        get() = _prefs.getInt("port", 9330)
+        get() = _prefs.getInt("port", 443)
         set(value) = _prefs.edit().putInt("port", value).apply()
 
     var jwt: String?

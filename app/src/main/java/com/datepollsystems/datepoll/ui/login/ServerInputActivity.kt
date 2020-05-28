@@ -29,6 +29,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 
+
 class ServerInputActivity : AppCompatActivity() {
 
     private val tag = "ServerInputActivity"
@@ -129,6 +130,43 @@ class ServerInputActivity : AppCompatActivity() {
             }
             serverInputViewModel.validateInstance(s)
         }
+
+        serverInputViewModel.instanceMenuState.observe(this, Observer {
+            when (it) {
+                ENetworkState.LOADING -> null
+                ENetworkState.DONE -> {
+                    Log.i(tag, "Loaded instances")
+
+                }
+                ENetworkState.ERROR -> {
+                    Snackbar.make(
+                        view,
+                        getString(R.string.something_went_wrong),
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+            }
+        })
+
+        serverInputViewModel.instanceMenu.observe(this, Observer {
+            it?.let {
+                val bottomSheetFragment =
+                    InstanceOptionsBottomSheetDialog(it, serverInputViewModel.instanceClickResult)
+                bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+
+                serverInputViewModel.instanceMenu.postValue(null)
+            }
+        })
+
+        serverInputViewModel.instanceClickResult.observe(this, Observer {
+            it?.let { res ->
+               serverInputViewModel.serverAddress.postValue(res.appURL)
+            }
+        })
+    }
+
+    fun onChooseClick(view: View) {
+        serverInputViewModel.loadInstances()
     }
 
 
