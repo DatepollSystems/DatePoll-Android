@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_event.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class EventFragment : Fragment() {
@@ -38,6 +39,20 @@ class EventFragment : Fragment() {
             vm.loadEventData(force = true)
         }
 
+        view.switch1.setOnCheckedChangeListener { _, isChecked ->
+            vm.filterChecked = isChecked
+            if(isChecked){
+                vm.events.value?.let {
+                    eventCardAdapter.data = ArrayList(it)
+                }
+            } else {
+                vm.filteredEvents.value?.let {
+                    eventCardAdapter.data = ArrayList(it)
+                }
+            }
+        }
+
+
         initStateObserver(view)
 
         vm.decisions.observe(viewLifecycleOwner, Observer {
@@ -59,7 +74,15 @@ class EventFragment : Fragment() {
 
         vm.events.observe(viewLifecycleOwner, Observer {
             it?.let {
-                eventCardAdapter.data = ArrayList(it)
+                if(vm.filterChecked)
+                    eventCardAdapter.data = ArrayList(it)
+            }
+        })
+
+        vm.filteredEvents.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                if(!vm.filterChecked)
+                    eventCardAdapter.data = ArrayList(it)
             }
         })
 

@@ -21,6 +21,7 @@ class EventRepository : BaseRepository("EventRepository") {
     private val eventDao: EventDao = db.eventDao()
 
     val events = eventDao.loadAllEvents()
+    val filteredEvents = eventDao.getFilteredEvents()
 
     suspend fun loadAllEvents(force: Boolean, state: MutableLiveData<ENetworkState>) {
         val list = events.value

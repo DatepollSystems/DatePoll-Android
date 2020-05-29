@@ -2,6 +2,7 @@ package com.datepollsystems.datepoll.vm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.datepollsystems.datepoll.database.model.event.EventDbModel
 import com.datepollsystems.datepoll.database.model.event.EventDecisionDbModel
 import com.datepollsystems.datepoll.repos.ENetworkState
 import com.datepollsystems.datepoll.repos.EventRepository
@@ -16,9 +17,11 @@ class EventViewModel : BaseViewModel() {
     private val eventRepository: EventRepository by inject()
 
     val events = eventRepository.events
+    val filteredEvents = eventRepository.filteredEvents
     val decisions = MutableLiveData<List<EventDecisionDbModel>>()
     val decisionClickResult = MutableLiveData<EventDecisionDbModel>()
 
+    var filterChecked = false
     val loadEventsState = MutableLiveData<ENetworkState>()
     val loadDecisionsForEventState = MutableLiveData<ENetworkState>()
     val makeDecisionState = MutableLiveData<ENetworkState>()
@@ -29,6 +32,8 @@ class EventViewModel : BaseViewModel() {
             eventRepository.loadAllEvents(force = force, state = loadEventsState)
         }
     }
+
+
 
     fun loadDecisionsForEvent(eventId: Int) {
         viewModelScope.launch(Dispatchers.Default) {
