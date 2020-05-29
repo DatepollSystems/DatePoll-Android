@@ -87,12 +87,12 @@ class MainViewModel : BaseViewModel() {
         }
     }
 
-    fun loadHomepage() {
+    fun loadHomepage(force: Boolean = false) {
         viewModelScope.launch {
             withContext(Dispatchers.Default){
                 //check if last request is too old
                 val t = time
-                if(t == null || (t.time - Date().time) >= 3600000) {
+                if(force || t == null || (t.time - Date().time) >= 3600000) {
                     val h = homeRepository.loadHomepage(loadHomepageState)
                     Log.i(tag, h.toString())
                     birthdays.postValue(h?.birthdays)
@@ -101,6 +101,8 @@ class MainViewModel : BaseViewModel() {
                     time = Date()
                     loadHomepageState.postValue(ENetworkState.DONE)
                 }
+                else
+                    loadHomepageState.postValue(ENetworkState.DONE)
             }
         }
     }

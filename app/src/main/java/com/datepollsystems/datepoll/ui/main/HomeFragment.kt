@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
         setupObservers(view, adapter)
         adapter.notifyDataSetChanged()
         view.swipeToRefresh.setOnRefreshListener {
-            vm.loadHomepage()
+            vm.loadHomepage(force = true)
         }
 
         vm.loadHomepage()
