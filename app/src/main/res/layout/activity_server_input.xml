@@ -39,7 +39,7 @@
             android:layout_marginTop="100dp"
             android:layout_marginEnd="4dp"
             android:hint="@string/domain"
-            app:layout_constraintEnd_toStartOf="@+id/btnQRCodeScan"
+            app:layout_constraintEnd_toStartOf="@+id/btnQRCodeScan1"
             app:layout_constraintStart_toEndOf="@+id/textView11"
             app:layout_constraintTop_toBottomOf="@+id/ivLogo">
 
@@ -67,7 +67,7 @@
             android:id="@+id/ivLogo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="100dp"
             android:contentDescription="@string/logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.482"
@@ -129,7 +129,7 @@
             app:srcCompat="@drawable/ic_check" />
 
         <ImageButton
-            android:id="@+id/btnQRCodeScan"
+            android:id="@+id/btnQRCodeScan1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

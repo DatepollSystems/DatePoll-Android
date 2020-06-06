@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.datepollsystems.datepoll.Prefs
-import com.datepollsystems.datepoll.appModule
 import com.datepollsystems.datepoll.data.Birthday
 import com.datepollsystems.datepoll.data.Booking
 import com.datepollsystems.datepoll.data.Event
@@ -13,16 +12,11 @@ import com.datepollsystems.datepoll.data.LogoutRequestModel
 import com.datepollsystems.datepoll.data.LogoutResponseModel
 import com.datepollsystems.datepoll.database.model.PermissionDbModel
 import com.datepollsystems.datepoll.database.model.UserDbModel
-import com.datepollsystems.datepoll.repos.ENetworkState
-import com.datepollsystems.datepoll.repos.HomeRepository
-import com.datepollsystems.datepoll.repos.ServerRepository
-import com.datepollsystems.datepoll.repos.UserRepository
+import com.datepollsystems.datepoll.repos.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.inject

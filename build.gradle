@@ -13,7 +13,7 @@ buildscript {
         junit                   =   '4.13'
         appcompat               =   '1.1.0'
         core_ktx                =   '1.2.0'
-        constraint_layout       =   '2.0.0-beta4'
+        constraint_layout       =   '2.0.0-beta6'
         annotation              =   '1.1.0'
         androidx_legacy         =   '1.0.0'
         material                =   '1.2.0-alpha02'

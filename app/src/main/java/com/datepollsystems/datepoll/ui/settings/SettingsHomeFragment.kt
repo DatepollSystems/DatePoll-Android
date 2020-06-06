@@ -168,6 +168,12 @@ class SettingsHomeFragment : Fragment() {
                 .setNegativeButton(android.R.string.no, null).create().show()
         }
 
+        btnLicences.setOnClickListener (
+            Navigation.createNavigateOnClickListener(
+                R.id.action_settingsHomeFragment_to_settingsLicenceFragment
+            )
+        )
+
         btnTheme.setOnClickListener {
 
             var selection = ""

@@ -16,9 +16,9 @@ import com.datepollsystems.datepoll.animateVisibility
 import com.datepollsystems.datepoll.appModule
 import com.datepollsystems.datepoll.databinding.ActivityServerInputBinding
 import com.datepollsystems.datepoll.repos.ENetworkState
+import com.datepollsystems.datepoll.vm.QRCodeData
 import com.datepollsystems.datepoll.vm.ServerInputViewModel
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.activity_server_input.*
 import kotlinx.android.synthetic.main.activity_server_input.view.*
@@ -28,6 +28,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
+import timber.log.Timber
 
 
 class ServerInputActivity : AppCompatActivity() {
@@ -102,7 +103,7 @@ class ServerInputActivity : AppCompatActivity() {
             }
         })
 
-        view.btnQRCodeScan.setOnClickListener {
+        view.btnQRCodeScan1.setOnClickListener {
             startActivityForResult(Intent(this, QrCodeScanActivity::class.java), qrCodeRes)
         }
 
@@ -127,8 +128,8 @@ class ServerInputActivity : AppCompatActivity() {
             prefs.serverPort = port
 
             stopKoin()
-            Log.i("Login", prefs.serverAddress!!)
-            Log.i("Port", prefs.serverPort.toString())
+            Timber.i(prefs.serverAddress!!)
+            Timber.i(prefs.serverPort.toString())
             startKoin {
                 androidLogger()
                 androidContext(applicationContext)
@@ -143,7 +144,7 @@ class ServerInputActivity : AppCompatActivity() {
             when (it) {
                 ENetworkState.LOADING -> view.loadingServer.visibility = View.VISIBLE
                 ENetworkState.DONE -> {
-                    Log.i(tag, "Loaded instances")
+                    Timber.i("Loaded instances")
                     view.loadingServer.visibility = View.INVISIBLE
                 }
                 ENetworkState.ERROR -> {
@@ -183,7 +184,7 @@ class ServerInputActivity : AppCompatActivity() {
         if (requestCode == qrCodeRes) {
             if (resultCode == Activity.RESULT_OK) {
                 val d = data?.getStringExtra(qrCodeData)
-                Log.i(tag, "QrScan successfully")
+                Timber.i("QrScan successfully")
                 val dataObj = mapResultIntoObj(d)
                 dataObj?.let {
                     val url = dataObj.url.removePrefix("https://")
@@ -196,20 +197,14 @@ class ServerInputActivity : AppCompatActivity() {
     }
 
     private fun mapResultIntoObj(s: String?): QRCodeData? {
-        Log.i(tag, "Try to map it into object")
+        Timber.i("Try to map it into object")
         s?.let {
             val m = Moshi.Builder().build()
             val adapter = m.adapter(QRCodeData::class.java)
             return adapter.fromJson(s)
         }
-        Log.e(tag, "Result is not a datepoll qr code")
+        Timber.e("Result is not a datepoll qr code")
         return null
     }
 }
 
-@JsonClass(generateAdapter = true)
-data class QRCodeData(
-    val type: String,
-    val url: String,
-    val session_token: String?
-)

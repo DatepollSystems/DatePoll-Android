@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ftue_navigation"
+    app:startDestination="@id/ftueServerInstanceFragment">
+
+    <fragment
+        android:id="@+id/ftueServerInstanceFragment"
+        android:name="com.datepollsystems.datepoll.ui.login.FtueServerInstanceFragment"
+        android:label="fragment_ftue_server_instance"
+        tools:layout="@layout/fragment_ftue_server_instance" >
+        <action
+            android:id="@+id/action_ftueServerInstanceFragment_to_ftueLoginFragment"
+            app:destination="@id/ftueLoginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/ftueLoginFragment"
+        android:name="com.datepollsystems.datepoll.ui.login.FtueLoginFragment"
+        android:label="fragment_ftue_login"
+        tools:layout="@layout/fragment_ftue_login" >
+        <action
+            android:id="@+id/action_ftueLoginFragment_to_ftueFirstPasswordChange"
+            app:destination="@id/ftueFirstPasswordChange"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_ftueLoginFragment_to_ftueSuccessfulFragment"
+            app:destination="@id/ftueSuccessfulFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/ftueFirstPasswordChange"
+        android:name="com.datepollsystems.datepoll.ui.login.FtueFirstPasswordChange"
+        android:label="fragment_ftue_first_password_change"
+        tools:layout="@layout/fragment_ftue_first_password_change" >
+        <action
+            android:id="@+id/action_ftueFirstPasswordChange_to_ftueSuccessfulFragment"
+            app:destination="@id/ftueSuccessfulFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/ftueSuccessfulFragment"
+        android:name="com.datepollsystems.datepoll.ui.login.FtueSuccessfulFragment"
+        android:label="fragment_ftue_successful"
+        tools:layout="@layout/fragment_ftue_successful" >
+        <action
+            android:id="@+id/action_ftueSuccessfulFragment_to_ftueServerInstanceFragment"
+            app:destination="@id/ftueServerInstanceFragment"
+            app:popUpTo="@id/ftueServerInstanceFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

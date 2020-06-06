@@ -24,8 +24,8 @@ android {
         // TODO check if this is necessary
         vectorDrawables.useSupportLibrary = true
 
-        versionCode 9
-        versionName "0.0.9"
+        versionCode 10
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -36,8 +36,11 @@ android {
         }
     }
 
-    dataBinding.enabled = true
-    viewBinding.enabled = true
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
+
 
     compileOptions {
         sourceCompatibility = 1.8
@@ -112,4 +115,7 @@ dependencies {
 
     //Calendar
     implementation 'com.applandeo:material-calendar-view:1.9.0-alpha03'
+
+    //Logging
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }

@@ -1,12 +1,11 @@
 package com.datepollsystems.datepoll.repos
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.datepollsystems.datepoll.database.DatepollDatabase
 import com.datepollsystems.datepoll.database.dao.EventDao
 import com.datepollsystems.datepoll.database.model.event.*
-import com.datepollsystems.datepoll.network.DatepollApi
+import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.core.inject
@@ -15,7 +14,7 @@ import java.util.*
 class EventRepository : BaseRepository("EventRepository") {
     private val tag = "EventRepository"
 
-    private val api: DatepollApi by inject()
+    private val api: InstanceApi by inject()
     private val db: DatepollDatabase by inject()
 
     private val eventDao: EventDao = db.eventDao()

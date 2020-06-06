@@ -9,7 +9,7 @@ import com.datepollsystems.datepoll.database.dao.*
 import com.datepollsystems.datepoll.database.model.EmailAddressDbModel
 import com.datepollsystems.datepoll.database.model.PerformanceBadgesDbModel
 import com.datepollsystems.datepoll.database.model.PermissionDbModel
-import com.datepollsystems.datepoll.network.DatepollApi
+import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.core.inject
@@ -19,7 +19,7 @@ import kotlin.collections.ArrayList
 
 class UserRepository : BaseRepository("UserRepository") {
 
-    private val api: DatepollApi by inject()
+    private val api: InstanceApi by inject()
     private val db: DatepollDatabase by inject()
 
     private val userDao: UserDao = db.userDao()

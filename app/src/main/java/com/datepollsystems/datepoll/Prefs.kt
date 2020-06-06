@@ -32,7 +32,7 @@ class Prefs(context: Context) {
         set(value) = sharedPreferences.edit().putLong("jwtRenewalTime", value).apply()
 
     var isLoggedIn: Boolean
-        get() = sharedPreferences.getBoolean("lprefsn", false)
+        get() = sharedPreferences.getBoolean("loggedin", false)
         set(value) = sharedPreferences.edit().putBoolean("loggedin", value).apply()
 
     var theme: String?

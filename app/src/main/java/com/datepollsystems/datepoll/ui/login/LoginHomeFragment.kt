@@ -45,7 +45,7 @@ class LoginHomeFragment : Fragment() {
 
     override fun onStart() {
 
-        val login = activity?.findViewById<Button>(R.id.login)
+        val login = activity?.findViewById<Button>(R.id.btnLogin)
         val loading = activity?.findViewById<ProgressBar>(R.id.loading)
 
         login?.isEnabled = true

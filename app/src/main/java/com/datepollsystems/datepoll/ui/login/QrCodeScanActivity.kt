@@ -46,6 +46,17 @@ class QrCodeScanActivity : AppCompatActivity() {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        requestPermission()
+        resumeScanner()
+    }
+
+    override fun onRestart(){
+        super.onRestart()
+        resumeScanner()
+    }
+
     override fun onResume() {
         super.onResume()
         resumeScanner()
@@ -62,8 +73,8 @@ class QrCodeScanActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 0 && grantResults.isEmpty()) {
-            requestPermission()
+        if (requestCode == 0 && grantResults[0] < 0) {
+            finish()
         } else {
             dbvScanner.resume()
         }
@@ -88,7 +99,7 @@ class QrCodeScanActivity : AppCompatActivity() {
         dbvScanner.pause()
     }
 
-    fun requestPermission() {
+    private fun requestPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
             != PackageManager.PERMISSION_GRANTED
         ) {

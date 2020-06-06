@@ -28,7 +28,7 @@ class LoginViewModel : BaseViewModel() {
             val pass = password.value!!
 
             if (isUserNameValid(user) && isPasswordValid(pass)) {
-                val login = repository.login(user, pass)
+                val login = repository.login(user, pass, MutableLiveData())
                 Log.i("LoginResponse", login.toString())
                 login?.let {
                     if (it.token.isNotEmpty()) {

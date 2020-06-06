@@ -5,6 +5,8 @@ import android.animation.ValueAnimator
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
+import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.constraintlayout.motion.widget.TransitionAdapter
 import com.datepollsystems.datepoll.database.model.event.EventDateDbModel
 import com.datepollsystems.datepoll.database.model.event.EventDateDto
 import com.datepollsystems.datepoll.database.model.event.EventDecisionDbModel

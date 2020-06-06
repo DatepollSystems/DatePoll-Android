@@ -127,5 +127,26 @@
     <string name="material_calendar_positive_button">OK</string>
     <string name="material_calendar_negative_button">Cancel</string>
     <string name="home">Home</string>
+    <string name="licence">Licence</string>
 
+    <string-array name="licences">
+        <item>https://github.com/junit-team/junit5|JUnit</item>
+        <item>https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev|AndroidX</item>
+        <item>https://github.com/material-components/material-components-android|Material Components</item>
+        <item>https://github.com/square/moshi|Moshi</item>
+        <item>https://github.com/square/retrofit|Retrofit</item>
+        <item>https://github.com/square/okhttp|OkHttp</item>
+        <item>https://github.com/InsertKoinIO/koin|Koin</item>
+        <item>https://github.com/zxing/zxing|Zxing</item>
+        <item>https://github.com/journeyapps/zxing-android-embedded|Zxing-Embadded</item>
+        <item>https://github.com/Applandeo/Material-Calendar-View|Material-Calendar-View</item>
+        <item>https://github.com/JakeWharton/timber|Timber</item>
+    </string-array>
+
+    <string name="choose">Choose</string>
+    <string name="choose_instance">Choose instance:</string>
+    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="demo_datepoll_org">demo.datepoll.org</string>
+    <string name="or">or</string>
+    <string name="manual_input">Manual input:</string>
 </resources>

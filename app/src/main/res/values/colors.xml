@@ -12,8 +12,22 @@
 
     <color name="error">#ff5722</color>
     <color name="colorWhite">#FFFFFF</color>
-    <color name="colorSettingsBtnClickEffect">#607d8b</color>
 
+    <color name="blueGreyLighten5">#eceff1</color>
+    <color name="blueGreyLighten4">#cfd8dc</color>
+    <color name="blueGreyLighten3">#b0bec5</color>
+    <color name="blueGreyLighten2">#90a4ae</color>
+    <color name="blueGreyLighten1">#78909c</color>
+    <color name="blueGrey">#607d8b</color>
+    <color name="blueGreyDarken1">#546e7a</color>
+    <color name="blueGreyDarken2">#455a64</color>
+    <color name="blueGreyDarken3">#37474f</color>
+    <color name="blueGreyDarken4">#263238</color>
 
+    <color name="greenAccentLight">#6cac4d</color>
+    <color name="greenAccent">#429f14</color>
+    <color name="greenAccentDark">#2b4d1a</color>
+
+    <color name="redAccent">#ff5722</color>
 
 </resources>

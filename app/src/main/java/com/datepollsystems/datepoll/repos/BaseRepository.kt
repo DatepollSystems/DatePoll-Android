@@ -4,7 +4,7 @@ import android.accounts.NetworkErrorException
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.datepollsystems.datepoll.Prefs
-import com.datepollsystems.datepoll.network.DatepollApi
+import com.datepollsystems.datepoll.network.InstanceApi
 import com.datepollsystems.datepoll.data.RefreshTokenWithSessionRequest
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -16,7 +16,7 @@ enum class ENetworkState { LOADING, DONE, ERROR }
 open class BaseRepository(private val tag: String) : KoinComponent {
 
     protected val prefs: Prefs by inject()
-    private val api: DatepollApi by inject()
+    private val api: InstanceApi by inject()
 
     /**
      * abstract Datepoll API method to invoke calls
@@ -28,7 +28,6 @@ open class BaseRepository(private val tag: String) : KoinComponent {
         call: suspend () -> Response<T>,
         state: MutableLiveData<ENetworkState>
     ): T? {
-
         state.postValue(ENetworkState.LOADING)
         var response: Response<T>? = null
         try {

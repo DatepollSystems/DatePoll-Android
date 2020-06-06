@@ -109,23 +109,30 @@
     <string name="material_calendar_sunday">S</string>
 
     <array name="material_calendar_months_array">
-        <item>January</item>
-        <item>February</item>
-        <item>March</item>
+        <item>Jänner</item>
+        <item>Februar</item>
+        <item>März</item>
         <item>April</item>
-        <item>May</item>
-        <item>June</item>
-        <item>July</item>
+        <item>Mai</item>
+        <item>Juni</item>
+        <item>Juli</item>
         <item>August</item>
         <item>September</item>
-        <item>October</item>
+        <item>Oktober</item>
         <item>November</item>
-        <item>December</item>
+        <item>Dezember</item>
     </array>
 
-    <string name="material_calendar_today_button">Today</string>
+    <string name="material_calendar_today_button">Heute</string>
     <string name="material_calendar_positive_button">OK</string>
-    <string name="material_calendar_negative_button">Cancel</string>
+    <string name="material_calendar_negative_button">Abbrechen</string>
     <string name="home">Home</string>
+    <string name="licence">Lizenz</string>
+    <string name="choose">Choose</string>
+    <string name="choose_instance">Choose instance:</string>
+    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="demo_datepoll_org">demo.datepoll.org</string>
+    <string name="or">or</string>
+    <string name="manual_input">Manual input:</string>
 
 </resources>
