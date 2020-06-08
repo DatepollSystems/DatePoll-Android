@@ -20,6 +20,7 @@ import kotlinx.coroutines.withContext
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.inject
+import timber.log.Timber
 import java.util.*
 
 class MainViewModel : BaseViewModel() {
@@ -56,7 +57,7 @@ class MainViewModel : BaseViewModel() {
     fun logout() {
         GlobalScope.launch {
             withContext(Dispatchers.IO){
-                Log.i(tag, "start logout process")
+                Timber.i( "start logout process")
 
                 val session = prefs.session!!
                 val response: LogoutResponseModel? =
@@ -67,7 +68,7 @@ class MainViewModel : BaseViewModel() {
                     )
 
                 response?.username?.let {
-                    Log.i(tag, "logout successful")
+                    Timber.i( "logout successful")
                 }
 
                 prefs.session = ""

@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.databinding.FragmentFtueSuccessfulBinding
+import com.datepollsystems.datepoll.ui.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_ftue_successful.*
 import kotlinx.android.synthetic.main.fragment_ftue_successful.view.*
 import kotlinx.coroutines.Dispatchers
@@ -46,8 +47,8 @@ class FtueSuccessfulFragment : Fragment() {
         binding.motionLayout.transitionToEnd()
 
         Thread(Runnable {
-            Thread.sleep(2000)
-            startActivity(Intent(requireActivity(), ServerInputActivity::class.java))
+            Thread.sleep(1500)
+            startActivity(Intent(requireActivity(), MainActivity::class.java))
         }).start()
     }
 }

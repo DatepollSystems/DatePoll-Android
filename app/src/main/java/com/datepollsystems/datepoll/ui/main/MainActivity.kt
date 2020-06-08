@@ -18,6 +18,7 @@ import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.appModule
 import com.datepollsystems.datepoll.databinding.ActivityMainBinding
 import com.datepollsystems.datepoll.ui.BaseActivity
+import com.datepollsystems.datepoll.ui.login.FtueActivity
 import com.datepollsystems.datepoll.ui.login.ServerInputActivity
 import com.datepollsystems.datepoll.ui.settings.SettingsActivity
 import com.datepollsystems.datepoll.vm.MainViewModel
@@ -100,7 +101,7 @@ class MainActivity : BaseActivity(), AppBarConfiguration.OnNavigateUpListener {
                     androidContext(applicationContext)
                     modules(appModule)
                 }
-                val i = Intent(this@MainActivity, ServerInputActivity::class.java)
+                val i = Intent(this@MainActivity, FtueActivity::class.java)
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(i)
                 mainViewModel.logout.value = false

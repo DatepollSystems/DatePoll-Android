@@ -14,10 +14,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.squareup.moshi.JsonClass
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.experimental.property.inject
 import org.koin.ext.getScopeId
+import timber.log.Timber
+import java.util.*
 
 class FtueViewModel : ViewModel(), KoinComponent{
 
@@ -27,10 +30,12 @@ class FtueViewModel : ViewModel(), KoinComponent{
     val instanceMenuState = MutableLiveData<ENetworkState>()
     val instanceClickResult = MutableLiveData<Instance>()
 
+    var successfulNext: Int = R.id.action_ftueSuccessfulFragment_to_ftueServerInstanceFragment
     val userName = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
     val loginState = MutableLiveData<ENetworkState>()
+    val loginSuccessful = MutableLiveData<Boolean>()
 
     private val datepollRepository: DatepollRepository by inject()
     private val prefs: Prefs by inject()
@@ -50,7 +55,31 @@ class FtueViewModel : ViewModel(), KoinComponent{
 
     fun login(){
         viewModelScope.launch(Dispatchers.Default) {
-            loginRepository.login(username = userName.value!!, password = password.value!!, loginState = loginState)
+            val response = loginRepository.login(username = userName.value!!, password = password.value!!, loginState = loginState)
+            response?.let {
+                Timber.i("LoginResponse: $response")
+                withContext(Dispatchers.IO) {
+                    prefs.isLoggedIn = true
+                    prefs.jwt = it.token
+                    prefs.jwtRenewalTime = Date().time
+                    prefs.session = it.session_token
+                    //loginSuccessful.postValue(true)
+                }
+            }
+            /*response?.let {
+                if (it.token.isNotEmpty()) {
+                    withContext(Dispatchers.IO) {
+                        prefs.jwt = it.token
+                        prefs.jwtRenewalTime = Date().time
+                        prefs.session = it.session_token
+                        loginSuccessful.postValue(true)
+                    }
+                } else {
+                    loginSuccessful.postValue(false)
+                }
+            } ?: run {
+                loginSuccessful.postValue(false)
+            }*/
         }
     }
 
