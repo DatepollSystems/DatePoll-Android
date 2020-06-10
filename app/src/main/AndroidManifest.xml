@@ -16,13 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.login.FtueActivity">
-
-        </activity>
+        <activity android:name=".ui.login.FtueActivity" />
         <activity android:name=".ui.login.QrCodeScanActivity" />
-        <activity
-            android:name=".ui.login.ServerInputActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.LauncherActivity"
             android:label="@string/app_name"
@@ -34,18 +29,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.settings.SettingsActivity"
-            android:label="@string/settings"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".ui.main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/app_name"
-            android:noHistory="true"
-            android:theme="@style/AppTheme.NoActionBar" />
     </application>
-
 </manifest>

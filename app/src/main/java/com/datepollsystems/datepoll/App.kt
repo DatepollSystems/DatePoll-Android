@@ -39,11 +39,9 @@ val appModule = module {
     single { EventRepository() }
 
     // ViewModels
-    viewModel { LoginViewModel() }
     viewModel { MainViewModel() }
     viewModel { SettingsViewModel() }
     viewModel { SettingsEmailViewModel() }
-    viewModel { ServerInputViewModel() }
     viewModel { EventViewModel() }
     viewModel { CalendarViewModel() }
     viewModel { FtueViewModel() }

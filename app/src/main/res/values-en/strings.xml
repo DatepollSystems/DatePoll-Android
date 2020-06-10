@@ -134,5 +134,6 @@
     <string name="demo_datepoll_org">demo.datepoll.org</string>
     <string name="or">or</string>
     <string name="manual_input">Manual input:</string>
+    <string name="no_birthdays_in_this_month">No birthdays in this month</string>
 
 </resources>

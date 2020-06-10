@@ -3,13 +3,9 @@ package com.datepollsystems.datepoll.ui.main
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -19,12 +15,8 @@ import com.datepollsystems.datepoll.appModule
 import com.datepollsystems.datepoll.databinding.ActivityMainBinding
 import com.datepollsystems.datepoll.ui.BaseActivity
 import com.datepollsystems.datepoll.ui.login.FtueActivity
-import com.datepollsystems.datepoll.ui.login.ServerInputActivity
-import com.datepollsystems.datepoll.ui.settings.SettingsActivity
 import com.datepollsystems.datepoll.vm.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import org.koin.android.ext.koin.androidContext

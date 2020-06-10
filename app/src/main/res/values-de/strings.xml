@@ -97,7 +97,7 @@
     <string name="movie_management">Filmverwaltung</string>
     <string name="remove_answer">Entferne</string>
     <string name="answer">Beantworten</string>
-    <string name="feature_soon">Bald verfügbar...</string>
+    <string name="feature_soon">Bald verfügbar…</string>
     <string name="cinema">Kino</string>
 
     <string name="material_calendar_monday">M</string>
@@ -129,10 +129,11 @@
     <string name="home">Home</string>
     <string name="licence">Lizenz</string>
     <string name="choose">Choose</string>
-    <string name="choose_instance">Choose instance:</string>
-    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="choose_instance">Wähle einen Server</string>
+    <string name="scan_qr_code">Scanne den QR Code</string>
     <string name="demo_datepoll_org">demo.datepoll.org</string>
-    <string name="or">or</string>
-    <string name="manual_input">Manual input:</string>
+    <string name="or">oder</string>
+    <string name="manual_input">Manuelle Eingabe:</string>
+    <string name="no_birthdays_in_this_month">Keine Geburtstage in diesem Monat</string>
 
 </resources>
