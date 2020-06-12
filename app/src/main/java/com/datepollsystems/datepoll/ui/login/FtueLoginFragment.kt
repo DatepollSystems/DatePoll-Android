@@ -85,13 +85,20 @@ class FtueLoginFragment : Fragment() {
                             findNavController().navigate(R.id.action_ftueLoginFragment_to_ftueSuccessfulFragment)
                         }
                         ENetworkState.ERROR -> {
-                            Timber.e("Login not successful, maybe credentials are incorrect or internet connect is broken")
+                            Timber.e("Login not successful, maybe credentials are incorrect or internet connection is broken")
+                            Timber.e("Error Code: ${it.code}")
+
+                            if(it.code == 400 && it.messageCode == "change_password") {
+                                findNavController().navigate(R.id.action_ftueLoginFragment_to_ftueFirstPasswordChange)
+                            } else {
+                                Snackbar.make(
+                                    binding.root,
+                                    getString(R.string.something_went_wrong),
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+
                             isLoading(false)
-                            Snackbar.make(
-                                binding.root,
-                                getString(R.string.something_went_wrong),
-                                Snackbar.LENGTH_LONG
-                            ).show()
                         }
                     }
                 }

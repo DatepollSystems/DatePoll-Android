@@ -7,7 +7,7 @@ import com.datepollsystems.datepoll.repos.BaseRepository
 import com.datepollsystems.datepoll.repos.ENetworkState
 import org.koin.core.inject
 
-class DatepollRepository: BaseRepository("DatepollRepository") {
+class DatepollRepository: BaseRepository() {
 
     val api: DatepollApi by inject()
 

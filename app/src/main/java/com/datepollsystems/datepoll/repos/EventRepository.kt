@@ -11,7 +11,7 @@ import kotlinx.coroutines.withContext
 import org.koin.core.inject
 import java.util.*
 
-class EventRepository : BaseRepository("EventRepository") {
+class EventRepository : BaseRepository() {
     private val tag = "EventRepository"
 
     private val api: InstanceApi by inject()

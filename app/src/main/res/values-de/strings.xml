@@ -135,5 +135,6 @@
     <string name="or">oder</string>
     <string name="manual_input">Manuelle Eingabe:</string>
     <string name="no_birthdays_in_this_month">Keine Geburtstage in diesem Monat</string>
+    <string name="first_login_please_set_a_password">First login, please set a password:</string>
 
 </resources>

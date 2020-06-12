@@ -1,24 +1,14 @@
 package com.datepollsystems.datepoll.repos
 
 import androidx.lifecycle.MutableLiveData
-import com.datepollsystems.datepoll.data.Instances
-import com.datepollsystems.datepoll.network.InstanceApi
 import com.datepollsystems.datepoll.data.LogoutRequestModel
 import com.datepollsystems.datepoll.data.LogoutResponseModel
-import okhttp3.ResponseBody
+import com.datepollsystems.datepoll.network.InstanceApi
 import org.koin.core.inject
 
-class ServerRepository: BaseRepository("ServerRepository"){
+class ServerRepository: BaseRepository(){
 
     private val api: InstanceApi by inject()
-
-
-    suspend fun isServiceOnline(state: MutableLiveData<ENetworkState>): ResponseBody? {
-        return apiCall(
-            call = { api.checkIfServiceIsOnline() },
-            state = state
-        )
-    }
 
     suspend fun logout(request: LogoutRequestModel): LogoutResponseModel? {
         //TODO Drop all DBs

@@ -42,6 +42,12 @@ interface InstanceApi {
         @Body requestModel: LogoutRequestModel
     ): Response<LogoutResponseModel>
 
+
+    @POST("/api/auth/changePasswordAfterSignin")
+    suspend fun changePasswordWhenSignIn(
+        @Body requestModel: FirstPasswdChangeRequest
+    ): Response<LoginResponseModel>
+
     /**
      * General requests for getting user information
      */

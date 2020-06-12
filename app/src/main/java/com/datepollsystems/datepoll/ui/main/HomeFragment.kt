@@ -38,7 +38,7 @@ class HomeFragment : Fragment() {
 
         val adapter = CardAdapter(activity as AppCompatActivity)
         view.cardList.adapter = adapter
-        setupObservers(view, adapter)
+        setupObservers(adapter)
         adapter.notifyDataSetChanged()
         view.swipeToRefresh.setOnRefreshListener {
             vm.loadHomepage(force = true)
@@ -48,7 +48,7 @@ class HomeFragment : Fragment() {
         return view
     }
 
-    private fun setupObservers(view: View, mainAdapter: CardAdapter) {
+    private fun setupObservers(mainAdapter: CardAdapter) {
 
         vm.loadHomepageState.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -62,6 +62,11 @@ class HomeFragment : Fragment() {
                         connectionView.visibility = View.INVISIBLE
                     }
                     ENetworkState.ERROR -> {
+                        if(it.code == 401){
+                            //User not authorized
+                            vm.logout()
+                        }
+
                         s.isRefreshing = false
                         cardList.visibility = View.INVISIBLE
                         connectionView.visibility = View.VISIBLE

@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class UserRepository : BaseRepository("UserRepository") {
+class UserRepository : BaseRepository() {
 
     private val api: InstanceApi by inject()
     private val db: DatepollDatabase by inject()

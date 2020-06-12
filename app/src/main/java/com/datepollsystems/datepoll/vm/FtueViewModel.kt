@@ -1,7 +1,6 @@
 package com.datepollsystems.datepoll.vm
 
 import android.util.Patterns
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,19 +9,16 @@ import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.data.Instance
 import com.datepollsystems.datepoll.repos.ENetworkState
 import com.datepollsystems.datepoll.repos.LoginRepository
-import com.google.android.material.snackbar.Snackbar
 import com.squareup.moshi.JsonClass
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import org.koin.experimental.property.inject
-import org.koin.ext.getScopeId
 import timber.log.Timber
 import java.util.*
 
-class FtueViewModel : ViewModel(), KoinComponent{
+class FtueViewModel : ViewModel(), KoinComponent {
 
     val serverInstanceUrl = MutableLiveData<String>()
 
@@ -35,55 +31,71 @@ class FtueViewModel : ViewModel(), KoinComponent{
     val password = MutableLiveData<String>()
 
     val loginState = MutableLiveData<ENetworkState>()
-    val loginSuccessful = MutableLiveData<Boolean>()
+
+    val firstChangePassword = MutableLiveData<String>()
+    val confirmFirstChangePassword = MutableLiveData<String>()
+
+    val firstPasswdState = MutableLiveData<ENetworkState>()
+
 
     private val datepollRepository: DatepollRepository by inject()
     private val prefs: Prefs by inject()
     private val loginRepository: LoginRepository by inject()
 
 
-    fun validateServerInstance(url: String): Boolean{
+    fun validateServerInstance(url: String): Boolean {
         return Patterns.WEB_URL.matcher(url).matches()
     }
 
-    fun loadInstances(){
+    fun loadInstances() {
         viewModelScope.launch(Dispatchers.Default) {
             val l = datepollRepository.loadInstances(instanceMenuState)
             instanceMenu.postValue(l?.instances)
         }
     }
 
-    fun login(){
+    fun login() {
         viewModelScope.launch(Dispatchers.Default) {
-            val response = loginRepository.login(username = userName.value!!, password = password.value!!, loginState = loginState)
+            val response = loginRepository.login(
+                username = userName.value!!,
+                password = password.value!!,
+                loginState = loginState
+            )
             response?.let {
-                Timber.i("LoginResponse: $response")
                 withContext(Dispatchers.IO) {
                     prefs.isLoggedIn = true
                     prefs.jwt = it.token
                     prefs.jwtRenewalTime = Date().time
                     prefs.session = it.session_token
-                    //loginSuccessful.postValue(true)
+
+                    //Maybe login state too, otherwise it could be that the prefs haven't saved
+
                 }
             }
-            /*response?.let {
-                if (it.token.isNotEmpty()) {
-                    withContext(Dispatchers.IO) {
-                        prefs.jwt = it.token
-                        prefs.jwtRenewalTime = Date().time
-                        prefs.session = it.session_token
-                        loginSuccessful.postValue(true)
-                    }
-                } else {
-                    loginSuccessful.postValue(false)
-                }
-            } ?: run {
-                loginSuccessful.postValue(false)
-            }*/
         }
     }
 
-    fun setServer(url: String, p: Int){
+    fun setFirstPasswd() {
+        viewModelScope.launch(Dispatchers.Default) {
+            val response = loginRepository.setFirstPasswd(
+                username = userName.value!!,
+                newPasswd = firstChangePassword.value!!,
+                oldPasswd = password.value!!,
+                state = firstPasswdState
+            )
+
+            response?.let {
+                withContext(Dispatchers.IO) {
+                    prefs.isLoggedIn = true
+                    prefs.jwt = it.token
+                    prefs.jwtRenewalTime = Date().time
+                    prefs.session = it.session_token
+                }
+            }
+        }
+    }
+
+    fun setServer(url: String, p: Int) {
         prefs.serverAddress = url
         prefs.serverPort = p
     }
