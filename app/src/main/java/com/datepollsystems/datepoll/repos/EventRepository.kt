@@ -55,8 +55,7 @@ class EventRepository : BaseRepository() {
     }
 
     suspend fun loadDecisionForEvent(
-        eventId: Int,
-        state: MutableLiveData<ENetworkState>
+        eventId: Int
     ): List<EventDecisionDbModel> {
         return withContext(Dispatchers.IO) {
             eventDao.loadDecisionsForEvent(eventId)

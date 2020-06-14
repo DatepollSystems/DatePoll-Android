@@ -135,7 +135,7 @@ class SettingsViewModel : BaseViewModel() {
     }
 
     fun onBirthdayChanged(buttonView: CompoundButton, isChecked: Boolean) {
-        Timber.i("changed")
+        Timber.i("changed ${buttonView.id}")
         postIsBirthdayShown(isChecked, getShownInBirthdayListState)
     }
 

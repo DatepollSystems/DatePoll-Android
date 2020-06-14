@@ -131,7 +131,7 @@
         tools:layout="@layout/fragment_settings_licence" />
     <fragment
         android:id="@+id/settingsChangeIfShownInBirthdayList"
-        android:name="com.datepollsystems.datepoll.ui.settings.SettingsChangeIfShownInBirthdayList"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsPrivacy"
         android:label="fragment_settings_change_if_shown_in_birthday_list"
-        tools:layout="@layout/fragment_settings_change_if_shown_in_birthday_list" />
+        tools:layout="@layout/fragment_settings_privacy" />
 </navigation>

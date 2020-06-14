@@ -7,19 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.databinding.FragmentSettingsChangeIfShownInBirthdayListBinding
+import com.datepollsystems.datepoll.databinding.FragmentSettingsPrivacyBinding
 import com.datepollsystems.datepoll.repos.ENetworkState
 import com.datepollsystems.datepoll.vm.SettingsViewModel
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import timber.log.Timber
 
-class SettingsChangeIfShownInBirthdayList : Fragment() {
+class SettingsPrivacy : Fragment() {
 
     val vm: SettingsViewModel by sharedViewModel()
 
-    private var _binding: FragmentSettingsChangeIfShownInBirthdayListBinding? = null
-    val binding: FragmentSettingsChangeIfShownInBirthdayListBinding
+    private var _binding: FragmentSettingsPrivacyBinding? = null
+    val binding: FragmentSettingsPrivacyBinding
         get() = _binding!!
 
     override fun onCreateView(
@@ -27,7 +26,7 @@ class SettingsChangeIfShownInBirthdayList : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentSettingsChangeIfShownInBirthdayListBinding.inflate(
+        _binding = FragmentSettingsPrivacyBinding.inflate(
             inflater,
             container,
             false

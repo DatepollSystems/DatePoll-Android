@@ -39,8 +39,7 @@ class EventViewModel : BaseViewModel() {
         viewModelScope.launch(Dispatchers.Default) {
             decisions.postValue(
                 eventRepository.loadDecisionForEvent(
-                    eventId,
-                    state = loadDecisionsForEventState
+                    eventId
                 )
             )
         }
