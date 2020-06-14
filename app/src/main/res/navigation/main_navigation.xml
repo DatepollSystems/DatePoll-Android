@@ -84,6 +84,13 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_nav_settings_to_settingsChangeIfShownInBirthdayList"
+            app:destination="@id/settingsChangeIfShownInBirthdayList"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
 
     <fragment
@@ -122,4 +129,9 @@
         android:name="com.datepollsystems.datepoll.ui.settings.SettingsLicenceFragment"
         android:label="fragment_settings_licence"
         tools:layout="@layout/fragment_settings_licence" />
+    <fragment
+        android:id="@+id/settingsChangeIfShownInBirthdayList"
+        android:name="com.datepollsystems.datepoll.ui.settings.SettingsChangeIfShownInBirthdayList"
+        android:label="fragment_settings_change_if_shown_in_birthday_list"
+        tools:layout="@layout/fragment_settings_change_if_shown_in_birthday_list" />
 </navigation>

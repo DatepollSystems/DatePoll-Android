@@ -158,6 +158,12 @@ class SettingsHomeFragment : Fragment() {
             vm.getCalendarToken()
         }
 
+        btnChangeIfShownInBirthdayList.setOnClickListener (
+            Navigation.createNavigateOnClickListener(
+                R.id.action_nav_settings_to_settingsChangeIfShownInBirthdayList
+            )
+        )
+
         btnLogout.setOnClickListener {
             MaterialAlertDialogBuilder(context)
                 .setTitle(R.string.logout_title)

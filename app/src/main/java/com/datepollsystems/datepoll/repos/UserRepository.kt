@@ -40,6 +40,22 @@ class UserRepository : BaseRepository() {
         }
     }
 
+    suspend fun checkIfShownInBirthdayList(state: MutableLiveData<ENetworkState>): ShownInBirthdayListResponse? {
+        return apiCall(
+            call = { api.getIfUserIsShownInBirthdayList(prefs.jwt!!) },
+            state = state
+        )
+    }
+
+    suspend fun postIsBirthdayShown(checked: Boolean, state: MutableLiveData<ENetworkState>): ShownInBirthdayListResponse? {
+        val r = PostShownInBirthdayListRequest(checked)
+
+        return apiCall(
+            call = { api.postIfUserIsShownIBirthdayList(prefs.jwt!!, r)},
+            state = state
+        )
+    }
+
     suspend fun getUser(state: MutableLiveData<ENetworkState>, force: Boolean = false) {
         if (db.userDao().getCount() != 1L) {
             loadUserFromServer(state)?.let {

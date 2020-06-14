@@ -151,4 +151,7 @@
     <string name="manual_input">Manual input:</string>
     <string name="no_birthdays_in_this_month">No birthdays in this month</string>
     <string name="first_login_please_set_a_password">First login, please set a password:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="show_your_birthday_in_public_list">Show your Birthday in public list</string>
 </resources>

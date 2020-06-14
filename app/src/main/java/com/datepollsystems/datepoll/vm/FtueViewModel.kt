@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import timber.log.Timber
 import java.util.*
 
 class FtueViewModel : ViewModel(), KoinComponent {

@@ -15,13 +15,6 @@ import retrofit2.http.*
 interface InstanceApi {
 
     /**
-     * Checking if the server is running and ready for work
-     */
-    @GET("/")
-    suspend fun checkIfServiceIsOnline(): Response<ResponseBody>
-
-
-    /**
      * Authorization stuff for getting a jwt token or renewing it with a session token
      */
     @POST("/api/auth/signin")
@@ -126,7 +119,6 @@ interface InstanceApi {
         @Query("token") token: String
     ): Response<Message>
 
-
     @GET("/api/v1/avent")
     suspend fun getAllEvents(
         @Query("token") token: String
@@ -144,5 +136,14 @@ interface InstanceApi {
         @Query("token") token: String
     ): Response<Message>
 
+    @GET("/api/v1/user/myself/settings/shareBirthday/")
+    suspend fun getIfUserIsShownInBirthdayList(
+        @Query("token") token: String
+    ): Response<ShownInBirthdayListResponse>
 
+    @POST("/api/v1/user/myself/settings/shareBirthday")
+    suspend fun postIfUserIsShownIBirthdayList(
+        @Query("token") token: String,
+        @Body request: PostShownInBirthdayListRequest
+    ): Response<ShownInBirthdayListResponse>
 }
