@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main
+package com.datepollsystems.datepoll.ui.main.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +12,6 @@ import com.datepollsystems.datepoll.data.Event
 import java.util.*
 import kotlin.collections.ArrayList
 
-//TODO Livedata for Decision
 class EventAdapter(val activity: AppCompatActivity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var data = LinkedList<Event>()
         set(value) {

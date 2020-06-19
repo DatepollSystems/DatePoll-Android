@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main
+package com.datepollsystems.datepoll.ui.main.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -33,9 +33,15 @@ class BirthdayAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         val layoutInflater = LayoutInflater.from(parent.context)
 
         return when(viewType){
-            1 -> BirthdayHeadlineViewHolder(layoutInflater.inflate(R.layout.birthday_headline_item, parent, false))
-            2 -> BirthdayViewHolder(layoutInflater.inflate(R.layout.birthady_view_item, parent, false))
-            else -> BirthdayHeadlineViewHolder(layoutInflater.inflate(R.layout.item_no_birthdays, parent, false))
+            1 -> BirthdayHeadlineViewHolder(
+                layoutInflater.inflate(R.layout.birthday_headline_item, parent, false)
+            )
+            2 -> BirthdayViewHolder(
+                layoutInflater.inflate(R.layout.birthady_view_item, parent, false)
+            )
+            else -> BirthdayHeadlineViewHolder(
+                layoutInflater.inflate(R.layout.item_no_birthdays, parent, false)
+            )
         }
     }
 

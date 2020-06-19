@@ -10,6 +10,7 @@
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="imageButtonStyle">@style/ImageViewIconStyle</item>
         <item name="floatingActionButtonStyle">@style/floatingActionBtn</item>
+        <item name="progressBarStyle">@style/progress_bar</item>
     </style>
 
     <style name="DatepollCardView" parent="Widget.MaterialComponents.CardView">
@@ -21,6 +22,9 @@
         <item name="tint">@color/colorWhite</item>
     </style>
 
+    <style name="progress_bar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateTint">@color/blueGrey</item>
+    </style>
 
     <style name="AppTheme.AppBarLayout" parent="Widget.MaterialComponents.AppBarLayout.Surface"/>
 

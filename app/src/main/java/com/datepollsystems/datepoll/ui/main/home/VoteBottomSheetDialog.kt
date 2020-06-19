@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main
+package com.datepollsystems.datepoll.ui.main.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,11 @@ class VoteBottomSheetDialog(val list: List<EventDecisionDbModel>, val ld: Mutabl
                               savedInstanceState: Bundle?): View {
 
         val v = inflater.inflate(R.layout.vote_bottom_sheet, container, false)
-        val adapter = VoteOptionAdapter(sheet = this, response = ld)
+        val adapter =
+            VoteOptionAdapter(
+                sheet = this,
+                response = ld
+            )
         v.vote_options.adapter = adapter
         adapter.data = list
         return v

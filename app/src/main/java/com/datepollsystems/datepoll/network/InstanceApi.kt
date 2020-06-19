@@ -17,6 +17,7 @@ interface InstanceApi {
     /**
      * Authorization stuff for getting a jwt token or renewing it with a session token
      */
+    //region authentication
     @POST("/api/auth/signin")
     suspend fun login(
         @Body request: LoginRequestModel
@@ -40,10 +41,12 @@ interface InstanceApi {
     suspend fun changePasswordWhenSignIn(
         @Body requestModel: FirstPasswdChangeRequest
     ): Response<LoginResponseModel>
+    //endregion
 
     /**
      * General requests for getting user information
      */
+    //region user
     @GET("/api/v1/user/myself")
     suspend fun currentUser(
         @Query("token") token: String
@@ -55,19 +58,22 @@ interface InstanceApi {
         @Query("token") token: String,
         @Body u: UpdateUserRequest
     ): Response<CurrentUserResponseModel>
-
+    //endregion
 
     /**
      * Home screen
      */
+    //region home
     @GET("/api/v1/user/homepage")
     suspend fun getHomepage(
         @Query("token") token: String
     ): Response<HomeScreen>
+    //endregion
 
     /**
      * Settings screen
      */
+    //region settings
     @POST("/api/v1/user/myself/phoneNumber")
     suspend fun addPhoneNumber(
         @Query("token") token: String,
@@ -136,7 +142,7 @@ interface InstanceApi {
         @Query("token") token: String
     ): Response<Message>
 
-    @GET("/api/v1/user/myself/settings/shareBirthday/")
+    @GET("/api/v1/user/myself/settings/shareBirthday")
     suspend fun getIfUserIsShownInBirthdayList(
         @Query("token") token: String
     ): Response<ShownInBirthdayListResponse>
@@ -146,4 +152,16 @@ interface InstanceApi {
         @Query("token") token: String,
         @Body request: PostShownInBirthdayListRequest
     ): Response<ShownInBirthdayListResponse>
+    //endregion
+
+    /**
+     * Cinema
+     */
+    //region cinema
+    @GET("/api/v1/cinema/notShownMovies")
+    suspend fun getNotShownMovies(
+        @Query("token") token: String
+    ): Response<GetMovieResponse>
+
+    //endregion
 }

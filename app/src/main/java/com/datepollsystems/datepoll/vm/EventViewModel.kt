@@ -2,13 +2,11 @@ package com.datepollsystems.datepoll.vm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.datepollsystems.datepoll.database.model.event.EventDbModel
 import com.datepollsystems.datepoll.database.model.event.EventDecisionDbModel
 import com.datepollsystems.datepoll.repos.ENetworkState
 import com.datepollsystems.datepoll.repos.EventRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.core.inject
 
 class EventViewModel : BaseViewModel() {
@@ -23,7 +21,6 @@ class EventViewModel : BaseViewModel() {
 
     var filterChecked = false
     val loadEventsState = MutableLiveData<ENetworkState>()
-    val loadDecisionsForEventState = MutableLiveData<ENetworkState>()
     val makeDecisionState = MutableLiveData<ENetworkState>()
     val removeVoteForEventState = MutableLiveData<ENetworkState>()
 
@@ -32,8 +29,6 @@ class EventViewModel : BaseViewModel() {
             eventRepository.loadAllEvents(force = force, state = loadEventsState)
         }
     }
-
-
 
     fun loadDecisionsForEvent(eventId: Int) {
         viewModelScope.launch(Dispatchers.Default) {

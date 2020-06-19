@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main
+package com.datepollsystems.datepoll.ui.main.calendar
 
 import android.os.Bundle
 import android.view.LayoutInflater

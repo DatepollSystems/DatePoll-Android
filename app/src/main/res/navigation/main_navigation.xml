@@ -7,27 +7,35 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.datepollsystems.datepoll.ui.main.HomeFragment"
+        android:name="com.datepollsystems.datepoll.ui.main.home.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_calendar"
-        android:name="com.datepollsystems.datepoll.ui.main.CalendarFragment"
+        android:name="com.datepollsystems.datepoll.ui.main.calendar.CalendarFragment"
         android:label="@string/menu_calendar"
         tools:layout="@layout/fragment_calendar"/>
 
     <fragment
         android:id="@+id/nav_events"
-        android:name="com.datepollsystems.datepoll.ui.main.EventFragment"
+        android:name="com.datepollsystems.datepoll.ui.main.event.EventFragment"
         android:label="@string/events"
         tools:layout="@layout/fragment_event"/>
 
     <fragment
         android:id="@+id/nav_cinema"
-        android:name="com.datepollsystems.datepoll.ui.main.CinemaFragment"
+        android:name="com.datepollsystems.datepoll.ui.main.cinema.CinemaFragment"
         android:label="@string/cinema"
-        tools:layout="@layout/fragment_cinema"/>
+        tools:layout="@layout/fragment_cinema">
+        <action
+            android:id="@+id/action_nav_cinema_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_settings"
@@ -134,4 +142,8 @@
         android:name="com.datepollsystems.datepoll.ui.settings.SettingsPrivacy"
         android:label="fragment_settings_change_if_shown_in_birthday_list"
         tools:layout="@layout/fragment_settings_privacy" />
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.datepollsystems.datepoll.ui.main.cinema.MovieDetailFragment"
+        android:label="MovieDetailFragment" />
 </navigation>

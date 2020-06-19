@@ -37,6 +37,7 @@ val appModule = module {
     single { UserRepository() }
     single { HomeRepository() }
     single { EventRepository() }
+    single { CinemaRepository() }
 
     // ViewModels
     viewModel { MainViewModel() }
@@ -45,6 +46,7 @@ val appModule = module {
     viewModel { EventViewModel() }
     viewModel { CalendarViewModel() }
     viewModel { FtueViewModel() }
+    viewModel { CinemaViewModel() }
 }
 
 class App : Application() {

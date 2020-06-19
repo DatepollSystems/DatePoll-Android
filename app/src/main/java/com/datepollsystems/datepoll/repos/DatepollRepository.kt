@@ -1,10 +1,8 @@
-package com.datepollsystems.datepoll.vm
+package com.datepollsystems.datepoll.repos
 
 import androidx.lifecycle.MutableLiveData
 import com.datepollsystems.datepoll.data.Instances
 import com.datepollsystems.datepoll.network.DatepollApi
-import com.datepollsystems.datepoll.repos.BaseRepository
-import com.datepollsystems.datepoll.repos.ENetworkState
 import org.koin.core.inject
 
 class DatepollRepository: BaseRepository() {

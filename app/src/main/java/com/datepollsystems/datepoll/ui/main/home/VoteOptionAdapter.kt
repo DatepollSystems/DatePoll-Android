@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main
+package com.datepollsystems.datepoll.ui.main.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -21,11 +21,13 @@ class VoteOptionAdapter(val sheet: VoteBottomSheetDialog, val response: MutableL
     override fun getItemCount() = data.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return DecisionViewHolder(LayoutInflater.from(parent.context).inflate(
-            R.layout.decision_item,
-            parent,
-            false
-        ))
+        return DecisionViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.decision_item,
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

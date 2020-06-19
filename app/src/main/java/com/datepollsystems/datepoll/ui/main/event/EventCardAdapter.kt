@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main
+package com.datepollsystems.datepoll.ui.main.event
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.database.model.event.EventDbModel
 import com.datepollsystems.datepoll.vm.EventViewModel
-import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 class EventCardAdapter(private val viewModel: EventViewModel) :

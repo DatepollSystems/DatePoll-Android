@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main
+package com.datepollsystems.datepoll.ui.main.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -36,7 +36,8 @@ class HomeFragment : Fragment() {
 
         view.connectionView.visibility = View.INVISIBLE
 
-        val adapter = CardAdapter(activity as AppCompatActivity)
+        val adapter =
+            CardAdapter(activity as AppCompatActivity)
         view.cardList.adapter = adapter
         setupObservers(adapter)
         adapter.notifyDataSetChanged()

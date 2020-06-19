@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.datepollsystems.datepoll.Prefs
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.data.Instance
+import com.datepollsystems.datepoll.repos.DatepollRepository
 import com.datepollsystems.datepoll.repos.ENetworkState
 import com.datepollsystems.datepoll.repos.LoginRepository
 import com.squareup.moshi.JsonClass

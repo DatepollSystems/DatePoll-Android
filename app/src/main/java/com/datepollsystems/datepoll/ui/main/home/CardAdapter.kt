@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main
+package com.datepollsystems.datepoll.ui.main.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +44,8 @@ class CardAdapter(val activity: AppCompatActivity) :
 
         when(data[position]){
             birthday -> {
-                val adapter = BirthdayAdapter()
+                val adapter =
+                    BirthdayAdapter()
                 adapter.data = birthdayData
                 holder.tvHeadline.text = birthday
                 holder.recyclerView.adapter = adapter
@@ -54,7 +55,8 @@ class CardAdapter(val activity: AppCompatActivity) :
 
             bookings -> {
 
-                val adapter = BookingAdapter()
+                val adapter =
+                    BookingAdapter()
                 adapter.data = bookingsData
                 holder.tvHeadline.text = bookings
                 holder.recyclerView.adapter = adapter
@@ -63,7 +65,10 @@ class CardAdapter(val activity: AppCompatActivity) :
             }
 
             events -> {
-                val adapter = EventAdapter(activity)
+                val adapter =
+                    EventAdapter(
+                        activity
+                    )
                 adapter.data = eventsData
                 holder.tvHeadline.text = events
                 holder.recyclerView.adapter = adapter
@@ -73,7 +78,9 @@ class CardAdapter(val activity: AppCompatActivity) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return CardViewHolder(layoutInflater.inflate(R.layout.card_item, parent, false))
+        return CardViewHolder(
+            layoutInflater.inflate(R.layout.card_item, parent, false)
+        )
     }
 }
 
