@@ -137,5 +137,8 @@
     <string name="no_birthdays_in_this_month">Keine Geburtstage in diesem Monat</string>
     <string name="first_login_please_set_a_password">First login, please set a password:</string>
     <string name="show_your_birthday_in_public_list">Zeige deine Geburtstag für alle Mitlgieder an</string>
+    <string name="privacy">Datenschutz</string>
+    <string name="show_answered_events">Zeige beantwortete Events</string>
+    <string name="movie_picture">Film Plakat</string>
 
 </resources>
