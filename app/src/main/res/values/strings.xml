@@ -141,6 +141,7 @@
         <item>https://github.com/journeyapps/zxing-android-embedded|Zxing-Embadded</item>
         <item>https://github.com/Applandeo/Material-Calendar-View|Material-Calendar-View</item>
         <item>https://github.com/JakeWharton/timber|Timber</item>
+        <item>https://github.com/bumptech/glide|Glide</item>
     </string-array>
 
     <string name="choose">Choose</string>

@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.databinding.FragmentCinemaBinding
 import com.datepollsystems.datepoll.vm.CinemaViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
@@ -44,6 +45,11 @@ class CinemaFragment : Fragment() {
         return binding.root
     }
 
+
+    override fun onStart() {
+        super.onStart()
+        requireActivity().bottom_navigation?.visibility = View.VISIBLE
+    }
     private fun setupObserver() {
         cinemaViewModel.apply {
 

@@ -4,9 +4,12 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.view.WindowManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.datepollsystems.datepoll.R
@@ -43,6 +46,7 @@ class QrCodeScanActivity : AppCompatActivity() {
 
             override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
         })
+
 
     }
 

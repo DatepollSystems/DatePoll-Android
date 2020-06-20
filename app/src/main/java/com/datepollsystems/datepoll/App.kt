@@ -1,7 +1,10 @@
 package com.datepollsystems.datepoll
 
 import android.app.Application
+import android.os.Build
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDelegate
 import com.datepollsystems.datepoll.database.DatepollDatabase
 import com.datepollsystems.datepoll.network.DatepollServiceFactory

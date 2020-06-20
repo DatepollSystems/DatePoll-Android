@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.data.MovieDbModel
+import com.datepollsystems.datepoll.showMainSnack
 import com.datepollsystems.datepoll.vm.CinemaViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar

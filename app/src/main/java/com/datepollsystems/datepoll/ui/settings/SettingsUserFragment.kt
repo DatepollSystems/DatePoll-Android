@@ -14,7 +14,9 @@ import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.data.UpdateUserRequest
 import com.datepollsystems.datepoll.databinding.FragmentSettingsUserBinding
 import com.datepollsystems.datepoll.repos.ENetworkState
+import com.datepollsystems.datepoll.showMainSnack
 import com.datepollsystems.datepoll.vm.SettingsViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_settings_user.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -24,22 +26,25 @@ class SettingsUserFragment : Fragment() {
     val vm: SettingsViewModel by sharedViewModel()
     val o: AppObservableHandler by inject()
 
+    private var _binding: FragmentSettingsUserBinding? = null
+    val binding: FragmentSettingsUserBinding
+        get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
 
-        val binding = DataBindingUtil.inflate<FragmentSettingsUserBinding>(
+        _binding = DataBindingUtil.inflate<FragmentSettingsUserBinding>(
             inflater, R.layout.fragment_settings_user, container, false
         )
-        val view = binding.root
 
         binding.vm = vm
         binding.lifecycleOwner = this
 
 
-        return view
+        return binding.root
     }
 
 
@@ -84,7 +89,7 @@ class SettingsUserFragment : Fragment() {
 
                     ENetworkState.DONE -> {
                         userSettingsSwipeRefresh.isRefreshing = false
-                        o.showSnackbar.postValue("Updated user successfully")
+                        showMainSnack(binding.root, "Updated user successfully", Snackbar.LENGTH_LONG)
                         vm.updateUserState.postValue(null)
                         findNavController().popBackStack()
                     }
@@ -124,7 +129,7 @@ class SettingsUserFragment : Fragment() {
     }
 
     private fun networkErrorOccurred(){
-        o.showSnackbar.postValue(context?.getString(R.string.could_not_load_data))
+        showMainSnack(binding.root, getString(R.string.could_not_load_data), Snackbar.LENGTH_LONG)
     }
 
     override fun onResume() {
