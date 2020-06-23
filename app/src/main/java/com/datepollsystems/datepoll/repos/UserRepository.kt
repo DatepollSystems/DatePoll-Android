@@ -9,7 +9,7 @@ import com.datepollsystems.datepoll.database.dao.*
 import com.datepollsystems.datepoll.database.model.EmailAddressDbModel
 import com.datepollsystems.datepoll.database.model.PerformanceBadgesDbModel
 import com.datepollsystems.datepoll.database.model.PermissionDbModel
-import com.datepollsystems.datepoll.network.DatepollApi
+import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.core.inject
@@ -17,9 +17,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class UserRepository : BaseRepository("UserRepository") {
+class UserRepository : BaseRepository() {
 
-    private val api: DatepollApi by inject()
+    private val api: InstanceApi by inject()
     private val db: DatepollDatabase by inject()
 
     private val userDao: UserDao = db.userDao()
@@ -38,6 +38,22 @@ class UserRepository : BaseRepository("UserRepository") {
                 storeUser(it).user
             }
         }
+    }
+
+    suspend fun checkIfShownInBirthdayList(state: MutableLiveData<ENetworkState>): ShownInBirthdayListResponse? {
+        return apiCall(
+            call = { api.getIfUserIsShownInBirthdayList(prefs.jwt!!) },
+            state = state
+        )
+    }
+
+    suspend fun postIsBirthdayShown(checked: Boolean, state: MutableLiveData<ENetworkState>): ShownInBirthdayListResponse? {
+        val r = PostShownInBirthdayListRequest(checked)
+
+        return apiCall(
+            call = { api.postIfUserIsShownIBirthdayList(prefs.jwt!!, r)},
+            state = state
+        )
     }
 
     suspend fun getUser(state: MutableLiveData<ENetworkState>, force: Boolean = false) {

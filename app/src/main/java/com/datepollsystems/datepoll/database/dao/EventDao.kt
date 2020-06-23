@@ -6,6 +6,7 @@ import com.datepollsystems.datepoll.database.model.event.EventDateDbModel
 import com.datepollsystems.datepoll.database.model.event.EventDbModel
 import com.datepollsystems.datepoll.database.model.event.EventDecisionDbModel
 import com.datepollsystems.datepoll.database.model.event.VoteForEventResponseDto
+import kotlinx.coroutines.selects.select
 
 @Dao
 interface EventDao {
@@ -18,6 +19,9 @@ interface EventDao {
 
     @Query("select * from event_decisions where event_id = :eventId order by id")
     fun loadDecisionsForEvent(eventId: Int): List<EventDecisionDbModel>
+
+    @Query("select * from events where already_voted = 0")
+    fun getFilteredEvents(): LiveData<List<EventDbModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addEvent(event: EventDbModel)

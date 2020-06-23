@@ -1,50 +1,83 @@
 package com.datepollsystems.datepoll.repos
 
 import android.accounts.NetworkErrorException
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.datepollsystems.datepoll.Prefs
-import com.datepollsystems.datepoll.network.DatepollApi
+import com.datepollsystems.datepoll.data.ErrorMsg
 import com.datepollsystems.datepoll.data.RefreshTokenWithSessionRequest
+import com.datepollsystems.datepoll.network.InstanceApi
+import com.squareup.moshi.Moshi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import retrofit2.Response
+import timber.log.Timber
 import java.util.*
 
-enum class ENetworkState { LOADING, DONE, ERROR }
+enum class ENetworkState(
+    var message: String = "no message",
+    var messageCode: String = "no message code",
+    var code: Int = 0
+) {
+    LOADING,
+    DONE,
+    ERROR;
+}
 
-open class BaseRepository(private val tag: String) : KoinComponent {
+open class BaseRepository : KoinComponent {
 
     protected val prefs: Prefs by inject()
-    private val api: DatepollApi by inject()
+    private val api: InstanceApi by inject()
 
     /**
-     * abstract Datepoll API method to invoke calls
+     * generic Datepoll API method to invoke calls, for simple calls with general error handling
      * @param call: api call which should be invoked
      * @param state: LiveData which receives the current state of the request
-     * @return response body or null if something went wrong
+     * @return response body as T or null if something went wrong
      */
     suspend fun <T : Any> apiCall(
         call: suspend () -> Response<T>,
         state: MutableLiveData<ENetworkState>
     ): T? {
-
         state.postValue(ENetworkState.LOADING)
         var response: Response<T>? = null
         try {
-            if(!checkIfJwtIsValid()){
-                Log.e(tag, "User not authenticated")
+            if (!checkIfJwtIsValid()) {
+                Timber.e("User not authenticated")
             }
             response = call.invoke()
             if (response.isSuccessful) {
+                val s = ENetworkState.DONE
+                s.apply {
+                    code = response.code()
+                    messageCode = "Successful"
+                }
                 state.postValue(ENetworkState.DONE)
             } else {
-                Log.e(tag, response.toString())
-                throw NetworkErrorException("Response wasn't successful")
+                throw NetworkErrorException("Error during request")
             }
         } catch (e: Exception) {
-            Log.e(tag, "$e ${e.message!!}")
-            state.postValue(ENetworkState.ERROR)
+            Timber.e("$e ${e.message!!}")
+
+            val s = ENetworkState.ERROR
+
+            response?.let {
+                withContext(Dispatchers.IO) {
+                    val adapter = Moshi.Builder().build().adapter(ErrorMsg::class.java)
+                    val body = it.errorBody()?.string()
+                    Timber.i("Error body: $body")
+                    val error = adapter.fromJson(body.toString())
+
+                    s.apply {
+                        code = it.code()
+                        messageCode = error?.error_code.toString()
+                        message = error?.msg.toString()
+                    }
+                }
+            }
+
+            state.postValue(s)
         }
 
         return response?.body()
@@ -64,10 +97,11 @@ open class BaseRepository(private val tag: String) : KoinComponent {
          * Check if JWT is older than 1 hour -> then renew JWT
          */
         if (isLoggedIn() && (Date().time - jwtTime) > 3600000) {
-            Log.i(tag, "Try to refresh jwt")
+            Timber.i("Try to refresh jwt")
             val request =
                 RefreshTokenWithSessionRequest(sessionToken = prefs.session!!)
-            val response = api.refreshTokenWithSession(request
+            val response = api.refreshTokenWithSession(
+                request
             )
             if (!response.isSuccessful) {
                 return false
@@ -75,7 +109,7 @@ open class BaseRepository(private val tag: String) : KoinComponent {
 
             prefs.jwtRenewalTime = Date().time
             prefs.jwt = response.body()?.token
-            Log.i(tag, "Token refresh successful")
+            Timber.i("Token refresh successful")
         }
 
         return true

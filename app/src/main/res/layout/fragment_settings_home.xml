@@ -145,6 +145,45 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btnChangeIfShownInBirthdayList"
+                    style="@style/AppTheme.SettingsMenuItem"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:clickable="true"
+                    android:focusable="true"
+
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnManageCalendar">
+
+
+                    <ImageView
+                        android:id="@+id/ivChangeIfShownInBirthdayList"
+                        style="@style/AppTheme.SettingsMenuItem"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_baseline_security_24" />
+
+                    <TextView
+                        android:id="@+id/tvChangeIfShownInBirthdayList"
+                        style="@style/TextAppearance.MaterialComponents.Headline5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:text="@string/privacy"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivChangeIfShownInBirthdayList"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btnTheme"
                     style="@style/AppTheme.SettingsMenuItem"
                     android:layout_width="0dp"
@@ -216,6 +255,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:text="@string/user_settings"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/ivUser"
@@ -310,7 +350,7 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnTheme">
+                    app:layout_constraintTop_toBottomOf="@+id/btnLicences">
 
 
                     <ImageView
@@ -338,6 +378,43 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btnLicences"
+                    style="@style/AppTheme.SettingsMenuItem"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnTheme">
+
+
+                    <ImageView
+                        android:id="@+id/ivLicence"
+                        style="@style/AppTheme.SettingsMenuItem"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_baseline_view_list_24" />
+
+                    <TextView
+                        android:id="@+id/tvLicence"
+                        style="@style/TextAppearance.MaterialComponents.Headline5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:text="@string/licence"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivLicence"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btnLogout"
@@ -396,7 +473,7 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/general"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnManageCalendar" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnChangeIfShownInBirthdayList" />
 
                 <TextView
                     android:id="@+id/tvSecurity"

@@ -1,26 +1,15 @@
 <resources>
     <string name="app_name">Datepoll</string>
     <string name="title_activity_login">Sign in</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
     <string name="action_sign_in">Login</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Max</string>
     <string name="nav_header_subtitle">m.musterman</string>
-    <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
     <string name="user_settings">User</string>
     <string name="menu_calendar">Calendar</string>
     <string name="settings_home_fragment">fragmentSettingsHome</string>
@@ -137,5 +126,34 @@
     <string name="material_calendar_today_button">Today</string>
     <string name="material_calendar_positive_button">OK</string>
     <string name="material_calendar_negative_button">Cancel</string>
+    <string name="home">Home</string>
+    <string name="licence">Licence</string>
 
+    <string-array name="licences">
+        <item>https://github.com/junit-team/junit5|JUnit</item>
+        <item>https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev|AndroidX</item>
+        <item>https://github.com/material-components/material-components-android|Material Components</item>
+        <item>https://github.com/square/moshi|Moshi</item>
+        <item>https://github.com/square/retrofit|Retrofit</item>
+        <item>https://github.com/square/okhttp|OkHttp</item>
+        <item>https://github.com/InsertKoinIO/koin|Koin</item>
+        <item>https://github.com/zxing/zxing|Zxing</item>
+        <item>https://github.com/journeyapps/zxing-android-embedded|Zxing-Embadded</item>
+        <item>https://github.com/Applandeo/Material-Calendar-View|Material-Calendar-View</item>
+        <item>https://github.com/JakeWharton/timber|Timber</item>
+        <item>https://github.com/bumptech/glide|Glide</item>
+    </string-array>
+
+    <string name="choose">Choose</string>
+    <string name="choose_instance">Choose instance:</string>
+    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="demo_datepoll_org">demo.datepoll.org</string>
+    <string name="or">or</string>
+    <string name="manual_input">Manual input:</string>
+    <string name="no_birthdays_in_this_month">No birthdays in this month</string>
+    <string name="first_login_please_set_a_password">First login, please set a password:</string>
+    <string name="show_your_birthday_in_public_list">Show your Birthday in public list</string>
+    <string name="privacy">Privacy</string>
+    <string name="show_answered_events">Show answered events</string>
+    <string name="movie_picture">Movie picture</string>
 </resources>

@@ -4,9 +4,12 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.view.WindowManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.datepollsystems.datepoll.R
@@ -44,6 +47,18 @@ class QrCodeScanActivity : AppCompatActivity() {
             override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
         })
 
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        requestPermission()
+        resumeScanner()
+    }
+
+    override fun onRestart(){
+        super.onRestart()
+        resumeScanner()
     }
 
     override fun onResume() {
@@ -62,8 +77,8 @@ class QrCodeScanActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 0 && grantResults.isEmpty()) {
-            requestPermission()
+        if (requestCode == 0 && grantResults[0] < 0) {
+            finish()
         } else {
             dbvScanner.resume()
         }
@@ -88,7 +103,7 @@ class QrCodeScanActivity : AppCompatActivity() {
         dbvScanner.pause()
     }
 
-    fun requestPermission() {
+    private fun requestPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
             != PackageManager.PERMISSION_GRANTED
         ) {

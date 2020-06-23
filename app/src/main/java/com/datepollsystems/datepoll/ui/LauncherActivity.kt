@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.datepollsystems.datepoll.Prefs
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.ui.login.ServerInputActivity
+import com.datepollsystems.datepoll.ui.login.FtueActivity
 import com.datepollsystems.datepoll.ui.main.MainActivity
 import org.koin.android.ext.android.inject
 
@@ -27,7 +27,7 @@ class LauncherActivity : AppCompatActivity() {
                 Log.i("JWT", "JWT is saved")
                 startActivity(Intent(this, MainActivity::class.java))
             } else {
-                startActivity(Intent(this@LauncherActivity, ServerInputActivity::class.java))
+                startActivity(Intent(this@LauncherActivity, FtueActivity::class.java))
             }
         }).start()
     }

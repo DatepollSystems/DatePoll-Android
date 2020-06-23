@@ -5,10 +5,14 @@ import android.animation.ValueAnimator
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
+import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.constraintlayout.motion.widget.TransitionAdapter
 import com.datepollsystems.datepoll.database.model.event.EventDateDbModel
 import com.datepollsystems.datepoll.database.model.event.EventDateDto
 import com.datepollsystems.datepoll.database.model.event.EventDecisionDbModel
 import com.datepollsystems.datepoll.database.model.event.EventDecisionDto
+import com.datepollsystems.datepoll.ui.main.MainActivity
+import com.google.android.material.snackbar.Snackbar
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -102,4 +106,10 @@ fun Date.toCalendar(): Calendar{
     val cal = Calendar.getInstance()
     cal.time = this
     return cal
+}
+
+fun showMainSnack(view: View, t: String, i: Int){
+    val s = Snackbar.make(view, t, i)
+    s.setAnchorView(R.id.bottom_navigation)
+    s.show()
 }

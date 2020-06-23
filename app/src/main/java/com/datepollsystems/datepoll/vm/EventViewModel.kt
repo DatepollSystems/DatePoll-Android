@@ -7,7 +7,6 @@ import com.datepollsystems.datepoll.repos.ENetworkState
 import com.datepollsystems.datepoll.repos.EventRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.core.inject
 
 class EventViewModel : BaseViewModel() {
@@ -16,11 +15,12 @@ class EventViewModel : BaseViewModel() {
     private val eventRepository: EventRepository by inject()
 
     val events = eventRepository.events
+    val filteredEvents = eventRepository.filteredEvents
     val decisions = MutableLiveData<List<EventDecisionDbModel>>()
     val decisionClickResult = MutableLiveData<EventDecisionDbModel>()
 
+    var filterChecked = false
     val loadEventsState = MutableLiveData<ENetworkState>()
-    val loadDecisionsForEventState = MutableLiveData<ENetworkState>()
     val makeDecisionState = MutableLiveData<ENetworkState>()
     val removeVoteForEventState = MutableLiveData<ENetworkState>()
 
@@ -34,8 +34,7 @@ class EventViewModel : BaseViewModel() {
         viewModelScope.launch(Dispatchers.Default) {
             decisions.postValue(
                 eventRepository.loadDecisionForEvent(
-                    eventId,
-                    state = loadDecisionsForEventState
+                    eventId
                 )
             )
         }
