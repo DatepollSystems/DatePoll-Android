@@ -35,21 +35,25 @@ class MovieDetailFragment : Fragment() {
             applyForMovieWorkerDetailState.observe(viewLifecycleOwner, Observer {
                 it?.let {
                     movieStateHandler(it, "Applied for movie worker")
+                    applyForMovieWorkerDetailState.postValue(null)
                 }
             })
             applyForEmergencyMovieWorkerDetailState.observe(viewLifecycleOwner, Observer {
                 it?.let {
                     movieStateHandler(it, "Applied for emergency movie worker")
+                    applyForEmergencyMovieWorkerDetailState.postValue(null)
                 }
             })
             unsubscribeOfMovieWorkerState.observe(viewLifecycleOwner, Observer {
                 it?.let {
                     movieStateHandler(it, "Unsubscribed of movie worker")
+                    unsubscribeOfMovieWorkerState.postValue(null)
                 }
             })
             unsubscribeOfEmergencyMovieWorkerState.observe(viewLifecycleOwner, Observer {
                 it?.let {
                     movieStateHandler(it, "Unsubscribed of emergency movie worker")
+                    unsubscribeOfEmergencyMovieWorkerState.postValue(null)
                 }
             })
         }
@@ -73,7 +77,7 @@ class MovieDetailFragment : Fragment() {
                     requireView(),
                     getString(R.string.something_went_wrong),
                     Snackbar.LENGTH_LONG
-                ).setAnchorView(activity?.bottom_navigation).show()
+                ).show()
                 Timber.e("$msg failed error-code: ${it.code}")
             }
         }
