@@ -59,10 +59,6 @@ class CinemaFragment : Fragment() {
                     Timber.i("Updated movies")
                 }
             })
-
-            loadMoviesState.observe(viewLifecycleOwner, Observer {
-
-            })
         }
     }
 }

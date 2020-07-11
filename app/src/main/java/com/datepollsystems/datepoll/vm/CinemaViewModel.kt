@@ -1,27 +1,132 @@
 package com.datepollsystems.datepoll.vm
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.view.View
+import android.view.animation.Transformation
+import androidx.lifecycle.*
 import com.datepollsystems.datepoll.data.MovieDbModel
 import com.datepollsystems.datepoll.repos.CinemaRepository
 import com.datepollsystems.datepoll.repos.ENetworkState
+import com.datepollsystems.datepoll.repos.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import timber.log.Timber
 
-class CinemaViewModel: ViewModel(), KoinComponent {
+class CinemaViewModel : ViewModel(), KoinComponent {
 
-    val repository: CinemaRepository by inject()
+    private val repository: CinemaRepository by inject()
+    private val userRepository: UserRepository by inject()
 
     val movies = repository.movies
     val detailMovie = MutableLiveData<MovieDbModel>()
+    val user = userRepository.user
+
+
+    val setWorkerNameVisibility = Transformations.map(detailMovie) {
+        if (it.workerId != null)
+            View.VISIBLE
+        else
+            View.INVISIBLE
+    }
+
+    val unsubscribeMovieWorkerVisibility = Transformations.map(detailMovie) {
+        if(it.workerId?.toLong() == user.value?.id)
+            View.VISIBLE
+        else
+            View.INVISIBLE
+    }
+
+    val unsubscribeMovieEmergencyWorkerVisibility = Transformations.map(detailMovie) {
+        if(it.emergencyWorkerId?.toLong() == user.value?.id)
+            View.VISIBLE
+        else
+            View.INVISIBLE
+    }
+
+    val setAsMovieWorkerButtonVisibility = Transformations.map(detailMovie) {
+        if (it.workerId == null)
+            View.VISIBLE
+        else
+            View.INVISIBLE
+    }
+
+    val setAsMovieEmergencyWorkerButtonVisibility = Transformations.map(detailMovie) {
+        if (it.emergencyWorkerId == null)
+            View.VISIBLE
+        else
+            View.INVISIBLE
+    }
+
+    val setEmergencyWorkerNameVisibility = Transformations.map(detailMovie) {
+        if (it.emergencyWorkerId != null)
+            View.VISIBLE
+        else
+            View.INVISIBLE
+    }
 
     val loadMoviesState = MutableLiveData<ENetworkState>()
+    val applyForMovieWorkerDetailState = MutableLiveData<ENetworkState>()
+    val applyForEmergencyMovieWorkerDetailState = MutableLiveData<ENetworkState>()
+    val unsubscribeOfMovieWorkerState = MutableLiveData<ENetworkState>()
+    val unsubscribeOfEmergencyMovieWorkerState = MutableLiveData<ENetworkState>()
 
-    fun loadMovies(force: Boolean = false){
-        viewModelScope.launch(Dispatchers.Default){
+    fun applyForCinemaWorker() {
+        viewModelScope.launch(Dispatchers.Default) {
+            detailMovie.value?.let { it ->
+                repository.applyForMovieWorker(
+                    it,
+                    userRepository.user.value!!,
+                    applyForMovieWorkerDetailState
+                )?.let { m ->
+                    detailMovie.postValue(m)
+                }
+            }
+        }
+    }
+
+    fun applyForEmergencyCinemaWorker() {
+        viewModelScope.launch(Dispatchers.Default) {
+            detailMovie.value?.let {
+                repository.applyForEmergencyMovieWorker(
+                    it,
+                    userRepository.user.value!!,
+                    applyForEmergencyMovieWorkerDetailState
+                )?.let { m ->
+                    detailMovie.postValue(m)
+                }
+            }
+        }
+    }
+
+    fun unsubscribeMovieWorker(view: View) {
+        viewModelScope.launch(Dispatchers.Default) {
+            detailMovie.value?.let {
+                repository.signOutOfMovieWorker(
+                    it,
+                    unsubscribeOfMovieWorkerState
+                )?.let { movie ->
+                    detailMovie.postValue(movie)
+                }
+            }
+        }
+    }
+
+    fun unsubscribeEmergencyMovieWorker(view: View) {
+        viewModelScope.launch(Dispatchers.Default) {
+            detailMovie.value?.let {
+                repository.signOutOfEmergencyMovieWorker(
+                    it,
+                    unsubscribeOfEmergencyMovieWorkerState
+                )?.let { movie ->
+                    detailMovie.postValue(movie)
+                }
+            }
+        }
+    }
+
+    fun loadMovies(force: Boolean = false) {
+        viewModelScope.launch(Dispatchers.Default) {
             repository.loadNotShownMovies(force, loadMoviesState)
         }
     }

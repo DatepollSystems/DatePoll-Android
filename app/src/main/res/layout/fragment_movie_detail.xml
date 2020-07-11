@@ -10,62 +10,179 @@
             type="com.datepollsystems.datepoll.vm.CinemaViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/loading"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.main.cinema.MovieDetailFragment">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ui.main.cinema.MovieDetailFragment">
+
+                <!-- region movie -->
+                <ImageView
+                    android:id="@+id/ivPosterLarge"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/movie_picture"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:loadImage="@{vm.detailMovie.posterLink}"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <TextView
+                    android:id="@+id/tvMovieTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{vm.detailMovie.name}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ivPosterLarge"
+                    tools:text="Test" />
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@{vm.detailMovie.date}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMovieTitle"
+                    tools:text="12.12.2012" />
+                <!-- endregion -->
+
+                <!-- region movie worker -->
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="24dp"
+                    android:text="@string/cinema_duty"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDate" />
 
 
-            <ImageView
-                android:id="@+id/ivPosterLarge"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/movie_picture"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:loadImage="@{vm.detailMovie.posterLink}"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                <Button
+                    android:id="@+id/btnReportDuty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:onClick="@{() -> vm.applyForCinemaWorker()}"
+                    android:text="@string/report_for_duty"
+                    android:visibility="@{vm.setAsMovieWorkerButtonVisibility}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+                    tools:visibility="visible" />
 
-            <TextView
-                android:id="@+id/tvMovieTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@{vm.detailMovie.name}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivPosterLarge" />
+                <TextView
+                    android:id="@+id/tvWorker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.detailMovie.workerName}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:visibility="@{vm.setWorkerNameVisibility}"
+                    app:layout_constraintStart_toStartOf="@+id/btnReportDuty"
+                    app:layout_constraintTop_toTopOf="@+id/btnReportDuty"
+                    tools:text="Testname"
+                    tools:visibility="invisible" />
 
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="@{vm.detailMovie.date}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvMovieTitle" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/ibUnsubscribeWorker"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="42dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:visibility="@{vm.unsubscribeMovieWorkerVisibility}"
+                    android:onClick="@{(view) -> vm.unsubscribeMovieWorker(view)}"
+                    app:icon="@drawable/ic_baseline_close_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvWorker"
+                    app:layout_constraintStart_toEndOf="@+id/tvWorker"
+                    app:layout_constraintTop_toTopOf="@+id/tvWorker"
+                    tools:visibility="invisible" />
+                <!-- endregion -->
 
-            <TextView
-                android:id="@+id/tvDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="24dp"
-                android:text="Workers:"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDate" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <!-- region emergency movie worker -->
+                <TextView
+                    android:id="@+id/tvEmergency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/emergency_duty"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    app:layout_constraintStart_toStartOf="@+id/tvDescription"
+                    app:layout_constraintTop_toBottomOf="@+id/btnReportDuty" />
 
-    </androidx.core.widget.NestedScrollView>
+                <Button
+                    android:id="@+id/btnReportEmergencyDuty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:onClick="@{() -> vm.applyForEmergencyCinemaWorker()}"
+                    android:text="@string/report_for_emergency_duty"
+                    android:visibility="@{vm.setAsMovieEmergencyWorkerButtonVisibility}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvEmergency"
+                    tools:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/tvEmergencyWorker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.detailMovie.emergencyWorkerName}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:visibility="@{vm.setEmergencyWorkerNameVisibility}"
+                    app:layout_constraintStart_toStartOf="@+id/btnReportEmergencyDuty"
+                    app:layout_constraintTop_toTopOf="@+id/btnReportEmergencyDuty"
+                    tools:text="Testname"
+                    tools:visibility="visible" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/ibUnsubscribeEmergencyWorker"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="42dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:visibility="@{vm.unsubscribeMovieEmergencyWorkerVisibility}"
+                    android:onClick="@{(view) -> vm.unsubscribeEmergencyMovieWorker(view)}"
+                    app:icon="@drawable/ic_baseline_close_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvEmergencyWorker"
+                    app:layout_constraintStart_toEndOf="@+id/tvEmergencyWorker"
+                    app:layout_constraintTop_toTopOf="@+id/tvEmergencyWorker"
+                    tools:visibility="visible" />
+
+                <!-- endregion -->
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

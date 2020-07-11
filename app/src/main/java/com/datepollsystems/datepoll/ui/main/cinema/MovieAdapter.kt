@@ -72,8 +72,8 @@ class MovieAdapter(list: List<MovieDbModel>, val view: View, val vm: CinemaViewM
 }
 
 class MovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-    val ivMovie = view.findViewById<ImageView>(R.id.ivMovie)
-    val tvMovieTitle = view.findViewById<TextView>(R.id.tvMovieTitle)
-    val tvDescriptionShort = view.findViewById<TextView>(R.id.tvDescriptionShort)
-    val btnMore = view.findViewById<MaterialButton>(R.id.btnMovieMore)
+    val ivMovie: ImageView = view.findViewById(R.id.ivMovie)
+    val tvMovieTitle: TextView = view.findViewById(R.id.tvMovieTitle)
+    val tvDescriptionShort: TextView = view.findViewById(R.id.tvDescriptionShort)
+    val btnMore: MaterialButton = view.findViewById(R.id.btnMovieMore)
 }

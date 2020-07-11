@@ -19,49 +19,49 @@ data class MovieDbModel(
     val id: Long,
 
     @ColumnInfo(name = "name")
-    val name: String,
+    var name: String,
 
     @ColumnInfo(name = "date")
-    val date: String,
+    var date: String,
 
     @ColumnInfo(name = "trailer_link")
     val trailerLink: String?,
 
     @ColumnInfo(name = "poster_link")
-    val posterLink: String?,
+    var posterLink: String?,
 
     @ColumnInfo(name = "booked_tickets")
-    val bookedTickets: Int,
+    var bookedTickets: Int,
 
     @ColumnInfo(name = "movie_year_id")
-    val movieYearId: Int,
+    var movieYearId: Int,
 
     @ColumnInfo(name = "created_at")
-    val createdAt: String,
+    var createdAt: String,
 
     @ColumnInfo(name = "updated_at")
-    val updatedAt: String,
+    var updatedAt: String,
 
     @ColumnInfo(name = "worker_id")
-    val workerId: Int?,
+    var workerId: Int?,
 
     @ColumnInfo(name = "worker_name")
-    val workerName: String?,
+    var workerName: String?,
 
     @ColumnInfo(name = "emergency_worker_id")
-    val emergencyWorkerId: Int?,
+    var emergencyWorkerId: Int?,
 
     @ColumnInfo(name = "emergency_worker_name")
-    val emergencyWorkerName: String?,
+    var emergencyWorkerName: String?,
 
     @ColumnInfo(name = "booked_tickets_for_yourself")
-    val bookedTicketsForYourself: Int,
+    var bookedTicketsForYourself: Int,
 
     @Embedded
-    val viewMovie: ViewMovie,
+    var viewMovie: ViewMovie,
 
     @ColumnInfo(name = "inserted_at")
-    val inserted: Long = 0
+    var inserted: Long = 0
 )
 
 @JsonClass(generateAdapter = true)

@@ -163,5 +163,30 @@ interface InstanceApi {
         @Query("token") token: String
     ): Response<GetMovieResponse>
 
+    @POST("/api/v1/cinema/worker/{movieId}")
+    suspend fun applyForMovieWorker(
+        @Path("movieId") movieId: Long,
+        @Query("token") token: String
+    ): Response<Message>
+
+    @POST("/api/v1/cinema/emergencyWorker/{movieId}")
+    suspend fun applyForEmergencyMovieWorker(
+        @Path("movieId") movieId: Long,
+        @Query("token") token: String
+    ): Response<Message>
+
+    @DELETE("/api/v1/cinema/worker/{movieId}")
+    suspend fun signOutOfMovieWorker(
+        @Path("movieId") movieId: Long,
+        @Query("token") token: String
+    ): Response<Message>
+
+    @DELETE("/api/v1/cinema/emergencyWorker/{movieId}")
+    suspend fun signOutOfEmergencyMovieWorker(
+        @Path("movieId") movieId: Long,
+        @Query("token") token: String
+    ): Response<Message>
+
+
     //endregion
 }
