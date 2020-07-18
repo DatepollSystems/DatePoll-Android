@@ -38,7 +38,7 @@ val appModule = module {
     }
 
     // others
-    single { Prefs(androidContext()) }
+    single { Prefs.getInstance(androidContext()) }
 
     // Repositories
     single { ServerRepository() }
