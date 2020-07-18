@@ -66,13 +66,18 @@ open class BaseRepository : KoinComponent {
                 withContext(Dispatchers.IO) {
                     val adapter = Moshi.Builder().build().adapter(ErrorMsg::class.java)
                     val body = it.errorBody()?.string()
-                    Timber.i("Error body: $body")
-                    val error = adapter.fromJson(body.toString())
+                    Timber.e("Error body: $body")
+                    try{
+                        val error = adapter.fromJson(body.toString())
 
-                    s.apply {
-                        code = it.code()
-                        messageCode = error?.error_code.toString()
-                        message = error?.msg.toString()
+                        s.apply {
+                            code = it.code()
+                            messageCode = error?.error_code.toString()
+                            message = error?.msg.toString()
+                        }
+
+                    } catch (e: java.lang.Exception){
+                        Timber.e(e)
                     }
                 }
             }

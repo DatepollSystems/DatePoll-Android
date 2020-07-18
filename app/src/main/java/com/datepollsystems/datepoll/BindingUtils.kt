@@ -2,8 +2,10 @@ package com.datepollsystems.datepoll
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.SeekBar
 import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
 import com.bumptech.glide.Glide
 
 @BindingAdapter("cardVisible")

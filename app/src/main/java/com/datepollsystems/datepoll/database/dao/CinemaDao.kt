@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.datepollsystems.datepoll.data.MovieDbModel
 
 @Dao
@@ -23,6 +24,9 @@ interface CinemaDao {
 
     @Insert
     fun insertMovie(m: MovieDbModel)
+
+    @Update
+    fun updateMovie(m: MovieDbModel)
 
     @Query("delete from movies")
     fun deleteAll()

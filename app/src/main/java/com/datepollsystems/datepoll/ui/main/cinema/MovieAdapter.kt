@@ -59,7 +59,7 @@ class MovieAdapter(list: List<MovieDbModel>, val view: View, val vm: CinemaViewM
             .load(item.posterLink)
             .centerCrop()
             .placeholder(circularProgressDrawable)
-            .into(holder.ivMovie);
+            .into(holder.ivMovie)
 
 
         holder.tvMovieTitle.text = item.name

@@ -25,38 +25,6 @@ class BookingAdapter : RecyclerView.Adapter<BookingViewHolder>() {
         holder.tvMovieName.text = b.movieName
         holder.tvMovieDate.text = b.movieDate
         holder.tvBookedSeats.text = b.amount.toString()
-
-        if(b.workerId == null){
-            holder.tvReportDuty.visibility = View.INVISIBLE
-            holder.btnReportDuty.visibility = View.VISIBLE
-
-            holder.btnReportDuty.setOnClickListener {
-                Thread.sleep(300)
-                holder.btnReportDuty.visibility = View.INVISIBLE
-                holder.pbReportDuty.visibility = View.VISIBLE
-                holder.btnEmergencyDuty.isEnabled = false
-            }
-        } else {
-            holder.btnReportDuty.visibility = View.INVISIBLE
-            holder.tvReportDuty.visibility = View.VISIBLE
-            holder.tvReportDuty.text = b.workerName
-        }
-
-        if(b.emergencyWorkerId == null){
-            holder.tvEmergencyDuty.visibility = View.INVISIBLE
-            holder.btnEmergencyDuty.visibility = View.VISIBLE
-
-            holder.btnEmergencyDuty.setOnClickListener {
-                Thread.sleep(300)
-                holder.pbReportEmergencyDuty.visibility = View.VISIBLE
-                holder.btnEmergencyDuty.visibility = View.INVISIBLE
-                holder.btnReportDuty.isEnabled = false
-            }
-        } else {
-            holder.btnEmergencyDuty.visibility = View.INVISIBLE
-            holder.tvEmergencyDuty.visibility = View.VISIBLE
-            holder.tvEmergencyDuty.text = b.emergencyWorkerName
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookingViewHolder {
@@ -75,13 +43,4 @@ class BookingViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val tvMovieName: TextView = view.findViewById(R.id.tvMovieItemName)
     val tvMovieDate: TextView = view.findViewById(R.id.tvMovieItemDate)
     val tvBookedSeats: TextView = view.findViewById(R.id.tvBookedSeats)
-
-    val btnReportDuty: Button = view.findViewById(R.id.btnReportDuty)
-    val tvReportDuty: TextView = view.findViewById(R.id.tvReportDuty)
-    val pbReportDuty: ProgressBar = view.findViewById(R.id.pbDuty)
-
-
-    val btnEmergencyDuty: Button = view.findViewById(R.id.btnReportEmergencyDuty)
-    val tvEmergencyDuty: TextView = view.findViewById(R.id.tvReportEmergencyDuty)
-    val pbReportEmergencyDuty: ProgressBar = view.findViewById(R.id.pbEmergency)
 }

@@ -16,6 +16,5 @@ fun loadImage(view: ImageView, profileImage: String) {
     Glide.with(view.context)
         .load(profileImage)
         .transition(GenericTransitionOptions.with(R.anim.fragment_fade_enter))
-        .centerCrop()
         .into(view)
 }

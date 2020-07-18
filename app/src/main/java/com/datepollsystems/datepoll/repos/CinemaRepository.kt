@@ -1,11 +1,14 @@
 package com.datepollsystems.datepoll.repos
 
 import androidx.lifecycle.MutableLiveData
+import com.datepollsystems.datepoll.data.BookTicketsRequestModel
 import com.datepollsystems.datepoll.data.MovieDbModel
 import com.datepollsystems.datepoll.data.toDBModelList
 import com.datepollsystems.datepoll.database.DatepollDatabase
 import com.datepollsystems.datepoll.database.model.UserDbModel
 import com.datepollsystems.datepoll.network.InstanceApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.koin.core.inject
 import timber.log.Timber
 
@@ -50,7 +53,7 @@ class CinemaRepository : BaseRepository() {
             call = { api.applyForMovieWorker(movie.id, prefs.jwt!!) },
             state = state
         )?.let {
-            movie.workerId =  user.id.toInt()
+            movie.workerId = user.id.toInt()
             movie.workerName = "${user.firstname} ${user.surname}"
             return movie
         }
@@ -62,7 +65,7 @@ class CinemaRepository : BaseRepository() {
         state: MutableLiveData<ENetworkState>
     ): MovieDbModel? {
         apiCall(
-            call = { api.signOutOfMovieWorker(movie.id, prefs.jwt!!)},
+            call = { api.signOutOfMovieWorker(movie.id, prefs.jwt!!) },
             state = state
         )?.let {
             movie.workerId = null
@@ -82,8 +85,12 @@ class CinemaRepository : BaseRepository() {
             call = { api.applyForEmergencyMovieWorker(movie.id, prefs.jwt!!) },
             state = state
         )?.let {
-            movie.emergencyWorkerId =  user.id.toInt()
+            movie.emergencyWorkerId = user.id.toInt()
             movie.emergencyWorkerName = "${user.firstname} ${user.surname}"
+            withContext(Dispatchers.IO){
+                cinemaDao.updateMovie(movie)
+            }
+
             return movie
         }
 
@@ -95,14 +102,60 @@ class CinemaRepository : BaseRepository() {
         state: MutableLiveData<ENetworkState>
     ): MovieDbModel? {
         apiCall(
-            call = { api.signOutOfEmergencyMovieWorker(movie.id, prefs.jwt!!)},
+            call = { api.signOutOfEmergencyMovieWorker(movie.id, prefs.jwt!!) },
             state = state
         )?.let {
             movie.emergencyWorkerName = null
             movie.emergencyWorkerId = null
+            withContext(Dispatchers.IO) {
+                cinemaDao.updateMovie(movie)
+            }
             return movie
         }
 
+        return null
+    }
+
+    suspend fun bookTickets(
+        movie: MovieDbModel,
+        ticketAmount: Int,
+        state: MutableLiveData<ENetworkState>
+    ): MovieDbModel? {
+        val request = BookTicketsRequestModel(
+            ticketAmount = ticketAmount,
+            movieId = movie.id.toInt()
+        )
+
+        apiCall(
+            call = { api.bookTicketsForMovie(prefs.jwt!!, request) },
+            state = state
+        )?.let {
+            movie.bookedTicketsForYourself += it.movieBooking.amount
+            movie.bookedTickets += it.movieBooking.amount
+            withContext(Dispatchers.IO) {
+                cinemaDao.updateMovie(movie)
+            }
+            return movie
+        }
+        return null
+    }
+
+    suspend fun cancelTicketReservation(
+        movieDbModel: MovieDbModel,
+        cancelTicketReservationState: MutableLiveData<ENetworkState>
+    ): MovieDbModel? {
+        val currentTickets = movieDbModel.bookedTicketsForYourself
+        apiCall(
+            call = { api.cancelTicketBooking(movieId = movieDbModel.id, token = prefs.jwt!!)},
+            state = cancelTicketReservationState
+        )?.let {
+            movieDbModel.bookedTicketsForYourself = 0
+            movieDbModel.bookedTickets -= currentTickets
+            withContext(Dispatchers.IO) {
+                cinemaDao.updateMovie(movieDbModel)
+            }
+            return movieDbModel
+        }
         return null
     }
 }

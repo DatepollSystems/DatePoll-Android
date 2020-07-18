@@ -21,6 +21,9 @@ class CinemaViewModel : ViewModel(), KoinComponent {
     val movies = repository.movies
     val detailMovie = MutableLiveData<MovieDbModel>()
     val user = userRepository.user
+    val showBottomSheet = MutableLiveData(false)
+
+    val bookCardAmount = MutableLiveData<Int>(1)
 
 
     val setWorkerNameVisibility = Transformations.map(detailMovie) {
@@ -65,11 +68,39 @@ class CinemaViewModel : ViewModel(), KoinComponent {
             View.INVISIBLE
     }
 
+    val availableTickets = Transformations.map(detailMovie) {
+        20 - it.bookedTickets
+    }
+
+    val cancelReservedTicketsBtnVisibility = Transformations.map(detailMovie) {
+        if(it.bookedTicketsForYourself > 0)
+            View.VISIBLE
+        else
+            View.INVISIBLE
+    }
+
+    val soldOutVisibility = Transformations.map(availableTickets) {
+        if(it == 0)
+            View.VISIBLE
+        else
+            View.INVISIBLE
+    }
+
+    val fabVisible = Transformations.map(availableTickets) {
+        if(it == 0)
+            View.INVISIBLE
+        else
+            View.VISIBLE
+    }
+
+
     val loadMoviesState = MutableLiveData<ENetworkState>()
     val applyForMovieWorkerDetailState = MutableLiveData<ENetworkState>()
     val applyForEmergencyMovieWorkerDetailState = MutableLiveData<ENetworkState>()
     val unsubscribeOfMovieWorkerState = MutableLiveData<ENetworkState>()
     val unsubscribeOfEmergencyMovieWorkerState = MutableLiveData<ENetworkState>()
+    val bookTicketState = MutableLiveData<ENetworkState>()
+    val cancelTicketReservationState = MutableLiveData<ENetworkState>()
 
     fun applyForCinemaWorker() {
         viewModelScope.launch(Dispatchers.Default) {
@@ -92,8 +123,8 @@ class CinemaViewModel : ViewModel(), KoinComponent {
                     it,
                     userRepository.user.value!!,
                     applyForEmergencyMovieWorkerDetailState
-                )?.let { m ->
-                    detailMovie.postValue(m)
+                )?.let { movie ->
+                    detailMovie.postValue(movie)
                 }
             }
         }
@@ -123,6 +154,29 @@ class CinemaViewModel : ViewModel(), KoinComponent {
                 }
             }
         }
+    }
+    fun bookTicketOnClick() {
+        showBottomSheet.postValue(true)
+    }
+
+    fun cancelTickets() {
+        viewModelScope.launch {
+            repository.cancelTicketReservation(detailMovie.value!!, cancelTicketReservationState)?.let {
+                detailMovie.postValue(it)
+            }
+        }
+    }
+
+    fun closeBottomSheet() {
+        viewModelScope.launch(Dispatchers.Default) {
+            //book tickets
+            repository.bookTickets(movie = detailMovie.value!!, ticketAmount = bookCardAmount.value!!, state = bookTicketState)?.let {
+                detailMovie.postValue(it)
+            }
+
+        }
+        showBottomSheet.postValue(false)
+        Timber.i(bookCardAmount.value.toString())
     }
 
     fun loadMovies(force: Boolean = false) {

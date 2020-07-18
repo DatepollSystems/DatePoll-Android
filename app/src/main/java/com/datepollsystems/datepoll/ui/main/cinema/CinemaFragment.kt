@@ -34,7 +34,16 @@ class CinemaFragment : Fragment() {
 
         adapter = MovieAdapter(listOf(), binding.root, cinemaViewModel)
 
-        setupObserver()
+
+        cinemaViewModel.apply {
+            movies.observe(viewLifecycleOwner, Observer {
+                it?.let {
+                    adapter.data = it
+                    Timber.i("Updated movies")
+                }
+            })
+        }
+
 
         binding.apply {
             moviesRecycler.adapter = adapter
@@ -49,16 +58,5 @@ class CinemaFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         requireActivity().bottom_navigation?.visibility = View.VISIBLE
-    }
-    private fun setupObserver() {
-        cinemaViewModel.apply {
-
-            movies.observe(viewLifecycleOwner, Observer {
-                it?.let {
-                    adapter.data = it
-                    Timber.i("Updated movies")
-                }
-            })
-        }
     }
 }

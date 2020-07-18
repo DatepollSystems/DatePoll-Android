@@ -122,7 +122,7 @@ fun List<Movie>.toDBModelList(): List<MovieDbModel> {
     return dbList
 }
 
-fun Movie.toDbModel(): MovieDbModel {
+fun Movie.toDbModel(): MovieDbModel  {
     return MovieDbModel(
         id = this.id,
         name = this.name,
@@ -142,3 +142,38 @@ fun Movie.toDbModel(): MovieDbModel {
         workerName = this.workerName
     )
 }
+
+@JsonClass(generateAdapter = true)
+data class BookTicketsRequestModel(
+    @field:Json(name = "movie_id") val movieId: Int,
+    @field:Json(name = "ticket_amount") val ticketAmount: Int
+)
+
+@JsonClass(generateAdapter = true)
+data class BookTicketsResponseModel(
+    val msg: String,
+    @field:Json(name = "movie_booking") val movieBooking: MovieBooking
+)
+
+@JsonClass(generateAdapter = true)
+data class MovieBooking(
+
+    @field:Json(name = "id")
+    val id: Long,
+
+    @field:Json(name = "user_id")
+    val userId: Long,
+
+    @field:Json(name = "movie_id")
+    val movieId: Long,
+
+    @field:Json(name = "amount")
+    val amount: Int,
+
+    @field:Json(name = "created_at")
+    val createdAt: String,
+
+    @field:Json(name = "updated_at")
+    val updatedAt: String
+)
+

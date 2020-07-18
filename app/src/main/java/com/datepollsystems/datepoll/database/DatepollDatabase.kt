@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.datepollsystems.datepoll.data.Movie
+import com.datepollsystems.datepoll.data.MovieBooking
 import com.datepollsystems.datepoll.data.MovieDbModel
 import com.datepollsystems.datepoll.database.dao.*
 import com.datepollsystems.datepoll.database.model.*
@@ -23,7 +24,7 @@ import com.datepollsystems.datepoll.database.model.event.EventDecisionDbModel
         EventDecisionDbModel::class,
         EventDateDbModel::class,
         MovieDbModel::class
-    ], version = 3
+    ], version = 5
 )
 abstract class DatepollDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao

@@ -59,6 +59,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="@{vm.detailMovie.date}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvMovieTitle"
                     tools:text="12.12.2012" />
@@ -70,11 +71,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="@string/cinema_duty"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvYouBookedTitle" />
 
 
                 <Button
@@ -134,11 +135,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
                     android:onClick="@{() -> vm.applyForEmergencyCinemaWorker()}"
                     android:text="@string/report_for_emergency_duty"
                     android:visibility="@{vm.setAsMovieEmergencyWorkerButtonVisibility}"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvEmergency"
                     tools:visibility="invisible" />
@@ -169,6 +168,80 @@
                     app:layout_constraintTop_toTopOf="@+id/tvEmergencyWorker"
                     tools:visibility="visible" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/ibCancelReservation"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:onClick="@{() -> vm.cancelTickets()}"
+                    android:visibility="@{vm.cancelReservedTicketsBtnVisibility}"
+                    app:icon="@drawable/ic_baseline_close_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvYouBookedTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/tvBookedTicketsForYourself"
+                    app:layout_constraintTop_toTopOf="@+id/tvYouBookedTitle"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@{vm.availableTickets.toString()}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvDate"
+                    tools:text="20"/>
+
+                <TextView
+                    android:id="@+id/tvAvTickets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/available_tickets"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    app:layout_constraintEnd_toStartOf="@+id/textView11"
+                    app:layout_constraintTop_toTopOf="@+id/textView11" />
+
+                <TextView
+                    android:id="@+id/tvYouBookedTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/you_booked"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    app:layout_constraintStart_toStartOf="@+id/tvAvTickets"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAvTickets" />
+
+                <TextView
+                    android:id="@+id/tvBookedTicketsForYourself"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@{String.valueOf(vm.detailMovie.bookedTicketsForYourself)}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvYouBookedTitle"
+                    app:layout_constraintStart_toEndOf="@+id/tvYouBookedTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvYouBookedTitle"
+                    tools:text="0" />
+
+                <TextView
+                    android:id="@+id/tvSoldOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="32dp"
+                    android:text="@string/sold_out"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
+                    android:visibility="@{vm.soldOutVisibility}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnReportEmergencyDuty" />
+
                 <!-- endregion -->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -184,6 +257,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floating_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/movieticket"
+            android:onClick="@{() -> vm.bookTicketOnClick()}"
+            android:visibility="@{vm.fabVisible}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_movie_black_24dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

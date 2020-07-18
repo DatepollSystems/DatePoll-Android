@@ -187,6 +187,17 @@ interface InstanceApi {
         @Query("token") token: String
     ): Response<Message>
 
+    @POST("/api/v1/cinema/booking")
+    suspend fun bookTicketsForMovie(
+        @Query("token") token: String,
+        @Body bookMovieTicketRequest: BookTicketsRequestModel
+    ): Response<BookTicketsResponseModel>
+
+    @DELETE("/api/v1/cinema/booking/{movieId}")
+    suspend fun cancelTicketBooking(
+        @Path("movieId") movieId: Long,
+        @Query("token") token: String
+    ): Response<Message>
 
     //endregion
 }

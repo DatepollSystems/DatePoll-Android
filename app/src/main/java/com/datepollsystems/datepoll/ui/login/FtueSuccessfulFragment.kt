@@ -2,19 +2,12 @@ package com.datepollsystems.datepoll.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
-import com.datepollsystems.datepoll.R
+import androidx.fragment.app.Fragment
 import com.datepollsystems.datepoll.databinding.FragmentFtueSuccessfulBinding
 import com.datepollsystems.datepoll.ui.main.MainActivity
-import kotlinx.android.synthetic.main.fragment_ftue_successful.*
-import kotlinx.android.synthetic.main.fragment_ftue_successful.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class FtueSuccessfulFragment : Fragment() {
 
@@ -45,6 +38,7 @@ class FtueSuccessfulFragment : Fragment() {
         super.onStart()
 
         binding.motionLayout.transitionToEnd()
+
 
         Thread(Runnable {
             Thread.sleep(1500)

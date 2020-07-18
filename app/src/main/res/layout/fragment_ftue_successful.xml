@@ -13,7 +13,7 @@
         android:id="@+id/circle"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:contentDescription="TODO"
+        android:contentDescription="@string/logo"
         android:src="@drawable/circle"
         tools:layout_editor_absoluteX="310dp" />
 
