@@ -1,10 +1,11 @@
 package com.datepollsystems.datepoll.repos
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.datepollsystems.datepoll.database.DatepollDatabase
+import com.datepollsystems.datepoll.core.DatepollDatabase
 import com.datepollsystems.datepoll.database.dao.EventDao
-import com.datepollsystems.datepoll.database.model.event.*
+import com.datepollsystems.datepoll.components.main.event.model.*
+import com.datepollsystems.datepoll.core.BaseRepository
+import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

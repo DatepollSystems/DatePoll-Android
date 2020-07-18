@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/ftueServerInstanceFragment"
-        android:name="com.datepollsystems.datepoll.ui.login.FtueServerInstanceFragment"
+        android:name="com.datepollsystems.datepoll.components.login.FtueServerInstanceFragment"
         android:label="fragment_ftue_server_instance"
         tools:layout="@layout/fragment_ftue_server_instance" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/ftueLoginFragment"
-        android:name="com.datepollsystems.datepoll.ui.login.FtueLoginFragment"
+        android:name="com.datepollsystems.datepoll.components.login.FtueLoginFragment"
         android:label="fragment_ftue_login"
         tools:layout="@layout/fragment_ftue_login" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/ftueFirstPasswordChange"
-        android:name="com.datepollsystems.datepoll.ui.login.FtueFirstPasswordChange"
+        android:name="com.datepollsystems.datepoll.components.login.FtueFirstPasswordChange"
         android:label="fragment_ftue_first_password_change"
         tools:layout="@layout/fragment_ftue_first_password_change" >
         <action
@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/ftueSuccessfulFragment"
-        android:name="com.datepollsystems.datepoll.ui.login.FtueSuccessfulFragment"
+        android:name="com.datepollsystems.datepoll.components.login.FtueSuccessfulFragment"
         android:label="fragment_ftue_successful"
         tools:layout="@layout/fragment_ftue_successful" >
         <action

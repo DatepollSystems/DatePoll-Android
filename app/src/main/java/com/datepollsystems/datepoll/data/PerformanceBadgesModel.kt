@@ -1,6 +1,5 @@
 package com.datepollsystems.datepoll.data
 
-import com.datepollsystems.datepoll.database.model.PerformanceBadgesDbModel
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)

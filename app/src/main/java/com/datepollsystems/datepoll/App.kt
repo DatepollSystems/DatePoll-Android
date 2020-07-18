@@ -1,16 +1,20 @@
 package com.datepollsystems.datepoll
 
 import android.app.Application
-import android.os.Build
 import android.util.Log
-import android.view.View
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDelegate
-import com.datepollsystems.datepoll.database.DatepollDatabase
+import com.datepollsystems.datepoll.components.login.FtueViewModel
+import com.datepollsystems.datepoll.components.main.MainViewModel
+import com.datepollsystems.datepoll.components.main.calendar.CalendarViewModel
+import com.datepollsystems.datepoll.components.main.cinema.CinemaViewModel
 import com.datepollsystems.datepoll.network.DatepollServiceFactory
 import com.datepollsystems.datepoll.repos.*
-import com.datepollsystems.datepoll.ui.settings.themeOptions
-import com.datepollsystems.datepoll.vm.*
+import com.datepollsystems.datepoll.components.main.event.EventViewModel
+import com.datepollsystems.datepoll.components.settings.SettingsEmailViewModel
+import com.datepollsystems.datepoll.components.settings.SettingsViewModel
+import com.datepollsystems.datepoll.components.settings.themeOptions
+import com.datepollsystems.datepoll.core.DatepollDatabase
+import com.datepollsystems.datepoll.core.Prefs
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -27,11 +31,14 @@ val appModule = module {
     single { DatepollServiceFactory.createDatepollService() }
 
     // Database
-    single { DatepollDatabase.getDatabase(androidContext()) }
+    single {
+        DatepollDatabase.getDatabase(
+            androidContext()
+        )
+    }
 
     // others
     single { Prefs(androidContext()) }
-    single { AppObservableHandler() }
 
     // Repositories
     single { ServerRepository() }
@@ -87,12 +94,20 @@ class App : Application() {
             if (priority == Log.VERBOSE || priority == Log.DEBUG) {
                 return
             }
-            FakeCrashLibrary.log(priority, tag, message)
+            FakeCrashLibrary.log(
+                priority,
+                tag,
+                message
+            )
             if (t != null) {
                 if (priority == Log.ERROR) {
-                    FakeCrashLibrary.logError(t)
+                    FakeCrashLibrary.logError(
+                        t
+                    )
                 } else if (priority == Log.WARN) {
-                    FakeCrashLibrary.logWarning(t)
+                    FakeCrashLibrary.logWarning(
+                        t
+                    )
                 }
             }
         }

@@ -1,11 +1,13 @@
 package com.datepollsystems.datepoll.repos
 
 import androidx.lifecycle.MutableLiveData
+import com.datepollsystems.datepoll.core.BaseRepository
 import com.datepollsystems.datepoll.data.BookTicketsRequestModel
 import com.datepollsystems.datepoll.data.MovieDbModel
 import com.datepollsystems.datepoll.data.toDBModelList
-import com.datepollsystems.datepoll.database.DatepollDatabase
-import com.datepollsystems.datepoll.database.model.UserDbModel
+import com.datepollsystems.datepoll.core.DatepollDatabase
+import com.datepollsystems.datepoll.core.ENetworkState
+import com.datepollsystems.datepoll.data.UserDbModel
 import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

@@ -1,9 +1,9 @@
 package com.datepollsystems.datepoll.network
 
 import com.datepollsystems.datepoll.data.*
-import com.datepollsystems.datepoll.database.model.event.GetAllEventsResponseMsg
-import com.datepollsystems.datepoll.database.model.event.VoteForEventRequestDto
-import com.datepollsystems.datepoll.database.model.event.VoteForEventResponseDto
+import com.datepollsystems.datepoll.components.main.event.model.GetAllEventsResponseMsg
+import com.datepollsystems.datepoll.components.main.event.model.VoteForEventRequestDto
+import com.datepollsystems.datepoll.components.main.event.model.VoteForEventResponseDto
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*

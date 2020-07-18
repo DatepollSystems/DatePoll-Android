@@ -3,12 +3,14 @@ package com.datepollsystems.datepoll.repos
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.datepollsystems.datepoll.core.BaseRepository
 import com.datepollsystems.datepoll.data.*
-import com.datepollsystems.datepoll.database.DatepollDatabase
+import com.datepollsystems.datepoll.core.DatepollDatabase
+import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.database.dao.*
-import com.datepollsystems.datepoll.database.model.EmailAddressDbModel
-import com.datepollsystems.datepoll.database.model.PerformanceBadgesDbModel
-import com.datepollsystems.datepoll.database.model.PermissionDbModel
+import com.datepollsystems.datepoll.data.EmailAddressDbModel
+import com.datepollsystems.datepoll.data.PerformanceBadgesDbModel
+import com.datepollsystems.datepoll.data.PermissionDbModel
 import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -145,7 +147,12 @@ class UserRepository : BaseRepository() {
     }
 
     fun addEmail(e: String) {
-        emailDao.addEmail(EmailAddressDbModel(email = e, userId = user.value!!.id))
+        emailDao.addEmail(
+            EmailAddressDbModel(
+                email = e,
+                userId = user.value!!.id
+            )
+        )
     }
 
     fun removeEmail(e: String) {
@@ -274,7 +281,12 @@ class UserRepository : BaseRepository() {
         if (user.email_addresses.isNotEmpty()) {
 
             user.email_addresses.forEach {
-                emailsToStore.add(EmailAddressDbModel(it, user.id))
+                emailsToStore.add(
+                    EmailAddressDbModel(
+                        it,
+                        user.id
+                    )
+                )
             }
 
             emailDao.addEmails(emailsToStore)
@@ -291,7 +303,13 @@ class UserRepository : BaseRepository() {
 
         if (user.permissions.isNotEmpty()) {
             user.permissions.forEach {
-                permissionsToStore.add(PermissionDbModel(0, it, user.id))
+                permissionsToStore.add(
+                    PermissionDbModel(
+                        0,
+                        it,
+                        user.id
+                    )
+                )
             }
 
             permissionsDao.addPermissions(permissionsToStore)

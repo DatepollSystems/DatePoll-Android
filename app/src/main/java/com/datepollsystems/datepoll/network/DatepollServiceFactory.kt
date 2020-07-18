@@ -1,6 +1,6 @@
 package com.datepollsystems.datepoll.network
 
-import com.datepollsystems.datepoll.Prefs
+import com.datepollsystems.datepoll.core.Prefs
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

@@ -1,8 +1,6 @@
 package com.datepollsystems.datepoll.data
 
 import android.annotation.SuppressLint
-import com.datepollsystems.datepoll.database.model.PhoneNumberDbModel
-import com.datepollsystems.datepoll.database.model.UserDbModel
 import com.squareup.moshi.JsonClass
 import java.text.SimpleDateFormat
 import java.util.*

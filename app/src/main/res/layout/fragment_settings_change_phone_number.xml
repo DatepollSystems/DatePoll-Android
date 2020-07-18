@@ -7,13 +7,13 @@
 
         <variable
             name="vm"
-            type="com.datepollsystems.datepoll.vm.SettingsViewModel" />
+            type="com.datepollsystems.datepoll.components.settings.SettingsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.settings.SettingsChangePhoneNumberFragment">
+        tools:context=".components.settings.SettingsChangePhoneNumberFragment">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tiPhoneNumber"

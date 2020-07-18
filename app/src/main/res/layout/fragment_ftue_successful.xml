@@ -6,7 +6,7 @@
     android:id="@+id/motionLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.FtueSuccessfulFragment"
+    tools:context=".components.login.FtueSuccessfulFragment"
     app:layoutDescription="@xml/fragment_ftue_successful_scene">
 
     <ImageView

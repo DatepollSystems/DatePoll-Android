@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.datepollsystems.datepoll.vm.CinemaViewModel" />
+            type="com.datepollsystems.datepoll.components.main.cinema.CinemaViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

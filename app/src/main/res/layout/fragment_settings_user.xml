@@ -5,11 +5,11 @@
 
     <data>
 
-        <import type="com.datepollsystems.datepoll.Converter" />
+        <import type="com.datepollsystems.datepoll.utils.Converter" />
 
         <variable
             name="vm"
-            type="com.datepollsystems.datepoll.vm.SettingsViewModel" />
+            type="com.datepollsystems.datepoll.components.settings.SettingsViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
