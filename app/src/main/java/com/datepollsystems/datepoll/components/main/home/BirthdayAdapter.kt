@@ -1,5 +1,6 @@
-package com.datepollsystems.datepoll.ui.main.home
+package com.datepollsystems.datepoll.components.main.home
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.data.Birthday
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 class BirthdayAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -17,6 +20,11 @@ class BirthdayAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             notifyDataSetChanged()
         }
 
+    @SuppressLint("SimpleDateFormat")
+    var formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd")
+    @SuppressLint("SimpleDateFormat")
+    var dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy")
+
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -25,7 +33,9 @@ class BirthdayAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             val item = data[position]
             val viewHolder = holder as BirthdayViewHolder
             viewHolder.tvName.text = item.name
-            viewHolder.tvDate.text = item.date
+
+            val date: Date? = formatter.parse(item.date!!)
+            viewHolder.tvDate.text = dateFormat.format(date)
         }
     }
 

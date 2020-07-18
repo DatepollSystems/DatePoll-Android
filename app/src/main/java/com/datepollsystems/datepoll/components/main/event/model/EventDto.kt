@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.database.model.event
+package com.datepollsystems.datepoll.components.main.event.model
 
 import com.datepollsystems.datepoll.utils.transformInDbModelList
 import com.squareup.moshi.Json

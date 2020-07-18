@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main.home
+package com.datepollsystems.datepoll.components.main.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.database.model.event.EventDecisionDbModel
+import com.datepollsystems.datepoll.components.main.event.model.EventDecisionDbModel
 
 class VoteOptionAdapter(val sheet: VoteBottomSheetDialog, val response: MutableLiveData<EventDecisionDbModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

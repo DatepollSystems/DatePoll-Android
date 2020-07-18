@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main.cinema
+package com.datepollsystems.datepoll.components.main.cinema
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

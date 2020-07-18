@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main.cinema
+package com.datepollsystems.datepoll.components.main.cinema
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -6,22 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.data.Instance
 import com.datepollsystems.datepoll.databinding.BookTicketBottomSheetBinding
 import com.datepollsystems.datepoll.databinding.FragmentMovieDetailBinding
-import com.datepollsystems.datepoll.repos.ENetworkState
-import com.datepollsystems.datepoll.ui.login.InstanceOptionsAdapter
-import com.datepollsystems.datepoll.vm.CinemaViewModel
+import com.datepollsystems.datepoll.core.ENetworkState
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.choose_instance_bottom_sheet.view.*
-import kotlinx.android.synthetic.main.fragment_ftue_server_instance.*
 import kotlinx.android.synthetic.main.fragment_ftue_server_instance.loading
-import kotlinx.android.synthetic.main.fragment_movie_detail.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 

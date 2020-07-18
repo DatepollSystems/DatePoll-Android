@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main.cinema
+package com.datepollsystems.datepoll.components.main.cinema
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 
-import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.databinding.FragmentCinemaBinding
-import com.datepollsystems.datepoll.vm.CinemaViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber

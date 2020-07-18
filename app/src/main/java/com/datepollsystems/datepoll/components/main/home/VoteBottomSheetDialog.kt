@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main.home
+package com.datepollsystems.datepoll.components.main.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.database.model.event.EventDecisionDbModel
+import com.datepollsystems.datepoll.components.main.event.model.EventDecisionDbModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.vote_bottom_sheet.view.*
 

@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.vm
+package com.datepollsystems.datepoll.components.main.calendar
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData

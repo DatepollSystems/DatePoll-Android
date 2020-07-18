@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main.home
+package com.datepollsystems.datepoll.components.main.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.databinding.FragmentHomeBinding
-import com.datepollsystems.datepoll.repos.ENetworkState
-import com.datepollsystems.datepoll.vm.MainViewModel
+import com.datepollsystems.datepoll.core.ENetworkState
+import com.datepollsystems.datepoll.components.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel

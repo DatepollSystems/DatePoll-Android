@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main.event
+package com.datepollsystems.datepoll.components.main.event
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.database.model.event.EventDbModel
-import com.datepollsystems.datepoll.vm.EventViewModel
+import com.datepollsystems.datepoll.components.main.event.model.EventDbModel
 import java.util.*
 
 class EventCardAdapter(private val viewModel: EventViewModel) :

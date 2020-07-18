@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main.event
+package com.datepollsystems.datepoll.components.main.event
 
 import android.os.Bundle
 import android.util.Log
@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.repos.ENetworkState
-import com.datepollsystems.datepoll.ui.main.home.VoteBottomSheetDialog
-import com.datepollsystems.datepoll.vm.EventViewModel
+import com.datepollsystems.datepoll.core.ENetworkState
+import com.datepollsystems.datepoll.components.main.home.VoteBottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_event.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel

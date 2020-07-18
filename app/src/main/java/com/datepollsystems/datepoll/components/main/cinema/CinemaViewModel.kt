@@ -1,11 +1,10 @@
-package com.datepollsystems.datepoll.vm
+package com.datepollsystems.datepoll.components.main.cinema
 
 import android.view.View
-import android.view.animation.Transformation
 import androidx.lifecycle.*
 import com.datepollsystems.datepoll.data.MovieDbModel
 import com.datepollsystems.datepoll.repos.CinemaRepository
-import com.datepollsystems.datepoll.repos.ENetworkState
+import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.repos.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -1,10 +1,10 @@
-package com.datepollsystems.datepoll.vm
+package com.datepollsystems.datepoll.components.main.event
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.datepollsystems.datepoll.database.model.event.EventDecisionDbModel
-import com.datepollsystems.datepoll.repos.ENetworkState
+import com.datepollsystems.datepoll.components.main.event.model.EventDecisionDbModel
+import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.repos.EventRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

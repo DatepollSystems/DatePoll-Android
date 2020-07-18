@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.ui.main.home
+package com.datepollsystems.datepoll.components.main.home
 
 import android.view.LayoutInflater
 import android.view.View
