@@ -42,7 +42,9 @@ class CalendarFragment : Fragment() {
             cal.setEvents(it)
         })
 
-        vm.fillCalendar(main.birthdays.value!!)
+        main.birthdays.value?.let {
+            vm.fillCalendar(it)
+        }
 
         cal.setOnDayClickListener(object :
             OnDayClickListener {

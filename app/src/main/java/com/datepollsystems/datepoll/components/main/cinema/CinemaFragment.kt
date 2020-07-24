@@ -56,5 +56,7 @@ class CinemaFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         requireActivity().bottom_navigation?.visibility = View.VISIBLE
+
+
     }
 }

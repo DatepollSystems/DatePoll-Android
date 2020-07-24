@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.lifecycleScope
 import com.datepollsystems.datepoll.databinding.FragmentFtueSuccessfulBinding
 import com.datepollsystems.datepoll.components.main.MainActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class FtueSuccessfulFragment : Fragment() {
 
@@ -36,13 +40,11 @@ class FtueSuccessfulFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
         binding.motionLayout.transitionToEnd()
 
-
-        Thread(Runnable {
-            Thread.sleep(1500)
-            startActivity(Intent(requireActivity(), MainActivity::class.java))
-        }).start()
+       viewLifecycleOwner.lifecycleScope.launch {
+           delay(1500)
+           startActivity(Intent(requireActivity(), MainActivity::class.java))
+       }
     }
 }
