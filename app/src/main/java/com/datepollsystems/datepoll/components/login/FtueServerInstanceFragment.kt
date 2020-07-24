@@ -8,12 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.databinding.FragmentFtueServerInstanceBinding
 import com.datepollsystems.datepoll.core.ENetworkState
 import com.squareup.moshi.Moshi
+import kotlinx.android.synthetic.main.fragment_ftue_server_instance.*
 import kotlinx.android.synthetic.main.fragment_ftue_server_instance.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
@@ -82,18 +88,21 @@ class FtueServerInstanceFragment : Fragment() {
             }
 
             floatingActionButton.setOnClickListener {
-                val url = "https://${ftueViewModel.serverInstanceUrl.value}"
-                if (ftueViewModel.validateServerInstance(url)) {
-                    Timber.i("Valid url: $url entered, continuing")
-                    ftueViewModel.setServer(url, 9230)
-                    tiServerDomain.error = ""
-                    Navigation.findNavController(it)
-                        .navigate(R.id.action_ftueServerInstanceFragment_to_ftueLoginFragment)
-                } else {
-                    Timber.e("Invalid url")
-                    tiServerDomain.error = getString(R.string.url_incorrect)
-                }
+                navigateToLoginFragment()
             }
+        }
+    }
+
+    private fun navigateToLoginFragment() {
+        val url = "https://${ftueViewModel.serverInstanceUrl.value}"
+        if (ftueViewModel.validateServerInstance(url)) {
+            Timber.i("Valid url: $url entered, continuing")
+            ftueViewModel.setServer(url, 9230)
+            tiServerDomain.error = ""
+            findNavController().navigate(R.id.action_ftueServerInstanceFragment_to_ftueLoginFragment)
+        } else {
+            Timber.e("Invalid url")
+            tiServerDomain.error = getString(R.string.url_incorrect)
         }
     }
 
@@ -135,6 +144,10 @@ class FtueServerInstanceFragment : Fragment() {
             instanceClickResult.observe(viewLifecycleOwner, Observer {
                 it?.let {
                     ftueViewModel.serverInstanceUrl.postValue(it.appURL)
+                    viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+                        navigateToLoginFragment()
+                    }
+                    instanceClickResult.postValue(null)
                 }
             })
         }

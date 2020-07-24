@@ -128,7 +128,7 @@
     <string name="material_calendar_negative_button">Abbrechen</string>
     <string name="home">Home</string>
     <string name="licence">Lizenz</string>
-    <string name="choose">Choose</string>
+    <string name="choose">Wähle</string>
     <string name="choose_instance">Wähle einen Server</string>
     <string name="scan_qr_code">Scanne den QR Code</string>
     <string name="demo_datepoll_org">demo.datepoll.org</string>

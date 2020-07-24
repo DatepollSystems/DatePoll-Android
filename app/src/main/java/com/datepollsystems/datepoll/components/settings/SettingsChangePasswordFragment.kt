@@ -10,6 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.databinding.FragmentSettingsChangePasswordBinding
@@ -17,7 +18,11 @@ import com.datepollsystems.datepoll.core.ENetworkState
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_settings_change_password.*
 import kotlinx.android.synthetic.main.fragment_settings_change_password.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 enum class EStep { ONE, TWO, THREE }
 
@@ -135,7 +140,7 @@ class SettingsChangePasswordFragment : Fragment() {
                     }
 
                     ENetworkState.ERROR -> {
-                        Log.e(tag, "Something went wrong while validating old password")
+                        Timber.e("Something went wrong while validating old password")
                         Snackbar.make(
                             currentView,
                             getString(R.string.something_went_wrong),
@@ -164,7 +169,7 @@ class SettingsChangePasswordFragment : Fragment() {
                         refresh.isEnabled = false
                     }
                     ENetworkState.ERROR -> {
-                        Log.e(tag, "Something went wrong while validating old password")
+                        Timber.e("Something went wrong while validating old password")
                         Snackbar.make(
                             currentView,
                             getString(R.string.something_went_wrong),
@@ -205,22 +210,24 @@ class SettingsChangePasswordFragment : Fragment() {
                     tiConfirmNewPassword.visibility = View.VISIBLE
                     btnConfirmNewPassword.visibility = View.VISIBLE
                 } else {
-                    Log.i(tag, "First step, can't go back anymore")
+                    Timber.i("First step, can't go back anymore")
                 }
             }
 
             EStep.TWO -> {
                 if (direction) {
-                    vm.changePasswordStep.value = EStep.THREE
 
+                    vm.changePasswordOldPass.postValue("")
+                    vm.changePasswordNewPass.postValue("")
+                    vm.changePasswordConfirmNewPass.postValue("")
 
                     ivCheck2.visibility = View.VISIBLE
                     tvTwo.visibility = View.INVISIBLE
                     tiNewPassword.visibility = View.GONE
                     tiConfirmNewPassword.visibility = View.GONE
                     btnConfirmNewPassword.visibility = View.GONE
-
                     Snackbar.make(view, "Password update successful", Snackbar.LENGTH_SHORT).show()
+                    vm.changePasswordStep.value = EStep.THREE
                 } else {
                     vm.changePasswordStep.value = EStep.ONE
                     tiOldPassword.visibility = View.VISIBLE
@@ -236,11 +243,12 @@ class SettingsChangePasswordFragment : Fragment() {
 
             EStep.THREE -> {
                 if (direction) {
-                    Log.i(tag, "Last step reached, can't go further")
-                    Thread.sleep(2000)
-                    onStop()
-                    onDestroy()
-                    findNavController().popBackStack()
+                    Timber.i("Last step reached, can't go further")
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        delay(1500)
+                        findNavController().popBackStack()
+
+                    }
                 } else {
                     vm.changePasswordStep.value = EStep.TWO
                     ivCheck2.visibility = View.INVISIBLE
