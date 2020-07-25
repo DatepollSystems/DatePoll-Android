@@ -20,7 +20,8 @@ class MovieAdapter(list: List<MovieDbModel>, val view: View, val vm: CinemaViewM
 
     var data: List<MovieDbModel> = list
         set(value) {
-            field = value
+            val sorted = value.sortedBy { movie -> movie.date }
+            field = sorted
             notifyDataSetChanged()
         }
 
