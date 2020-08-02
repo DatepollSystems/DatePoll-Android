@@ -24,8 +24,8 @@ android {
         // TODO check if this is necessary
         vectorDrawables.useSupportLibrary = true
 
-        versionCode 11
-        versionName "1.0.0-beta01"
+        versionCode 13
+        versionName "1.0.0-rc02"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

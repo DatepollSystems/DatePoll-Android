@@ -1,6 +1,7 @@
 package com.datepollsystems.datepoll.components.main.cinema
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -63,11 +64,13 @@ class MovieDetailFragment : Fragment() {
             })
 
             showBottomSheet.observe(viewLifecycleOwner, Observer {
-                if (it) {
-                    sheet = BookBottomSheet()
-                    sheet?.show(parentFragmentManager, sheet!!.tag)
-                } else {
-                    sheet?.dismiss()
+                it?.let {
+                    if (it) {
+                        sheet = BookBottomSheet()
+                        sheet?.show(parentFragmentManager, sheet!!.tag)
+                    } else {
+                        sheet?.dismiss()
+                    }
                 }
             })
             bookTicketState.observe(viewLifecycleOwner, Observer {
@@ -152,6 +155,11 @@ class MovieDetailFragment : Fragment() {
             binding.vm = vm
 
             return binding.root
+        }
+
+        override fun onDismiss(dialog: DialogInterface) {
+            super.onDismiss(dialog)
+            vm.showBottomSheet.postValue(null)
         }
     }
 }
