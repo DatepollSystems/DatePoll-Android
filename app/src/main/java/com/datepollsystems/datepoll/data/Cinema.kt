@@ -19,49 +19,49 @@ data class MovieDbModel(
     val id: Long,
 
     @ColumnInfo(name = "name")
-    val name: String,
+    var name: String,
 
     @ColumnInfo(name = "date")
-    val date: String,
+    var date: String,
 
     @ColumnInfo(name = "trailer_link")
     val trailerLink: String?,
 
     @ColumnInfo(name = "poster_link")
-    val posterLink: String?,
+    var posterLink: String?,
 
     @ColumnInfo(name = "booked_tickets")
-    val bookedTickets: Int,
+    var bookedTickets: Int,
 
     @ColumnInfo(name = "movie_year_id")
-    val movieYearId: Int,
+    var movieYearId: Int,
 
     @ColumnInfo(name = "created_at")
-    val createdAt: String,
+    var createdAt: String,
 
     @ColumnInfo(name = "updated_at")
-    val updatedAt: String,
+    var updatedAt: String,
 
     @ColumnInfo(name = "worker_id")
-    val workerId: Int?,
+    var workerId: Int?,
 
     @ColumnInfo(name = "worker_name")
-    val workerName: String?,
+    var workerName: String?,
 
     @ColumnInfo(name = "emergency_worker_id")
-    val emergencyWorkerId: Int?,
+    var emergencyWorkerId: Int?,
 
     @ColumnInfo(name = "emergency_worker_name")
-    val emergencyWorkerName: String?,
+    var emergencyWorkerName: String?,
 
     @ColumnInfo(name = "booked_tickets_for_yourself")
-    val bookedTicketsForYourself: Int,
+    var bookedTicketsForYourself: Int,
 
     @Embedded
-    val viewMovie: ViewMovie,
+    var viewMovie: ViewMovie,
 
     @ColumnInfo(name = "inserted_at")
-    val inserted: Long = 0
+    var inserted: Long = 0
 )
 
 @JsonClass(generateAdapter = true)
@@ -122,7 +122,7 @@ fun List<Movie>.toDBModelList(): List<MovieDbModel> {
     return dbList
 }
 
-fun Movie.toDbModel(): MovieDbModel {
+fun Movie.toDbModel(): MovieDbModel  {
     return MovieDbModel(
         id = this.id,
         name = this.name,
@@ -142,3 +142,38 @@ fun Movie.toDbModel(): MovieDbModel {
         workerName = this.workerName
     )
 }
+
+@JsonClass(generateAdapter = true)
+data class BookTicketsRequestModel(
+    @field:Json(name = "movie_id") val movieId: Int,
+    @field:Json(name = "ticket_amount") val ticketAmount: Int
+)
+
+@JsonClass(generateAdapter = true)
+data class BookTicketsResponseModel(
+    val msg: String,
+    @field:Json(name = "movie_booking") val movieBooking: MovieBooking
+)
+
+@JsonClass(generateAdapter = true)
+data class MovieBooking(
+
+    @field:Json(name = "id")
+    val id: Long,
+
+    @field:Json(name = "user_id")
+    val userId: Long,
+
+    @field:Json(name = "movie_id")
+    val movieId: Long,
+
+    @field:Json(name = "amount")
+    val amount: Int,
+
+    @field:Json(name = "created_at")
+    val createdAt: String,
+
+    @field:Json(name = "updated_at")
+    val updatedAt: String
+)
+

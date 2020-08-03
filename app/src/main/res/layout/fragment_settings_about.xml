@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.settings.SettingsAboutFragment">
+    tools:context=".components.settings.SettingsAboutFragment">
 
     <TextView
         android:id="@+id/tvAppName"
@@ -35,7 +35,7 @@
         android:layout_width="137dp"
         android:layout_height="141dp"
         android:layout_marginTop="148dp"
-        android:src="@drawable/ic_icon"
+        android:src="@mipmap/ic_launcher"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.datepollsystems.datepoll.vm.MainViewModel" />
+            type="com.datepollsystems.datepoll.components.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

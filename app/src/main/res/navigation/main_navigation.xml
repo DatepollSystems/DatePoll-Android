@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.datepollsystems.datepoll.ui.main.home.HomeFragment"
+        android:name="com.datepollsystems.datepoll.components.main.home.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_calendar"
-        android:name="com.datepollsystems.datepoll.ui.main.calendar.CalendarFragment"
+        android:name="com.datepollsystems.datepoll.components.main.calendar.CalendarFragment"
         android:label="@string/menu_calendar"
         tools:layout="@layout/fragment_calendar"/>
 
     <fragment
         android:id="@+id/nav_events"
-        android:name="com.datepollsystems.datepoll.ui.main.event.EventFragment"
+        android:name="com.datepollsystems.datepoll.components.main.event.EventFragment"
         android:label="@string/events"
         tools:layout="@layout/fragment_event"/>
 
     <fragment
         android:id="@+id/nav_cinema"
-        android:name="com.datepollsystems.datepoll.ui.main.cinema.CinemaFragment"
+        android:name="com.datepollsystems.datepoll.components.main.cinema.CinemaFragment"
         android:label="@string/cinema"
         tools:layout="@layout/fragment_cinema">
         <action
@@ -39,7 +39,7 @@
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.datepollsystems.datepoll.ui.settings.SettingsHomeFragment"
+        android:name="com.datepollsystems.datepoll.components.settings.SettingsHomeFragment"
         android:label="SettingsHomeFragment"
         tools:layout="@layout/fragment_settings_home">
         <action
@@ -103,47 +103,47 @@
 
     <fragment
         android:id="@+id/settingsUserFragment"
-        android:name="com.datepollsystems.datepoll.ui.settings.SettingsUserFragment"
+        android:name="com.datepollsystems.datepoll.components.settings.SettingsUserFragment"
         android:label="SettingsUserFragment"
         tools:layout="@layout/fragment_settings_user"/>
     <fragment
         android:id="@+id/settingsAboutFragment"
-        android:name="com.datepollsystems.datepoll.ui.settings.SettingsAboutFragment"
+        android:name="com.datepollsystems.datepoll.components.settings.SettingsAboutFragment"
         android:label="fragment_settings_about"
         tools:layout="@layout/fragment_settings_about" />
     <fragment
         android:id="@+id/settingsChangePhoneNumberFragment"
-        android:name="com.datepollsystems.datepoll.ui.settings.SettingsChangePhoneNumberFragment"
+        android:name="com.datepollsystems.datepoll.components.settings.SettingsChangePhoneNumberFragment"
         android:label="fragment_settings_change_phone_number"
         tools:layout="@layout/fragment_settings_change_phone_number" />
     <fragment
         android:id="@+id/settingsChangeEmail"
-        android:name="com.datepollsystems.datepoll.ui.settings.SettingsChangeEmailFragment"
+        android:name="com.datepollsystems.datepoll.components.settings.SettingsChangeEmailFragment"
         android:label="SettingsChangeEmail"
         tools:layout="@layout/fragment_settings_change_email"/>
     <fragment
         android:id="@+id/settingsChangePasswordFragment"
-        android:name="com.datepollsystems.datepoll.ui.settings.SettingsChangePasswordFragment"
+        android:name="com.datepollsystems.datepoll.components.settings.SettingsChangePasswordFragment"
         android:label="fragment_settings_change_password"
         tools:layout="@layout/fragment_settings_change_password" />
     <fragment
         android:id="@+id/settingsManageSessionsFragment"
-        android:name="com.datepollsystems.datepoll.ui.settings.SettingsManageSessionsFragment"
+        android:name="com.datepollsystems.datepoll.components.settings.SettingsManageSessionsFragment"
         android:label="fragment_settings_manage_sessions"
         tools:layout="@layout/fragment_settings_manage_sessions" />
 
     <fragment
         android:id="@+id/settingsLicenceFragment"
-        android:name="com.datepollsystems.datepoll.ui.settings.SettingsLicenceFragment"
+        android:name="com.datepollsystems.datepoll.components.settings.SettingsLicenceFragment"
         android:label="fragment_settings_licence"
         tools:layout="@layout/fragment_settings_licence" />
     <fragment
         android:id="@+id/settingsChangeIfShownInBirthdayList"
-        android:name="com.datepollsystems.datepoll.ui.settings.SettingsPrivacy"
+        android:name="com.datepollsystems.datepoll.components.settings.SettingsPrivacy"
         android:label="fragment_settings_change_if_shown_in_birthday_list"
         tools:layout="@layout/fragment_settings_privacy" />
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.datepollsystems.datepoll.ui.main.cinema.MovieDetailFragment"
+        android:name="com.datepollsystems.datepoll.components.main.cinema.MovieDetailFragment"
         android:label="MovieDetailFragment" />
 </navigation>

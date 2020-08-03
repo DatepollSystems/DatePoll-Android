@@ -128,7 +128,7 @@
     <string name="material_calendar_negative_button">Abbrechen</string>
     <string name="home">Home</string>
     <string name="licence">Lizenz</string>
-    <string name="choose">Choose</string>
+    <string name="choose">Wähle</string>
     <string name="choose_instance">Wähle einen Server</string>
     <string name="scan_qr_code">Scanne den QR Code</string>
     <string name="demo_datepoll_org">demo.datepoll.org</string>
@@ -140,5 +140,11 @@
     <string name="privacy">Datenschutz</string>
     <string name="show_answered_events">Zeige beantwortete Events</string>
     <string name="movie_picture">Film Plakat</string>
+    <string name="submit">Bestätigen</string>
+    <string name="book">buchen</string>
+    <string name="tickets">Tickets:</string>
+    <string name="you_booked">Deine Reservierungen:</string>
+    <string name="available_tickets">Verfügbare Tickets:</string>
+    <string name="sold_out">!AUSVERKAUFT!</string>
 
 </resources>

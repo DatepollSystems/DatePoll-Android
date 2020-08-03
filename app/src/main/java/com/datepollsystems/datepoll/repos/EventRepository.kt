@@ -1,14 +1,16 @@
 package com.datepollsystems.datepoll.repos
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.datepollsystems.datepoll.database.DatepollDatabase
+import com.datepollsystems.datepoll.core.DatepollDatabase
 import com.datepollsystems.datepoll.database.dao.EventDao
-import com.datepollsystems.datepoll.database.model.event.*
+import com.datepollsystems.datepoll.components.main.event.model.*
+import com.datepollsystems.datepoll.core.BaseRepository
+import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.core.inject
+import timber.log.Timber
 import java.util.*
 
 class EventRepository : BaseRepository() {
@@ -25,7 +27,7 @@ class EventRepository : BaseRepository() {
     suspend fun loadAllEvents(force: Boolean, state: MutableLiveData<ENetworkState>) {
         val list = events.value
         if (force || list == null || list.isEmpty() || (list[0].insertedAt + 3600000) < Date().time) {
-            Log.i(tag, "Load events from server")
+            Timber.i("Load events from server")
             val r: GetAllEventsResponseMsg? = apiCall(
                 call = { api.getAllEvents(prefs.jwt!!) },
                 state = state
@@ -33,7 +35,7 @@ class EventRepository : BaseRepository() {
 
             r?.let { response ->
                 withContext(Dispatchers.IO) {
-                    Log.i(tag, "Try to fetch new data into db")
+                    Timber.i("Try to fetch new data into db")
                     for (e in response.events) {
                         val data = e.getDbData()
 
@@ -47,7 +49,7 @@ class EventRepository : BaseRepository() {
                         data.dates?.let {
                             eventDao.addDates(it)
                         }
-                        Log.i(tag, "Fetched events in DB")
+                        Timber.i("Fetched events in DB")
                     }
                 }
             }

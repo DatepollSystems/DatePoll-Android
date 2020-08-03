@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.datepollsystems.datepoll.vm.SettingsViewModel" />
+            type="com.datepollsystems.datepoll.components.settings.SettingsViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:tag="@string/settings_home_fragment"
-                tools:context=".ui.settings.SettingsHomeFragment">
+                tools:context=".components.settings.SettingsHomeFragment">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btnManageCalendar"

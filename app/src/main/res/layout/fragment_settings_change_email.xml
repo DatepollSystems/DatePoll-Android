@@ -7,13 +7,13 @@
 
         <variable
             name="vm"
-            type="com.datepollsystems.datepoll.vm.SettingsEmailViewModel" />
+            type="com.datepollsystems.datepoll.components.settings.SettingsEmailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.settings.SettingsChangeEmailFragment">
+        tools:context=".components.settings.SettingsChangeEmailFragment">
 
 
         <com.google.android.material.textfield.TextInputLayout

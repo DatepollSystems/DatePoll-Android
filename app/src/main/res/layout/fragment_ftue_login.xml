@@ -7,14 +7,14 @@
 
         <variable
             name="vm"
-            type="com.datepollsystems.datepoll.vm.FtueViewModel" />
+            type="com.datepollsystems.datepoll.components.login.FtueViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.login.FtueLoginFragment">
+        tools:context=".components.login.FtueLoginFragment">
 
 
         <ProgressBar
@@ -86,7 +86,7 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loading"
-            app:srcCompat="@drawable/ic_icon"
+            app:srcCompat="@mipmap/ic_launcher_round"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="72dp"

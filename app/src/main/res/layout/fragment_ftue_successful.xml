@@ -6,14 +6,14 @@
     android:id="@+id/motionLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.FtueSuccessfulFragment"
+    tools:context=".components.login.FtueSuccessfulFragment"
     app:layoutDescription="@xml/fragment_ftue_successful_scene">
 
     <ImageView
         android:id="@+id/circle"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:contentDescription="TODO"
+        android:contentDescription="@string/logo"
         android:src="@drawable/circle"
         tools:layout_editor_absoluteX="310dp" />
 

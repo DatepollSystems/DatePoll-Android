@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Datepoll</string>
+    <string name="app_name">DatePoll</string>
     <string name="title_activity_login">Sign in</string>
     <string name="action_sign_in">Login</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -156,4 +156,10 @@
     <string name="privacy">Privacy</string>
     <string name="show_answered_events">Show answered events</string>
     <string name="movie_picture">Movie picture</string>
+    <string name="submit">Submit</string>
+    <string name="book">book</string>
+    <string name="tickets">Tickets:</string>
+    <string name="you_booked">You booked:</string>
+    <string name="available_tickets">Available tickets:</string>
+    <string name="sold_out">!SOLD OUT!</string>
 </resources>

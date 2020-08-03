@@ -4,13 +4,13 @@
     <data>
         <variable
             name="vm"
-            type="com.datepollsystems.datepoll.vm.CinemaViewModel" />
+            type="com.datepollsystems.datepoll.components.main.cinema.CinemaViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.datepollsystems.datepoll.ui.main.cinema.CinemaFragment">
+        tools:context="com.datepollsystems.datepoll.components.main.cinema.CinemaFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/moviesRecycler"

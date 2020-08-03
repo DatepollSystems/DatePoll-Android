@@ -1,9 +1,9 @@
 package com.datepollsystems.datepoll.network
 
 import com.datepollsystems.datepoll.data.*
-import com.datepollsystems.datepoll.database.model.event.GetAllEventsResponseMsg
-import com.datepollsystems.datepoll.database.model.event.VoteForEventRequestDto
-import com.datepollsystems.datepoll.database.model.event.VoteForEventResponseDto
+import com.datepollsystems.datepoll.components.main.event.model.GetAllEventsResponseMsg
+import com.datepollsystems.datepoll.components.main.event.model.VoteForEventRequestDto
+import com.datepollsystems.datepoll.components.main.event.model.VoteForEventResponseDto
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -162,6 +162,42 @@ interface InstanceApi {
     suspend fun getNotShownMovies(
         @Query("token") token: String
     ): Response<GetMovieResponse>
+
+    @POST("/api/v1/cinema/worker/{movieId}")
+    suspend fun applyForMovieWorker(
+        @Path("movieId") movieId: Long,
+        @Query("token") token: String
+    ): Response<Message>
+
+    @POST("/api/v1/cinema/emergencyWorker/{movieId}")
+    suspend fun applyForEmergencyMovieWorker(
+        @Path("movieId") movieId: Long,
+        @Query("token") token: String
+    ): Response<Message>
+
+    @DELETE("/api/v1/cinema/worker/{movieId}")
+    suspend fun signOutOfMovieWorker(
+        @Path("movieId") movieId: Long,
+        @Query("token") token: String
+    ): Response<Message>
+
+    @DELETE("/api/v1/cinema/emergencyWorker/{movieId}")
+    suspend fun signOutOfEmergencyMovieWorker(
+        @Path("movieId") movieId: Long,
+        @Query("token") token: String
+    ): Response<Message>
+
+    @POST("/api/v1/cinema/booking")
+    suspend fun bookTicketsForMovie(
+        @Query("token") token: String,
+        @Body bookMovieTicketRequest: BookTicketsRequestModel
+    ): Response<BookTicketsResponseModel>
+
+    @DELETE("/api/v1/cinema/booking/{movieId}")
+    suspend fun cancelTicketBooking(
+        @Path("movieId") movieId: Long,
+        @Query("token") token: String
+    ): Response<Message>
 
     //endregion
 }

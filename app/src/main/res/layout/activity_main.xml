@@ -7,14 +7,14 @@
 
         <variable
             name="vm"
-            type="com.datepollsystems.datepoll.vm.MainViewModel" />
+            type="com.datepollsystems.datepoll.components.main.MainViewModel" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.MainActivity">
+        tools:context=".components.main.MainActivity">
 
 
         <LinearLayout

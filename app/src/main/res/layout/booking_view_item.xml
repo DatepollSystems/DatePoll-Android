@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
@@ -21,81 +21,25 @@
     <TextView
         android:id="@+id/tvMovieItemDate"
         style="@style/TextAppearance.MaterialComponents.Headline6"
-        android:layout_width="120dp"
-        android:layout_height="27dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/_10_10_2019"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toEndOf="@+id/barrierColumnTitle"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
-        android:id="@+id/textView14"
-        style="@style/TextAppearance.MaterialComponents.Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:paddingTop="19dp"
-        android:text="@string/emergency_duty"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barrierRow3" />
-
-    <TextView
-        android:id="@+id/tvDuty"
-        style="@style/TextAppearance.MaterialComponents.Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:paddingTop="14dp"
-        android:text="@string/duty"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barrierRow2" />
-
-
-    <Button
-        android:id="@+id/btnReportDuty"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/report_for_duty"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toEndOf="@+id/barrierColumn1"
-        app:layout_constraintTop_toBottomOf="@+id/barrierRow2" />
-
-    <TextView
-        android:id="@+id/tvReportDuty"
-        style="@style/TextAppearance.MaterialComponents.Body1"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:paddingTop="14dp"
-        android:text="@string/duty"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toEndOf="@+id/barrierColumn1"
-        app:layout_constraintTop_toBottomOf="@+id/barrierRow2" />
-
-    <TextView
         android:id="@+id/tvBookedSeats"
         style="@style/TextAppearance.MaterialComponents.Body1"
-        android:layout_width="180dp"
-        android:layout_height="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/_4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.81"
-        app:layout_constraintStart_toEndOf="@+id/barrierColumn1"
-        app:layout_constraintTop_toBottomOf="@+id/barrierRow1" />
+        app:layout_constraintStart_toEndOf="@+id/tvTitleSeats"
+        app:layout_constraintTop_toTopOf="@+id/tvTitleSeats" />
 
     <TextView
         android:id="@+id/tvTitleSeats"
@@ -104,99 +48,11 @@
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/booked_seats"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barrierRow1" />
-
-    <Button
-        android:id="@+id/btnReportEmergencyDuty"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/report_for_emergency_duty"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toEndOf="@+id/barrierColumn1"
-        app:layout_constraintTop_toBottomOf="@+id/barrierRow3" />
-
-    <TextView
-        android:id="@+id/tvReportEmergencyDuty"
-        style="@style/TextAppearance.MaterialComponents.Body1"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:paddingTop="19dp"
-        android:text="@string/emergency_duty"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toEndOf="@+id/barrierColumn1"
-        app:layout_constraintTop_toBottomOf="@+id/barrierRow3" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrierColumn1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="right"
-        app:constraint_referenced_ids="tvDuty,tvTitleSeats,textView14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrierRow1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="tvMovieItemName,tvMovieItemDate"
-        tools:layout_editor_absoluteY="864dp" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrierRow2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="tvBookedSeats,tvTitleSeats"
-        tools:layout_editor_absoluteY="960dp" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrierRow3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="tvReportDuty,tvDuty,pbDuty"
-        tools:layout_editor_absoluteY="960dp" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrierColumnTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="right"
-        app:constraint_referenced_ids="tvMovieItemName"
-        tools:layout_editor_absoluteX="600dp" />
-
-    <ProgressBar
-        android:id="@+id/pbDuty"
-        style="?android:attr/progressBarStyle"
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="46dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/btnReportDuty"
-        app:layout_constraintStart_toStartOf="@+id/btnReportDuty"
-        app:layout_constraintTop_toBottomOf="@+id/barrierRow2" />
-
-    <ProgressBar
-        android:id="@+id/pbEmergency"
-        style="?android:attr/progressBarStyle"
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="46dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="@+id/btnReportEmergencyDuty"
-        app:layout_constraintStart_toStartOf="@+id/btnReportEmergencyDuty"
-        app:layout_constraintTop_toBottomOf="@+id/barrierRow3" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMovieItemName" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.datepollsystems.datepoll.vm.SettingsViewModel" />
+            type="com.datepollsystems.datepoll.components.settings.SettingsViewModel" />
     </data>
 
 
@@ -14,7 +14,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.settings.SettingsPrivacy" >
+        tools:context=".components.settings.SettingsPrivacy" >
 
 
 
