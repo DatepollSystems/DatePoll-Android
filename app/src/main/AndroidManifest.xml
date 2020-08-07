@@ -16,7 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".components.login.FtueActivity" />
+        <activity android:name=".components.UiTestActivity"/>
+        <activity
+            android:name=".components.login.FtueActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".components.login.QrCodeScanActivity" />
         <activity
             android:name=".components.LauncherActivity"
@@ -33,4 +36,5 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
+
 </manifest>

@@ -26,7 +26,7 @@
 
         <ImageView
             android:id="@+id/connectionView"
-            style="@style/AppTheme.IconBlackGrey"
+            style="@style/DatepollImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginBottom="40dp"

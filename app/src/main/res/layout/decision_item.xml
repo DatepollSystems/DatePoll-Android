@@ -7,7 +7,9 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground">
+
     <TextView
+        style="@style/TextAppearance.MaterialComponents.Body1"
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="50dp"

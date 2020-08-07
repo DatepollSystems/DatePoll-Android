@@ -99,6 +99,7 @@ class FtueLoginFragment : Fragment() {
                             isLoading(false)
                         }
                     }
+                    loginState.postValue(null)
                 }
             })
         }

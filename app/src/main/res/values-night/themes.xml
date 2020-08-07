@@ -1,5 +1,49 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/blueGrey</item>
+        <item name="colorPrimaryDark">@color/blueGreyDarken2</item>
+        <item name="colorSecondary">@color/blueGrey</item>
+
+        <item name="android:statusBarColor">@color/blueGreyDarken3</item>
+        <item name="appBarLayoutStyle">@style/AppTheme.NoActionBar</item>
+
+        <!-- Components -->
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <item name="bottomSheetDialogTheme">@style/DatepollBottomSheetDialog</item>
+        <item name="cardViewStyle">@style/DatepollCardView</item>
+        <item name="floatingActionButtonStyle">@style/DatepollFloatingActionButton</item>
+        <item name="progressBarStyle">@style/DatepollProgressBar</item>
+        <item name="imageButtonStyle">@style/DatepollImageButtonStyle</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+        <item name="buttonStyle">@style/DatepollButtonStyle</item>
+        <item name="logo">@drawable/logo_light</item>
+    </style>
+
+    <style name="DatepollButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- region BottomNavigation -->
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextColor">@android:color/white</item>
+        <item name="itemIconTint">@android:color/white</item>
+    </style>
+    <!-- endregion -->
+
+    <!-- region SettingsMenuIcon -->
+    <style name="DatepollSettingMenuIconOverlay" parent="">
+        <item name="android:tint">@android:color/white</item>
+    </style>
+    <!-- endregion -->
+
+    <!-- region ImageButton -->
+    <style name="DatepollImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+        <item name="tint">@android:color/white</item>
+    </style>
+    <!-- endregion ImageButton -->
+
+    <!--
     <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorSecondary">@color/primaryColor</item>
@@ -10,6 +54,7 @@
         <item name="materialButtonStyle">@style/DatepollButton</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="imageButtonStyle">@style/ImageViewIconStyle</item>
+
         <item name="floatingActionButtonStyle">@style/floatingActionBtn</item>
         <item name="progressBarStyle">@style/progress_bar</item>
     </style>
@@ -27,9 +72,7 @@
     </style>
 
     <style name="DatepollCardView" parent="Widget.MaterialComponents.CardView">
-        <item name="android:colorBackground">#121212</item>
-
-        <item name="cardCornerRadius">5dp</item>
+               <item name="cardCornerRadius">5dp</item>
         <item name="cardElevation">8dp</item>
     </style>
 
@@ -61,5 +104,5 @@
     <style name="calendar">
         <item name="pagesColor">@color/primaryColor</item>
     </style>
-
+-->
 </resources>

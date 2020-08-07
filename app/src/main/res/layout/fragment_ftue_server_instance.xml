@@ -4,157 +4,168 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
             type="com.datepollsystems.datepoll.components.login.FtueViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".components.login.FtueServerInstanceFragment">
+        android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/btnQRCodeScan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="24dp"
-            android:backgroundTint="#00000000"
-            android:tint="#000000"
-            app:layout_constraintBottom_toBottomOf="@+id/tiServerDomain"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tiServerDomain"
-            app:layout_constraintTop_toTopOf="@+id/tiServerDomain"
-            app:srcCompat="@drawable/ic_photo_camera_black_24dp"
-            android:contentDescription="@string/scan_qr_code" />
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/ivLogo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:contentDescription="@string/logo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/loading"
-            app:layout_constraintVertical_bias="0.110000014"
-            app:srcCompat="@mipmap/ic_launcher_round" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tiServerDomain"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:hint="@string/demo_datepoll_org"
-            app:layout_constraintEnd_toStartOf="@+id/btnQRCodeScan"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView17">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etServerAddress"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:inputType="text"
-                android:text="@={vm.serverInstanceUrl}" />
+                android:layout_height="match_parent"
+                tools:context=".components.login.FtueServerInstanceFragment">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <ImageButton
+                    android:id="@+id/btnQRCodeScan"
+                    style="@style/DatepollImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:backgroundTint="#00000000"
+                    android:contentDescription="@string/scan_qr_code"
+                    app:layout_constraintBottom_toBottomOf="@+id/tiServerDomain"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tiServerDomain"
+                    app:layout_constraintTop_toTopOf="@+id/tiServerDomain"
+                    app:srcCompat="@drawable/ic_camera_alt_black" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivLogo"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:contentDescription="@string/logo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/loading"
+                    app:layout_constraintVertical_bias="0.110000014"
+                    app:srcCompat="?attr/logo" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tiServerDomain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/demo_datepoll_org"
+                    app:layout_constraintEnd_toStartOf="@+id/btnQRCodeScan"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView17">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etServerAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:inputType="text"
+                        android:text="@={vm.serverInstanceUrl}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/choose_instance"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    app:layout_constraintEnd_toStartOf="@+id/btnChoose"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ivLogo" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnChoose"
+                    style="@style/DatepollButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/choose"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textView15"
+                    app:layout_constraintTop_toTopOf="@+id/textView15" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/or"
+                    android:textAlignment="textEnd"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnChoose" />
+
+                <View
+                    android:id="@+id/divider3"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView16"
+                    app:layout_constraintEnd_toStartOf="@+id/textView16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView16" />
+
+                <View
+                    android:id="@+id/divider5"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView16"
+                    app:layout_constraintTop_toTopOf="@+id/textView16" />
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/manual_input"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+                <ProgressBar
+                    android:id="@+id/loading"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_check"
-            android:tint="@color/colorWhite"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="60dp"
-            android:text="@string/choose_instance"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivLogo" />
-
-        <Button
-            android:id="@+id/btnChoose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="@string/choose"
-            app:layout_constraintBottom_toBottomOf="@+id/textView15"
-            app:layout_constraintStart_toEndOf="@+id/textView15"
-            app:layout_constraintTop_toTopOf="@+id/textView15" />
-
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="@string/or"
-            android:textAlignment="textEnd"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnChoose" />
-
-        <View
-            android:id="@+id/divider3"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintBottom_toBottomOf="@+id/textView16"
-            app:layout_constraintEnd_toStartOf="@+id/textView16"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView16" />
-
-        <View
-            android:id="@+id/divider5"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="24dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintBottom_toBottomOf="@+id/textView16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView16"
-            app:layout_constraintTop_toTopOf="@+id/textView16" />
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="40dp"
-            android:text="@string/manual_input"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView16" />
-
-        <ProgressBar
-            android:id="@+id/loading"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            android:src="@drawable/ic_arrow_forward_black"
+            android:layout_margin="16dp"
+            android:layout_gravity="bottom|end"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
