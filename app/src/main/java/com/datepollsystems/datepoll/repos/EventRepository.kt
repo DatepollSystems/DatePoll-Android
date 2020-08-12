@@ -36,9 +36,12 @@ class EventRepository : BaseRepository() {
             r?.let { response ->
                 withContext(Dispatchers.IO) {
                     Timber.i("Try to fetch new data into db")
+
+                    val idList = response.events.map { e -> e.id }
+                    eventDao.deleteAllWhereNotInList(idList)
+
                     for (e in response.events) {
                         val data = e.getDbData()
-
 
                         eventDao.addEvent(data.event)
 

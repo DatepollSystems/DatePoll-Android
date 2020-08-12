@@ -22,6 +22,9 @@ interface EventDao {
     @Query("select * from events where already_voted = 0")
     fun getFilteredEvents(): LiveData<List<EventDbModel>>
 
+    @Query("delete from events where id not in (:list)")
+    fun deleteAllWhereNotInList(list: List<Int>)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addEvent(event: EventDbModel)
 
@@ -36,6 +39,9 @@ interface EventDao {
 
     @Update
     fun updateEvent(e: EventDbModel)
+
+    @Update
+    fun updateAllEvents(list: List<EventDbModel>)
 
     fun addUserDecision(it: VoteForEventResponseDto) {
         val e = getEventById(it.userDecision.eventId)
