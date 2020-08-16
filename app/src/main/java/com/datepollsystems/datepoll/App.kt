@@ -16,6 +16,7 @@ import com.datepollsystems.datepoll.components.settings.themeOptions
 import com.datepollsystems.datepoll.core.DatepollDatabase
 import com.datepollsystems.datepoll.core.Prefs
 import com.datepollsystems.datepoll.network.InstanceApi
+import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -27,10 +28,6 @@ import timber.log.Timber.DebugTree
 
 
 val appModule = module {
-    // APIs
-    single { DatepollServiceFactory.createInstanceService(get()) }
-    single { DatepollServiceFactory.createDatepollService() }
-
     // Database
     single {
         DatepollDatabase.getDatabase(
@@ -60,6 +57,11 @@ val appModule = module {
     viewModel { CinemaViewModel() }
 }
 
+val networkModule = module {
+    single { DatepollServiceFactory.createInstanceService(get()) }
+    single { DatepollServiceFactory.createDatepollService() }
+}
+
 class App : Application() {
 
     override fun onCreate() {
@@ -74,7 +76,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(listOf(appModule))
+            modules(listOf(appModule, networkModule))
         }
 
         val prefs: Prefs by inject()
