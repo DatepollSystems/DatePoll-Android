@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.database.dao
+package com.datepollsystems.datepoll.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -18,6 +18,9 @@ interface CinemaDao {
 
     @Query("select count(*) from movies")
     fun countAllMovies(): Long
+
+    @Query("select * from movies where booked_tickets_for_yourself > 0")
+    fun selectBookedMovies(): LiveData<List<MovieDbModel>>
 
     @Insert
     fun insertAllMovieDbModel(list: List<MovieDbModel>)

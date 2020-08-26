@@ -3,36 +3,28 @@ package com.datepollsystems.datepoll.components.main.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.data.BirthdayDbModel
 import com.datepollsystems.datepoll.databinding.HomeBirthdayItemBinding
 
-class BirthdayAdapter : RecyclerView.Adapter<BirthdayAdapter.ViewHolder>() {
-
-    var data = listOf<BirthdayDbModel>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
-
-    override fun getItemCount() = data.size
+class BirthdayAdapter : ListAdapter<BirthdayDbModel, BirthdayAdapter.ViewHolder>(BirthdayDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent = parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(getItem(position))
     }
 
     class ViewHolder private constructor(val binding: HomeBirthdayItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: BirthdayDbModel) {
-            binding.tvName.text = item.name
-            binding.tvDate.text = item.date
+            binding.b = item
+            binding.executePendingBindings()
         }
 
         companion object {

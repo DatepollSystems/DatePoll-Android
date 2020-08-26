@@ -7,6 +7,7 @@ import com.datepollsystems.datepoll.core.Prefs
 import com.datepollsystems.datepoll.data.*
 import com.datepollsystems.datepoll.data.PermissionDbModel
 import com.datepollsystems.datepoll.core.ENetworkState
+import com.datepollsystems.datepoll.repos.CinemaRepository
 import com.datepollsystems.datepoll.repos.HomeRepository
 import com.datepollsystems.datepoll.repos.ServerRepository
 import com.datepollsystems.datepoll.repos.UserRepository
@@ -17,7 +18,6 @@ import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import timber.log.Timber
-import java.util.*
 
 class MainViewModel : ViewModel(), KoinComponent {
 
@@ -25,6 +25,7 @@ class MainViewModel : ViewModel(), KoinComponent {
     private val userRepository: UserRepository by inject()
     private val serverRepository: ServerRepository by inject()
     private val homeRepository: HomeRepository by inject()
+    private val cinemaRepository: CinemaRepository by inject()
 
     val user = userRepository.user
     val logout = MutableLiveData(false)
@@ -32,10 +33,11 @@ class MainViewModel : ViewModel(), KoinComponent {
 
     private val loadUserState = MutableLiveData<ENetworkState>()
     val loadBirthdaysAndBroadcastState = MutableLiveData<ENetworkState>()
+    val loadBookedMoviesState = MutableLiveData<ENetworkState>()
 
     val birthdays = homeRepository.birthdays
     val events = MutableLiveData<List<Event>>()
-    val bookings = MutableLiveData<List<Booking>>()
+    val bookings = cinemaRepository.bookedMovies
 
 
     fun loadUserData() {
@@ -77,6 +79,7 @@ class MainViewModel : ViewModel(), KoinComponent {
     fun loadHomepage(force: Boolean = false) {
         viewModelScope.launch(Dispatchers.Default) {
             homeRepository.loadBirthdaysAndBroadcasts(force, loadBirthdaysAndBroadcastState)
+            cinemaRepository.loadNotShownMovies(force, loadBookedMoviesState)
         }
     }
 }

@@ -12,6 +12,8 @@ import com.datepollsystems.datepoll.data.Booking
 import com.datepollsystems.datepoll.data.Event
 import java.util.*
 
+// TODO Remove
+/**
 class CardAdapter(val activity: AppCompatActivity) :
     RecyclerView.Adapter<CardViewHolder>() {
     private val birthday = activity.getString(R.string.birthday)
@@ -56,7 +58,7 @@ class CardAdapter(val activity: AppCompatActivity) :
             bookings -> {
 
                 val adapter =
-                    BookingAdapter()
+                    BookingsAdapter()
                 adapter.data = bookingsData
                 holder.tvHeadline.text = bookings
                 holder.recyclerView.adapter = adapter
@@ -89,3 +91,4 @@ class CardViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
     var inflate = true
 }
+**/

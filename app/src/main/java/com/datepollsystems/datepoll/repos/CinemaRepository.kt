@@ -23,6 +23,7 @@ class CinemaRepository : BaseRepository() {
 
 
     val movies = cinemaDao.loadAllMovies()
+    val bookedMovies = cinemaDao.selectBookedMovies()
 
     suspend fun loadNotShownMovies(
         force: Boolean = false,
@@ -89,7 +90,7 @@ class CinemaRepository : BaseRepository() {
         )?.let {
             movie.emergencyWorkerId = user.id.toInt()
             movie.emergencyWorkerName = "${user.firstname} ${user.surname}"
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 cinemaDao.updateMovie(movie)
             }
 
@@ -148,7 +149,7 @@ class CinemaRepository : BaseRepository() {
     ): MovieDbModel? {
         val currentTickets = movieDbModel.bookedTicketsForYourself
         apiCall(
-            call = { api.cancelTicketBooking(movieId = movieDbModel.id, token = prefs.jwt!!)},
+            call = { api.cancelTicketBooking(movieId = movieDbModel.id, token = prefs.jwt!!) },
             state = cancelTicketReservationState
         )?.let {
             movieDbModel.bookedTicketsForYourself = 0
