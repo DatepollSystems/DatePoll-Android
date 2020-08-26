@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.datepollsystems.datepoll.core.BaseRepository
 import com.datepollsystems.datepoll.data.*
-import com.datepollsystems.datepoll.core.DatepollDatabase
+import com.datepollsystems.datepoll.db.dao.DatepollDatabase
 import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.database.dao.*
 import com.datepollsystems.datepoll.data.EmailAddressDbModel

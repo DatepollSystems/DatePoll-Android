@@ -1,73 +1,46 @@
 package com.datepollsystems.datepoll.components.main.home
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.data.Birthday
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
+import com.datepollsystems.datepoll.data.BirthdayDbModel
+import com.datepollsystems.datepoll.databinding.HomeBirthdayItemBinding
 
-class BirthdayAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-    var data = LinkedList<Birthday>()
+class BirthdayAdapter : RecyclerView.Adapter<BirthdayAdapter.ViewHolder>() {
+
+    var data = listOf<BirthdayDbModel>()
         set(value) {
-            value.addFirst(Birthday(null, null))
             field = value
             notifyDataSetChanged()
         }
 
-    @SuppressLint("SimpleDateFormat")
-    var formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd")
-    @SuppressLint("SimpleDateFormat")
-    var dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy")
 
     override fun getItemCount() = data.size
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent = parent)
+    }
 
-        if(holder.itemViewType == 2){
-            val item = data[position]
-            val viewHolder = holder as BirthdayViewHolder
-            viewHolder.tvName.text = item.name
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(data[position])
+    }
 
-            val date: Date? = formatter.parse(item.date!!)
-            viewHolder.tvDate.text = dateFormat.format(date)
+    class ViewHolder private constructor(val binding: HomeBirthdayItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: BirthdayDbModel) {
+            binding.tvName.text = item.name
+            binding.tvDate.text = item.date
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = HomeBirthdayItemBinding.inflate(layoutInflater, parent, false)
+                return ViewHolder(binding)
+            }
         }
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-
-        return when(viewType){
-            1 -> BirthdayHeadlineViewHolder(
-                layoutInflater.inflate(R.layout.birthday_headline_item, parent, false)
-            )
-            2 -> BirthdayViewHolder(
-                layoutInflater.inflate(R.layout.birthady_view_item, parent, false)
-            )
-            else -> BirthdayHeadlineViewHolder(
-                layoutInflater.inflate(R.layout.item_no_birthdays, parent, false)
-            )
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return if(data.size == 1)
-            3
-        else if(position == 0)
-            1
-        else
-            2
-    }
 }
-
-class BirthdayViewHolder(val view: View): RecyclerView.ViewHolder(view) {
-    val tvName: TextView = view.findViewById(R.id.tvBirthdayName)
-    val tvDate: TextView = view.findViewById(R.id.tvBirthdayDate)
-}
-
-class BirthdayHeadlineViewHolder(val view: View): RecyclerView.ViewHolder(view)

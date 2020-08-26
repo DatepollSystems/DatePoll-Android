@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.applandeo.materialcalendarview.EventDay
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.data.Birthday
+import com.datepollsystems.datepoll.data.BirthdayDbModel
+import com.datepollsystems.datepoll.data.BirthdayDto
 import com.datepollsystems.datepoll.utils.toCalendar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +22,7 @@ class CalendarViewModel : ViewModel() {
 
 
     @SuppressLint("SimpleDateFormat")
-    fun fillCalendar(b: List<Birthday>) {
+    fun fillCalendar(b: List<BirthdayDbModel>) {
         viewModelScope.launch(Dispatchers.Main) {
             val list = ArrayList<EventDay>()
             val formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd")

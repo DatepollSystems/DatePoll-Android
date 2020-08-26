@@ -31,17 +31,16 @@ class MainViewModel : ViewModel(), KoinComponent {
     val permissions = MutableLiveData<List<PermissionDbModel>>()
 
     private val loadUserState = MutableLiveData<ENetworkState>()
-    val loadHomepageState = MutableLiveData<ENetworkState>()
+    val loadBirthdaysAndBroadcastState = MutableLiveData<ENetworkState>()
 
-    val birthdays = MutableLiveData<List<Birthday>>()
+    val birthdays = homeRepository.birthdays
     val events = MutableLiveData<List<Event>>()
     val bookings = MutableLiveData<List<Booking>>()
 
-    private var time: Date? = null
 
     fun loadUserData() {
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 userRepository.getUser(loadUserState, force = true)
             }
         }
@@ -49,8 +48,8 @@ class MainViewModel : ViewModel(), KoinComponent {
 
     fun logout() {
         GlobalScope.launch {
-            withContext(Dispatchers.IO){
-                Timber.i( "start logout process")
+            withContext(Dispatchers.IO) {
+                Timber.i("start logout process")
 
                 val session = prefs.session!!
                 val response: LogoutResponseModel? =
@@ -76,22 +75,8 @@ class MainViewModel : ViewModel(), KoinComponent {
     }
 
     fun loadHomepage(force: Boolean = false) {
-        viewModelScope.launch {
-            withContext(Dispatchers.Default){
-                //check if last request is too old
-                val t = time
-                if(force || t == null || (t.time - Date().time) >= 3600000) {
-                    val h = homeRepository.loadHomepage(loadHomepageState)
-                    Timber.i(h.toString())
-                    birthdays.postValue(h?.birthdays)
-                    events.postValue(h?.events)
-                    bookings.postValue(h?.bookings)
-                    time = Date()
-                    loadHomepageState.postValue(ENetworkState.DONE)
-                }
-                else
-                    loadHomepageState.postValue(ENetworkState.DONE)
-            }
+        viewModelScope.launch(Dispatchers.Default) {
+            homeRepository.loadBirthdaysAndBroadcasts(force, loadBirthdaysAndBroadcastState)
         }
     }
 }

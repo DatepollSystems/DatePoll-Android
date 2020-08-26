@@ -37,15 +37,9 @@ data class Booking(
 )
 
 @JsonClass(generateAdapter = true)
-data class Birthday(
-    val name: String?,
-    val date: String?
-)
-
-@JsonClass(generateAdapter = true)
 data class HomeScreen(
     val msg: String?,
     val events: List<Event>,
     val bookings: List<Booking>,
-    val birthdays: List<Birthday>
+    val birthdays: List<BirthdayDto>
 )

@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.data.Birthday
+import com.datepollsystems.datepoll.data.BirthdayDto
 import com.datepollsystems.datepoll.data.Booking
 import com.datepollsystems.datepoll.data.Event
 import java.util.*
@@ -20,7 +20,7 @@ class CardAdapter(val activity: AppCompatActivity) :
 
     var data = listOf(birthday, bookings)
 
-    var birthdayData: LinkedList<Birthday> = LinkedList()
+    var birthdayData: LinkedList<BirthdayDto> = LinkedList()
         set(value){
             field = value
             notifyDataSetChanged()
@@ -45,7 +45,7 @@ class CardAdapter(val activity: AppCompatActivity) :
         when(data[position]){
             birthday -> {
                 val adapter =
-                    BirthdayAdapter()
+                    OldBithdayAdapter()
                 adapter.data = birthdayData
                 holder.tvHeadline.text = birthday
                 holder.recyclerView.adapter = adapter

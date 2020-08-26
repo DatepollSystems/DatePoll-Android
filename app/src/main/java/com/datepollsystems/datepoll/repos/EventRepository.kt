@@ -1,7 +1,7 @@
 package com.datepollsystems.datepoll.repos
 
 import androidx.lifecycle.MutableLiveData
-import com.datepollsystems.datepoll.core.DatepollDatabase
+import com.datepollsystems.datepoll.db.dao.DatepollDatabase
 import com.datepollsystems.datepoll.database.dao.EventDao
 import com.datepollsystems.datepoll.components.main.event.model.*
 import com.datepollsystems.datepoll.core.BaseRepository

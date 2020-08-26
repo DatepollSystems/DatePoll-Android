@@ -16,14 +16,17 @@ import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.appModule
 import com.datepollsystems.datepoll.components.login.FtueActivity
 import com.datepollsystems.datepoll.databinding.ActivityMainBinding
+import com.datepollsystems.datepoll.networkModule
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
+import org.koin.core.context.unloadKoinModules
 
 
 class MainActivity : AppCompatActivity(), AppBarConfiguration.OnNavigateUpListener {
@@ -75,12 +78,8 @@ class MainActivity : AppCompatActivity(), AppBarConfiguration.OnNavigateUpListen
 
         mainViewModel.logout.observe(this, Observer {
             if (it != null && it) {
-                stopKoin()
-                startKoin {
-                    androidLogger()
-                    androidContext(applicationContext)
-                    modules(appModule)
-                }
+                unloadKoinModules(networkModule)
+                loadKoinModules(networkModule)
                 val i = Intent(this@MainActivity, FtueActivity::class.java)
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(i)

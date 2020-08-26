@@ -12,12 +12,13 @@
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
         <item name="bottomSheetDialogTheme">@style/DatepollBottomSheetDialog</item>
         <item name="cardViewStyle">@style/DatepollCardView</item>
+        <item name="materialCardViewStyle">@style/ShapeAppearance.App.MediumComponent</item>
         <item name="floatingActionButtonStyle">@style/DatepollFloatingActionButton</item>
         <item name="progressBarStyle">@style/DatepollProgressBar</item>
         <item name="imageButtonStyle">@style/DatepollImageButtonStyle</item>
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
         <item name="buttonStyle">@style/DatepollButtonStyle</item>
-        <item name="logo">@drawable/logo_light</item>
+        <item name="logo">@drawable/logo_dark</item>
     </style>
 
     <style name="DatepollButtonStyle" parent="Widget.MaterialComponents.Button">
@@ -26,8 +27,10 @@
 
     <!-- region BottomNavigation -->
     <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
-        <item name="itemTextColor">@android:color/white</item>
-        <item name="itemIconTint">@android:color/white</item>
+        <item name="colorSurface">@color/colorWhite</item>
+        <item name="itemTextColor">@color/bnv_tab_item_foreground_dark</item>
+        <item name="itemIconTint">@color/bnv_tab_item_foreground_dark</item>
+        <item name="elevation">8dp</item>
     </style>
     <!-- endregion -->
 
@@ -42,6 +45,50 @@
         <item name="tint">@android:color/white</item>
     </style>
     <!-- endregion ImageButton -->
+
+    <!-- region Calendar -->
+    <style name="calendar">
+        <item name="pagesColor">@color/primaryColor</item>
+    </style>
+    <!-- endregion -->
+
+    <!-- region Typography -->
+    <style name="TextAppearance.App.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TextAppearance.App.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">34sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TextAppearance.App.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TextAppearance.App.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TextAppearance.App.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <!-- endregion-->
+
 
     <!--
     <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.NoActionBar">

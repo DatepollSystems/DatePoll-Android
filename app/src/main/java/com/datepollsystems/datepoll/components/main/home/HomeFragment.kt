@@ -34,13 +34,43 @@ class HomeFragment : Fragment() {
         binding.vm = vm
         binding.lifecycleOwner = this
 
-        view.connectionView.visibility = View.INVISIBLE
+        val birthdayAdapter = BirthdayAdapter()
+        vm.birthdays.value?.let {
+            birthdayAdapter.data = it
+        }
+        binding.birthdayList.adapter = birthdayAdapter
 
-        val adapter =
-            CardAdapter(activity as AppCompatActivity)
-        view.cardList.adapter = adapter
-        setupObservers(adapter)
-        adapter.notifyDataSetChanged()
+        vm.birthdays.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                birthdayAdapter.data = it
+            }
+        })
+
+        vm.loadBirthdaysAndBroadcastState.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                val s = swipeToRefresh
+
+                when (it) {
+                    ENetworkState.LOADING -> s.isRefreshing = true
+                    ENetworkState.DONE -> {
+                        s.isRefreshing = false
+                    }
+                    ENetworkState.ERROR -> {
+                        if (it.code == 401) {
+                            //User not authorized
+                            vm.logout()
+                        }
+                        s.isRefreshing = false
+                    }
+                }
+
+                vm.loadBirthdaysAndBroadcastState.postValue(null)
+            }
+        })
+
+        vm.loadHomepage()
+
+
         view.swipeToRefresh.setOnRefreshListener {
             vm.loadHomepage(force = true)
         }
@@ -51,50 +81,30 @@ class HomeFragment : Fragment() {
 
     private fun setupObservers(mainAdapter: CardAdapter) {
 
+        /**
         vm.loadHomepageState.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                val s = swipeToRefresh
+        it?.let {
 
-                when (it) {
-                    ENetworkState.LOADING -> s.isRefreshing = true
-                    ENetworkState.DONE -> {
-                        s.isRefreshing = false
-                        cardList.visibility = View.VISIBLE
-                        connectionView.visibility = View.INVISIBLE
-                    }
-                    ENetworkState.ERROR -> {
-                        if(it.code == 401){
-                            //User not authorized
-                            vm.logout()
-                        }
-
-                        s.isRefreshing = false
-                        cardList.visibility = View.INVISIBLE
-                        connectionView.visibility = View.VISIBLE
-                    }
-                }
-
-                vm.loadHomepageState.postValue(null)
-            }
+        }
         })
 
         vm.bookings.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                mainAdapter.bookingsData = LinkedList(it)
-            }
+        it?.let {
+        mainAdapter.bookingsData = LinkedList(it)
+        }
         })
 
         vm.events.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                mainAdapter.eventsData = LinkedList(it)
-            }
+        it?.let {
+        mainAdapter.eventsData = LinkedList(it)
+        }
         })
 
         vm.birthdays.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                mainAdapter.birthdayData = LinkedList(it)
-            }
+        it?.let {
+        mainAdapter.birthdayData = LinkedList(it)
+        }
         })
-
+         **/
     }
 }
