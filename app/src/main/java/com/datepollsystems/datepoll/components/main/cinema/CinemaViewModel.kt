@@ -1,10 +1,13 @@
 package com.datepollsystems.datepoll.components.main.cinema
 
+import android.provider.MediaStore
 import android.view.View
 import androidx.lifecycle.*
 import com.datepollsystems.datepoll.data.MovieDbModel
 import com.datepollsystems.datepoll.repos.CinemaRepository
 import com.datepollsystems.datepoll.core.ENetworkState
+import com.datepollsystems.datepoll.data.MovieOrder
+import com.datepollsystems.datepoll.data.MovieOrderTupl
 import com.datepollsystems.datepoll.repos.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,8 +25,7 @@ class CinemaViewModel : ViewModel(), KoinComponent {
     val user = userRepository.user
     val showBottomSheet = MutableLiveData(false)
 
-    val bookCardAmount = MutableLiveData<Int>(1)
-
+    val bookCardAmount = MutableLiveData(1)
 
     val setWorkerNameVisibility = Transformations.map(detailMovie) {
         if (it.workerId != null)

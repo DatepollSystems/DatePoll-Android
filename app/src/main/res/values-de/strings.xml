@@ -149,5 +149,7 @@
     <string name="you_booked_x_tickets">Du hast %1$s Tickets gebucht.</string>
     <string name="movie_worker_details">Kinodienst</string>
     <string name="info_for_date">Info für den %1$s</string>
+    <string name="no_bookings">Keine Buchungen.</string>
+    <string name="reservations">Reservierungen:</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.datepollsystems.datepoll.components.main.home
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,15 @@ import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.components.main.MainViewModel
 import com.datepollsystems.datepoll.components.main.cinema.CinemaViewModel
 import com.datepollsystems.datepoll.core.ENetworkState
+import com.datepollsystems.datepoll.data.MovieDbModel
+import com.datepollsystems.datepoll.data.MovieOrder
+import com.datepollsystems.datepoll.data.MovieOrderTupl
+import com.datepollsystems.datepoll.data.MovieOrdersDto
+import com.datepollsystems.datepoll.databinding.BookTicketBottomSheetBinding
 import com.datepollsystems.datepoll.databinding.FragmentHomeBinding
+import com.datepollsystems.datepoll.databinding.HomeMovieWorkerBottomSheetBinding
+import com.datepollsystems.datepoll.utils.formatDateEnToLocal
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -56,8 +65,8 @@ class HomeFragment : Fragment() {
 
     private fun setupMovieWorkerCard() {
         val adapter = MovieWorkerAdapter(MovieWorkerClickListener {
-            //Show bootom sheet
-            Snackbar.make(binding.root, "", Snackbar.LENGTH_SHORT).show()
+            val sheet = CinemaWorkerInfoBottomSheet(it.id)
+            sheet.show(parentFragmentManager, sheet.tag)
         })
         vm.movieWorkerDetails.value?.let {
             adapter.submitList(it)
@@ -146,4 +155,5 @@ class HomeFragment : Fragment() {
             }
         })
     }
+
 }

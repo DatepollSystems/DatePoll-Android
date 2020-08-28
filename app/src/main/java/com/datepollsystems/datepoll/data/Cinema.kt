@@ -196,6 +196,23 @@ data class MovieOrder(
     val movieId: Long
 )
 
+data class MovieOrderTupl(
+    @field:Json(name = "movie_name")
+    val movieName: String,
+
+    @field:Json(name = "date")
+    val date: String,
+
+    @ColumnInfo(name = "user_name")
+    val userName: String,
+
+    @ColumnInfo(name = "amount")
+    val amount: Int,
+
+    @ColumnInfo(name = "booked_tickets")
+    val bookedTickets: Int
+)
+
 @JsonClass(generateAdapter = true)
 data class MovieWorkerDetailsDto(
     @field:Json(name = "movie_id")

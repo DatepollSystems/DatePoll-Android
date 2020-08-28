@@ -1,4 +1,4 @@
-package com.datepollsystems.datepoll.database.dao
+package com.datepollsystems.datepoll.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

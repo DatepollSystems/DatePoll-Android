@@ -1,14 +1,14 @@
-package com.datepollsystems.datepoll.db.dao
+package com.datepollsystems.datepoll.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.datepollsystems.datepoll.database.dao.*
 import com.datepollsystems.datepoll.components.main.event.model.EventDateDbModel
 import com.datepollsystems.datepoll.components.main.event.model.EventDbModel
 import com.datepollsystems.datepoll.components.main.event.model.EventDecisionDbModel
 import com.datepollsystems.datepoll.data.*
+import com.datepollsystems.datepoll.db.dao.*
 
 @Database(
     entities = [

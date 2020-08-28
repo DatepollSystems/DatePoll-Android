@@ -1,12 +1,9 @@
 package com.datepollsystems.datepoll.repos
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.datepollsystems.datepoll.core.BaseRepository
 import com.datepollsystems.datepoll.core.ENetworkState
-import com.datepollsystems.datepoll.data.BirthdayDbModel
-import com.datepollsystems.datepoll.data.HomeScreen
-import com.datepollsystems.datepoll.db.dao.DatepollDatabase
+import com.datepollsystems.datepoll.db.DatepollDatabase
 import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
 import org.koin.core.inject

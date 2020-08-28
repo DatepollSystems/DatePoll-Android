@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="d"
+            type="com.datepollsystems.datepoll.components.main.home.BottomSheetDataHolder" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tvMovieWorkerHeadline"
@@ -26,8 +28,8 @@
             android:id="@+id/ivBookingCardIcon2"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/round_shape"
             android:contentDescription="@string/bookings"
             android:padding="9dp"
@@ -43,7 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="Reservierungen:"
+            android:text="@string/reservations"
+            android:visibility="@{d.showIfEntries}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivBookingCardIcon2" />
 
@@ -54,7 +57,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="Name"
+            android:text="@string/name"
+            android:visibility="@{d.showIfEntries}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvReservationsTitle" />
 
@@ -64,7 +68,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="180dp"
-            android:text="Tickets"
+            android:text="@string/tickets"
+            android:visibility="@{d.showIfEntries}"
             app:layout_constraintStart_toStartOf="@+id/tvReservationsTitle2"
             app:layout_constraintTop_toTopOf="@+id/tvReservationsTitle2" />
 
@@ -74,6 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:visibility="@{d.showIfEntries}"
             app:layout_constraintStart_toEndOf="@+id/tvReservationsTitle"
             app:layout_constraintTop_toTopOf="@+id/tvReservationsTitle"
             tools:text="2" />
@@ -85,7 +91,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider"
+            android:background="@color/blueGrey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvReservationsTitle2" />
@@ -97,12 +103,28 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="@{d.showIfEntries}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider10"
             tools:layout_width="match_parent"
             tools:listitem="@layout/home_movie_worker_order_item" />
+
+        <TextView
+            android:id="@+id/tvNoEntries"
+            style="@style/TextAppearance.App.Headline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/no_bookings"
+            android:visibility="@{d.showIfNoEntries}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMovieWorkerHeadline"
+            tools:visibility="invisible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

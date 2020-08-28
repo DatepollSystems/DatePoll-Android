@@ -1,15 +1,14 @@
 package com.datepollsystems.datepoll.repos
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.datepollsystems.datepoll.core.BaseRepository
-import com.datepollsystems.datepoll.data.BookTicketsRequestModel
-import com.datepollsystems.datepoll.data.MovieDbModel
-import com.datepollsystems.datepoll.data.toDBModelList
-import com.datepollsystems.datepoll.db.dao.DatepollDatabase
+import com.datepollsystems.datepoll.db.DatepollDatabase
 import com.datepollsystems.datepoll.core.ENetworkState
-import com.datepollsystems.datepoll.data.UserDbModel
+import com.datepollsystems.datepoll.data.*
 import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import org.koin.core.inject
 import timber.log.Timber
@@ -26,6 +25,7 @@ class CinemaRepository : BaseRepository() {
     val bookedMovies = cinemaDao.selectBookedMovies()
     val moviesWithOrders
         get() = cinemaDao.getAllMoviesWhereCinemaWorker()
+
 
     suspend fun loadNotShownMovies(
         force: Boolean = false,
@@ -162,5 +162,13 @@ class CinemaRepository : BaseRepository() {
             return movieDbModel
         }
         return null
+    }
+
+    suspend fun loadOrdersForMovie(movieId: Long): Flow<List<MovieOrder>> {
+        return cinemaDao.getAllOrderForMovie(movieId)
+    }
+
+    fun getMovieById(movieId: Long): LiveData<MovieDbModel> {
+        return cinemaDao.loadMovieByIdFlow(movieId)
     }
 }

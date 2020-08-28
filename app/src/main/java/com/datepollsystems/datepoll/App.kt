@@ -14,7 +14,7 @@ import com.datepollsystems.datepoll.components.settings.SettingsEmailViewModel
 import com.datepollsystems.datepoll.components.settings.SettingsViewModel
 import com.datepollsystems.datepoll.components.settings.themeOptions
 import com.datepollsystems.datepoll.core.Prefs
-import com.datepollsystems.datepoll.db.dao.DatepollDatabase
+import com.datepollsystems.datepoll.db.DatepollDatabase
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

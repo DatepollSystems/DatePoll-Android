@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.datepollsystems.datepoll.data.MovieDbModel
 import com.datepollsystems.datepoll.data.MovieOrder
+import com.datepollsystems.datepoll.data.MovieOrderTupl
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -12,8 +13,11 @@ interface CinemaDao {
     @Query("select * from movies")
     fun loadAllMovies(): Flow<List<MovieDbModel>>
 
-    @Query("select * from movies where id = :id")
+    @Query("select * from movies where id = :id limit 1")
     fun loadMovieById(id: Long): MovieDbModel
+
+    @Query("select * from movies where id = :id limit 1")
+    fun loadMovieByIdFlow(id: Long): LiveData<MovieDbModel>
 
     @Query("select inserted_at from movies limit 1")
     fun getInsertionTime(): Long
@@ -57,7 +61,7 @@ interface CinemaDao {
 
     @Transaction
     @Query("select * from movie_orders where movie_id = :movieId")
-    fun getAllOrderForMovie(movieId: Long): List<MovieOrder>
+    fun getAllOrderForMovie(movieId: Long): Flow<List<MovieOrder>>
 
     @Query("select count(*) from movie_orders")
     fun countOrders(): Long

@@ -165,4 +165,6 @@
     <string name="you_booked_x_tickets">You booked %1$s tickets.</string>
     <string name="movie_worker_details">Movie worker</string>
     <string name="info_for_date">Info for %1$s</string>
+    <string name="no_bookings">No bookings.</string>
+    <string name="reservations">Reservations:</string>
 </resources>

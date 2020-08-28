@@ -10,7 +10,7 @@ import org.w3c.dom.Text
 @BindingAdapter("setDateFormatted")
 fun TextView.setDateFormatted(date: String?) {
     date?.let {
-        text = formatDateEnToLocal(context, date)
+        text = formatDateEnToLocal(date)
     }
 }
 

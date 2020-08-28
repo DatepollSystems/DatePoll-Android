@@ -36,8 +36,7 @@ class ExampleInstrumentedTest {
         config.locale = locale
         res.updateConfiguration(config, res.getDisplayMetrics())
 
-        val appContext = InstrumentationRegistry.getInstrumentation().context
-        val r = formatDateEnToLocal(appContext, "2000-10-02")
+        val r = formatDateEnToLocal("2000-10-02")
         assertEquals("2. Oktober 2000", r)
     }
 }
