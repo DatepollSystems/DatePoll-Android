@@ -17,7 +17,7 @@ class CinemaViewModel : ViewModel(), KoinComponent {
     private val repository: CinemaRepository by inject()
     private val userRepository: UserRepository by inject()
 
-    val movies = repository.movies
+    val movies = repository.movies.asLiveData(context = viewModelScope.coroutineContext)
     val detailMovie = MutableLiveData<MovieDbModel>()
     val user = userRepository.user
     val showBottomSheet = MutableLiveData(false)

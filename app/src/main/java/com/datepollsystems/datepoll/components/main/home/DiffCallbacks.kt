@@ -14,7 +14,7 @@ class BirthdayDiffCallback: DiffUtil.ItemCallback<BirthdayDbModel>(){
     }
 }
 
-class BookingsDiffCallback: DiffUtil.ItemCallback<MovieDbModel>(){
+class MovieDiffCallback: DiffUtil.ItemCallback<MovieDbModel>(){
     override fun areItemsTheSame(oldItem: MovieDbModel, newItem: MovieDbModel): Boolean {
         return oldItem.id == newItem.id
     }

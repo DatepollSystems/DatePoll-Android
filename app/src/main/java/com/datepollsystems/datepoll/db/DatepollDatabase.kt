@@ -21,8 +21,9 @@ import com.datepollsystems.datepoll.data.*
         EventDecisionDbModel::class,
         EventDateDbModel::class,
         MovieDbModel::class,
-        BirthdayDbModel::class
-    ], version = 6
+        BirthdayDbModel::class,
+        MovieOrder::class
+    ], version = 7
 )
 abstract class DatepollDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao

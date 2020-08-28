@@ -2,6 +2,7 @@ package com.datepollsystems.datepoll.components.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.datepollsystems.datepoll.core.Prefs
 import com.datepollsystems.datepoll.data.*
@@ -34,10 +35,12 @@ class MainViewModel : ViewModel(), KoinComponent {
     private val loadUserState = MutableLiveData<ENetworkState>()
     val loadBirthdaysAndBroadcastState = MutableLiveData<ENetworkState>()
     val loadBookedMoviesState = MutableLiveData<ENetworkState>()
+    val loadMovieWorkerState = MutableLiveData<ENetworkState>()
 
     val birthdays = homeRepository.birthdays
     val events = MutableLiveData<List<Event>>()
     val bookings = cinemaRepository.bookedMovies
+    val movieWorkerDetails = cinemaRepository.moviesWithOrders.asLiveData()
 
 
     fun loadUserData() {
@@ -80,6 +83,7 @@ class MainViewModel : ViewModel(), KoinComponent {
         viewModelScope.launch(Dispatchers.Default) {
             homeRepository.loadBirthdaysAndBroadcasts(force, loadBirthdaysAndBroadcastState)
             cinemaRepository.loadNotShownMovies(force, loadBookedMoviesState)
+            homeRepository.fetchMovieOrders(force, loadMovieWorkerState)
         }
     }
 }

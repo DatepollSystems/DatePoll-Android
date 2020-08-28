@@ -24,6 +24,8 @@ class CinemaRepository : BaseRepository() {
 
     val movies = cinemaDao.loadAllMovies()
     val bookedMovies = cinemaDao.selectBookedMovies()
+    val moviesWithOrders
+        get() = cinemaDao.getAllMoviesWhereCinemaWorker()
 
     suspend fun loadNotShownMovies(
         force: Boolean = false,

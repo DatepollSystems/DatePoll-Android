@@ -2,19 +2,14 @@ package com.datepollsystems.datepoll.components.main.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.components.main.cinema.CinemaViewModel
-import com.datepollsystems.datepoll.data.Movie
 import com.datepollsystems.datepoll.data.MovieDbModel
 import com.datepollsystems.datepoll.databinding.HomeBookingItemBinding
 import org.koin.core.KoinComponent
-import org.koin.core.get
 
 class BookingsAdapter(private val clickListener: BookingAdapterClickListener) :
-    ListAdapter<MovieDbModel, BookingsAdapter.ViewHolder>(BookingsDiffCallback()) {
+    ListAdapter<MovieDbModel, BookingsAdapter.ViewHolder>(MovieDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent = parent)

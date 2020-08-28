@@ -18,15 +18,9 @@ class HomeRepository : BaseRepository() {
     private val db: DatepollDatabase by inject()
 
     private val birthdayDao = db.birthdayDao()
+    private val cinemaDao = db.cinemaDao()
 
     val birthdays = birthdayDao.getAllLiveData()
-
-    suspend fun loadHomepage(state: MutableLiveData<ENetworkState>): HomeScreen? {
-        return apiCall(
-            call = { api.getHomepage(prefs.jwt!!) },
-            state = state
-        )
-    }
 
     suspend fun loadBirthdaysAndBroadcasts(
         force: Boolean = false,
@@ -53,8 +47,32 @@ class HomeRepository : BaseRepository() {
 
                     birthdayDao.deleteAllWhereNotInList(nameList = nameList, dateList = dateList)
 
-                    for (b in homeSc.birthdays){
+                    for (b in homeSc.birthdays) {
                         birthdayDao.insertWithChecking(b.toDbModel())
+                    }
+                }
+            }
+        }
+    }
+
+    suspend fun fetchMovieOrders(
+        force: Boolean = false,
+        state: MutableLiveData<ENetworkState>
+    ) {
+        with(Dispatchers.IO) {
+            if (force || cinemaDao.countOrders() == 0L || cinemaDao.getInsertionTime() - Date().time >= 3600000) {
+                val response = with(Dispatchers.Default) {
+                    apiCall(
+                        call = { api.getMovieWorkerDetails(prefs.jwt!!) },
+                        state = state
+                    )
+                }
+
+                response?.let { resp ->
+                    cinemaDao.deleteAllOrders()
+                    resp.movies.forEach {
+                        val orders = it.toDbModelData()
+                        cinemaDao.insertAllOrders(orders)
                     }
                 }
             }

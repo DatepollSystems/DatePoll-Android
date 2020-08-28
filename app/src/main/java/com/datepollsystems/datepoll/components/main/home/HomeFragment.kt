@@ -4,19 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.components.main.MainViewModel
 import com.datepollsystems.datepoll.components.main.cinema.CinemaViewModel
 import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.databinding.FragmentHomeBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class HomeFragment : Fragment() {
@@ -41,6 +39,7 @@ class HomeFragment : Fragment() {
 
         setupBirthdayCard()
         setupBookingCard()
+        setupMovieWorkerCard()
 
         binding.swipeToRefresh.setOnRefreshListener {
             vm.loadHomepage(force = true)
@@ -55,7 +54,24 @@ class HomeFragment : Fragment() {
         requireActivity().bottom_navigation?.visibility = View.VISIBLE
     }
 
-    private fun setupBookingCard(){
+    private fun setupMovieWorkerCard() {
+        val adapter = MovieWorkerAdapter(MovieWorkerClickListener {
+            //Show bootom sheet
+            Snackbar.make(binding.root, "", Snackbar.LENGTH_SHORT).show()
+        })
+        vm.movieWorkerDetails.value?.let {
+            adapter.submitList(it)
+        }
+        vm.movieWorkerDetails.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
+
+        binding.workerDetailsList.adapter = adapter
+    }
+
+    private fun setupBookingCard() {
         val bookingAdapter = BookingsAdapter(BookingAdapterClickListener {
             cinemaViewModel.detailMovie.postValue(it)
             findNavController().navigate(R.id.action_nav_home_to_movieDetailFragment)
@@ -95,7 +111,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun setupBirthdayCard(){
+    private fun setupBirthdayCard() {
         val birthdayAdapter = BirthdayAdapter()
         vm.birthdays.value?.let {
             birthdayAdapter.submitList(it)
