@@ -151,5 +151,6 @@
     <string name="info_for_date">Info for %1$s</string>
     <string name="no_bookings">No bookings.</string>
     <string name="reservations">Reservations:</string>
+    <string name="upcoming_events">Upcoming events</string>
 
 </resources>

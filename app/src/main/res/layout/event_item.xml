@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="e"
+            type="com.datepollsystems.datepoll.components.main.event.model.EventDbModel" />
+
+        <variable
+            name="clickListener"
+            type="com.datepollsystems.datepoll.components.main.event.EventDecisionClickListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/eventCard"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivEventMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/round_shape"
+                android:contentDescription="@string/movie_picture"
+                android:padding="5dp"
+                android:onClick="@{() -> clickListener.onClick(e)}"
+                app:layout_constraintBottom_toBottomOf="@+id/tvEventDateTime"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvEventHeadline"
+                app:srcCompat="@drawable/ic_arrow_forward_black"
+                app:tint="@android:color/white"
+                tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/ivEventIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/round_shape"
+                android:contentDescription="@string/movie_picture"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvEventDateTime"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvEventHeadline"
+                app:srcCompat="@drawable/ic_assessment_24px"
+                app:tint="@android:color/white"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tvEventHeadline"
+                style="@style/TextAppearance.App.Headline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toEndOf="@+id/ivEventIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Testevent 1" />
+
+            <TextView
+                android:id="@+id/tvEventDateTime"
+                style="@style/TextAppearance.App.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvEventHeadline"
+                app:layout_constraintTop_toBottomOf="@+id/tvEventHeadline"
+                tools:text="01.09.2020, 19:30" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

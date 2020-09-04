@@ -60,7 +60,7 @@
             tools:text="You booked 16 tickets." />
 
         <ImageView
-            android:id="@+id/ivMore"
+            android:id="@+id/ivEventIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"

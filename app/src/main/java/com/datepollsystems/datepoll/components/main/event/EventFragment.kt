@@ -13,6 +13,7 @@ import com.datepollsystems.datepoll.components.main.home.VoteBottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_event.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 import kotlin.collections.ArrayList
 
 
@@ -33,12 +34,11 @@ class EventFragment : Fragment() {
         eventCardAdapter.data = ArrayList()
         view.eventsRecyclerView.adapter = eventCardAdapter
 
-        view.connectionView.visibility = View.INVISIBLE
-
         view.eventFragmentSwipeToRefresh.setOnRefreshListener {
             vm.loadEventData(force = true)
         }
 
+        /**
         view.switch1.setOnCheckedChangeListener { _, isChecked ->
             vm.filterChecked = isChecked
             if(isChecked){
@@ -50,7 +50,7 @@ class EventFragment : Fragment() {
                     eventCardAdapter.data = ArrayList(it)
                 }
             }
-        }
+        }**/
 
 
         initStateObserver(view)
@@ -145,20 +145,18 @@ class EventFragment : Fragment() {
             it?.let {
                 when (it) {
                     ENetworkState.LOADING -> {
-                        Log.i(tag, "Reload events and data")
+                        Timber.i("Reload events and data")
                         view.eventFragmentSwipeToRefresh.isRefreshing = true
                     }
                     ENetworkState.ERROR -> {
-                        Log.e(tag, "Something went wrong during event refresh")
+                        Timber.e("Something went wrong during event refresh")
                         view.eventsRecyclerView.visibility = View.INVISIBLE
-                        view.connectionView.visibility = View.VISIBLE
                         view.eventFragmentSwipeToRefresh.isRefreshing = false
 
                     }
                     ENetworkState.DONE -> {
-                        Log.i(tag, "Displaying events")
+                        Timber.i("Displaying events")
                         view.eventsRecyclerView.visibility = View.VISIBLE
-                        view.connectionView.visibility = View.INVISIBLE
                         view.eventFragmentSwipeToRefresh.isRefreshing = false
                     }
                 }
