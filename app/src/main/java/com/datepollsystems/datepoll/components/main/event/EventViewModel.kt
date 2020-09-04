@@ -20,11 +20,16 @@ class EventViewModel : ViewModel(), KoinComponent {
     val filteredEvents = eventRepository.filteredEvents
     val decisions = MutableLiveData<List<EventDecisionDbModel>>()
     val decisionClickResult = MutableLiveData<EventDecisionDbModel>()
+    val changeList = MutableLiveData<Boolean>()
 
-    var filterChecked = false
+    var filterChecked = MutableLiveData<Boolean>(false)
     val loadEventsState = MutableLiveData<ENetworkState>()
     val makeDecisionState = MutableLiveData<ENetworkState>()
     val removeVoteForEventState = MutableLiveData<ENetworkState>()
+
+    fun switchChanged(checked: Boolean){
+        changeList.postValue(checked)
+    }
 
     fun loadEventData(force: Boolean = false) {
         viewModelScope.launch(Dispatchers.Default) {

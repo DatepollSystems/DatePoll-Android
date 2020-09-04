@@ -80,6 +80,9 @@ class EventRepository : BaseRepository() {
         )?.let {
             withContext(Dispatchers.IO) {
                 eventDao.addUserDecision(it)
+                val e = eventDao.getEventById(it.userDecision.eventId)
+                e.alreadyVoted = true
+                eventDao.updateEvent(e)
             }
             return
         }

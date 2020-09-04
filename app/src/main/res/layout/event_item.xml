@@ -54,6 +54,7 @@
                 android:background="@drawable/round_shape"
                 android:contentDescription="@string/movie_picture"
                 android:padding="8dp"
+                app:setEventIconDecisionColor="@{e}"
                 app:layout_constraintBottom_toBottomOf="@+id/tvEventDateTime"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvEventHeadline"
@@ -64,6 +65,7 @@
             <TextView
                 android:id="@+id/tvEventHeadline"
                 style="@style/TextAppearance.App.Headline4"
+                android:text="@{e.name}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -79,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="8dp"
+                app:setEventStartDate="@{e}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tvEventHeadline"
                 app:layout_constraintTop_toBottomOf="@+id/tvEventHeadline"
