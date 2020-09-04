@@ -27,11 +27,15 @@ stages:
 
 lintDebug:
   stage: build
+  only:
+    - master
   script:
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
 assembleDebug:
   stage: build
+  only:
+    - master
   script:
     - ./gradlew assembleDebug
   artifacts:
@@ -40,6 +44,8 @@ assembleDebug:
 
 debugTests:
   stage: test
+  only:
+    - master
   script:
     - ./gradlew -Pci --console=plain :app:testDebug
 
