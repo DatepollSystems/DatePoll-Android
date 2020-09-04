@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.components.main.home.VoteBottomSheetDialog
+import com.datepollsystems.datepoll.databinding.FragmentEventBinding
+import com.datepollsystems.datepoll.databinding.FragmentHomeBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_event.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -21,39 +23,55 @@ class EventFragment : Fragment() {
 
     val vm: EventViewModel by sharedViewModel()
 
+    private var _binding: FragmentEventBinding? = null
+    val binding: FragmentEventBinding
+        get() = _binding!!
+
+    private var _adapter: EventAdapter? = null
+    private val eventAdapter: EventAdapter
+        get() = _adapter!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val view =
-            inflater.inflate(R.layout.fragment_event, container, false)
+        _binding = FragmentEventBinding.inflate(inflater, container, false)
+        binding.vm = vm
+        binding.lifecycleOwner = viewLifecycleOwner
 
-        val eventCardAdapter =
-            EventCardAdapter(vm)
-        eventCardAdapter.data = ArrayList()
-        view.eventsRecyclerView.adapter = eventCardAdapter
+        _adapter = EventAdapter(
+            EventDecisionClickListener {
+                vm.loadDecisionsForEvent(it.id)
+                loading()
+            }, EventLongClickListener {
 
-        view.eventFragmentSwipeToRefresh.setOnRefreshListener {
-            vm.loadEventData(force = true)
+            })
+
+        eventAdapter.submitList(vm.events.value)
+
+        //Observers for updating recycler view
+        vm.events.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                if (!vm.filterChecked.value!!)
+                    eventAdapter.submitList(it)
+            }
+        })
+
+        vm.filteredEvents.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                if (vm.filterChecked.value!!)
+                    eventAdapter.submitList(it)
+            }
+        })
+
+        binding.eventsRecyclerView.adapter = eventAdapter
+
+        binding.eventFragmentSwipeToRefresh.setOnRefreshListener {
+            vm.loadEventData(true)
         }
 
-        /**
-        view.switch1.setOnCheckedChangeListener { _, isChecked ->
-            vm.filterChecked = isChecked
-            if(isChecked){
-                vm.events.value?.let {
-                    eventCardAdapter.data = ArrayList(it)
-                }
-            } else {
-                vm.filteredEvents.value?.let {
-                    eventCardAdapter.data = ArrayList(it)
-                }
-            }
-        }**/
-
-
-        initStateObserver(view)
+        initStateObserver(binding.root)
 
         vm.decisions.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -65,6 +83,7 @@ class EventFragment : Fragment() {
                 activity?.let { a ->
                     bottomSheetFragment.show(a.supportFragmentManager, bottomSheetFragment.tag)
                 }
+                loading(false)
                 vm.decisions.postValue(null)
             }
         })
@@ -76,21 +95,8 @@ class EventFragment : Fragment() {
             vm.decisionClickResult.postValue(null)
         })
 
-        vm.events.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                if(vm.filterChecked)
-                    eventCardAdapter.data = ArrayList(it)
-            }
-        })
 
-        vm.filteredEvents.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                if(!vm.filterChecked)
-                    eventCardAdapter.data = ArrayList(it)
-            }
-        })
-
-        return view
+        return binding.root
     }
 
     private fun initStateObserver(view: View) {
@@ -99,10 +105,10 @@ class EventFragment : Fragment() {
             it?.let {
                 when (it) {
                     ENetworkState.LOADING -> {
-                        view.eventFragmentSwipeToRefresh.isRefreshing = true
+                        loading()
                     }
                     ENetworkState.ERROR -> {
-                        view.eventFragmentSwipeToRefresh.isRefreshing = false
+                        loading(false)
                         Snackbar.make(
                             view,
                             getString(R.string.something_went_wrong),
@@ -110,7 +116,7 @@ class EventFragment : Fragment() {
                         ).show()
                     }
                     ENetworkState.DONE -> {
-                        view.eventFragmentSwipeToRefresh.isRefreshing = false
+                        loading(false)
                     }
                 }
 
@@ -122,10 +128,10 @@ class EventFragment : Fragment() {
             it?.let {
                 when (it) {
                     ENetworkState.LOADING -> {
-                        view.eventFragmentSwipeToRefresh.isRefreshing = true
+                        loading()
                     }
                     ENetworkState.ERROR -> {
-                        view.eventFragmentSwipeToRefresh.isRefreshing = false
+                        loading(false)
                         Snackbar.make(
                             view,
                             getString(R.string.something_went_wrong),
@@ -133,7 +139,7 @@ class EventFragment : Fragment() {
                         ).show()
                     }
                     ENetworkState.DONE -> {
-                        view.eventFragmentSwipeToRefresh.isRefreshing = false
+                        loading(false)
                     }
                 }
 
@@ -146,22 +152,33 @@ class EventFragment : Fragment() {
                 when (it) {
                     ENetworkState.LOADING -> {
                         Timber.i("Reload events and data")
-                        view.eventFragmentSwipeToRefresh.isRefreshing = true
+                        loading()
                     }
                     ENetworkState.ERROR -> {
                         Timber.e("Something went wrong during event refresh")
                         view.eventsRecyclerView.visibility = View.INVISIBLE
-                        view.eventFragmentSwipeToRefresh.isRefreshing = false
+                        loading(false)
 
                     }
                     ENetworkState.DONE -> {
                         Timber.i("Displaying events")
                         view.eventsRecyclerView.visibility = View.VISIBLE
-                        view.eventFragmentSwipeToRefresh.isRefreshing = false
+                        loading(false)
                     }
                 }
 
                 vm.loadEventsState.postValue(null)
+            }
+        })
+
+        vm.changeList.observe(viewLifecycleOwner, Observer { checked ->
+            checked?.let {
+                if (checked) // show all
+                    eventAdapter.submitList(vm.filteredEvents.value)
+                else
+                    eventAdapter.submitList(vm.events.value)
+
+                vm.changeList.postValue(null)
             }
         })
     }
@@ -169,5 +186,9 @@ class EventFragment : Fragment() {
     override fun onStart() {
         vm.loadEventData()
         super.onStart()
+    }
+
+    private fun loading(loading: Boolean = true) {
+        binding.eventFragmentSwipeToRefresh.isRefreshing = loading
     }
 }
