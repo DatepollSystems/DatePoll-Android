@@ -1,7 +1,6 @@
 package com.datepollsystems.datepoll.components.main.event
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_event.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
-import kotlin.collections.ArrayList
 
 
 class EventFragment : Fragment() {
@@ -41,11 +39,18 @@ class EventFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         _adapter = EventAdapter(
-            EventDecisionClickListener {
+            EventClickListener {
+                //event click -> open event details
+
+            },
+            EventClickListener {
+                //event decision click
                 vm.loadDecisionsForEvent(it.id)
                 loading()
-            }, EventLongClickListener {
-
+            }, EventClickListener {
+                //event long click -> action mode, delete answer
+                val bottomSheet = EventActionsBottomSheet(it)
+                bottomSheet.show(requireActivity().supportFragmentManager, bottomSheet.tag)
             })
 
         eventAdapter.submitList(vm.events.value)

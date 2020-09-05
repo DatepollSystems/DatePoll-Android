@@ -10,8 +10,12 @@
             type="com.datepollsystems.datepoll.components.main.event.model.EventDbModel" />
 
         <variable
-            name="clickListener"
-            type="com.datepollsystems.datepoll.components.main.event.EventDecisionClickListener" />
+            name="decisionClickListener"
+            type="com.datepollsystems.datepoll.components.main.event.EventClickListener" />
+        
+        <variable
+            name="eventClickListener"
+            type="com.datepollsystems.datepoll.components.main.event.EventClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -35,10 +39,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/round_shape"
                 android:contentDescription="@string/movie_picture"
                 android:padding="5dp"
-                android:onClick="@{() -> clickListener.onClick(e)}"
+                android:onClick="@{() -> decisionClickListener.onClick(e)}"
+                app:setVisibilityWhenAlreadyVoted="@{e}"
                 app:layout_constraintBottom_toBottomOf="@+id/tvEventDateTime"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvEventHeadline"

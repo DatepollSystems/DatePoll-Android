@@ -9,8 +9,9 @@ import com.datepollsystems.datepoll.databinding.EventItemBinding
 import org.koin.core.KoinComponent
 
 class EventAdapter(
-    private val clickListener: EventDecisionClickListener,
-    private val longClickListener: EventLongClickListener
+    private val eventClickListener: EventClickListener,
+    private val eventDecisionClickListener: EventClickListener,
+    private val longClickListener: EventClickListener
 ) :
     ListAdapter<EventDbModel, EventAdapter.ViewHolder>(EventDiffCallback()) {
 
@@ -19,7 +20,12 @@ class EventAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), longClickListener, clickListener)
+        holder.bind(
+            getItem(position),
+            eventClickListener,
+            eventDecisionClickListener,
+            longClickListener
+        )
     }
 
     class ViewHolder private constructor(val binding: EventItemBinding) :
@@ -27,11 +33,13 @@ class EventAdapter(
 
         fun bind(
             item: EventDbModel,
-            onLongClickListener: EventLongClickListener,
-            onClickListener: EventDecisionClickListener
+            onEventClickListener: EventClickListener,
+            onDecisionClickListener: EventClickListener,
+            onLongClickListener: EventClickListener
         ) {
             binding.e = item
-            binding.clickListener = onClickListener
+            binding.decisionClickListener = onDecisionClickListener
+            binding.eventClickListener = onEventClickListener
             binding.eventCard.setOnLongClickListener {
                 onLongClickListener.clickListener.invoke(item)
                 true
@@ -49,10 +57,6 @@ class EventAdapter(
     }
 }
 
-class EventLongClickListener(val clickListener: (event: EventDbModel) -> Unit) {
-    fun onClick(event: EventDbModel) = clickListener(event)
-}
-
-class EventDecisionClickListener(val clickListener: (event: EventDbModel) -> Unit) {
+class EventClickListener(val clickListener: (event: EventDbModel) -> Unit) {
     fun onClick(event: EventDbModel) = clickListener(event)
 }

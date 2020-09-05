@@ -14,7 +14,6 @@ import timber.log.Timber
 import java.util.*
 
 class EventRepository : BaseRepository() {
-    private val tag = "EventRepository"
 
     private val api: InstanceApi by inject()
     private val db: DatepollDatabase by inject()
@@ -99,6 +98,9 @@ class EventRepository : BaseRepository() {
         r?.let {
             withContext(Dispatchers.IO) {
                 eventDao.removeUserDecision(id)
+                val e = eventDao.getEventById(id)
+                e.alreadyVoted = false
+                eventDao.updateEvent(e)
             }
         }
     }
