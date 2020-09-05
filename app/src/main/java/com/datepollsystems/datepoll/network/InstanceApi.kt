@@ -199,5 +199,9 @@ interface InstanceApi {
         @Query("token") token: String
     ): Response<Message>
 
+    @GET("/api/v1/cinema/worker")
+    suspend fun getMovieWorkerDetails(
+        @Query("token") token: String
+    ): Response<GetMovieWorkerDetailsResponse>
     //endregion
 }

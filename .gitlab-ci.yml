@@ -1,9 +1,9 @@
 image: openjdk:8-jdk
 
 variables:
-  ANDROID_COMPILE_SDK: "29"
-  ANDROID_BUILD_TOOLS: "29.0.3"
-  ANDROID_SDK_TOOLS:   "6200805"
+  ANDROID_COMPILE_SDK: "30"
+  ANDROID_BUILD_TOOLS: "30.0.1"
+  ANDROID_SDK_TOOLS:   "6609375"
 
 before_script:
   - apt-get --quiet update --yes
@@ -27,11 +27,15 @@ stages:
 
 lintDebug:
   stage: build
+  only:
+    - master
   script:
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
 assembleDebug:
   stage: build
+  only:
+    - master
   script:
     - ./gradlew assembleDebug
   artifacts:
@@ -40,6 +44,8 @@ assembleDebug:
 
 debugTests:
   stage: test
+  only:
+    - master
   script:
     - ./gradlew -Pci --console=plain :app:testDebug
 

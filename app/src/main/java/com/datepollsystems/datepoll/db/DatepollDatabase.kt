@@ -1,14 +1,14 @@
-package com.datepollsystems.datepoll.core
+package com.datepollsystems.datepoll.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.datepollsystems.datepoll.database.dao.*
 import com.datepollsystems.datepoll.components.main.event.model.EventDateDbModel
 import com.datepollsystems.datepoll.components.main.event.model.EventDbModel
 import com.datepollsystems.datepoll.components.main.event.model.EventDecisionDbModel
 import com.datepollsystems.datepoll.data.*
+import com.datepollsystems.datepoll.db.dao.*
 
 @Database(
     entities = [
@@ -20,8 +20,10 @@ import com.datepollsystems.datepoll.data.*
         EventDbModel::class,
         EventDecisionDbModel::class,
         EventDateDbModel::class,
-        MovieDbModel::class
-    ], version = 5
+        MovieDbModel::class,
+        BirthdayDbModel::class,
+        MovieOrder::class
+    ], version = 7
 )
 abstract class DatepollDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
@@ -31,6 +33,7 @@ abstract class DatepollDatabase : RoomDatabase() {
     abstract fun permissionDao(): PermissionsDao
     abstract fun eventDao(): EventDao
     abstract fun cinemaDao(): CinemaDao
+    abstract fun birthdayDao(): BirthdayDao
 
     companion object {
 

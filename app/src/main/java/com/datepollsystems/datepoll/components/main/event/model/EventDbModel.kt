@@ -10,7 +10,7 @@ data class EventDbModel(
     @ColumnInfo(name = "start_date") val startDate: String,
     @ColumnInfo(name = "end_date") val endDate: String,
     @ColumnInfo(name = "for_everyone") val forEveryone: Int,
-    @ColumnInfo(name = "already_voted") val alreadyVoted: Boolean,
+    @ColumnInfo(name = "already_voted") var alreadyVoted: Boolean,
     @ColumnInfo(name = "inserted_at") val insertedAt: Long,
     @Embedded val userDecision: UserDecisionDbModel?
 )

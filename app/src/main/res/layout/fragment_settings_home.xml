@@ -28,7 +28,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btnManageCalendar"
-                    style="@style/AppTheme.SettingsMenuItem"
+                    style="@style/DatepollSettingMenuIconOverlay"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:clickable="true"
@@ -42,7 +42,7 @@
 
                     <ImageView
                         android:id="@+id/ivManageCalendar"
-                        style="@style/AppTheme.SettingsMenuItem"
+                        style="@style/DatepollSettingMenuIconOverlay"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="24dp"
@@ -67,7 +67,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btnManageSessions"
-                    style="@style/AppTheme.SettingsMenuItem"
+                    style="@style/DatepollSettingMenuIconOverlay"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:clickable="true"
@@ -81,7 +81,7 @@
 
                     <ImageView
                         android:id="@+id/ivManageSessions"
-                        style="@style/AppTheme.SettingsMenuItem"
+                        style="@style/DatepollSettingMenuIconOverlay"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="24dp"
@@ -106,7 +106,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btnChangePassword"
-                    style="@style/AppTheme.SettingsMenuItem"
+                    style="@style/DatepollSettingMenuIconOverlay"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="8dp"
@@ -121,7 +121,7 @@
 
                     <ImageView
                         android:id="@+id/ivChangePassword"
-                        style="@style/AppTheme.SettingsMenuItem"
+                        style="@style/DatepollSettingMenuIconOverlay"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="24dp"
@@ -146,7 +146,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btnChangeIfShownInBirthdayList"
-                    style="@style/AppTheme.SettingsMenuItem"
+                    style="@style/DatepollSettingMenuIconOverlay"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:clickable="true"
@@ -160,7 +160,7 @@
 
                     <ImageView
                         android:id="@+id/ivChangeIfShownInBirthdayList"
-                        style="@style/AppTheme.SettingsMenuItem"
+                        style="@style/DatepollSettingMenuIconOverlay"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="24dp"
@@ -185,7 +185,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btnTheme"
-                    style="@style/AppTheme.SettingsMenuItem"
+                    style="@style/DatepollSettingMenuIconOverlay"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="8dp"
@@ -200,7 +200,7 @@
 
                     <ImageView
                         android:id="@+id/ivTheme"
-                        style="@style/AppTheme.SettingsMenuItem"
+                        style="@style/DatepollSettingMenuIconOverlay"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="24dp"
@@ -225,7 +225,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btnUser"
-                    style="@style/AppTheme.SettingsMenuItem"
+                    style="@style/DatepollSettingMenuIconOverlay"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="8dp"
@@ -239,7 +239,7 @@
 
                     <ImageView
                         android:id="@+id/ivUser"
-                        style="@style/AppTheme.SettingsMenuItem"
+                        style="@style/DatepollSettingMenuIconOverlay"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="24dp"
@@ -265,7 +265,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btnChangeEmail"
-                    style="@style/AppTheme.SettingsMenuItem"
+                    style="@style/DatepollSettingMenuIconOverlay"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:clickable="true"
@@ -278,7 +278,7 @@
 
                     <ImageView
                         android:id="@+id/ivEmail"
-                        style="@style/AppTheme.SettingsMenuItem"
+                        style="@style/DatepollSettingMenuIconOverlay"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="24dp"
@@ -303,7 +303,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btnChangePhoneNumber"
-                    style="@style/AppTheme.SettingsMenuItem"
+                    style="@style/DatepollSettingMenuIconOverlay"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:clickable="true"
@@ -317,7 +317,7 @@
 
                     <ImageView
                         android:id="@+id/ivPhoneNumber"
-                        style="@style/AppTheme.SettingsMenuItem"
+                        style="@style/DatepollSettingMenuIconOverlay"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="24dp"
@@ -342,7 +342,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btnAbout"
-                    style="@style/AppTheme.SettingsMenuItem"
+                    style="@style/DatepollSettingMenuIconOverlay"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:clickable="true"
@@ -355,7 +355,7 @@
 
                     <ImageView
                         android:id="@+id/ivAbout"
-                        style="@style/AppTheme.SettingsMenuItem"
+                        style="@style/DatepollSettingMenuIconOverlay"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="24dp"
@@ -380,7 +380,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btnLicences"
-                    style="@style/AppTheme.SettingsMenuItem"
+                    style="@style/DatepollSettingMenuIconOverlay"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:clickable="true"
@@ -393,7 +393,7 @@
 
                     <ImageView
                         android:id="@+id/ivLicence"
-                        style="@style/AppTheme.SettingsMenuItem"
+                        style="@style/DatepollSettingMenuIconOverlay"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="24dp"
@@ -418,7 +418,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btnLogout"
-                    style="@style/AppTheme.SettingsMenuItem"
+                    style="@style/DatepollSettingMenuIconOverlay"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:clickable="true"
@@ -431,7 +431,7 @@
 
                     <ImageView
                         android:id="@+id/ivLogout"
-                        style="@style/AppTheme.SettingsMenuItem"
+                        style="@style/DatepollSettingMenuIconOverlay"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="24dp"

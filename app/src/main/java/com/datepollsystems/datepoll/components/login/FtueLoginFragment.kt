@@ -4,15 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.databinding.FragmentFtueLoginBinding
 import com.datepollsystems.datepoll.core.ENetworkState
+import com.datepollsystems.datepoll.databinding.FragmentFtueLoginBinding
+import com.datepollsystems.datepoll.networkModule
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
 import timber.log.Timber
 
 
@@ -27,6 +31,9 @@ class FtueLoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        loadKoinModules(networkModule)
+
+
         _binding = FragmentFtueLoginBinding.inflate(inflater, container, false)
 
         binding.vm = ftueViewModel
@@ -53,6 +60,7 @@ class FtueLoginFragment : Fragment() {
                     !tiUserName.isErrorEnabled && !tiPassword.isErrorEnabled
                 ) {
                     Timber.i("Credentials are valid, performing login process")
+                    loadKoinModules(networkModule)
                     ftueViewModel.login()
 
                 } else {
@@ -99,6 +107,7 @@ class FtueLoginFragment : Fragment() {
                             isLoading(false)
                         }
                     }
+                    loginState.postValue(null)
                 }
             })
         }
@@ -109,5 +118,10 @@ class FtueLoginFragment : Fragment() {
             binding.loading.visibility = View.VISIBLE
         else
             binding.loading.visibility = View.INVISIBLE
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unloadKoinModules(networkModule)
     }
 }

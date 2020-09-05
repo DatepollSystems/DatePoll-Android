@@ -40,7 +40,7 @@
     <string name="change_phone_number">Telefonnummern verwalten</string>
     <string name="general">Generell</string>
     <string name="street_number">Hausnummer</string>
-    <string name="birthdays_in_this_month">Geburtstage in diesem Monat</string>
+    <string name="birthdays_in_this_month">Nächsten Geburtstage</string>
     <string name="bookings">Reservierungen</string>
     <string name="events">Events</string>
     <string name="example_date_time">01–01–2020 18:33:00</string>
@@ -146,5 +146,12 @@
     <string name="you_booked">Deine Reservierungen:</string>
     <string name="available_tickets">Verfügbare Tickets:</string>
     <string name="sold_out">!AUSVERKAUFT!</string>
+    <string name="you_booked_x_tickets">Du hast %1$s Tickets gebucht.</string>
+    <string name="movie_worker_details">Kinodienst</string>
+    <string name="info_for_date">Info für den %1$s</string>
+    <string name="no_bookings">Keine Buchungen.</string>
+    <string name="reservations">Reservierungen:</string>
+    <string name="upcoming_events">Nächsten Events</string>
+    <string name="delete_decision">Lösche Abstimmung</string>
 
 </resources>

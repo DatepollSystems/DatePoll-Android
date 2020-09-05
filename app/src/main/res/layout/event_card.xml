@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    style="@style/AppTheme.NoActionBar">
 
     <com.google.android.material.card.MaterialCardView
         android:animateLayoutChanges="true"
@@ -31,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Paaarrrtttyyy"
+                tools:text="Paaarrrtttyyy"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
-                android:text="Fri, 08.05.2020 15:00"
+                tools:text="Fri, 08.05.2020 15:00"
                 app:layout_constraintStart_toEndOf="@+id/materialTextView"
                 app:layout_constraintTop_toTopOf="@+id/materialTextView" />
 
