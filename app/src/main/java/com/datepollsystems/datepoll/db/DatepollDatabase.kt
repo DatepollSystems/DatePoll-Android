@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.datepollsystems.datepoll.components.main.event.model.EventDateDbModel
 import com.datepollsystems.datepoll.components.main.event.model.EventDbModel
 import com.datepollsystems.datepoll.components.main.event.model.EventDecisionDbModel
@@ -12,6 +13,7 @@ import com.datepollsystems.datepoll.db.dao.*
 
 @Database(
     entities = [
+        ApiModel::class,
         UserDbModel::class,
         PhoneNumberDbModel::class,
         PerformanceBadgesDbModel::class,
@@ -23,8 +25,9 @@ import com.datepollsystems.datepoll.db.dao.*
         MovieDbModel::class,
         BirthdayDbModel::class,
         MovieOrder::class
-    ], version = 7
+    ], version = 10
 )
+@TypeConverters(Converters::class)
 abstract class DatepollDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun phoneDao(): PhoneNumberDao
@@ -34,6 +37,7 @@ abstract class DatepollDatabase : RoomDatabase() {
     abstract fun eventDao(): EventDao
     abstract fun cinemaDao(): CinemaDao
     abstract fun birthdayDao(): BirthdayDao
+    abstract fun apiDao(): ApiDao
 
     companion object {
 

@@ -1,8 +1,6 @@
 package com.datepollsystems.datepoll
 
-import com.datepollsystems.datepoll.utils.formatDateEnToLocal
 import org.junit.Test
-
 import org.junit.Assert.*
 
 /**

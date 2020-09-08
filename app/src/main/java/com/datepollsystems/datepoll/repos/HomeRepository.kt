@@ -24,7 +24,7 @@ class HomeRepository : BaseRepository() {
         state: MutableLiveData<ENetworkState>
     ) {
         with(Dispatchers.IO) {
-            if (force || birthdayDao.getCount() == 0 || birthdayDao.getInsertionTimeOfElements() - Date().time >= 3600000) {
+            if (force || birthdayDao.getCount() == 0 || Date().time - birthdayDao.getInsertionTimeOfElements() >= 3600000) {
                 //fetch new data from server
 
                 val homeScreen = with(Dispatchers.Default) {
@@ -57,7 +57,7 @@ class HomeRepository : BaseRepository() {
         state: MutableLiveData<ENetworkState>
     ) {
         with(Dispatchers.IO) {
-            if (force || cinemaDao.countOrders() == 0L || cinemaDao.getInsertionTime() - Date().time >= 3600000) {
+            if (force || cinemaDao.countOrders() == 0L || Date().time - cinemaDao.getInsertionTime() >= 3600000) {
                 val response = with(Dispatchers.Default) {
                     apiCall(
                         call = { api.getMovieWorkerDetails(prefs.jwt!!) },

@@ -171,4 +171,9 @@ class CinemaRepository : BaseRepository() {
     fun getMovieById(movieId: Long): LiveData<MovieDbModel> {
         return cinemaDao.loadMovieByIdFlow(movieId)
     }
+
+    fun deleteAll(){
+        cinemaDao.deleteAllOrders()
+        cinemaDao.deleteAllMovies()
+    }
 }

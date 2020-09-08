@@ -2,18 +2,19 @@ package com.datepollsystems.datepoll.components.settings
 
 import android.widget.CompoundButton
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.datepollsystems.datepoll.core.BaseViewModel
+import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.core.Prefs
 import com.datepollsystems.datepoll.data.*
-import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.repos.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
 import org.koin.core.inject
 import timber.log.Timber
 
-class SettingsViewModel : BaseViewModel() {
+class SettingsViewModel : ViewModel(), KoinComponent {
 
     private val prefs: Prefs by inject()
     private val userRepo: UserRepository by inject()
@@ -89,7 +90,7 @@ class SettingsViewModel : BaseViewModel() {
 
                 Timber.i("New List: ${list.toString()}")
 
-                sessions.postValue(list)
+                sessions.postValue(list!!)
             }
         }
     }

@@ -15,6 +15,15 @@ import retrofit2.http.*
 interface InstanceApi {
 
     /**
+     * General Stuff
+     */
+    //region General
+    @GET("/api")
+    suspend fun apiInfo(): Response<ApiModel>
+
+    //endregion
+
+    /**
      * Authorization stuff for getting a jwt token or renewing it with a session token
      */
     //region authentication

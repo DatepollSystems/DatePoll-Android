@@ -1,19 +1,15 @@
 package com.datepollsystems.datepoll.components.main
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import android.view.View
+import androidx.lifecycle.*
 import com.datepollsystems.datepoll.core.Prefs
 import com.datepollsystems.datepoll.data.*
 import com.datepollsystems.datepoll.data.PermissionDbModel
 import com.datepollsystems.datepoll.core.ENetworkState
-import com.datepollsystems.datepoll.repos.CinemaRepository
-import com.datepollsystems.datepoll.repos.HomeRepository
-import com.datepollsystems.datepoll.repos.ServerRepository
-import com.datepollsystems.datepoll.repos.UserRepository
+import com.datepollsystems.datepoll.repos.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
@@ -27,6 +23,7 @@ class MainViewModel : ViewModel(), KoinComponent {
     private val serverRepository: ServerRepository by inject()
     private val homeRepository: HomeRepository by inject()
     private val cinemaRepository: CinemaRepository by inject()
+    private val appRepository: AppRepository by inject()
 
     val user = userRepository.user
     val logout = MutableLiveData(false)
@@ -42,6 +39,24 @@ class MainViewModel : ViewModel(), KoinComponent {
     val bookings = cinemaRepository.bookedMovies
     val movieWorkerDetails = cinemaRepository.moviesWithOrders.asLiveData()
 
+    val bookingsCardVisible = Transformations.map(bookings) {
+        it?.let {
+            if (it.isEmpty()) View.GONE else View.VISIBLE
+        }
+    }
+
+    val movieWorkerCardVisible = Transformations.map(movieWorkerDetails) {
+        it?.let {
+            if (it.isEmpty()) View.GONE else View.VISIBLE
+        }
+    }
+
+    val birthdayCardVisible = Transformations.map(birthdays) {
+        it?.let {
+            if (it.isEmpty()) View.GONE else View.VISIBLE
+        }
+    }
+
 
     fun loadUserData() {
         viewModelScope.launch {
@@ -56,16 +71,18 @@ class MainViewModel : ViewModel(), KoinComponent {
             withContext(Dispatchers.IO) {
                 Timber.i("start logout process")
 
-                val session = prefs.session!!
-                val response: LogoutResponseModel? =
-                    serverRepository.logout(
-                        LogoutRequestModel(
-                            session_token = session
+                val session = prefs.session
+                session?.let {
+                    val response: LogoutResponseModel? =
+                        serverRepository.logout(
+                            LogoutRequestModel(
+                                session_token = session
+                            )
                         )
-                    )
 
-                response?.username?.let {
-                    Timber.i("logout successful")
+                    response?.username?.let {
+                        Timber.i("logout successful")
+                    }
                 }
 
                 prefs.session = ""
@@ -82,8 +99,15 @@ class MainViewModel : ViewModel(), KoinComponent {
     fun loadHomepage(force: Boolean = false) {
         viewModelScope.launch(Dispatchers.Default) {
             homeRepository.loadBirthdaysAndBroadcasts(force, loadBirthdaysAndBroadcastState)
-            cinemaRepository.loadNotShownMovies(force, loadBookedMoviesState)
-            homeRepository.fetchMovieOrders(force, loadMovieWorkerState)
+            appRepository.loadApiInfo()
+            appRepository.apiInfo.collect {
+                if (it.cinemaEnabled) {
+                    cinemaRepository.loadNotShownMovies(force, loadBookedMoviesState)
+                    homeRepository.fetchMovieOrders(force, loadMovieWorkerState)
+                } else {
+                    cinemaRepository.deleteAll()
+                }
+            }
         }
     }
 }

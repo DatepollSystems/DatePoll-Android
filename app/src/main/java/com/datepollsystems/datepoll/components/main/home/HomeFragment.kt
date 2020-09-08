@@ -35,6 +35,10 @@ class HomeFragment : Fragment() {
         binding.vm = vm
         binding.lifecycleOwner = this
 
+        binding.birthdayCardView.visibility = View.GONE
+        binding.bookingsCardView.visibility = View.GONE
+        binding.movieWorkerCard.visibility = View.GONE
+
         setupBirthdayCard()
         setupBookingCard()
         setupMovieWorkerCard()
@@ -70,6 +74,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupBookingCard() {
+
         val bookingAdapter = BookingsAdapter(BookingAdapterClickListener {
             cinemaViewModel.detailMovie.postValue(it)
             findNavController().navigate(R.id.action_nav_home_to_movieDetailFragment)

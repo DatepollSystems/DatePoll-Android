@@ -4,17 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.datepollsystems.datepoll.R
+import com.datepollsystems.datepoll.components.AppViewModel
 import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.databinding.FragmentFtueLoginBinding
 import com.datepollsystems.datepoll.networkModule
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.unloadKoinModules
 import timber.log.Timber
@@ -23,6 +24,7 @@ import timber.log.Timber
 class FtueLoginFragment : Fragment() {
 
     private val ftueViewModel: FtueViewModel by sharedViewModel()
+
     private var _binding: FragmentFtueLoginBinding? = null
     val binding: FragmentFtueLoginBinding
         get() = _binding!!
@@ -94,7 +96,7 @@ class FtueLoginFragment : Fragment() {
                             Timber.e("Login not successful, maybe credentials are incorrect or internet connection is broken")
                             Timber.e("Error Code: ${it.code}")
 
-                            if(it.code == 400 && it.messageCode == "change_password") {
+                            if (it.code == 400 && it.messageCode == "change_password") {
                                 findNavController().navigate(R.id.action_ftueLoginFragment_to_ftueFirstPasswordChange)
                             } else {
                                 Snackbar.make(

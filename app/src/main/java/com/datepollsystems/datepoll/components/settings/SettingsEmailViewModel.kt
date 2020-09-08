@@ -1,15 +1,16 @@
 package com.datepollsystems.datepoll.components.settings
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.datepollsystems.datepoll.core.BaseViewModel
 import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.repos.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class SettingsEmailViewModel : BaseViewModel(){
+class SettingsEmailViewModel : ViewModel(), KoinComponent{
 
     private val userRepo: UserRepository by inject()
 

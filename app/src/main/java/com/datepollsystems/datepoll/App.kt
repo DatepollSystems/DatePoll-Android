@@ -3,18 +3,19 @@ package com.datepollsystems.datepoll
 import android.app.Application
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
+import com.datepollsystems.datepoll.components.AppViewModel
 import com.datepollsystems.datepoll.components.login.FtueViewModel
 import com.datepollsystems.datepoll.components.main.MainViewModel
 import com.datepollsystems.datepoll.components.main.calendar.CalendarViewModel
 import com.datepollsystems.datepoll.components.main.cinema.CinemaViewModel
-import com.datepollsystems.datepoll.network.DatepollServiceFactory
-import com.datepollsystems.datepoll.repos.*
 import com.datepollsystems.datepoll.components.main.event.EventViewModel
 import com.datepollsystems.datepoll.components.settings.SettingsEmailViewModel
 import com.datepollsystems.datepoll.components.settings.SettingsViewModel
 import com.datepollsystems.datepoll.components.settings.themeOptions
 import com.datepollsystems.datepoll.core.Prefs
 import com.datepollsystems.datepoll.db.DatepollDatabase
+import com.datepollsystems.datepoll.network.DatepollServiceFactory
+import com.datepollsystems.datepoll.repos.*
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -38,12 +39,13 @@ val appModule = module {
 }
 
 val mainModule = module {
+    single { AppRepository() }
     single { HomeRepository() }
     single { EventRepository() }
-
     single { UserRepository() }
     single { CinemaRepository() }
 
+    viewModel { AppViewModel() }
     viewModel { MainViewModel() }
     viewModel { SettingsViewModel() }
     viewModel { SettingsEmailViewModel() }
