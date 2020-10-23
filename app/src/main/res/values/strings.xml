@@ -169,4 +169,7 @@
     <string name="reservations">Reservations:</string>
     <string name="upcoming_events">Upcoming events</string>
     <string name="delete_decision">Delete decision</string>
+    <string name="nothing_here">Nothing here.</string>
+    <string name="currently_there_are_no_movies">Currently there are no movies</string>
+    <string name="currently_there_are_no_events">Currently there are no events</string>
 </resources>

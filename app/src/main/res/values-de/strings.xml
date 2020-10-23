@@ -153,5 +153,8 @@
     <string name="reservations">Reservierungen:</string>
     <string name="upcoming_events">Nächsten Events</string>
     <string name="delete_decision">Lösche Abstimmung</string>
+    <string name="nothing_here">Alles erledigt</string>
+    <string name="currently_there_are_no_movies">Derzeit gibt es keine Filme</string>
+    <string name="currently_there_are_no_events">Derzeit gibt es keine Events</string>
 
 </resources>

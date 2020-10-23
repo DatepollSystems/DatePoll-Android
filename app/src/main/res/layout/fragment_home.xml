@@ -25,13 +25,36 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="0dp"
+                android:layout_height="0dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:animateLayoutChanges="true"
+                    android:layout_height="match_parent"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:animateLayoutChanges="true">
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="102dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="32dp"
+                        android:visibility="@{vm.nothingToSeeVisible}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/moon_rocket" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        style="@style/TextAppearance.App.Headline3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/nothing_here"
+                        android:visibility="@{vm.nothingToSeeVisible}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/bookingsCardView"
@@ -43,26 +66,12 @@
                         android:visibility="@{vm.bookingsCardVisible, default=gone}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        >
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <ImageView
-                                android:id="@+id/ivBookingCardIcon"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginTop="8dp"
-                                android:background="@drawable/round_shape"
-                                android:contentDescription="@string/bookings"
-                                android:padding="9dp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_card_giftcard_black_24dp"
-                                app:tint="@android:color/white" />
 
                             <TextView
                                 android:id="@+id/tvBookingCardHeading"
@@ -84,8 +93,8 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/ivBookingCardIcon"
-                                tools:layout_width="match_parent"
                                 tools:layout_height="200dp"
+                                tools:layout_width="match_parent"
                                 tools:listitem="@layout/home_booking_item" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -102,7 +111,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/bookingsCardView"
-                        tools:visibility="visible">
+                        tools:visibility="gone">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -164,7 +173,7 @@
                         app:layout_constraintEnd_toEndOf="@id/bookingsCardView"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/movieWorkerCard"
-                        tools:visibility="visible">
+                        tools:visibility="gone">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -208,12 +217,14 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/ivBirthdayCardIcon"
-                                tools:layout_width="match_parent"
                                 tools:layout_height="200dp"
+                                tools:layout_width="match_parent"
                                 tools:listitem="@layout/home_birthday_item" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </com.google.android.material.card.MaterialCardView>
+
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -41,22 +41,46 @@ class MainViewModel : ViewModel(), KoinComponent {
 
     val bookingsCardVisible = Transformations.map(bookings) {
         it?.let {
-            if (it.isEmpty()) View.GONE else View.VISIBLE
+            if (it.isEmpty()) {
+                checkIfAllCardsInvisible()
+                View.GONE
+            } else View.VISIBLE
         }
     }
 
     val movieWorkerCardVisible = Transformations.map(movieWorkerDetails) {
         it?.let {
-            if (it.isEmpty()) View.GONE else View.VISIBLE
+            if (it.isEmpty()) {
+                checkIfAllCardsInvisible()
+                View.GONE
+            } else View.VISIBLE
         }
     }
 
     val birthdayCardVisible = Transformations.map(birthdays) {
         it?.let {
-            if (it.isEmpty()) View.GONE else View.VISIBLE
+            if (it.isEmpty()) {
+                checkIfAllCardsInvisible()
+                View.GONE
+            } else View.VISIBLE
         }
     }
 
+    val nothingToSeeVisible = MutableLiveData<Int>(View.INVISIBLE)
+
+    private fun checkIfAllCardsInvisible() {
+        if (
+            movieWorkerCardVisible.value == View.GONE &&
+            birthdayCardVisible.value == View.GONE &&
+            bookingsCardVisible.value == View.GONE
+        ) {
+            nothingToSeeVisible.value = View.VISIBLE
+            nothingToSeeVisible.postValue(View.VISIBLE)
+        } else {
+            nothingToSeeVisible.value = View.INVISIBLE
+            nothingToSeeVisible.postValue(View.INVISIBLE)
+        }
+    }
 
     fun loadUserData() {
         viewModelScope.launch {
