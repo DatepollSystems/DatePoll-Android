@@ -41,45 +41,61 @@ class MainViewModel : ViewModel(), KoinComponent {
 
     val bookingsCardVisible = Transformations.map(bookings) {
         it?.let {
+            checkIfAllCardsInvisible()
             if (it.isEmpty()) {
-                checkIfAllCardsInvisible()
                 View.GONE
-            } else View.VISIBLE
+            } else {
+                View.VISIBLE
+            }
         }
     }
 
     val movieWorkerCardVisible = Transformations.map(movieWorkerDetails) {
         it?.let {
+            checkIfAllCardsInvisible()
             if (it.isEmpty()) {
-                checkIfAllCardsInvisible()
                 View.GONE
-            } else View.VISIBLE
+            } else {
+                View.VISIBLE
+            }
         }
     }
 
     val birthdayCardVisible = Transformations.map(birthdays) {
         it?.let {
+            checkIfAllCardsInvisible()
             if (it.isEmpty()) {
-                checkIfAllCardsInvisible()
                 View.GONE
-            } else View.VISIBLE
+            } else {
+                View.VISIBLE
+            }
         }
     }
 
     val nothingToSeeVisible = MutableLiveData<Int>(View.INVISIBLE)
 
     private fun checkIfAllCardsInvisible() {
-        if (
-            movieWorkerCardVisible.value == View.GONE &&
-            birthdayCardVisible.value == View.GONE &&
-            bookingsCardVisible.value == View.GONE
-        ) {
-            nothingToSeeVisible.value = View.VISIBLE
-            nothingToSeeVisible.postValue(View.VISIBLE)
-        } else {
-            nothingToSeeVisible.value = View.INVISIBLE
-            nothingToSeeVisible.postValue(View.INVISIBLE)
+        val first = movieWorkerDetails.value
+        val second = bookings.value
+        val third = birthdays.value
+        first?.let {
+            second?.let {
+                third?.let {
+                    if (
+                        first.isEmpty() &&
+                        second.isEmpty() &&
+                        third.isEmpty()
+                    ) {
+                        nothingToSeeVisible.value = View.VISIBLE
+                        nothingToSeeVisible.postValue(View.VISIBLE)
+                    } else {
+                        nothingToSeeVisible.value = View.INVISIBLE
+                        nothingToSeeVisible.postValue(View.INVISIBLE)
+                    }
+                }
+            }
         }
+
     }
 
     fun loadUserData() {
