@@ -75,7 +75,7 @@ class Prefs private constructor(context: Context) {
         set(value) = sharedPreferences.edit().putInt("port", value).apply()
 
     var jwt: String?
-        get() = sharedPreferences.getString("jwt", null)
+        get() = sharedPreferences.getString("jwt", "")
         set(value) = sharedPreferences.edit().putString("jwt", value).apply()
 
     var jwtRenewalTime: Long

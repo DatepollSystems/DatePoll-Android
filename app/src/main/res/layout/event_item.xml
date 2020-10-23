@@ -72,14 +72,17 @@
             <TextView
                 android:id="@+id/tvEventHeadline"
                 style="@style/TextAppearance.App.Headline4"
-                android:text="@{e.name}"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{e.name}"
+                app:layout_constraintEnd_toStartOf="@+id/ivEventMore"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/ivEventIcon"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Testevent 1" />
+                tools:text="Testevent asdfjk lkjlkj oiuoiuoiu" />
 
             <TextView
                 android:id="@+id/tvEventDateTime"
@@ -87,11 +90,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                app:setEventStartDate="@{e}"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ivEventMore"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tvEventHeadline"
                 app:layout_constraintTop_toBottomOf="@+id/tvEventHeadline"
+                app:setEventStartDate="@{e}"
                 tools:text="01.09.2020, 19:30" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

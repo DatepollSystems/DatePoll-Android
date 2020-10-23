@@ -22,21 +22,7 @@ import java.util.*
 class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
-        // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.bke.datepoll", appContext.packageName)
-    }
-
-    @Test
-    fun testExtensionMethod(){
-        val locale = Locale("de", "de")
-        Locale.setDefault(locale)
-        val res: Resources = getContext().getResources()
-        val config: Configuration = res.getConfiguration()
-        config.locale = locale
-        res.updateConfiguration(config, res.getDisplayMetrics())
-
-        val r = formatDateEnToLocal("2000-10-02")
-        assertEquals("2. Oktober 2000", r)
+        assertEquals("com.datepollsystems.datepoll", appContext.packageName)
     }
 }

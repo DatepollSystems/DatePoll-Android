@@ -27,6 +27,9 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="Icon">
+
+    </style>
     <!-- region BottomNavigation -->
     <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="colorSurface">@color/colorWhite</item>

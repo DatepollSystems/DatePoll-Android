@@ -35,7 +35,6 @@ data class UserModel(
 
     val force_password_change: Int?,
 
-
     val phone_numbers: List<PhoneNumberDbModel>,
 
     val email_addresses: List<String>,

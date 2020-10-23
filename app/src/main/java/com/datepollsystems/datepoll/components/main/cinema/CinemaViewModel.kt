@@ -27,6 +27,13 @@ class CinemaViewModel : ViewModel(), KoinComponent {
 
     val bookCardAmount = MutableLiveData(1)
 
+    val nothingToSeeVisible = Transformations.map(movies) {
+        if (it.isEmpty())
+            View.VISIBLE
+        else
+            View.INVISIBLE
+    }
+
     val setWorkerNameVisibility = Transformations.map(detailMovie) {
         if (it.workerId != null)
             View.VISIBLE
