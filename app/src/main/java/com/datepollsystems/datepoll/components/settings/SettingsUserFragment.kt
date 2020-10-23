@@ -1,6 +1,7 @@
 package com.datepollsystems.datepoll.components.settings
 
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +14,13 @@ import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.data.UpdateUserRequest
 import com.datepollsystems.datepoll.databinding.FragmentSettingsUserBinding
 import com.datepollsystems.datepoll.core.ENetworkState
+import com.datepollsystems.datepoll.utils.formatDateEnToLocal
 import com.datepollsystems.datepoll.utils.showMainSnack
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_settings_user.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import java.util.*
 
 class SettingsUserFragment : Fragment() {
 
@@ -85,11 +89,10 @@ class SettingsUserFragment : Fragment() {
 
                     ENetworkState.DONE -> {
                         userSettingsSwipeRefresh.isRefreshing = false
-                        showMainSnack(
-                            binding.root,
+                        Snackbar.make(requireActivity().window.decorView,
                             "Updated user successfully",
                             Snackbar.LENGTH_LONG
-                        )
+                        ).setAnchorView(R.id.bottom_navigation).show()
                         vm.updateUserState.postValue(null)
                         findNavController().popBackStack()
                     }
@@ -123,6 +126,30 @@ class SettingsUserFragment : Fragment() {
                         networkErrorOccurred()
                         vm.loadUserState.postValue(null)
                     }
+                }
+            }
+        })
+
+        vm.showBirthdayPicker.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                if(it){
+
+                    val builder = MaterialDatePicker.Builder.datePicker()
+                    // create the date picker
+                    val datePicker = builder.build()
+
+                    // set listener when date is selected
+                    datePicker.addOnPositiveButtonClickListener {d ->
+
+                        // Create calendar object and set the date to be that returned from selection
+                        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+                        calendar.time = Date(d)
+
+                        vm.updateBirthday(calendar.timeInMillis)
+                    }
+
+                    datePicker.show(parentFragmentManager, "pickerUserSettings")
+                    vm.showBirthdayPicker.postValue(false)
                 }
             }
         })

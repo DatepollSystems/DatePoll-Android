@@ -8,11 +8,13 @@ import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.core.Prefs
 import com.datepollsystems.datepoll.data.*
 import com.datepollsystems.datepoll.repos.UserRepository
+import com.datepollsystems.datepoll.utils.formatDateToEn
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import timber.log.Timber
+import java.util.*
 
 class SettingsViewModel : ViewModel(), KoinComponent {
 
@@ -30,6 +32,7 @@ class SettingsViewModel : ViewModel(), KoinComponent {
     private val deleteSessionSate = MutableLiveData<ENetworkState>()
     val checkPasswordState = MutableLiveData<ENetworkState>()
     val changePasswordState = MutableLiveData<ENetworkState>()
+    val showBirthdayPicker = MutableLiveData<Boolean>(false)
 
     val changePasswordStep = MutableLiveData(EStep.ONE)
     val changePasswordOldPass = MutableLiveData("")
@@ -73,6 +76,10 @@ class SettingsViewModel : ViewModel(), KoinComponent {
 
             sessions.postValue(s)
         }
+    }
+
+    fun launchBirthdayPicker(){
+        showBirthdayPicker.postValue(true)
     }
 
     fun deleteSession(item: SessionModel) {
@@ -147,6 +154,24 @@ class SettingsViewModel : ViewModel(), KoinComponent {
                 Timber.i(msg.toString())
                 shownInBirthdayList.postValue(msg.settingsValue)
             }
+        }
+    }
+
+    fun updateBirthday(long: Long){
+        viewModelScope.launch(Dispatchers.IO) {
+            val u = user.value!!
+            val updateUserRequest = UpdateUserRequest(
+                title = u.title.toString(),
+                firstname = u.firstname.toString(),
+                surname = u.surname.toString(),
+                birthday = formatDateToEn(Date(long)),
+                location = u.location.toString(),
+                streetname = u.streetname.toString(),
+                streetnumber = u.streetnumber.toString(),
+                zipcode = u.zipcode!!.toInt()
+            )
+            Timber.i(updateUserRequest.toString())
+            updateUser(updateUserRequest)
         }
     }
 

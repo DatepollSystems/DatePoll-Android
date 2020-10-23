@@ -1,12 +1,14 @@
 package com.datepollsystems.datepoll.utils
 
 import android.view.View
+import android.view.ViewParent
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.components.main.event.model.EventDateDbModel
 import com.datepollsystems.datepoll.components.main.event.model.EventDateDto
 import com.datepollsystems.datepoll.components.main.event.model.EventDecisionDbModel
 import com.datepollsystems.datepoll.components.main.event.model.EventDecisionDto
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_main.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -63,4 +65,3 @@ fun showMainSnack(view: View, t: String, i: Int){
     s.setAnchorView(R.id.bottom_navigation)
     s.show()
 }
-

@@ -12,187 +12,185 @@
             type="com.datepollsystems.datepoll.components.settings.SettingsViewModel" />
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/userSettingsSwipeRefresh"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/userSettingsSwipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-            <LinearLayout
-                android:id="@+id/userSettingsLayout"
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="invisible">
+                android:layout_height="match_parent">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tiTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginBottom="20dp"
-                    android:hint="@string/title">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:text="@{vm.user.title}" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tiFirstname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginBottom="20dp"
-                    android:enabled="false"
-                    android:hint="@string/firstname">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:text="@{vm.user.firstname}" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tiSurname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:enabled="false"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginBottom="20dp"
-                    android:hint="@string/surname">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:text="@{vm.user.surname}" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tiBirthday"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginBottom="20dp"
-                    android:hint="@string/birthday">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:inputType="date"
-                        android:text="@{Converter.dateToString(vm.user.birthday)}" />
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
+                    android:id="@+id/userSettingsLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="invisible"
+                    tools:visibility="visible">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tiStreetName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginBottom="20dp"
-                        android:hint="@string/street">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="200dp"
-                            android:layout_height="50dp"
-                            android:inputType="text"
-                            android:text="@{vm.user.streetname}" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tiStreetNumber"
+                        android:id="@+id/tiTitle"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginBottom="20dp"
-                        android:hint="@string/street_number">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:inputType="text"
-                            android:text="@{vm.user.streetnumber}" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tiZipCode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginBottom="20dp"
-                        android:hint="@string/postal_code">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="100dp"
-                            android:layout_height="50dp"
-                            android:inputType="number"
-                            android:text="@{String.valueOf(vm.user.zipcode)}" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tiLocation"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginBottom="20dp"
-                        android:hint="@string/city">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:inputType="text"
-                            android:text="@{vm.user.location}" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="30dp">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnUpdateUser"
-                        style=""
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:layout_marginBottom="16dp"
-                        android:enabled="true"
-                        android:text="@string/save"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-        </ScrollView>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:hint="@string/title">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:text="@{vm.user.title}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tiFirstname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:enabled="false"
+                        android:hint="@string/firstname">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:text="@{vm.user.firstname}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tiSurname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:enabled="false"
+                        android:hint="@string/surname">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:text="@{vm.user.surname}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tiBirthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="20dp"
+
+                        android:hint="@string/birthday">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:focusable="false"
+                            android:inputType="date"
+                            android:onClick="@{() -> vm.launchBirthdayPicker() }"
+                            android:text="@{vm.user.getBirthdayString()}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tiStreetName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginBottom="20dp"
+                            android:hint="@string/street">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="200dp"
+                                android:layout_height="50dp"
+                                android:inputType="text"
+                                android:text="@{vm.user.streetname}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tiStreetNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginBottom="20dp"
+                            android:hint="@string/street_number">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:inputType="text"
+                                android:text="@{vm.user.streetnumber}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="50dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tiZipCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginBottom="20dp"
+                            android:hint="@string/postal_code">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="100dp"
+                                android:layout_height="50dp"
+                                android:inputType="number"
+                                android:text="@{String.valueOf(vm.user.zipcode)}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tiLocation"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginBottom="50dp"
+                            android:hint="@string/city">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:inputType="text"
+                                android:text="@{vm.user.location}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnUpdateUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_check"
+            android:contentDescription="@string/save" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

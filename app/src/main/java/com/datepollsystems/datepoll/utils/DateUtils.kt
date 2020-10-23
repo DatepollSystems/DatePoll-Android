@@ -29,3 +29,13 @@ fun formatDateEnToLocal(dateStr: String): String {
     Timber.e("Formatting of Date ($dateStr) failed")
     return ""
 }
+
+fun formatDateToLocal(date: Date): String {
+    Timber.i("Try to format following date: $date")
+    return DateFormat.getDateInstance(DateFormat.LONG).format(date)
+}
+
+fun formatDateToEn(date: Date): String {
+    Timber.i("Try to format following date: $date")
+    return formatter.format(date)
+}
