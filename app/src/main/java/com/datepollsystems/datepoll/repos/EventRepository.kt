@@ -1,8 +1,8 @@
 package com.datepollsystems.datepoll.repos
 
 import androidx.lifecycle.MutableLiveData
-import com.datepollsystems.datepoll.core.DatepollDatabase
-import com.datepollsystems.datepoll.database.dao.EventDao
+import com.datepollsystems.datepoll.db.DatepollDatabase
+import com.datepollsystems.datepoll.db.dao.EventDao
 import com.datepollsystems.datepoll.components.main.event.model.*
 import com.datepollsystems.datepoll.core.BaseRepository
 import com.datepollsystems.datepoll.core.ENetworkState
@@ -14,7 +14,6 @@ import timber.log.Timber
 import java.util.*
 
 class EventRepository : BaseRepository() {
-    private val tag = "EventRepository"
 
     private val api: InstanceApi by inject()
     private val db: DatepollDatabase by inject()
@@ -36,9 +35,12 @@ class EventRepository : BaseRepository() {
             r?.let { response ->
                 withContext(Dispatchers.IO) {
                     Timber.i("Try to fetch new data into db")
+
+                    val idList = response.events.map { e -> e.id }
+                    eventDao.deleteAllWhereNotInList(idList)
+
                     for (e in response.events) {
                         val data = e.getDbData()
-
 
                         eventDao.addEvent(data.event)
 
@@ -77,6 +79,9 @@ class EventRepository : BaseRepository() {
         )?.let {
             withContext(Dispatchers.IO) {
                 eventDao.addUserDecision(it)
+                val e = eventDao.getEventById(it.userDecision.eventId)
+                e.alreadyVoted = true
+                eventDao.updateEvent(e)
             }
             return
         }
@@ -93,6 +98,9 @@ class EventRepository : BaseRepository() {
         r?.let {
             withContext(Dispatchers.IO) {
                 eventDao.removeUserDecision(id)
+                val e = eventDao.getEventById(id)
+                e.alreadyVoted = false
+                eventDao.updateEvent(e)
             }
         }
     }

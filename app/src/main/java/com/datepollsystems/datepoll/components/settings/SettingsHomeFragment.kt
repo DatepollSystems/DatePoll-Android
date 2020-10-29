@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_settings_home.*
 import kotlinx.android.synthetic.main.fragment_settings_home.view.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 class SettingsHomeFragment : Fragment() {
 
@@ -164,7 +165,7 @@ class SettingsHomeFragment : Fragment() {
         )
 
         btnLogout.setOnClickListener {
-            MaterialAlertDialogBuilder(context)
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.logout_title)
                 .setMessage(R.string.logout_dialog_desc)
                 .setPositiveButton(android.R.string.yes) { _, _ ->
@@ -195,7 +196,7 @@ class SettingsHomeFragment : Fragment() {
                 if (selection.isNotBlank())
                     prefs.theme = selection
 
-                Log.i("Theme attached:", "${prefs.theme}")
+                Timber.i("Theme attached: ${prefs.theme}")
                 when (prefs.theme) {
                     themeOptions[0] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                     themeOptions[1] -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)

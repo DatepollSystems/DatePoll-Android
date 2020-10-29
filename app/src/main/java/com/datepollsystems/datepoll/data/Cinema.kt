@@ -122,7 +122,7 @@ fun List<Movie>.toDBModelList(): List<MovieDbModel> {
     return dbList
 }
 
-fun Movie.toDbModel(): MovieDbModel  {
+fun Movie.toDbModel(): MovieDbModel {
     return MovieDbModel(
         id = this.id,
         name = this.name,
@@ -176,4 +176,96 @@ data class MovieBooking(
     @field:Json(name = "updated_at")
     val updatedAt: String
 )
+
+
+@Entity(tableName = "movie_orders")
+data class MovieOrder(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long,
+
+    @ColumnInfo(name = "user_name")
+    val userName: String,
+
+    @ColumnInfo(name = "user_id")
+    val userId: Long,
+
+    @ColumnInfo(name = "amount")
+    val amount: Int,
+
+    @ColumnInfo(name = "movie_id")
+    val movieId: Long
+)
+
+data class MovieOrderTupl(
+    @field:Json(name = "movie_name")
+    val movieName: String,
+
+    @field:Json(name = "date")
+    val date: String,
+
+    @ColumnInfo(name = "user_name")
+    val userName: String,
+
+    @ColumnInfo(name = "amount")
+    val amount: Int,
+
+    @ColumnInfo(name = "booked_tickets")
+    val bookedTickets: Int
+)
+
+@JsonClass(generateAdapter = true)
+data class MovieWorkerDetailsDto(
+    @field:Json(name = "movie_id")
+    val movieId: Long,
+
+    @field:Json(name = "movie_name")
+    val movieName: String,
+
+    @field:Json(name = "date")
+    val date: String,
+
+    @field:Json(name = "orders")
+    val orders: List<MovieOrdersDto>
+) {
+    fun toDbModelData(): List<MovieOrder> {
+        val res = ArrayList<MovieOrder>()
+        orders.forEach {
+            res.add(it.toDbModel(movieId))
+        }
+        return res
+    }
+}
+
+@JsonClass(generateAdapter = true)
+data class MovieOrdersDto(
+    @field:Json(name = "user_name")
+    val userName: String,
+
+    @field:Json(name = "user_id")
+    val userId: Long,
+
+    @field:Json(name = "amount")
+    val amount: Int
+) {
+    fun toDbModel(movieId: Long): MovieOrder {
+        return MovieOrder(
+            userName = userName,
+            userId = userId,
+            amount = amount,
+            movieId = movieId,
+            id = 0L
+        )
+    }
+}
+
+
+@JsonClass(generateAdapter = true)
+data class GetMovieWorkerDetailsResponse(
+    val msg: String,
+    val movies: List<MovieWorkerDetailsDto>
+)
+
+
+
+
 

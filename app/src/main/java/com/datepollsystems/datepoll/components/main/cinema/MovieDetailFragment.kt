@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.databinding.BookTicketBottomSheetBinding
 import com.datepollsystems.datepoll.databinding.FragmentMovieDetailBinding
@@ -16,6 +17,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_ftue_server_instance.loading
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
@@ -81,9 +85,12 @@ class MovieDetailFragment : Fragment() {
                         }
                         ENetworkState.DONE -> {
                             loading(false)
-                            val dialog = AlertDialog.Builder(requireContext()).setTitle("Tickets")
-                                .setMessage("You have booked ${cinemaViewModel.detailMovie.value!!.bookedTicketsForYourself}!")
-                            dialog.show()
+                            viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+                                delay(200)
+                                val dialog = AlertDialog.Builder(requireContext()).setTitle("Tickets")
+                                    .setMessage("You have booked ${cinemaViewModel.detailMovie.value!!.bookedTicketsForYourself}!")
+                                dialog.show()
+                            }
                         }
                         ENetworkState.ERROR -> {
                             loading(false)

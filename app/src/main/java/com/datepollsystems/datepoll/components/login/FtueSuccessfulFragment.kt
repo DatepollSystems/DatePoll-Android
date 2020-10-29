@@ -7,11 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import com.datepollsystems.datepoll.components.AppViewModel
 import com.datepollsystems.datepoll.databinding.FragmentFtueSuccessfulBinding
 import com.datepollsystems.datepoll.components.main.MainActivity
+import com.datepollsystems.datepoll.networkModule
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
+import org.koin.ext.scope
 
 class FtueSuccessfulFragment : Fragment() {
 
@@ -28,23 +36,27 @@ class FtueSuccessfulFragment : Fragment() {
         _binding = FragmentFtueSuccessfulBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        //view.motionLayout.progre
-
-        //lifecycleScope.launch(Dispatchers.Main){
-        //    binding.motionLayout.
-        //}
-
-
         return view
     }
 
     override fun onStart() {
         super.onStart()
-        binding.motionLayout.transitionToEnd()
 
-       viewLifecycleOwner.lifecycleScope.launch {
-           delay(1500)
-           startActivity(Intent(requireActivity(), MainActivity::class.java))
-       }
+        unloadKoinModules(networkModule)
+        loadKoinModules(networkModule)
+
+        val appViewModel: AppViewModel by viewModel()
+
+        appViewModel.apiData.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    delay(1000)
+                    startActivity(Intent(requireActivity(), MainActivity::class.java))
+                }
+            }
+        })
+        appViewModel.loadApiInfo()
+
+        binding.motionLayout.transitionToEnd()
     }
 }

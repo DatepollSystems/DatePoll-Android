@@ -9,16 +9,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.databinding.FragmentFtueLoginBinding
+import com.datepollsystems.datepoll.components.AppViewModel
 import com.datepollsystems.datepoll.core.ENetworkState
+import com.datepollsystems.datepoll.databinding.FragmentFtueLoginBinding
+import com.datepollsystems.datepoll.networkModule
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
 import timber.log.Timber
 
 
 class FtueLoginFragment : Fragment() {
 
     private val ftueViewModel: FtueViewModel by sharedViewModel()
+
     private var _binding: FragmentFtueLoginBinding? = null
     val binding: FragmentFtueLoginBinding
         get() = _binding!!
@@ -27,6 +33,9 @@ class FtueLoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        loadKoinModules(networkModule)
+
+
         _binding = FragmentFtueLoginBinding.inflate(inflater, container, false)
 
         binding.vm = ftueViewModel
@@ -53,6 +62,7 @@ class FtueLoginFragment : Fragment() {
                     !tiUserName.isErrorEnabled && !tiPassword.isErrorEnabled
                 ) {
                     Timber.i("Credentials are valid, performing login process")
+                    loadKoinModules(networkModule)
                     ftueViewModel.login()
 
                 } else {
@@ -86,7 +96,7 @@ class FtueLoginFragment : Fragment() {
                             Timber.e("Login not successful, maybe credentials are incorrect or internet connection is broken")
                             Timber.e("Error Code: ${it.code}")
 
-                            if(it.code == 400 && it.messageCode == "change_password") {
+                            if (it.code == 400 && it.messageCode == "change_password") {
                                 findNavController().navigate(R.id.action_ftueLoginFragment_to_ftueFirstPasswordChange)
                             } else {
                                 Snackbar.make(
@@ -99,6 +109,7 @@ class FtueLoginFragment : Fragment() {
                             isLoading(false)
                         }
                     }
+                    loginState.postValue(null)
                 }
             })
         }
@@ -109,5 +120,10 @@ class FtueLoginFragment : Fragment() {
             binding.loading.visibility = View.VISIBLE
         else
             binding.loading.visibility = View.INVISIBLE
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unloadKoinModules(networkModule)
     }
 }

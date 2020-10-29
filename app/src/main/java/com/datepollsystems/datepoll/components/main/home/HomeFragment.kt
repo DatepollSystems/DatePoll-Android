@@ -4,97 +4,150 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.databinding.FragmentHomeBinding
-import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.components.main.MainViewModel
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
+import com.datepollsystems.datepoll.components.main.cinema.CinemaViewModel
+import com.datepollsystems.datepoll.core.ENetworkState
+import com.datepollsystems.datepoll.databinding.FragmentHomeBinding
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import java.util.*
-
 
 class HomeFragment : Fragment() {
 
     private val vm: MainViewModel by sharedViewModel()
+    private val cinemaViewModel: CinemaViewModel by sharedViewModel()
+
+    private var _binding: FragmentHomeBinding? = null
+    val binding: FragmentHomeBinding
+        get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentHomeBinding>(
-            inflater, R.layout.fragment_home, container, false
+        _binding = FragmentHomeBinding.inflate(
+            inflater, container, false
         )
-        val view = binding.root
 
         binding.vm = vm
         binding.lifecycleOwner = this
 
-        view.connectionView.visibility = View.INVISIBLE
+        binding.birthdayCardView.visibility = View.GONE
+        binding.bookingsCardView.visibility = View.GONE
+        binding.movieWorkerCard.visibility = View.GONE
 
-        val adapter =
-            CardAdapter(activity as AppCompatActivity)
-        view.cardList.adapter = adapter
-        setupObservers(adapter)
-        adapter.notifyDataSetChanged()
-        view.swipeToRefresh.setOnRefreshListener {
+        setupBirthdayCard()
+        setupBookingCard()
+        setupMovieWorkerCard()
+
+        binding.swipeToRefresh.setOnRefreshListener {
             vm.loadHomepage(force = true)
         }
 
         vm.loadHomepage()
-        return view
+        return binding.root
     }
 
-    private fun setupObservers(mainAdapter: CardAdapter) {
+    override fun onStart() {
+        super.onStart()
+        requireActivity().bottom_navigation?.visibility = View.VISIBLE
+    }
 
-        vm.loadHomepageState.observe(viewLifecycleOwner, Observer {
+    private fun setupMovieWorkerCard() {
+        val adapter = MovieWorkerAdapter(MovieWorkerClickListener {
+            val sheet = CinemaWorkerInfoBottomSheet(it.id)
+            sheet.show(parentFragmentManager, sheet.tag)
+        })
+        vm.movieWorkerDetails.value?.let {
+            adapter.submitList(it)
+        }
+        vm.movieWorkerDetails.observe(viewLifecycleOwner, Observer {
             it?.let {
-                val s = swipeToRefresh
+                adapter.submitList(it)
+            }
+        })
+
+        binding.workerDetailsList.adapter = adapter
+    }
+
+    private fun setupBookingCard() {
+
+        val bookingAdapter = BookingsAdapter(BookingAdapterClickListener {
+            cinemaViewModel.detailMovie.postValue(it)
+            findNavController().navigate(R.id.action_nav_home_to_movieDetailFragment)
+        })
+
+        vm.bookings.value?.let {
+            bookingAdapter.submitList(it)
+        }
+        binding.bookingsList.adapter = bookingAdapter
+
+        vm.bookings.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                bookingAdapter.submitList(it)
+            }
+        })
+
+        vm.loadBookedMoviesState.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                val s = binding.swipeToRefresh
 
                 when (it) {
                     ENetworkState.LOADING -> s.isRefreshing = true
                     ENetworkState.DONE -> {
                         s.isRefreshing = false
-                        cardList.visibility = View.VISIBLE
-                        connectionView.visibility = View.INVISIBLE
                     }
                     ENetworkState.ERROR -> {
-                        if(it.code == 401){
+                        if (it.code == 401) {
                             //User not authorized
                             vm.logout()
                         }
-
                         s.isRefreshing = false
-                        cardList.visibility = View.INVISIBLE
-                        connectionView.visibility = View.VISIBLE
                     }
                 }
 
-                vm.loadHomepageState.postValue(null)
+                vm.loadBookedMoviesState.postValue(null)
             }
         })
+    }
 
-        vm.bookings.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                mainAdapter.bookingsData = LinkedList(it)
-            }
-        })
-
-        vm.events.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                mainAdapter.eventsData = LinkedList(it)
-            }
-        })
+    private fun setupBirthdayCard() {
+        val birthdayAdapter = BirthdayAdapter()
+        vm.birthdays.value?.let {
+            birthdayAdapter.submitList(it)
+        }
+        binding.birthdayList.adapter = birthdayAdapter
 
         vm.birthdays.observe(viewLifecycleOwner, Observer {
             it?.let {
-                mainAdapter.birthdayData = LinkedList(it)
+                birthdayAdapter.submitList(it)
             }
         })
 
+        vm.loadBirthdaysAndBroadcastState.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                val s = binding.swipeToRefresh
+
+                when (it) {
+                    ENetworkState.LOADING -> s.isRefreshing = true
+                    ENetworkState.DONE -> {
+                        s.isRefreshing = false
+                    }
+                    ENetworkState.ERROR -> {
+                        if (it.code == 401) {
+                            //User not authorized
+                            vm.logout()
+                        }
+                        s.isRefreshing = false
+                    }
+                }
+
+                vm.loadBirthdaysAndBroadcastState.postValue(null)
+            }
+        })
     }
+
 }

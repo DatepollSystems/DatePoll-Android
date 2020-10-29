@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="d"
+            type="com.datepollsystems.datepoll.components.main.home.BottomSheetDataHolder" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvMovieWorkerHeadline"
+            style="@style/TextAppearance.App.Headline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/info_for_date"
+            app:layout_constraintBottom_toBottomOf="@+id/ivBookingCardIcon2"
+            app:layout_constraintStart_toEndOf="@+id/ivBookingCardIcon2"
+            app:layout_constraintTop_toTopOf="@+id/ivBookingCardIcon2" />
+
+        <ImageView
+            android:id="@+id/ivBookingCardIcon2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/round_shape"
+            android:contentDescription="@string/bookings"
+            android:padding="9dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_card_giftcard_black_24dp"
+            app:tint="@android:color/white" />
+
+        <TextView
+            android:id="@+id/tvReservationsTitle"
+            style="@style/TextAppearance.App.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/reservations"
+            android:visibility="@{d.showIfEntries}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivBookingCardIcon2" />
+
+        <TextView
+            android:id="@+id/tvReservationsTitle2"
+            style="@style/TextAppearance.App.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/name"
+            android:visibility="@{d.showIfEntries}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvReservationsTitle" />
+
+        <TextView
+            android:id="@+id/tvReservationsTitle4"
+            style="@style/TextAppearance.App.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="180dp"
+            android:text="@string/tickets"
+            android:visibility="@{d.showIfEntries}"
+            app:layout_constraintStart_toStartOf="@+id/tvReservationsTitle2"
+            app:layout_constraintTop_toTopOf="@+id/tvReservationsTitle2" />
+
+        <TextView
+            android:id="@+id/tvReservation"
+            style="@style/TextAppearance.App.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:visibility="@{d.showIfEntries}"
+            app:layout_constraintStart_toEndOf="@+id/tvReservationsTitle"
+            app:layout_constraintTop_toTopOf="@+id/tvReservationsTitle"
+            tools:text="2" />
+
+        <View
+            android:id="@+id/divider10"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/blueGrey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvReservationsTitle2" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/orderList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="@{d.showIfEntries}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider10"
+            tools:layout_width="match_parent"
+            tools:listitem="@layout/home_movie_worker_order_item" />
+
+        <TextView
+            android:id="@+id/tvNoEntries"
+            style="@style/TextAppearance.App.Headline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/no_bookings"
+            android:visibility="@{d.showIfNoEntries}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMovieWorkerHeadline"
+            tools:visibility="invisible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -4,6 +4,7 @@ import com.datepollsystems.datepoll.core.Prefs
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import timber.log.Timber
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.HttpsURLConnection
 
@@ -19,6 +20,7 @@ object DatepollServiceFactory {
                 hv.verify(prefs.serverAddress?.removePrefix("https://"), session)
             }).build()
 
+        Timber.i("Performing requests on url: $url")
 
         val retrofit = Retrofit.Builder()
             .client(datepollClient)

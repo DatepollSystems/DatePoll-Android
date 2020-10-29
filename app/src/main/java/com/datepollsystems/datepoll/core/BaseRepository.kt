@@ -27,7 +27,6 @@ enum class ENetworkState(
 open class BaseRepository : KoinComponent {
 
     protected val prefs: Prefs by inject()
-    private val api: InstanceApi by inject()
 
     /**
      * generic Datepoll API method to invoke calls, for simple calls with general error handling
@@ -104,6 +103,7 @@ open class BaseRepository : KoinComponent {
             Timber.i("Try to refresh jwt")
             val request =
                 RefreshTokenWithSessionRequest(sessionToken = prefs.session!!)
+            val api: InstanceApi = getKoin().get()
             val response = api.refreshTokenWithSession(
                 request
             )

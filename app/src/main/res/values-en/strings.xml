@@ -146,5 +146,15 @@
     <string name="you_booked">You booked:</string>
     <string name="available_tickets">Available tickets:</string>
     <string name="sold_out">!SOLD OUT!</string>
+    <string name="you_booked_x_tickets">You booked %1$s tickets.</string>
+    <string name="movie_worker_details">Movie worker</string>
+    <string name="info_for_date">Info for %1$s</string>
+    <string name="no_bookings">No bookings.</string>
+    <string name="reservations">Reservations:</string>
+    <string name="upcoming_events">Upcoming events</string>
+    <string name="delete_decision">Delete decision</string>
+    <string name="nothing_here">Nothing here.</string>
+    <string name="currently_there_are_no_movies">Currently there are no movies</string>
+    <string name="currently_there_are_no_events">Currently there are no events</string>
 
 </resources>

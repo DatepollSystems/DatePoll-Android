@@ -1,12 +1,17 @@
 package com.datepollsystems.datepoll
 
-import androidx.test.platform.app.InstrumentationRegistry
+import android.R.attr.country
+import android.content.res.Configuration
+import android.content.res.Resources
+import androidx.test.InstrumentationRegistry.getContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
-
+import androidx.test.platform.app.InstrumentationRegistry
+import com.datepollsystems.datepoll.utils.formatDateEnToLocal
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.*
 
-import org.junit.Assert.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -17,8 +22,7 @@ import org.junit.Assert.*
 class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
-        // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.bke.datepoll", appContext.packageName)
+        assertEquals("com.datepollsystems.datepoll", appContext.packageName)
     }
 }

@@ -8,11 +8,12 @@ import com.datepollsystems.datepoll.data.LoginRequestModel
 import com.datepollsystems.datepoll.data.LoginResponseModel
 import com.datepollsystems.datepoll.network.InstanceApi
 import org.koin.core.inject
+import timber.log.Timber
 
 
 class LoginRepository : BaseRepository() {
 
-    private val api: InstanceApi by inject()
+
 
     suspend fun login(
         username: String,
@@ -21,7 +22,7 @@ class LoginRepository : BaseRepository() {
     ): LoginResponseModel? {
         val requestObj =
             LoginRequestModel(username, password)
-
+        val api: InstanceApi = getKoin().get()
         return apiCall(
             call = { api.login(requestObj) },
             state = loginState
@@ -39,7 +40,7 @@ class LoginRepository : BaseRepository() {
             newPassword = newPasswd,
             oldPassword = oldPasswd
         )
-
+        val api: InstanceApi = getKoin().get()
         return apiCall(
             call = { api.changePasswordWhenSignIn(requestObj) },
             state = state

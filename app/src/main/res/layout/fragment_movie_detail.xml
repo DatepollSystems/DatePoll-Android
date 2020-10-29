@@ -38,6 +38,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:loadImage="@{vm.detailMovie.posterLink}"
+                    tools:layout_height="50dp"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
                 <TextView

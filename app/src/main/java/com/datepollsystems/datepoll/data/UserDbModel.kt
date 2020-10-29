@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.datepollsystems.datepoll.data.UpdateUserRequest
+import com.datepollsystems.datepoll.utils.formatDateToLocal
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,7 +22,7 @@ data class UserDbModel(
 
     val username: String?,
 
-    val birthday: Long?,
+    var birthday: Long?,
 
     val join_date: String?,
 
@@ -41,6 +42,12 @@ data class UserDbModel(
 
     val savedAt: Long
 ){
+    fun getBirthdayString(): String{
+        return formatDateToLocal(Date(birthday!!))
+    }
+
+    fun setBirthdayString(string: String){
+    }
     @SuppressLint("SimpleDateFormat")
     fun getUpdateUserPart(): UpdateUserRequest {
 

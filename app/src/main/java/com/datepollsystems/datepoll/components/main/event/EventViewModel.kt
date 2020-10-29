@@ -1,6 +1,8 @@
 package com.datepollsystems.datepoll.components.main.event
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.datepollsystems.datepoll.components.main.event.model.EventDecisionDbModel
@@ -20,11 +22,30 @@ class EventViewModel : ViewModel(), KoinComponent {
     val filteredEvents = eventRepository.filteredEvents
     val decisions = MutableLiveData<List<EventDecisionDbModel>>()
     val decisionClickResult = MutableLiveData<EventDecisionDbModel>()
+    val changeList = MutableLiveData<Boolean>()
 
-    var filterChecked = false
+    var filterChecked = MutableLiveData<Boolean>(false)
     val loadEventsState = MutableLiveData<ENetworkState>()
     val makeDecisionState = MutableLiveData<ENetworkState>()
     val removeVoteForEventState = MutableLiveData<ENetworkState>()
+
+    val nothingToSeeVisible = Transformations.map(events) {
+        if(it.isEmpty())
+            View.VISIBLE
+        else
+            View.GONE
+    }
+
+    val nothingToSeeInverted = Transformations.map(nothingToSeeVisible) {
+        if(it == View.GONE)
+            View.VISIBLE
+        else
+            View.INVISIBLE
+    }
+
+    fun switchChanged(checked: Boolean){
+        changeList.postValue(checked)
+    }
 
     fun loadEventData(force: Boolean = false) {
         viewModelScope.launch(Dispatchers.Default) {
