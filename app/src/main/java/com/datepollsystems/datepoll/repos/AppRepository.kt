@@ -16,13 +16,14 @@ import java.util.*
 
 class AppRepository : BaseRepository() {
 
-    private val api: InstanceApi by inject()
+
     private val db: DatepollDatabase by inject()
     private val apiDao by lazy { db.apiDao() }
 
     val apiInfo = apiDao.getApiFlow()
 
     suspend fun loadApiInfo(state: MutableLiveData<ENetworkState> = MutableLiveData()){
+        val api: InstanceApi = getKoin().get()
         val apiModel = apiDao.getApi()
         val force = apiDao.countOfApi() == 0
         if (force || Date().time - apiModel.insertedAt  > 60000) {

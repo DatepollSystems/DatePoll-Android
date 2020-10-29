@@ -12,15 +12,16 @@ import androidx.lifecycle.lifecycleScope
 import com.datepollsystems.datepoll.components.AppViewModel
 import com.datepollsystems.datepoll.databinding.FragmentFtueSuccessfulBinding
 import com.datepollsystems.datepoll.components.main.MainActivity
+import com.datepollsystems.datepoll.networkModule
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
 import org.koin.ext.scope
 
 class FtueSuccessfulFragment : Fragment() {
-
-    private val appViewModel: AppViewModel by viewModel()
 
     private var _binding: FragmentFtueSuccessfulBinding? = null
     private val binding: FragmentFtueSuccessfulBinding
@@ -35,6 +36,17 @@ class FtueSuccessfulFragment : Fragment() {
         _binding = FragmentFtueSuccessfulBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        unloadKoinModules(networkModule)
+        loadKoinModules(networkModule)
+
+        val appViewModel: AppViewModel by viewModel()
+
         appViewModel.apiData.observe(viewLifecycleOwner, Observer {
             it?.let {
                 viewLifecycleOwner.lifecycleScope.launch {
@@ -45,11 +57,6 @@ class FtueSuccessfulFragment : Fragment() {
         })
         appViewModel.loadApiInfo()
 
-        return view
-    }
-
-    override fun onStart() {
-        super.onStart()
         binding.motionLayout.transitionToEnd()
     }
 }
