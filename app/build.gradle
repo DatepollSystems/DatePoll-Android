@@ -21,8 +21,8 @@ android {
             }
         }
 
-        versionCode 19
-        versionName "1.0.1-beta06"
+        versionCode 20
+        versionName "1.0.1-beta07"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
