@@ -21,8 +21,8 @@ android {
             }
         }
 
-        versionCode 21
-        versionName "1.0.1-stable"
+        versionCode 22
+        versionName "1.0.2-rc01"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
