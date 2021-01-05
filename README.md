@@ -9,9 +9,22 @@ This is the Android app for DatePoll. To run and use the app, you must have a Da
 The app supports a light and a dark theme:
 
 
-<img src="/sc/SC1.png" width="200px" float="left" />
-<img src="/sc/SC2.png" width="200px" float="left" />
+<img src="/sc/v1.1_login_light.png" width="200px" float="left" />
+<img src="/sc/v1.1_main_dark.png" width="200px" float="left" />
+<img src="/sc/v1.1_main_light.png" width="200px" float="left" />
 
+
+
+
+Our discord channel:
+<h4>
+    Get notified about updates and join us at
+    <a href="https://discord.gg/Tc5kAH5zhH">
+        <img src="https://img.shields.io/discord/697139052717146123?logo=discord&style=for-the-badge" alt="chat on Discord">
+    </a>
+</h4>
+
+[Click here](https://docs.datepoll.org/) for the docs.
 
 ### Also checkout: 
 - [Datepoll Backend](https://gitlab.com/BuergerkorpsEggenburg/datepoll-backend-php)
