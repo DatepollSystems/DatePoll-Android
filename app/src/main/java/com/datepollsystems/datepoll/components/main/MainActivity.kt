@@ -77,11 +77,11 @@ class MainActivity : AppCompatActivity(), AppBarConfiguration.OnNavigateUpListen
         lifecycleScope.launch {
             val menu: Menu = bottomNavigationView.menu
             val apiModel = appViewModel.apiData.value
-            if(apiModel != null && Date().time - apiModel.insertedAt < 60000)
-                setupMenu(menu, apiModel)
+            if (apiModel != null && Date().time - apiModel.insertedAt < 60000)
+                setupMenu(menu)
             else {
                 appViewModel.apiData.observe(this@MainActivity, Observer {
-                    it?.let { setupMenu(menu, it) }
+                    it?.let { setupMenu(menu) }
                 })
                 appViewModel.loadApiInfo()
             }
@@ -90,37 +90,34 @@ class MainActivity : AppCompatActivity(), AppBarConfiguration.OnNavigateUpListen
         }
     }
 
-    private fun setupMenu(menu: Menu, api: ApiModel) {
-        synchronized(bottomNavigationDrawn) {
-            if (!bottomNavigationDrawn && Date().time - api.insertedAt < 60000) {
-                Timber.i("Setup bottom navigation")
-                menu.add(Menu.NONE, R.id.nav_home, Menu.NONE, getString(R.string.home))
-                    .setIcon(R.drawable.ic_home_black)
+    private fun setupMenu(menu: Menu) {
+        if (!bottomNavigationDrawn) {
+            Timber.i("Setup bottom navigation")
+            menu.add(Menu.NONE, R.id.nav_home, Menu.NONE, getString(R.string.home))
+                .setIcon(R.drawable.ic_home_black)
 
-                if (api.eventsEnabled)
-                    menu.add(Menu.NONE, R.id.nav_events, Menu.NONE, getString(R.string.events))
-                        .setIcon(R.drawable.ic_assessment)
 
-                menu.add(
-                    Menu.NONE,
-                    R.id.nav_calendar,
-                    Menu.NONE,
-                    getString(R.string.menu_calendar)
-                )
-                    .setIcon(R.drawable.ic_event)
+            menu.add(Menu.NONE, R.id.nav_events, Menu.NONE, getString(R.string.events))
+                .setIcon(R.drawable.ic_assessment)
 
-                if (api.cinemaEnabled)
-                    menu.add(Menu.NONE, R.id.nav_cinema, Menu.NONE, getString(R.string.cinema))
-                        .setIcon(R.drawable.ic_movie_black_24dp)
+            menu.add(
+                Menu.NONE,
+                R.id.nav_calendar,
+                Menu.NONE,
+                getString(R.string.menu_calendar)
+            )
+                .setIcon(R.drawable.ic_event)
 
-                menu.add(Menu.NONE, R.id.nav_settings, Menu.NONE, getString(R.string.settings))
-                    .setIcon(R.drawable.ic_settings_black_24dp)
 
-                bottomNavigationDrawn = true
-            }
+            menu.add(Menu.NONE, R.id.nav_cinema, Menu.NONE, getString(R.string.cinema))
+                .setIcon(R.drawable.ic_movie_black_24dp)
+
+            menu.add(Menu.NONE, R.id.nav_settings, Menu.NONE, getString(R.string.settings))
+                .setIcon(R.drawable.ic_settings_black_24dp)
+
+            bottomNavigationDrawn = true
         }
     }
-
 
     private fun initObservers() {
 

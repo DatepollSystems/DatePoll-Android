@@ -10,6 +10,6 @@ import retrofit2.http.GET
  * all http interfaces of the datepoll service
  */
 interface DatepollApi {
-    @GET("/en/instances.json")
+    @GET("instances.json")
     suspend fun getInstances(): Response<Instances>
 }

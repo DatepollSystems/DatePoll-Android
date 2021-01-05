@@ -33,14 +33,13 @@ object DatepollServiceFactory {
 
     fun createDatepollService(): DatepollApi {
 
-        val url = "https://datepoll.org:443"
+        val url = "https://releases.datepoll.org/DatePoll/"
 
         val datepollClient = OkHttpClient().newBuilder()
             .hostnameVerifier(HostnameVerifier { _, session ->
                 val hv = HttpsURLConnection.getDefaultHostnameVerifier()
-                hv.verify("datepoll.org", session)
+                hv.verify("releases.datepoll.org", session)
             }).build()
-
 
         val retrofit = Retrofit.Builder()
             .client(datepollClient)

@@ -102,40 +102,9 @@ class App : Application() {
             if (priority == Log.VERBOSE || priority == Log.DEBUG) {
                 return
             }
-            FakeCrashLibrary.log(
-                priority,
-                tag,
-                message
-            )
-            if (t != null) {
-                if (priority == Log.ERROR) {
-                    FakeCrashLibrary.logError(
-                        t
-                    )
-                } else if (priority == Log.WARN) {
-                    FakeCrashLibrary.logWarning(
-                        t
-                    )
-                }
-            }
         }
     }
 }
 
-class FakeCrashLibrary {
-    companion object {
-        fun log(priority: Int, tag: String?, message: String?) {
-            // TODO add log entry to circular buffer.
-        }
-
-        fun logWarning(t: Throwable?) {
-            // TODO report non-fatal warning.
-        }
-
-        fun logError(t: Throwable?) {
-            // TODO report non-fatal error.
-        }
-    }
-}
 
 
