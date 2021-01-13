@@ -25,7 +25,7 @@ Our discord channel:
 [Click here](https://docs.datepoll.org/) for the docs.
 
 ### Also checkout: 
-- [Datepoll Backend](https://gitlab.com/BuergerkorpsEggenburg/datepoll-backend-php)
-- [Datepoll Dockerized](https://gitlab.com/BuergerkorpsEggenburg/datepoll-dockerized)
-- [Datepoll Frontend (Web)](https://gitlab.com/BuergerkorpsEggenburg/datepoll-frontend)
-- [Datepoll Documentation](https://gitlab.com/BuergerkorpsEggenburg/datepoll-documentation)
+  - [DatePoll-Home / DatePoll website](https://gitlab.com/DatePoll/datepoll-home)
+  - [DatePoll-Backend](https://gitlab.com/DatePoll/datepoll-backend-php)
+  - [DatePoll-Frontend](https://gitlab.com/DatePoll/datepoll-frontend)
+  - [DatePoll-Dockerized](https://gitlab.com/DatePoll/datepoll-dockerized)
