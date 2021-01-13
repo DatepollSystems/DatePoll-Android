@@ -1,5 +1,5 @@
 # Datepoll Android App
-**Datepoll Android App is in beta state, not all (key) features are supported which already occur in the web version.**
+** Not all features are supported.**
 
 Datepoll is a club management software. It organizes your members and you upcoming events.
 Furthermore, Datepoll has a ticket reservation system for movies which you maybe know from cinemas.
