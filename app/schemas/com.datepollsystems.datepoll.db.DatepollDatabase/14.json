@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 10,
-    "identityHash": "35b25a3c53000674c828512c81497393",
+    "version": 14,
+    "identityHash": "93c56d1787e9ea3a49721f8b1d354566",
     "entities": [
       {
         "tableName": "api",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `inserted_at` INTEGER NOT NULL, `version` TEXT NOT NULL, `version_number` INTEGER NOT NULL, `application_url` TEXT NOT NULL, `community_name` TEXT NOT NULL, `community_url` TEXT NOT NULL, `community_description` TEXT NOT NULL, `community_imprint` TEXT NOT NULL, `community_privacy_policy` TEXT NOT NULL, `logged_interactions_count` INTEGER, `events_enabled` INTEGER NOT NULL, `events_count` INTEGER NOT NULL, `event_votes_count` INTEGER NOT NULL, `event_decisions_count` INTEGER NOT NULL, `event_dates_count` INTEGER NOT NULL, `cinema_enabled` INTEGER NOT NULL, `movies_count` INTEGER NOT NULL, `movies_tickets_count` INTEGER NOT NULL, `movies_workers_count` INTEGER NOT NULL, `broadcasts_enabled` INTEGER NOT NULL, `broadcasts_count` INTEGER NOT NULL, `broadcasts_sent_count` INTEGER NOT NULL, `users_count` INTEGER NOT NULL, `user_email_addresses_count` INTEGER NOT NULL, `user_phone_numbers_count` INTEGER NOT NULL, `performance_badges_count` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `inserted_at` INTEGER NOT NULL, `version` TEXT NOT NULL, `version_number` INTEGER NOT NULL, `application_url` TEXT NOT NULL, `community_name` TEXT NOT NULL, `community_url` TEXT NOT NULL, `community_description` TEXT NOT NULL, `community_imprint` TEXT NOT NULL, `community_privacy_policy` TEXT NOT NULL, `events_enabled` INTEGER NOT NULL, `events_count` INTEGER NOT NULL, `event_votes_count` INTEGER NOT NULL, `event_decisions_count` INTEGER NOT NULL, `event_dates_count` INTEGER NOT NULL, `cinema_enabled` INTEGER NOT NULL, `movies_count` INTEGER NOT NULL, `movies_tickets_count` INTEGER NOT NULL, `movies_workers_count` INTEGER NOT NULL, `broadcasts_enabled` INTEGER NOT NULL, `broadcasts_count` INTEGER NOT NULL, `broadcasts_sent_count` INTEGER NOT NULL, `users_count` INTEGER NOT NULL, `user_email_addresses_count` INTEGER NOT NULL, `user_phone_numbers_count` INTEGER NOT NULL, `performance_badges_count` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -67,12 +67,6 @@
             "columnName": "community_privacy_policy",
             "affinity": "TEXT",
             "notNull": true
-          },
-          {
-            "fieldPath": "loggedInteractionsCount",
-            "columnName": "logged_interactions_count",
-            "affinity": "INTEGER",
-            "notNull": false
           },
           {
             "fieldPath": "eventsEnabled",
@@ -744,7 +738,7 @@
       },
       {
         "tableName": "movies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `date` TEXT NOT NULL, `trailer_link` TEXT, `poster_link` TEXT, `booked_tickets` INTEGER NOT NULL, `movie_year_id` INTEGER NOT NULL, `created_at` TEXT NOT NULL, `updated_at` TEXT NOT NULL, `worker_id` INTEGER, `worker_name` TEXT, `emergency_worker_id` INTEGER, `emergency_worker_name` TEXT, `booked_tickets_for_yourself` INTEGER NOT NULL, `inserted_at` INTEGER NOT NULL, `href` TEXT NOT NULL, `method` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `date` TEXT NOT NULL, `trailer_link` TEXT, `poster_link` TEXT, `booked_tickets` INTEGER NOT NULL, `created_at` TEXT NOT NULL, `updated_at` TEXT NOT NULL, `worker_id` INTEGER, `worker_name` TEXT, `emergency_worker_id` INTEGER, `emergency_worker_name` TEXT, `booked_tickets_for_yourself` INTEGER NOT NULL, `inserted_at` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -779,12 +773,6 @@
           {
             "fieldPath": "bookedTickets",
             "columnName": "booked_tickets",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "movieYearId",
-            "columnName": "movie_year_id",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -834,18 +822,6 @@
             "fieldPath": "inserted",
             "columnName": "inserted_at",
             "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "viewMovie.href",
-            "columnName": "href",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "viewMovie.method",
-            "columnName": "method",
-            "affinity": "TEXT",
             "notNull": true
           }
         ],
@@ -944,7 +920,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '35b25a3c53000674c828512c81497393')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '93c56d1787e9ea3a49721f8b1d354566')"
     ]
   }
 }

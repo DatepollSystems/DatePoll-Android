@@ -52,10 +52,6 @@ data class ApiModel(
     @ColumnInfo(name = "community_privacy_policy")
     var communityPrivacyPolicy: String,
 
-    @field:Json(name = "logged_interactions_count")
-    @ColumnInfo(name = "logged_interactions_count")
-    var loggedInteractionsCount: Int,
-
     @field:Json(name = "events_enabled")
     @ColumnInfo(name = "events_enabled")
     var eventsEnabled: Boolean,
@@ -129,7 +125,6 @@ data class ApiModel(
         communityDescription: String,
         communityImprint: String,
         communityPrivacyPolicy: String,
-        loggedInteractionsCount: Int,
         eventsEnabled: Boolean,
         eventsCount: Int,
         eventVotesCount: Int,
@@ -154,7 +149,6 @@ data class ApiModel(
         communityDescription ,
         communityImprint ,
         communityPrivacyPolicy,
-        loggedInteractionsCount,
         eventsEnabled,
         eventsCount ,
         eventVotesCount ,
