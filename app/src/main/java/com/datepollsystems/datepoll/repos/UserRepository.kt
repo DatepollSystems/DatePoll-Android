@@ -180,8 +180,7 @@ class UserRepository : BaseRepository() {
                 val se = SessionModel(
                     item.id,
                     item.information,
-                    newDate,
-                    item.deleteSession
+                    newDate
                 )
                 s.add(se)
             }

@@ -13,8 +13,7 @@ data class Session(
 data class SessionModel(
     val id: Int,
     val information: String,
-    @field:Json(name = "last_used") val lastUsed: String,
-    @field:Json(name = "delete_session") val deleteSession: DeleteSession
+    @field:Json(name = "last_used") val lastUsed: String
 )
 
 @JsonClass(generateAdapter = true)
