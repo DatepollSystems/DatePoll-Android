@@ -21,8 +21,8 @@ android {
             }
         }
 
-        versionCode 23
-        versionName "1.0.3-rc01"
+        versionCode 24
+        versionName "1.0.3-rc02"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
