@@ -28,7 +28,7 @@ stages:
 lintDebug:
   stage: build
   only:
-    - master
+    - main
   script:
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
