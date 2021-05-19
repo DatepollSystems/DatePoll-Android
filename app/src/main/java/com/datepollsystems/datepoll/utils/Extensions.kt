@@ -9,8 +9,11 @@ import com.datepollsystems.datepoll.components.main.event.model.EventDecisionDbM
 import com.datepollsystems.datepoll.components.main.event.model.EventDecisionDto
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.view.*
+import timber.log.Timber
+import java.sql.Time
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.log
 
 fun List<EventDecisionDto>.transformInDbModelList(): List<EventDecisionDbModel> {
     return if (this.isNotEmpty()) {
@@ -60,8 +63,12 @@ fun Date.toCalendar(): Calendar{
     return cal
 }
 
-fun showMainSnack(view: View, t: String, i: Int){
-    val s = Snackbar.make(view, t, i)
-    s.setAnchorView(R.id.bottom_navigation)
-    s.show()
+fun showMainSnack(view: View, t: String, i: Int) {
+    try {
+        val s = Snackbar.make(view, t, i)
+        s.setAnchorView(R.id.bottom_navigation)
+        s.show()
+    } catch (ex: Exception) {
+        Timber.e("Not able to show main snack")
+    }
 }

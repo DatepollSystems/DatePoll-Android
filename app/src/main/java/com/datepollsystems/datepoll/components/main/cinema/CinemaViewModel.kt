@@ -181,7 +181,6 @@ class CinemaViewModel : ViewModel(), KoinComponent {
             repository.bookTickets(movie = detailMovie.value!!, ticketAmount = bookCardAmount.value!!, state = bookTicketState)?.let {
                 detailMovie.postValue(it)
             }
-
         }
         showBottomSheet.postValue(false)
         Timber.i(bookCardAmount.value.toString())
