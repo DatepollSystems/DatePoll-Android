@@ -33,9 +33,6 @@ data class MovieDbModel(
     @ColumnInfo(name = "booked_tickets")
     var bookedTickets: Int,
 
-    @ColumnInfo(name = "movie_year_id")
-    var movieYearId: Int,
-
     @ColumnInfo(name = "created_at")
     var createdAt: String,
 
@@ -57,9 +54,6 @@ data class MovieDbModel(
     @ColumnInfo(name = "booked_tickets_for_yourself")
     var bookedTicketsForYourself: Int,
 
-    @Embedded
-    var viewMovie: ViewMovie,
-
     @ColumnInfo(name = "inserted_at")
     var inserted: Long = 0
 )
@@ -78,9 +72,6 @@ data class Movie(
 
     @field:Json(name = "booked_tickets")
     val bookedTickets: Int,
-
-    @field:Json(name = "movie_year_id")
-    val movieYearId: Int,
 
     @field:Json(name = "created_at")
     val createdAt: String,
@@ -102,15 +93,6 @@ data class Movie(
 
     @field:Json(name = "booked_tickets_for_yourself")
     val bookedTicketsForYourself: Int,
-
-    @field:Json(name = "view_movie")
-    val viewMovie: ViewMovie
-)
-
-@JsonClass(generateAdapter = true)
-data class ViewMovie(
-    val href: String,
-    val method: String
 )
 
 fun List<Movie>.toDBModelList(): List<MovieDbModel> {
@@ -130,14 +112,12 @@ fun Movie.toDbModel(): MovieDbModel {
         trailerLink = this.trailerLink,
         posterLink = this.posterLink,
         bookedTickets = this.bookedTickets,
-        movieYearId = this.movieYearId,
         bookedTicketsForYourself = this.bookedTicketsForYourself,
         createdAt = this.createdAt,
         emergencyWorkerId = this.emergencyWorkerId,
         emergencyWorkerName = this.emergencyWorkerName,
         inserted = Date().time,
         updatedAt = this.updatedAt,
-        viewMovie = this.viewMovie,
         workerId = this.workerId,
         workerName = this.workerName
     )
