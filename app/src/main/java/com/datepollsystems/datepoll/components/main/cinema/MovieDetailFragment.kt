@@ -13,10 +13,10 @@ import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.databinding.BookTicketBottomSheetBinding
 import com.datepollsystems.datepoll.databinding.FragmentMovieDetailBinding
 import com.datepollsystems.datepoll.core.ENetworkState
+import com.datepollsystems.datepoll.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_ftue_server_instance.loading
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -36,10 +36,11 @@ class MovieDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
         binding.vm = cinemaViewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
 
         cinemaViewModel.apply {
             applyForMovieWorkerDetailState.observe(viewLifecycleOwner, Observer {
@@ -117,9 +118,9 @@ class MovieDetailFragment : Fragment() {
 
     private fun loading(valid: Boolean = true) {
         if (valid)
-            loading.visibility = View.VISIBLE
+            binding.loading.visibility = View.VISIBLE
         else
-            loading.visibility = View.INVISIBLE
+            binding.loading.visibility = View.INVISIBLE
     }
 
     private fun movieStateHandler(it: ENetworkState, msg: String) {
@@ -146,7 +147,7 @@ class MovieDetailFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        requireActivity().bottom_navigation?.visibility = View.GONE
+        requireActivity().window.decorView.rootView.findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.GONE
     }
 
     class BookBottomSheet : BottomSheetDialogFragment() {

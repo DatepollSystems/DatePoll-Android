@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 16,
-    "identityHash": "bbd7d5729ae7165356b2b896a86f083a",
+    "version": 17,
+    "identityHash": "93c56d1787e9ea3a49721f8b1d354566",
     "entities": [
       {
         "tableName": "api",
@@ -352,7 +352,7 @@
       },
       {
         "tableName": "performance_badges",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `performance_badge_id` INTEGER, `instrument_id` INTEGER NOT NULL, `grade` TEXT, `note` TEXT, `date` TEXT, `performance_badge_name` TEXT NOT NULL, `instrument_name` TEXT NOT NULL, `user_id` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `performance_badge_id` INTEGER NOT NULL, `instrument_id` INTEGER NOT NULL, `grade` TEXT, `note` TEXT, `date` TEXT, `performance_badge_name` TEXT NOT NULL, `instrument_name` TEXT NOT NULL, `user_id` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -364,7 +364,7 @@
             "fieldPath": "performance_badge_id",
             "columnName": "performance_badge_id",
             "affinity": "INTEGER",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "instrument_id",
@@ -924,7 +924,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bbd7d5729ae7165356b2b896a86f083a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '93c56d1787e9ea3a49721f8b1d354566')"
     ]
   }
 }

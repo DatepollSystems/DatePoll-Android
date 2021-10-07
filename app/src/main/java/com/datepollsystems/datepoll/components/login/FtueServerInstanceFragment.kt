@@ -9,16 +9,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.databinding.FragmentFtueServerInstanceBinding
 import com.datepollsystems.datepoll.core.ENetworkState
+import com.datepollsystems.datepoll.databinding.FragmentFtueServerInstanceBinding
 import com.squareup.moshi.Moshi
-import kotlinx.android.synthetic.main.fragment_ftue_server_instance.*
-import kotlinx.android.synthetic.main.fragment_ftue_server_instance.view.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -33,7 +29,7 @@ class FtueServerInstanceFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentFtueServerInstanceBinding.inflate(inflater, container, false)
         binding.vm = ftueViewModel
@@ -98,11 +94,11 @@ class FtueServerInstanceFragment : Fragment() {
         if (ftueViewModel.validateServerInstance(url)) {
             Timber.i("Valid url: $url entered, continuing")
             ftueViewModel.setServer(url, 9230)
-            tiServerDomain.error = ""
+            binding.tiServerDomain.error = ""
             findNavController().navigate(R.id.action_ftueServerInstanceFragment_to_ftueLoginFragment)
         } else {
             Timber.e("Invalid url")
-            tiServerDomain.error = getString(R.string.url_incorrect)
+            binding.tiServerDomain.error = getString(R.string.url_incorrect)
         }
     }
 
@@ -155,8 +151,8 @@ class FtueServerInstanceFragment : Fragment() {
 
     private fun loading(visible: Boolean = true) {
         if (visible)
-            binding.root.loading.visibility = View.VISIBLE
+            binding.loading.visibility = View.VISIBLE
         else
-            binding.root.loading.visibility = View.INVISIBLE
+            binding.loading.visibility = View.INVISIBLE
     }
 }

@@ -10,9 +10,7 @@ import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.components.main.home.VoteBottomSheetDialog
 import com.datepollsystems.datepoll.databinding.FragmentEventBinding
-import com.datepollsystems.datepoll.databinding.FragmentHomeBinding
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_event.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
@@ -32,7 +30,7 @@ class EventFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentEventBinding.inflate(inflater, container, false)
         binding.vm = vm
@@ -161,13 +159,13 @@ class EventFragment : Fragment() {
                     }
                     ENetworkState.ERROR -> {
                         Timber.e("Something went wrong during event refresh")
-                        view.eventsRecyclerView.visibility = View.INVISIBLE
+                        binding.eventsRecyclerView.visibility = View.INVISIBLE
                         loading(false)
 
                     }
                     ENetworkState.DONE -> {
                         Timber.i("Displaying events")
-                        view.eventsRecyclerView.visibility = View.VISIBLE
+                        binding.eventsRecyclerView.visibility = View.VISIBLE
                         loading(false)
                     }
                 }

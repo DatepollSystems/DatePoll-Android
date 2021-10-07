@@ -10,7 +10,7 @@ import com.datepollsystems.datepoll.components.main.event.model.VoteForEventResp
 @Dao
 interface EventDao {
 
-    @Query("select * from events")
+    @Query("select * from events e ORDER BY e.start_date")
     fun loadAllEvents(): LiveData<List<EventDbModel>>
 
     @Query("select *  from events where id = :id")
@@ -19,9 +19,9 @@ interface EventDao {
     @Query("select * from event_decisions where event_id = :eventId order by id")
     fun loadDecisionsForEvent(eventId: Int): List<EventDecisionDbModel>
 
-    @Query("select * from events where already_voted = 0")
+    @Query("select * from events e where already_voted = 0 ORDER BY e.start_date")
     fun getFilteredEvents(): LiveData<List<EventDbModel>>
-
+x
     @Query("delete from events where id not in (:list)")
     fun deleteAllWhereNotInList(list: List<Int>)
 
