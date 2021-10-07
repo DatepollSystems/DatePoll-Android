@@ -11,7 +11,8 @@ import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.datepollsystems.datepoll.core.Prefs
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.components.main.MainViewModel
-import kotlinx.android.synthetic.main.fragment_calendar.*
+import com.datepollsystems.datepoll.databinding.FragmentCalendarBinding
+import com.datepollsystems.datepoll.databinding.FragmentEventBinding
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,20 +24,24 @@ class CalendarFragment : Fragment() {
     val vm: CalendarViewModel by viewModel()
     val main: MainViewModel by sharedViewModel()
 
+    private var _binding: FragmentCalendarBinding? = null
+    private val binding get() = _binding!!
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-
-        return inflater.inflate(R.layout.fragment_calendar, container, false)
+    ): View {
+        _binding = FragmentCalendarBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onStart() {
         super.onStart()
 
-        val cal = calendarView
-        val swipeToRefresh = calendarSwipeToRefresh
+
+        val cal = binding.calendarView
+        val swipeToRefresh = binding.calendarSwipeToRefresh
 
         vm.calendarEntries.observe(viewLifecycleOwner, Observer {
             cal.setEvents(it)

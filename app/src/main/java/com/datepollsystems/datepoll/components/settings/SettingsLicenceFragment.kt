@@ -10,7 +10,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.datepollsystems.datepoll.R
-import kotlinx.android.synthetic.main.fragment_settings_licence.*
+import com.datepollsystems.datepoll.databinding.FragmentSettingsLicenceBinding
+import timber.log.Timber
 
 
 class SettingsLicenceFragment : Fragment() {
@@ -18,11 +19,17 @@ class SettingsLicenceFragment : Fragment() {
     lateinit var linkList: ArrayList<String>
     lateinit var nameList: ArrayList<String>
 
+    private var _binding: FragmentSettingsLicenceBinding? = null
+    val binding: FragmentSettingsLicenceBinding
+        get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_settings_licence, container, false)
+    ): View {
+
+        _binding = FragmentSettingsLicenceBinding.inflate(layoutInflater)
+        return binding.root
     }
 
 
@@ -35,9 +42,9 @@ class SettingsLicenceFragment : Fragment() {
         nameList = getNames(list)
 
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, nameList);
-        lvLicences.adapter = adapter
+        binding.lvLicences.adapter = adapter
 
-        lvLicences.setOnItemClickListener { _, _, position, _ ->
+        binding.lvLicences.setOnItemClickListener { _, _, position, _ ->
             val browserIntent =
                 Intent(Intent.ACTION_VIEW, Uri.parse(linkList[position]))
             startActivity(browserIntent)
@@ -50,7 +57,7 @@ class SettingsLicenceFragment : Fragment() {
             newList.add(i.substringBefore('|'))
         }
 
-        Log.i("newList", newList.toString())
+        Timber.i("newList $newList")
         return newList
     }
 
@@ -59,7 +66,7 @@ class SettingsLicenceFragment : Fragment() {
         for (i in list) {
             newList.add(i.substringAfter('|'))
         }
-        Log.i("newList", newList.toString())
+        Timber.i("newList $newList")
         return newList
     }
 }

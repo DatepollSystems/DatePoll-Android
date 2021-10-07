@@ -1,14 +1,14 @@
 package com.datepollsystems.datepoll.components.main.cinema
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-
+import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.databinding.FragmentCinemaBinding
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
@@ -25,7 +25,8 @@ class CinemaFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+
         _binding = FragmentCinemaBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.vm = cinemaViewModel
@@ -55,8 +56,6 @@ class CinemaFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        requireActivity().bottom_navigation?.visibility = View.VISIBLE
-
-
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).visibility = View.VISIBLE
     }
 }

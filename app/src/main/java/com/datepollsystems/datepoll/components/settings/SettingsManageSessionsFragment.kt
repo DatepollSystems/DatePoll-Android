@@ -10,7 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.datepollsystems.datepoll.R
-import kotlinx.android.synthetic.main.fragment_settings_manage_sessions.*
+import com.datepollsystems.datepoll.databinding.FragmentSettingsAboutBinding
+import com.datepollsystems.datepoll.databinding.FragmentSettingsManageSessionsBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.*
 
@@ -19,6 +20,10 @@ class SettingsManageSessionsFragment : Fragment() {
 
     val vm: SettingsViewModel by sharedViewModel()
 
+    private var _binding: FragmentSettingsManageSessionsBinding? = null
+    val binding: FragmentSettingsManageSessionsBinding
+        get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,16 +31,16 @@ class SettingsManageSessionsFragment : Fragment() {
 
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.manage_sessions)
 
-        val v = inflater.inflate(R.layout.fragment_settings_manage_sessions, container, false)
+        _binding = FragmentSettingsManageSessionsBinding.inflate(layoutInflater)
 
         vm.loadSessions()
 
         val a = SessionsAdapter(vm)
-        v.findViewById<RecyclerView>(R.id.sessions).adapter = a
+        binding.sessions.adapter = a
 
         a.data = LinkedList()
 
-        vm.sessions.value?.let {sessions
+        vm.sessions.value?.let {
             a.data = LinkedList(it)
         }
 
@@ -43,8 +48,6 @@ class SettingsManageSessionsFragment : Fragment() {
             a.data = LinkedList(it)
         })
 
-        return v
+        return binding.root
     }
-
-
 }

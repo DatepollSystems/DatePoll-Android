@@ -5,23 +5,23 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class PerformanceBadgesModel(
     val id: Long,
-    val performance_badge_id: Long,
+    val performanceBadge_id: Long,
     val instrument_id: Long,
     val grade: String?,
     val note: String?,
     val date: String?,
-    val performance_badge_name: String,
+    val performanceBadge_name: String,
     val instrument_name: String
 ){
     fun getPerformanceBadgesDbModel(userId: Long): PerformanceBadgesDbModel {
         return PerformanceBadgesDbModel(
             id,
-            performance_badge_id,
+            performanceBadge_id,
             instrument_id,
             grade,
             note,
             date,
-            performance_badge_name,
+            performanceBadge_name,
             instrument_name,
             userId
         )

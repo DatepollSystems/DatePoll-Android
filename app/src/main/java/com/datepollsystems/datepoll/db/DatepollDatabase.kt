@@ -25,7 +25,7 @@ import com.datepollsystems.datepoll.db.dao.*
         MovieDbModel::class,
         BirthdayDbModel::class,
         MovieOrder::class
-    ], version = 16
+    ], version = 17
 )
 @TypeConverters(Converters::class)
 abstract class DatepollDatabase : RoomDatabase() {

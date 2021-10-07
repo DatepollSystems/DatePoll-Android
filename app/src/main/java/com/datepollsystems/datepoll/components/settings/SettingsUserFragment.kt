@@ -1,7 +1,6 @@
 package com.datepollsystems.datepoll.components.settings
 
 import android.os.Bundle
-import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.datepollsystems.datepoll.R
+import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.data.UpdateUserRequest
 import com.datepollsystems.datepoll.databinding.FragmentSettingsUserBinding
-import com.datepollsystems.datepoll.core.ENetworkState
-import com.datepollsystems.datepoll.utils.formatDateEnToLocal
 import com.datepollsystems.datepoll.utils.showMainSnack
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_settings_user.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.*
 
@@ -54,23 +51,23 @@ class SettingsUserFragment : Fragment() {
 
         vm.loadUserdata()
 
-        userSettingsSwipeRefresh.isRefreshing = true
-        userSettingsSwipeRefresh.setOnRefreshListener {
-            userSettingsSwipeRefresh.isRefreshing = true
+        binding.userSettingsSwipeRefresh.isRefreshing = true
+        binding.userSettingsSwipeRefresh.setOnRefreshListener {
+            binding.userSettingsSwipeRefresh.isRefreshing = true
             vm.loadUserdata()
         }
 
-        btnUpdateUser.setOnClickListener {
+        binding.btnUpdateUser.setOnClickListener {
             vm.updateUser(
                 UpdateUserRequest(
-                    title = tiTitle.editText?.text.toString(),
-                    firstname = tiFirstname.editText?.text.toString(),
-                    surname = tiSurname.editText?.text.toString(),
-                    birthday = tiBirthday.editText?.text.toString(),
-                    location = tiLocation.editText?.text.toString(),
-                    streetname = tiStreetName.editText?.text.toString(),
-                    streetnumber = tiStreetNumber.editText?.text.toString(),
-                    zipcode = tiZipCode.editText?.text.toString().toInt()
+                    title = binding.tiTitle.editText?.text.toString(),
+                    firstname = binding.tiFirstname.editText?.text.toString(),
+                    surname = binding.tiSurname.editText?.text.toString(),
+                    birthday = binding.tiBirthday.editText?.text.toString(),
+                    location = binding.tiLocation.editText?.text.toString(),
+                    streetname = binding.tiStreetName.editText?.text.toString(),
+                    streetnumber = binding.tiStreetNumber.editText?.text.toString(),
+                    zipcode = binding.tiZipCode.editText?.text.toString().toInt()
                 )
             )
         }
@@ -88,7 +85,7 @@ class SettingsUserFragment : Fragment() {
                     }
 
                     ENetworkState.DONE -> {
-                        userSettingsSwipeRefresh.isRefreshing = false
+                        binding.userSettingsSwipeRefresh.isRefreshing = false
                         Snackbar.make(requireActivity().window.decorView,
                             "Updated user successfully",
                             Snackbar.LENGTH_LONG
@@ -98,8 +95,8 @@ class SettingsUserFragment : Fragment() {
                     }
 
                     ENetworkState.ERROR -> {
-                        userSettingsSwipeRefresh.isRefreshing = false
-                        userSettingsLayout.visibility = View.VISIBLE
+                        binding.userSettingsSwipeRefresh.isRefreshing = false
+                        binding.userSettingsLayout.visibility = View.VISIBLE
                         vm.updateUserState.postValue(null)
                         networkErrorOccurred()
                     }
@@ -115,14 +112,14 @@ class SettingsUserFragment : Fragment() {
                     }
 
                     ENetworkState.DONE -> {
-                        userSettingsSwipeRefresh.isRefreshing = false
-                        userSettingsLayout.visibility = View.VISIBLE
+                        binding.userSettingsSwipeRefresh.isRefreshing = false
+                        binding.userSettingsLayout.visibility = View.VISIBLE
                         vm.loadUserState.postValue(null)
 
                     }
 
                     ENetworkState.ERROR -> {
-                        userSettingsSwipeRefresh.isRefreshing = false
+                        binding.userSettingsSwipeRefresh.isRefreshing = false
                         networkErrorOccurred()
                         vm.loadUserState.postValue(null)
                     }

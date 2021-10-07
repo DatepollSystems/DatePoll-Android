@@ -17,10 +17,9 @@ import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.databinding.FragmentSettingsHomeBinding
 import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.components.main.MainViewModel
+import com.datepollsystems.datepoll.databinding.FragmentSettingsAboutBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_settings_home.*
-import kotlinx.android.synthetic.main.fragment_settings_home.view.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -35,38 +34,40 @@ class SettingsHomeFragment : Fragment() {
 
     private var bottomSheetFragment: ManageCalendarTokenBottomSheetDialog? = null
 
+    private var _binding: FragmentSettingsHomeBinding? = null
+    val binding: FragmentSettingsHomeBinding
+        get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        val binding = DataBindingUtil.inflate<FragmentSettingsHomeBinding>(
-            inflater, R.layout.fragment_settings_home, container, false
-        )
+        _binding = FragmentSettingsHomeBinding.inflate(layoutInflater)
         val view = binding.root
 
         binding.vm = vm
         binding.lifecycleOwner = this
 
-        view.refresh.isEnabled = false
+        binding.refresh.isEnabled = false
 
         vm.calendarSessionTokenState.observe(viewLifecycleOwner, Observer {
             it?.let {
                 when (it) {
                     ENetworkState.DONE -> {
-                        refresh.isRefreshing = false
-                        refresh.isEnabled = false
+                        binding.refresh.isRefreshing = false
+                        binding.refresh.isEnabled = false
                         bottomSheetFragment?.show(parentFragmentManager, bottomSheetFragment?.tag)
                     }
 
                     ENetworkState.LOADING -> {
-                        refresh.isEnabled = true
-                        refresh.isRefreshing = true
+                        binding.refresh.isEnabled = true
+                        binding.refresh.isRefreshing = true
                     }
 
                     ENetworkState.ERROR -> {
-                        refresh.isRefreshing = false
-                        refresh.isEnabled = false
+                        binding.refresh.isRefreshing = false
+                        binding.refresh.isEnabled = false
                         Snackbar.make(
                             view,
                             getString(R.string.something_went_wrong),
@@ -83,8 +84,8 @@ class SettingsHomeFragment : Fragment() {
             it?.let {
                 when (it) {
                     ENetworkState.ERROR -> {
-                        refresh.isRefreshing = false
-                        refresh.isEnabled = false
+                        binding.refresh.isRefreshing = false
+                        binding.refresh.isEnabled = false
                         Snackbar.make(
                             view,
                             getString(R.string.something_went_wrong),
@@ -93,13 +94,13 @@ class SettingsHomeFragment : Fragment() {
                     }
 
                     ENetworkState.LOADING -> {
-                        refresh.isRefreshing = true
-                        refresh.isEnabled = true
+                        binding.refresh.isRefreshing = true
+                        binding.refresh.isEnabled = true
                     }
 
                     ENetworkState.DONE -> {
-                        refresh.isRefreshing = false
-                        refresh.isEnabled = false
+                        binding.refresh.isRefreshing = false
+                        binding.refresh.isEnabled = false
                         Snackbar.make(
                             view,
                             "Calendar token successfully reset",
@@ -116,55 +117,55 @@ class SettingsHomeFragment : Fragment() {
     }
 
     override fun onStart() {
-        btnUser.setOnClickListener(
+        binding.btnUser.setOnClickListener(
             Navigation.createNavigateOnClickListener(
                 R.id.action_settingsHomeFragment_to_settingsUserFragment
             )
         )
 
-        btnAbout.setOnClickListener(
+        binding.btnAbout.setOnClickListener(
             Navigation.createNavigateOnClickListener(
                 R.id.action_settingsHomeFragment_to_settingsAboutFragment
             )
         )
 
-        btnChangePhoneNumber.setOnClickListener(
+        binding.btnChangePhoneNumber.setOnClickListener(
             Navigation.createNavigateOnClickListener(
                 R.id.action_settingsHomeFragment_to_settingsChangePhoneNumberFragment
             )
         )
 
 
-        btnChangeEmail.setOnClickListener(
+        binding.btnChangeEmail.setOnClickListener(
             Navigation.createNavigateOnClickListener(
                 R.id.action_settingsHomeFragment_to_settingsChangeEmail
             )
         )
 
-        btnChangePassword.setOnClickListener(
+        binding.btnChangePassword.setOnClickListener(
             Navigation.createNavigateOnClickListener(
                 R.id.action_settingsHomeFragment_to_settingsChangePasswordFragment
             )
         )
 
-        btnManageSessions.setOnClickListener(
+        binding.btnManageSessions.setOnClickListener(
             Navigation.createNavigateOnClickListener(
                 R.id.action_settingsHomeFragment_to_settingsManageSessionsFragment
             )
         )
 
-        btnManageCalendar.setOnClickListener {
+        binding.btnManageCalendar.setOnClickListener {
             bottomSheetFragment = ManageCalendarTokenBottomSheetDialog(vm.calendarSessionToken)
             vm.getCalendarToken()
         }
 
-        btnChangeIfShownInBirthdayList.setOnClickListener (
+        binding.btnChangeIfShownInBirthdayList.setOnClickListener (
             Navigation.createNavigateOnClickListener(
                 R.id.action_nav_settings_to_settingsChangeIfShownInBirthdayList
             )
         )
 
-        btnLogout.setOnClickListener {
+        binding.btnLogout.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.logout_title)
                 .setMessage(R.string.logout_dialog_desc)
@@ -174,13 +175,13 @@ class SettingsHomeFragment : Fragment() {
                 .setNegativeButton(android.R.string.no, null).create().show()
         }
 
-        btnLicences.setOnClickListener (
+        binding.btnLicences.setOnClickListener (
             Navigation.createNavigateOnClickListener(
                 R.id.action_settingsHomeFragment_to_settingsLicenceFragment
             )
         )
 
-        btnTheme.setOnClickListener {
+        binding.btnTheme.setOnClickListener {
 
             var selection = ""
 

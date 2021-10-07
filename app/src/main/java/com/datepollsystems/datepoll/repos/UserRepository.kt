@@ -15,6 +15,7 @@ import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.core.inject
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -260,10 +261,14 @@ class UserRepository : BaseRepository() {
     }
 
     private suspend fun loadUserFromServer(state: MutableLiveData<ENetworkState>): UserModel? {
-        return apiCall(
+
+        Timber.i(prefs.jwt)
+        var model = apiCall(
             call = { api.currentUser(prefs.jwt!!) },
             state = state
-        )?.user
+        )
+
+        return model?.user
     }
 
     private fun storeUser(user: UserModel): UserLiveDataElements {
