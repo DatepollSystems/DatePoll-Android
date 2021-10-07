@@ -30,7 +30,7 @@ class EventFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentEventBinding.inflate(inflater, container, false)
         binding.vm = vm

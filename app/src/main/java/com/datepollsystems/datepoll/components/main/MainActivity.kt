@@ -43,10 +43,11 @@ class MainActivity : AppCompatActivity(), AppBarConfiguration.OnNavigateUpListen
 
         loadKoinModules(networkModule)
 
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
         binding.vm = mainViewModel
+
+        setContentView(binding.root)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)

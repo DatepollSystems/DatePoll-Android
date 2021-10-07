@@ -2,10 +2,8 @@ package com.datepollsystems.datepoll.components.main.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.data.BirthdayDbModel
 import com.datepollsystems.datepoll.databinding.HomeBirthdayItemBinding
 
