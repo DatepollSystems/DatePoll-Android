@@ -1,19 +1,15 @@
 package com.datepollsystems.datepoll.utils
 
 import android.view.View
-import android.view.ViewParent
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.components.main.event.model.EventDateDbModel
 import com.datepollsystems.datepoll.components.main.event.model.EventDateDto
 import com.datepollsystems.datepoll.components.main.event.model.EventDecisionDbModel
 import com.datepollsystems.datepoll.components.main.event.model.EventDecisionDto
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.view.*
 import timber.log.Timber
-import java.sql.Time
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.log
 
 fun List<EventDecisionDto>.transformInDbModelList(): List<EventDecisionDbModel> {
     return if (this.isNotEmpty()) {

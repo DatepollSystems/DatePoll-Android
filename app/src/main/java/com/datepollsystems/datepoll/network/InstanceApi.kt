@@ -61,7 +61,6 @@ interface InstanceApi {
         @Query("token") token: String
     ): Response<CurrentUserResponseModel>
 
-
     @PUT("/api/v1/user/myself")
     suspend fun updateCurrentUser(
         @Query("token") token: String,

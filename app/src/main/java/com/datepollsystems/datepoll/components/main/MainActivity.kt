@@ -4,33 +4,25 @@ import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.Menu
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.datepollsystems.datepoll.R
-import com.datepollsystems.datepoll.appModule
 import com.datepollsystems.datepoll.components.AppViewModel
 import com.datepollsystems.datepoll.components.login.FtueActivity
-import com.datepollsystems.datepoll.data.ApiModel
 import com.datepollsystems.datepoll.databinding.ActivityMainBinding
 import com.datepollsystems.datepoll.networkModule
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.coroutines.launch
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
-import org.koin.core.context.startKoin
-import org.koin.core.context.stopKoin
 import org.koin.core.context.unloadKoinModules
 import timber.log.Timber
 import java.util.*
@@ -43,20 +35,27 @@ class MainActivity : AppCompatActivity(), AppBarConfiguration.OnNavigateUpListen
 
     private var bottomNavigationDrawn = false
 
+    private lateinit var binding: ActivityMainBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         loadKoinModules(networkModule)
 
-        val binding =
-            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
         binding.vm = mainViewModel
+
+        setContentView(binding.root)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val navController = findNavController(R.id.nav_host_main)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_main) as NavHostFragment
+
+        val navController = navHostFragment.navController
         setupNavigation(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -73,7 +72,7 @@ class MainActivity : AppCompatActivity(), AppBarConfiguration.OnNavigateUpListen
     }
 
     private fun setupNavigation(navController: NavController) {
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        val bottomNavigationView = binding.bottomNavigation
         lifecycleScope.launch {
             val menu: Menu = bottomNavigationView.menu
             val apiModel = appViewModel.apiData.value
@@ -86,7 +85,7 @@ class MainActivity : AppCompatActivity(), AppBarConfiguration.OnNavigateUpListen
                 appViewModel.loadApiInfo()
             }
 
-            bottomNavigationView?.setupWithNavController(navController)
+            bottomNavigationView.setupWithNavController(navController)
         }
     }
 
@@ -124,8 +123,9 @@ class MainActivity : AppCompatActivity(), AppBarConfiguration.OnNavigateUpListen
         mainViewModel.user.observe(this, Observer {
             it?.let {
                 val s = "${it.firstname} ${it.surname}"
-                tvNavHeaderName?.text = s
-                tvNavHeaderUsername?.text = it.username
+
+                findViewById<TextView>(R.id.tvNavHeaderName)?.text = s
+                findViewById<TextView>(R.id.tvNavHeaderUsername)?.text = it.username
             }
         })
 
@@ -143,7 +143,7 @@ class MainActivity : AppCompatActivity(), AppBarConfiguration.OnNavigateUpListen
     }
 
     override fun onNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(findNavController(R.id.nav_host_main), drawer_layout)
+        return NavigationUI.navigateUp(findNavController(R.id.nav_host_main), binding.drawerLayout)
     }
 
     override fun onBackPressed() {

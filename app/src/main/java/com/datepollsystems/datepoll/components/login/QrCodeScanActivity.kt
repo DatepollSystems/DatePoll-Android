@@ -10,20 +10,25 @@ import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.datepollsystems.datepoll.R
+import com.datepollsystems.datepoll.databinding.ActivityQrCodeScanBinding
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
-import kotlinx.android.synthetic.main.activity_qr_code_scan.*
 
 class QrCodeScanActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityQrCodeScanBinding
     private lateinit var dbvScanner: DecoratedBarcodeView
     private val QR_CODE_DATA = "qrCodeData"
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_qr_code_scan)
+        binding = ActivityQrCodeScanBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
 
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.apply {
@@ -31,7 +36,7 @@ class QrCodeScanActivity : AppCompatActivity() {
             title = ""
         }
 
-        dbvScanner = dbv_barcode
+        dbvScanner = binding.dbvBarcode
         dbvScanner.setStatusText("")
         dbvScanner.decodeContinuous(object : BarcodeCallback {
             override fun barcodeResult(result: BarcodeResult) {

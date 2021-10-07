@@ -11,8 +11,9 @@ import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.components.main.MainViewModel
 import com.datepollsystems.datepoll.components.main.cinema.CinemaViewModel
 import com.datepollsystems.datepoll.core.ENetworkState
+import com.datepollsystems.datepoll.databinding.ActivityMainBinding
 import com.datepollsystems.datepoll.databinding.FragmentHomeBinding
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class HomeFragment : Fragment() {
@@ -20,9 +21,12 @@ class HomeFragment : Fragment() {
     private val vm: MainViewModel by sharedViewModel()
     private val cinemaViewModel: CinemaViewModel by sharedViewModel()
 
+
+
     private var _binding: FragmentHomeBinding? = null
     val binding: FragmentHomeBinding
         get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +57,7 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        requireActivity().bottom_navigation?.visibility = View.VISIBLE
+        requireActivity().window.decorView.rootView.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.VISIBLE
     }
 
     private fun setupMovieWorkerCard() {
