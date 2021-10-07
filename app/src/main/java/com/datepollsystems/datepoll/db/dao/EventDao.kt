@@ -21,7 +21,7 @@ interface EventDao {
 
     @Query("select * from events e where already_voted = 0 ORDER BY e.start_date")
     fun getFilteredEvents(): LiveData<List<EventDbModel>>
-x
+
     @Query("delete from events where id not in (:list)")
     fun deleteAllWhereNotInList(list: List<Int>)
 
