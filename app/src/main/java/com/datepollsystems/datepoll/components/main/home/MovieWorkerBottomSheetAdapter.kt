@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.datepollsystems.datepoll.data.MovieOrder
 import com.datepollsystems.datepoll.databinding.HomeMovieWorkerOrderItemBinding
-import org.koin.core.KoinComponent
+import org.koin.core.component.KoinComponent
 
 class MovieWorkerBottomSheetAdapter() :
     ListAdapter<MovieOrder, MovieWorkerBottomSheetAdapter.ViewHolder>(MovieOrderDiffCallback()) {

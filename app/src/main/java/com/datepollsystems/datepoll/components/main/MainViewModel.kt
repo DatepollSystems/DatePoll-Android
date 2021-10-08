@@ -7,13 +7,10 @@ import com.datepollsystems.datepoll.data.*
 import com.datepollsystems.datepoll.data.PermissionDbModel
 import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.repos.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import timber.log.Timber
 
 class MainViewModel : ViewModel(), KoinComponent {
@@ -107,32 +104,30 @@ class MainViewModel : ViewModel(), KoinComponent {
     }
 
     fun logout() {
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                Timber.i("start logout process")
+        viewModelScope.launch(context = Dispatchers.IO) {
+            Timber.i("start logout process")
 
-                val session = prefs.session
-                session?.let {
-                    val response: LogoutResponseModel? =
-                        serverRepository.logout(
-                            LogoutRequestModel(
-                                session_token = session
-                            )
+            val session = prefs.session
+            session?.let {
+                val response: LogoutResponseModel? =
+                    serverRepository.logout(
+                        LogoutRequestModel(
+                            session_token = session
                         )
+                    )
 
-                    response?.username?.let {
-                        Timber.i("logout successful")
-                    }
+                response?.username?.let {
+                    Timber.i("logout successful")
                 }
-
-                prefs.session = ""
-                prefs.jwt = ""
-                prefs.isLoggedIn = false
-                prefs.serverAddress = null
-                prefs.serverPort = 443
-
-                logout.postValue(true)
             }
+
+            prefs.session = ""
+            prefs.jwt = ""
+            prefs.isLoggedIn = false
+            prefs.serverAddress = null
+            prefs.serverPort = 443
+
+            logout.postValue(true)
         }
     }
 

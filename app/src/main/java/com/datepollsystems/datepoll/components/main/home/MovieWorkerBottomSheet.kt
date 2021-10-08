@@ -14,13 +14,11 @@ import com.datepollsystems.datepoll.databinding.HomeMovieWorkerBottomSheetBindin
 import com.datepollsystems.datepoll.repos.CinemaRepository
 import com.datepollsystems.datepoll.utils.formatDateEnToLocal
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.bind
-import org.koin.core.inject
+import org.koin.android.ext.android.inject
+import org.koin.core.component.KoinComponent
 
-class CinemaWorkerInfoBottomSheet(private val movieId: Long) : BottomSheetDialogFragment(), KoinComponent {
+class CinemaWorkerInfoBottomSheet(private val movieId: Long) : BottomSheetDialogFragment(),
+    KoinComponent {
 
     private val cinemaRepository: CinemaRepository by inject()
     private lateinit var dataHolder: BottomSheetDataHolder

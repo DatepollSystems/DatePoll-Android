@@ -10,7 +10,7 @@ import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
-import org.koin.core.inject
+import org.koin.core.component.inject
 import timber.log.Timber
 
 class CinemaRepository : BaseRepository() {

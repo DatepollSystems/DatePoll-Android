@@ -3,15 +3,9 @@ package com.datepollsystems.datepoll.repos
 import androidx.lifecycle.MutableLiveData
 import com.datepollsystems.datepoll.core.BaseRepository
 import com.datepollsystems.datepoll.core.ENetworkState
-import com.datepollsystems.datepoll.data.ApiModel
 import com.datepollsystems.datepoll.db.DatepollDatabase
 import com.datepollsystems.datepoll.network.InstanceApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import org.koin.core.inject
+import org.koin.core.component.inject
 import java.util.*
 
 class AppRepository : BaseRepository() {

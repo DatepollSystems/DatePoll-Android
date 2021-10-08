@@ -9,7 +9,7 @@ import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.koin.core.inject
+import org.koin.core.component.inject
 import timber.log.Timber
 import java.util.*
 

@@ -7,13 +7,9 @@ import com.datepollsystems.datepoll.data.FirstPasswdChangeRequest
 import com.datepollsystems.datepoll.data.LoginRequestModel
 import com.datepollsystems.datepoll.data.LoginResponseModel
 import com.datepollsystems.datepoll.network.InstanceApi
-import org.koin.core.inject
-import timber.log.Timber
 
 
 class LoginRepository : BaseRepository() {
-
-
 
     suspend fun login(
         username: String,

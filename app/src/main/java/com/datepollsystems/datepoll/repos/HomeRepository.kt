@@ -6,7 +6,7 @@ import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.db.DatepollDatabase
 import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
-import org.koin.core.inject
+import org.koin.core.component.inject
 import java.util.*
 
 class HomeRepository : BaseRepository() {

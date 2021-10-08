@@ -11,8 +11,8 @@ import com.datepollsystems.datepoll.repos.UserRepository
 import com.datepollsystems.datepoll.utils.formatDateToEn
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import timber.log.Timber
 import java.util.*
 

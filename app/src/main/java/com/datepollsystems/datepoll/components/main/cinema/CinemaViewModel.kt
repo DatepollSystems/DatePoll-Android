@@ -1,18 +1,15 @@
 package com.datepollsystems.datepoll.components.main.cinema
 
-import android.provider.MediaStore
 import android.view.View
 import androidx.lifecycle.*
+import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.data.MovieDbModel
 import com.datepollsystems.datepoll.repos.CinemaRepository
-import com.datepollsystems.datepoll.core.ENetworkState
-import com.datepollsystems.datepoll.data.MovieOrder
-import com.datepollsystems.datepoll.data.MovieOrderTupl
 import com.datepollsystems.datepoll.repos.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import timber.log.Timber
 
 class CinemaViewModel : ViewModel(), KoinComponent {
