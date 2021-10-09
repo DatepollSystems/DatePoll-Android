@@ -100,7 +100,7 @@
                             android:layout_height="50dp"
                             android:focusable="false"
                             android:inputType="date"
-                            android:onClick="@{() -> vm.launchBirthdayPicker() }"
+                            android:onClick="@{(view) -> vm.launchBirthdayPicker() }"
                             android:text="@{vm.user.getBirthdayString()}" />
                     </com.google.android.material.textfield.TextInputLayout>
 

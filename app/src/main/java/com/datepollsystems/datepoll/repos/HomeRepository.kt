@@ -6,7 +6,7 @@ import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.db.DatepollDatabase
 import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
-import org.koin.core.inject
+import org.koin.core.component.inject
 import java.util.*
 
 class HomeRepository : BaseRepository() {
@@ -21,7 +21,7 @@ class HomeRepository : BaseRepository() {
 
     suspend fun loadBirthdaysAndBroadcasts(
         force: Boolean = false,
-        state: MutableLiveData<ENetworkState>
+        state: MutableLiveData<ENetworkState?>
     ) {
         with(Dispatchers.IO) {
             if (force || birthdayDao.getCount() == 0 || Date().time - birthdayDao.getInsertionTimeOfElements() >= 3600000) {
@@ -54,7 +54,7 @@ class HomeRepository : BaseRepository() {
 
     suspend fun fetchMovieOrders(
         force: Boolean = false,
-        state: MutableLiveData<ENetworkState>
+        state: MutableLiveData<ENetworkState?>
     ) {
         with(Dispatchers.IO) {
             if (force || cinemaDao.countOrders() == 0L || Date().time - cinemaDao.getInsertionTime() >= 3600000) {

@@ -28,7 +28,7 @@ class CalendarViewModel : ViewModel() {
             val formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd")
 
             for (element in b) {
-                element.date?.let {
+                element.date.let {
                     list.add(
                         EventDay(
                             (formatter.parse(it) as Date).toCalendar(),

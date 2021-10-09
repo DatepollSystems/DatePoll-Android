@@ -7,7 +7,13 @@
         <entry key="app/src/main/res/layout/activity_qr_code_scan.xml" value="0.14895833333333333" />
         <entry key="app/src/main/res/layout/choose_instance_bottom_sheet.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_ftue_login.xml" value="0.14895833333333333" />
+        <entry key="app/src/main/res/layout/fragment_ftue_server_instance.xml" value="0.22760416666666666" />
+        <entry key="app/src/main/res/layout/fragment_loading.xml" value="0.3375" />
+        <entry key="app/src/main/res/layout/fragment_movie_detail.xml" value="0.22760416666666666" />
+        <entry key="app/src/main/res/layout/fragment_settings_privacy.xml" value="0.22760416666666666" />
         <entry key="app/src/main/res/layout/fragment_settings_user.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/home_booking_item.xml" value="0.22760416666666666" />
+        <entry key="app/src/main/res/layout/home_worker_detail_item.xml" value="0.22760416666666666" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.14895833333333333" />
         <entry key="app/src/main/res/menu/main_bottom_nav.xml" value="0.14895833333333333" />
       </map>

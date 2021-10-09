@@ -169,10 +169,10 @@ class SettingsHomeFragment : Fragment() {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.logout_title)
                 .setMessage(R.string.logout_dialog_desc)
-                .setPositiveButton(android.R.string.yes) { _, _ ->
+                .setPositiveButton(android.R.string.ok) { _, _ ->
                     mainViewModel.logout()
                 }
-                .setNegativeButton(android.R.string.no, null).create().show()
+                .setNegativeButton(android.R.string.cancel, null).create().show()
         }
 
         binding.btnLicences.setOnClickListener (

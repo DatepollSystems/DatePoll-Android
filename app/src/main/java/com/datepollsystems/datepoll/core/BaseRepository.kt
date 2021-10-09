@@ -8,8 +8,8 @@ import com.datepollsystems.datepoll.network.InstanceApi
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import retrofit2.Response
 import timber.log.Timber
 import java.util.*
@@ -36,7 +36,7 @@ open class BaseRepository : KoinComponent {
      */
     suspend fun <T : Any> apiCall(
         call: suspend () -> Response<T>,
-        state: MutableLiveData<ENetworkState>
+        state: MutableLiveData<ENetworkState?>
     ): T? {
         state.postValue(ENetworkState.LOADING)
         var response: Response<T>? = null

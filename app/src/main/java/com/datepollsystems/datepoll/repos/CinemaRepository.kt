@@ -10,7 +10,7 @@ import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
-import org.koin.core.inject
+import org.koin.core.component.inject
 import timber.log.Timber
 
 class CinemaRepository : BaseRepository() {
@@ -29,7 +29,7 @@ class CinemaRepository : BaseRepository() {
 
     suspend fun loadNotShownMovies(
         force: Boolean = false,
-        state: MutableLiveData<ENetworkState>
+        state: MutableLiveData<ENetworkState?>
     ) {
         state.postValue(ENetworkState.LOADING)
         if (force || cinemaDao.getInsertionTime() >= 3600000 || cinemaDao.countAllMovies() == 0L) {
@@ -52,7 +52,7 @@ class CinemaRepository : BaseRepository() {
     suspend fun applyForMovieWorker(
         movie: MovieDbModel,
         user: UserDbModel,
-        state: MutableLiveData<ENetworkState>
+        state: MutableLiveData<ENetworkState?>
     ): MovieDbModel? {
         apiCall(
             call = { api.applyForMovieWorker(movie.id, prefs.jwt!!) },
@@ -67,7 +67,7 @@ class CinemaRepository : BaseRepository() {
 
     suspend fun signOutOfMovieWorker(
         movie: MovieDbModel,
-        state: MutableLiveData<ENetworkState>
+        state: MutableLiveData<ENetworkState?>
     ): MovieDbModel? {
         apiCall(
             call = { api.signOutOfMovieWorker(movie.id, prefs.jwt!!) },
@@ -84,7 +84,7 @@ class CinemaRepository : BaseRepository() {
     suspend fun applyForEmergencyMovieWorker(
         movie: MovieDbModel,
         user: UserDbModel,
-        state: MutableLiveData<ENetworkState>
+        state: MutableLiveData<ENetworkState?>
     ): MovieDbModel? {
         apiCall(
             call = { api.applyForEmergencyMovieWorker(movie.id, prefs.jwt!!) },
@@ -104,7 +104,7 @@ class CinemaRepository : BaseRepository() {
 
     suspend fun signOutOfEmergencyMovieWorker(
         movie: MovieDbModel,
-        state: MutableLiveData<ENetworkState>
+        state: MutableLiveData<ENetworkState?>
     ): MovieDbModel? {
         apiCall(
             call = { api.signOutOfEmergencyMovieWorker(movie.id, prefs.jwt!!) },
@@ -124,7 +124,7 @@ class CinemaRepository : BaseRepository() {
     suspend fun bookTickets(
         movie: MovieDbModel,
         ticketAmount: Int,
-        state: MutableLiveData<ENetworkState>
+        state: MutableLiveData<ENetworkState?>
     ): MovieDbModel? {
         val request = BookTicketsRequestModel(
             ticketAmount = ticketAmount,
@@ -147,7 +147,7 @@ class CinemaRepository : BaseRepository() {
 
     suspend fun cancelTicketReservation(
         movieDbModel: MovieDbModel,
-        cancelTicketReservationState: MutableLiveData<ENetworkState>
+        cancelTicketReservationState: MutableLiveData<ENetworkState?>
     ): MovieDbModel? {
         val currentTickets = movieDbModel.bookedTicketsForYourself
         apiCall(

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.datepollsystems.datepoll.components.main.event.model.EventDbModel
 import com.datepollsystems.datepoll.databinding.EventItemBinding
-import org.koin.core.KoinComponent
+import org.koin.core.component.KoinComponent
 
 class EventAdapter(
     private val eventClickListener: EventClickListener,
