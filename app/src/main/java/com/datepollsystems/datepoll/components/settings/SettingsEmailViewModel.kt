@@ -18,7 +18,7 @@ class SettingsEmailViewModel : ViewModel(), KoinComponent {
 
     val emails = userRepo.emails
 
-    val saveEmailsState =  MutableLiveData<ENetworkState>()
+    val saveEmailsState =  MutableLiveData<ENetworkState?>()
 
     fun addEmail(e: String) {
         viewModelScope.launch(Dispatchers.IO) {

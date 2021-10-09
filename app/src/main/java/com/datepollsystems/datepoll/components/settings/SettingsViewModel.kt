@@ -25,14 +25,14 @@ class SettingsViewModel : ViewModel(), KoinComponent {
     val phoneNumbers = userRepo.phoneNumbers
     val sessions = MutableLiveData<List<SessionModel>>()
 
-    val updateUserState = MutableLiveData<ENetworkState>()
-    val loadUserState = MutableLiveData<ENetworkState>()
-    val removeAddPhoneNumberState = MutableLiveData<ENetworkState>()
-    private val loadSessionsState = MutableLiveData<ENetworkState>()
-    private val deleteSessionSate = MutableLiveData<ENetworkState>()
-    val checkPasswordState = MutableLiveData<ENetworkState>()
-    val changePasswordState = MutableLiveData<ENetworkState>()
-    val showBirthdayPicker = MutableLiveData<Boolean>(false)
+    val updateUserState = MutableLiveData<ENetworkState?>()
+    val loadUserState = MutableLiveData<ENetworkState?>()
+    val removeAddPhoneNumberState = MutableLiveData<ENetworkState?>()
+    private val loadSessionsState = MutableLiveData<ENetworkState?>()
+    private val deleteSessionSate = MutableLiveData<ENetworkState?>()
+    val checkPasswordState = MutableLiveData<ENetworkState?>()
+    val changePasswordState = MutableLiveData<ENetworkState?>()
+    val showBirthdayPicker = MutableLiveData<Boolean?>(false)
 
     val changePasswordStep = MutableLiveData(EStep.ONE)
     val changePasswordOldPass = MutableLiveData("")
@@ -40,11 +40,11 @@ class SettingsViewModel : ViewModel(), KoinComponent {
     val changePasswordConfirmNewPass = MutableLiveData("")
 
     val calendarSessionToken = MutableLiveData<String>()
-    val calendarSessionTokenResetState = MutableLiveData<ENetworkState>()
-    val calendarSessionTokenState = MutableLiveData<ENetworkState>()
+    val calendarSessionTokenResetState = MutableLiveData<ENetworkState?>()
+    val calendarSessionTokenState = MutableLiveData<ENetworkState?>()
 
     val shownInBirthdayList = MutableLiveData(true)
-    val getShownInBirthdayListState = MutableLiveData<ENetworkState>()
+    val getShownInBirthdayListState = MutableLiveData<ENetworkState?>()
 
     fun loadUserdata() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -175,7 +175,7 @@ class SettingsViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    fun postIsBirthdayShown(v: Boolean, state: MutableLiveData<ENetworkState>) {
+    fun postIsBirthdayShown(v: Boolean, state: MutableLiveData<ENetworkState?>) {
         viewModelScope.launch(Dispatchers.Default) {
             val msg = userRepo.postIsBirthdayShown(v, state)
             msg?.let {

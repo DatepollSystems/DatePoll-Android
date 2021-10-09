@@ -23,19 +23,19 @@ class FtueViewModel : ViewModel(), KoinComponent {
     val serverInstanceUrl = MutableLiveData<String>()
 
     val instanceMenu = MutableLiveData<List<Instance>>()
-    val instanceMenuState = MutableLiveData<ENetworkState>()
+    val instanceMenuState = MutableLiveData<ENetworkState?>()
     val instanceClickResult = MutableLiveData<Instance>()
 
     var successfulNext: Int = R.id.action_ftueSuccessfulFragment_to_ftueServerInstanceFragment
     val userName = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
-    val loginState = MutableLiveData<ENetworkState>()
+    val loginState = MutableLiveData<ENetworkState?>()
 
     val firstChangePassword = MutableLiveData<String>()
     val confirmFirstChangePassword = MutableLiveData<String>()
 
-    val firstPasswdState = MutableLiveData<ENetworkState>()
+    val firstPasswdState = MutableLiveData<ENetworkState?>()
 
 
     private val datepollRepository: DatepollRepository by inject()

@@ -36,7 +36,7 @@ open class BaseRepository : KoinComponent {
      */
     suspend fun <T : Any> apiCall(
         call: suspend () -> Response<T>,
-        state: MutableLiveData<ENetworkState>
+        state: MutableLiveData<ENetworkState?>
     ): T? {
         state.postValue(ENetworkState.LOADING)
         var response: Response<T>? = null

@@ -35,7 +35,7 @@ class UserRepository : BaseRepository() {
     val phoneNumbers by lazy { phoneNumberDao.getPhoneNumbers() }
     val emails by lazy { emailDao.getEmails() }
 
-    suspend fun updateUser(state: MutableLiveData<ENetworkState>, user: UpdateUserRequest) {
+    suspend fun updateUser(state: MutableLiveData<ENetworkState?>, user: UpdateUserRequest) {
         updateUserOnServer(state, user)?.let {
             withContext(Dispatchers.IO) {
                 storeUser(it).user
@@ -43,14 +43,14 @@ class UserRepository : BaseRepository() {
         }
     }
 
-    suspend fun checkIfShownInBirthdayList(state: MutableLiveData<ENetworkState>): ShownInBirthdayListResponse? {
+    suspend fun checkIfShownInBirthdayList(state: MutableLiveData<ENetworkState?>): ShownInBirthdayListResponse? {
         return apiCall(
             call = { api.getIfUserIsShownInBirthdayList(prefs.jwt!!) },
             state = state
         )
     }
 
-    suspend fun postIsBirthdayShown(checked: Boolean, state: MutableLiveData<ENetworkState>): ShownInBirthdayListResponse? {
+    suspend fun postIsBirthdayShown(checked: Boolean, state: MutableLiveData<ENetworkState?>): ShownInBirthdayListResponse? {
         val r = PostShownInBirthdayListRequest(checked)
 
         return apiCall(
@@ -59,7 +59,7 @@ class UserRepository : BaseRepository() {
         )
     }
 
-    suspend fun getUser(state: MutableLiveData<ENetworkState>, force: Boolean = false) {
+    suspend fun getUser(state: MutableLiveData<ENetworkState?>, force: Boolean = false) {
         if (db.userDao().getCount() != 1L) {
             loadUserFromServer(state)?.let {
                 storeUser(it)
@@ -96,7 +96,7 @@ class UserRepository : BaseRepository() {
         }
     }
 
-    suspend fun addPhoneNumber(state: MutableLiveData<ENetworkState>, p: NewPhoneNumberRequest) {
+    suspend fun addPhoneNumber(state: MutableLiveData<ENetworkState?>, p: NewPhoneNumberRequest) {
         val result = apiCall(
             call = { api.addPhoneNumber(prefs.jwt!!, p) },
             state = state
@@ -109,7 +109,7 @@ class UserRepository : BaseRepository() {
         }
     }
 
-    suspend fun removePhoneNumber(state: MutableLiveData<ENetworkState>, id: Int) {
+    suspend fun removePhoneNumber(state: MutableLiveData<ENetworkState?>, id: Int) {
         val result = apiCall(
             call = { api.removePhoneNumber(id, prefs.jwt!!) },
             state = state
@@ -124,7 +124,7 @@ class UserRepository : BaseRepository() {
         }
     }
 
-    suspend fun saveEmailsToServer(state: MutableLiveData<ENetworkState>) {
+    suspend fun saveEmailsToServer(state: MutableLiveData<ENetworkState?>) {
         val emails = ArrayList<String>()
         for (e in this.emails.value!!.iterator()) {
             emails.add(e.email)
@@ -161,7 +161,7 @@ class UserRepository : BaseRepository() {
     }
 
     @SuppressLint("SimpleDateFormat")
-    suspend fun loadSessions(state: MutableLiveData<ENetworkState>): List<SessionModel> {
+    suspend fun loadSessions(state: MutableLiveData<ENetworkState?>): List<SessionModel> {
         val result = apiCall(
             call = { api.getSessions(prefs.jwt!!) },
             state = state
@@ -191,14 +191,14 @@ class UserRepository : BaseRepository() {
         return s
     }
 
-    suspend fun deleteSession(state: MutableLiveData<ENetworkState>, item: SessionModel): Message? {
+    suspend fun deleteSession(state: MutableLiveData<ENetworkState?>, item: SessionModel): Message? {
         return apiCall(
             state = state,
             call = { api.deleteSession(item.id, prefs.jwt!!) }
         )
     }
 
-    suspend fun checkPassword(state: MutableLiveData<ENetworkState>, password: String): Message? {
+    suspend fun checkPassword(state: MutableLiveData<ENetworkState?>, password: String): Message? {
         return apiCall(
             state = state,
             call = {
@@ -211,7 +211,7 @@ class UserRepository : BaseRepository() {
     }
 
     suspend fun changePassword(
-        state: MutableLiveData<ENetworkState>,
+        state: MutableLiveData<ENetworkState?>,
         oldPassword: String,
         newPassword: String
     ): Message? {
@@ -229,15 +229,15 @@ class UserRepository : BaseRepository() {
         )
     }
 
-    suspend fun getCalendarToken(state: MutableLiveData<ENetworkState>): MessageToken? {
+    suspend fun getCalendarToken(state: MutableLiveData<ENetworkState?>): MessageToken? {
         return apiCall(
             call = { api.getCalendarToken(prefs.jwt!!) },
             state = state
         )
     }
 
-    suspend fun resetCalendarToken(state: MutableLiveData<ENetworkState>): MessageToken? {
-        val otherState = MutableLiveData<ENetworkState>()
+    suspend fun resetCalendarToken(state: MutableLiveData<ENetworkState?>): MessageToken? {
+        val otherState = MutableLiveData<ENetworkState?>()
 
         val delete = apiCall(state = otherState, call = { api.deleteCalendarToken(prefs.jwt!!) })
 
@@ -245,13 +245,13 @@ class UserRepository : BaseRepository() {
             state.postValue(ENetworkState.ERROR)
             return null
         } else
-            Log.i("UserRepository", delete!!.msg)
+            Timber.d("UserRepository ${delete?.msg}")
 
         return getCalendarToken(state)
     }
 
     private suspend fun updateUserOnServer(
-        state: MutableLiveData<ENetworkState>,
+        state: MutableLiveData<ENetworkState?>,
         user: UpdateUserRequest
     ): UserModel? {
         return apiCall(
@@ -260,7 +260,7 @@ class UserRepository : BaseRepository() {
         )?.user
     }
 
-    private suspend fun loadUserFromServer(state: MutableLiveData<ENetworkState>): UserModel? {
+    private suspend fun loadUserFromServer(state: MutableLiveData<ENetworkState?>): UserModel? {
 
         Timber.i(prefs.jwt)
         var model = apiCall(

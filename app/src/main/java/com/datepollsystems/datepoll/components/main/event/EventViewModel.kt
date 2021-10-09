@@ -22,12 +22,12 @@ class EventViewModel : ViewModel(), KoinComponent {
     val filteredEvents = eventRepository.filteredEvents
     val decisions = MutableLiveData<List<EventDecisionDbModel>>()
     val decisionClickResult = MutableLiveData<EventDecisionDbModel>()
-    val changeList = MutableLiveData<Boolean>()
+    val changeList = MutableLiveData<Boolean?>()
 
-    var filterChecked = MutableLiveData<Boolean>(false)
-    val loadEventsState = MutableLiveData<ENetworkState>()
-    val makeDecisionState = MutableLiveData<ENetworkState>()
-    val removeVoteForEventState = MutableLiveData<ENetworkState>()
+    var filterChecked = MutableLiveData<Boolean?>(false)
+    val loadEventsState = MutableLiveData<ENetworkState?>()
+    val makeDecisionState = MutableLiveData<ENetworkState?>()
+    val removeVoteForEventState = MutableLiveData<ENetworkState?>()
 
     val nothingToSeeVisible = Transformations.map(events) {
         if(it.isEmpty())

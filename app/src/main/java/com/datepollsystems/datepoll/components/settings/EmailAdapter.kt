@@ -86,6 +86,4 @@ class EmailViewHolder(view: View): RecyclerView.ViewHolder(view) {
     val divider: View = view.findViewById(R.id.divider)
 }
 
-class EmailHeadlineViewHolder(view: View): RecyclerView.ViewHolder(view) {
-
-}
+class EmailHeadlineViewHolder(view: View): RecyclerView.ViewHolder(view)

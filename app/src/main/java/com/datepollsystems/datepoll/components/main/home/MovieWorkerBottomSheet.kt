@@ -68,9 +68,6 @@ class CinemaWorkerInfoBottomSheet(private val movieId: Long) : BottomSheetDialog
         return binding.root
     }
 
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-    }
 }
 
 data class BottomSheetDataHolder(

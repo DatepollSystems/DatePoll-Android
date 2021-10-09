@@ -23,13 +23,13 @@ class MainViewModel : ViewModel(), KoinComponent {
     private val appRepository: AppRepository by inject()
 
     val user = userRepository.user
-    val logout = MutableLiveData(false)
+    val logout = MutableLiveData<Boolean?>(false)
     val permissions = MutableLiveData<List<PermissionDbModel>>()
 
-    private val loadUserState = MutableLiveData<ENetworkState>()
-    val loadBirthdaysAndBroadcastState = MutableLiveData<ENetworkState>()
-    val loadBookedMoviesState = MutableLiveData<ENetworkState>()
-    val loadMovieWorkerState = MutableLiveData<ENetworkState>()
+    private val loadUserState = MutableLiveData<ENetworkState?>()
+    val loadBirthdaysAndBroadcastState = MutableLiveData<ENetworkState?>()
+    val loadBookedMoviesState = MutableLiveData<ENetworkState?>()
+    val loadMovieWorkerState = MutableLiveData<ENetworkState?>()
 
     val birthdays = homeRepository.birthdays
     val events = MutableLiveData<List<Event>>()

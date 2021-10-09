@@ -16,7 +16,7 @@ class AppViewModel : ViewModel(), KoinComponent {
     private val appRepository: AppRepository by inject()
 
     //network states
-    val apiInfoState = MutableLiveData<ENetworkState>()
+    val apiInfoState = MutableLiveData<ENetworkState?>()
 
     //data holders
     val apiData = appRepository.apiInfo.asLiveData()

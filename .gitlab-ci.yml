@@ -18,9 +18,6 @@ assembleDebug:
   stage: build
   script:
     - ./gradlew assembleDebug
-  artifacts:
-    paths:
-      - app/build/outputs/
 
 debugTests:
   stage: test

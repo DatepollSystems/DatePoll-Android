@@ -8,7 +8,7 @@ import com.datepollsystems.datepoll.data.MovieOrder
 import com.datepollsystems.datepoll.databinding.HomeMovieWorkerOrderItemBinding
 import org.koin.core.component.KoinComponent
 
-class MovieWorkerBottomSheetAdapter() :
+class MovieWorkerBottomSheetAdapter :
     ListAdapter<MovieOrder, MovieWorkerBottomSheetAdapter.ViewHolder>(MovieOrderDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

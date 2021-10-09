@@ -99,13 +99,13 @@ class CinemaViewModel : ViewModel(), KoinComponent {
     }
 
 
-    val loadMoviesState = MutableLiveData<ENetworkState>()
-    val applyForMovieWorkerDetailState = MutableLiveData<ENetworkState>()
-    val applyForEmergencyMovieWorkerDetailState = MutableLiveData<ENetworkState>()
-    val unsubscribeOfMovieWorkerState = MutableLiveData<ENetworkState>()
-    val unsubscribeOfEmergencyMovieWorkerState = MutableLiveData<ENetworkState>()
-    val bookTicketState = MutableLiveData<ENetworkState>()
-    val cancelTicketReservationState = MutableLiveData<ENetworkState>()
+    val loadMoviesState = MutableLiveData<ENetworkState?>()
+    val applyForMovieWorkerDetailState = MutableLiveData<ENetworkState?>()
+    val applyForEmergencyMovieWorkerDetailState = MutableLiveData<ENetworkState?>()
+    val unsubscribeOfMovieWorkerState = MutableLiveData<ENetworkState?>()
+    val unsubscribeOfEmergencyMovieWorkerState = MutableLiveData<ENetworkState?>()
+    val bookTicketState = MutableLiveData<ENetworkState?>()
+    val cancelTicketReservationState = MutableLiveData<ENetworkState?>()
 
     fun applyForCinemaWorker() {
         viewModelScope.launch(Dispatchers.Default) {
@@ -135,7 +135,7 @@ class CinemaViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    fun unsubscribeMovieWorker(view: View) {
+    fun unsubscribeMovieWorker() {
         viewModelScope.launch(Dispatchers.Default) {
             detailMovie.value?.let {
                 repository.signOutOfMovieWorker(
@@ -148,7 +148,7 @@ class CinemaViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    fun unsubscribeEmergencyMovieWorker(view: View) {
+    fun unsubscribeEmergencyMovieWorker() {
         viewModelScope.launch(Dispatchers.Default) {
             detailMovie.value?.let {
                 repository.signOutOfEmergencyMovieWorker(

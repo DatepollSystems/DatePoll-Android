@@ -16,7 +16,7 @@ class AppRepository : BaseRepository() {
 
     val apiInfo = apiDao.getApiFlow()
 
-    suspend fun loadApiInfo(state: MutableLiveData<ENetworkState> = MutableLiveData()){
+    suspend fun loadApiInfo(state: MutableLiveData<ENetworkState?> = MutableLiveData()){
         val api: InstanceApi = getKoin().get()
         val apiModel = apiDao.getApi()
         val force = apiDao.countOfApi() == 0
