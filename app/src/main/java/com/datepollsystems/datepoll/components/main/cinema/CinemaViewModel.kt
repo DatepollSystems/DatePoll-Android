@@ -1,18 +1,15 @@
 package com.datepollsystems.datepoll.components.main.cinema
 
-import android.provider.MediaStore
 import android.view.View
 import androidx.lifecycle.*
+import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.data.MovieDbModel
 import com.datepollsystems.datepoll.repos.CinemaRepository
-import com.datepollsystems.datepoll.core.ENetworkState
-import com.datepollsystems.datepoll.data.MovieOrder
-import com.datepollsystems.datepoll.data.MovieOrderTupl
 import com.datepollsystems.datepoll.repos.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import timber.log.Timber
 
 class CinemaViewModel : ViewModel(), KoinComponent {
@@ -102,13 +99,13 @@ class CinemaViewModel : ViewModel(), KoinComponent {
     }
 
 
-    val loadMoviesState = MutableLiveData<ENetworkState>()
-    val applyForMovieWorkerDetailState = MutableLiveData<ENetworkState>()
-    val applyForEmergencyMovieWorkerDetailState = MutableLiveData<ENetworkState>()
-    val unsubscribeOfMovieWorkerState = MutableLiveData<ENetworkState>()
-    val unsubscribeOfEmergencyMovieWorkerState = MutableLiveData<ENetworkState>()
-    val bookTicketState = MutableLiveData<ENetworkState>()
-    val cancelTicketReservationState = MutableLiveData<ENetworkState>()
+    val loadMoviesState = MutableLiveData<ENetworkState?>()
+    val applyForMovieWorkerDetailState = MutableLiveData<ENetworkState?>()
+    val applyForEmergencyMovieWorkerDetailState = MutableLiveData<ENetworkState?>()
+    val unsubscribeOfMovieWorkerState = MutableLiveData<ENetworkState?>()
+    val unsubscribeOfEmergencyMovieWorkerState = MutableLiveData<ENetworkState?>()
+    val bookTicketState = MutableLiveData<ENetworkState?>()
+    val cancelTicketReservationState = MutableLiveData<ENetworkState?>()
 
     fun applyForCinemaWorker() {
         viewModelScope.launch(Dispatchers.Default) {
@@ -138,7 +135,7 @@ class CinemaViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    fun unsubscribeMovieWorker(view: View) {
+    fun unsubscribeMovieWorker() {
         viewModelScope.launch(Dispatchers.Default) {
             detailMovie.value?.let {
                 repository.signOutOfMovieWorker(
@@ -151,7 +148,7 @@ class CinemaViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    fun unsubscribeEmergencyMovieWorker(view: View) {
+    fun unsubscribeEmergencyMovieWorker() {
         viewModelScope.launch(Dispatchers.Default) {
             detailMovie.value?.let {
                 repository.signOutOfEmergencyMovieWorker(

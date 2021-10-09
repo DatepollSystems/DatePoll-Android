@@ -10,8 +10,8 @@ import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.repos.EventRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class EventViewModel : ViewModel(), KoinComponent {
     val tag = "EventViewModel"
@@ -22,12 +22,12 @@ class EventViewModel : ViewModel(), KoinComponent {
     val filteredEvents = eventRepository.filteredEvents
     val decisions = MutableLiveData<List<EventDecisionDbModel>>()
     val decisionClickResult = MutableLiveData<EventDecisionDbModel>()
-    val changeList = MutableLiveData<Boolean>()
+    val changeList = MutableLiveData<Boolean?>()
 
-    var filterChecked = MutableLiveData<Boolean>(false)
-    val loadEventsState = MutableLiveData<ENetworkState>()
-    val makeDecisionState = MutableLiveData<ENetworkState>()
-    val removeVoteForEventState = MutableLiveData<ENetworkState>()
+    var filterChecked = MutableLiveData<Boolean?>(false)
+    val loadEventsState = MutableLiveData<ENetworkState?>()
+    val makeDecisionState = MutableLiveData<ENetworkState?>()
+    val removeVoteForEventState = MutableLiveData<ENetworkState?>()
 
     val nothingToSeeVisible = Transformations.map(events) {
         if(it.isEmpty())

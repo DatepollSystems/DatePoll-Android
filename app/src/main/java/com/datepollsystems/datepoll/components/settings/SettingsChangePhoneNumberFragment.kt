@@ -68,11 +68,8 @@ class SettingsChangePhoneNumberFragment : Fragment() {
     private fun initStateObservers(v: View){
         vm.removeAddPhoneNumberState.observe(viewLifecycleOwner, Observer {
             it?.let {
-                when(it) {
-                    ENetworkState.ERROR -> Snackbar.make(v, getString(R.string.something_went_wrong), Snackbar.LENGTH_LONG).show()
-                    ENetworkState.LOADING -> null
-                    ENetworkState.DONE -> null
-                }
+                if (it == ENetworkState.ERROR)
+                    Snackbar.make(v, getString(R.string.something_went_wrong), Snackbar.LENGTH_LONG).show()
             }
         })
     }

@@ -41,7 +41,7 @@ class SettingsLicenceFragment : Fragment() {
         linkList = getLinks(list)
         nameList = getNames(list)
 
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, nameList);
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, nameList)
         binding.lvLicences.adapter = adapter
 
         binding.lvLicences.setOnItemClickListener { _, _, position, _ ->

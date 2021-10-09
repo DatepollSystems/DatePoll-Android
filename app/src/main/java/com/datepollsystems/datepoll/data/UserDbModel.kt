@@ -46,9 +46,6 @@ data class UserDbModel(
         return formatDateToLocal(Date(birthday!!))
     }
 
-    fun setBirthdayString(string: String){
-
-    }
     @SuppressLint("SimpleDateFormat")
     fun getUpdateUserPart(): UpdateUserRequest {
 

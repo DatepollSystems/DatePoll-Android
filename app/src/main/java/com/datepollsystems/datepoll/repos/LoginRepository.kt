@@ -7,18 +7,14 @@ import com.datepollsystems.datepoll.data.FirstPasswdChangeRequest
 import com.datepollsystems.datepoll.data.LoginRequestModel
 import com.datepollsystems.datepoll.data.LoginResponseModel
 import com.datepollsystems.datepoll.network.InstanceApi
-import org.koin.core.inject
-import timber.log.Timber
 
 
 class LoginRepository : BaseRepository() {
 
-
-
     suspend fun login(
         username: String,
         password: String,
-        loginState: MutableLiveData<ENetworkState>
+        loginState: MutableLiveData<ENetworkState?>
     ): LoginResponseModel? {
         val requestObj =
             LoginRequestModel(username, password)
@@ -33,7 +29,7 @@ class LoginRepository : BaseRepository() {
         username: String,
         oldPasswd: String,
         newPasswd: String,
-        state: MutableLiveData<ENetworkState>
+        state: MutableLiveData<ENetworkState?>
     ): LoginResponseModel? {
         val requestObj = FirstPasswdChangeRequest(
             username = username,

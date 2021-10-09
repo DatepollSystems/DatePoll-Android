@@ -7,10 +7,10 @@ import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.repos.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class SettingsEmailViewModel : ViewModel(), KoinComponent{
+class SettingsEmailViewModel : ViewModel(), KoinComponent {
 
     private val userRepo: UserRepository by inject()
 
@@ -18,7 +18,7 @@ class SettingsEmailViewModel : ViewModel(), KoinComponent{
 
     val emails = userRepo.emails
 
-    val saveEmailsState =  MutableLiveData<ENetworkState>()
+    val saveEmailsState =  MutableLiveData<ENetworkState?>()
 
     fun addEmail(e: String) {
         viewModelScope.launch(Dispatchers.IO) {

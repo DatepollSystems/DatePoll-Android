@@ -5,7 +5,7 @@ import com.datepollsystems.datepoll.core.BaseRepository
 import com.datepollsystems.datepoll.data.LogoutRequestModel
 import com.datepollsystems.datepoll.data.LogoutResponseModel
 import com.datepollsystems.datepoll.network.InstanceApi
-import org.koin.core.inject
+import org.koin.core.component.inject
 
 class ServerRepository: BaseRepository(){
 

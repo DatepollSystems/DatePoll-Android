@@ -9,7 +9,7 @@ import com.datepollsystems.datepoll.core.ENetworkState
 import com.datepollsystems.datepoll.network.InstanceApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.koin.core.inject
+import org.koin.core.component.inject
 import timber.log.Timber
 import java.util.*
 
@@ -23,7 +23,7 @@ class EventRepository : BaseRepository() {
     val events = eventDao.loadAllEvents()
     val filteredEvents = eventDao.getFilteredEvents()
 
-    suspend fun loadAllEvents(force: Boolean, state: MutableLiveData<ENetworkState>) {
+    suspend fun loadAllEvents(force: Boolean, state: MutableLiveData<ENetworkState?>) {
         val list = events.value
         if (force || list == null || list.isEmpty() || (list[0].insertedAt + 3600000) < Date().time) {
             Timber.i("Load events from server")
@@ -66,7 +66,7 @@ class EventRepository : BaseRepository() {
         }
     }
 
-    suspend fun voteForEvent(d: EventDecisionDbModel, state: MutableLiveData<ENetworkState>) {
+    suspend fun voteForEvent(d: EventDecisionDbModel, state: MutableLiveData<ENetworkState?>) {
 
         val requestData = VoteForEventRequestDto(
             decisionId = d.id,
@@ -89,7 +89,7 @@ class EventRepository : BaseRepository() {
         state.postValue(ENetworkState.ERROR)
     }
 
-    suspend fun removeVoteForEvent(id: Int, state: MutableLiveData<ENetworkState>) {
+    suspend fun removeVoteForEvent(id: Int, state: MutableLiveData<ENetworkState?>) {
         val r = apiCall(
             call = { api.removeVoteForEvent(id, prefs.jwt!!) },
             state = state

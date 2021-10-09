@@ -9,10 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.datepollsystems.datepoll.R
 import com.datepollsystems.datepoll.data.PhoneNumberDbModel
-import org.koin.core.KoinComponent
+import org.koin.core.component.KoinComponent
 import java.util.*
 
-class PhoneNumberAdapter(val vm: SettingsViewModel): RecyclerView.Adapter<RecyclerView.ViewHolder>(), KoinComponent{
+class PhoneNumberAdapter(val vm: SettingsViewModel): RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+    KoinComponent {
     val tag = "PhoneNumberAdapter"
 
     var data = LinkedList<PhoneNumberDbModel>()

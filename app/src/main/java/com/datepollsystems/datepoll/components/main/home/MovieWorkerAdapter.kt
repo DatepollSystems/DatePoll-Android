@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.datepollsystems.datepoll.data.MovieDbModel
 import com.datepollsystems.datepoll.databinding.HomeWorkerDetailItemBinding
-import org.koin.core.KoinComponent
+import org.koin.core.component.KoinComponent
 
 class MovieWorkerAdapter(private val clickListener: MovieWorkerClickListener) :
     ListAdapter<MovieDbModel, MovieWorkerAdapter.ViewHolder>(MovieDiffCallback()) {
