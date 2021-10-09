@@ -6,20 +6,26 @@ cache:
     - .gradle/caches
 
 stages:
+  - clean
   - build
   - test
+
+cleanup:
+  stage: clean
+  script:
+    - gradle clean
 
 lintDebug:
   stage: build
   script:
-    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+    - gradle -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
 assembleDebug:
   stage: build
   script:
-    - ./gradlew assembleDebug
+    - gradle assembleDebug
 
 debugTests:
   stage: test
   script:
-    - ./gradlew -Pci --console=plain :app:testDebug
+    - gradle -Pci --console=plain :app:testDebug
